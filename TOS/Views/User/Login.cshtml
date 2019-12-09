@@ -8,33 +8,58 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Login</title>
+    <title>TennicOrderSystem | TENNIC</title>
+    <link href="~/Content/style.css" rel="stylesheet" type="text/css" media="all" />
+    <!-- Custom Theme files -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 <body>
     <session id="loginForm">
         @Html.AntiForgeryToken()
         @using (Html.BeginForm("CheckLogin", "User", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
         {
-            <div class="input-group form-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-user"></i></span>
+            <div class="login-form">
+                <div class="top-login">
+                    <span><img src="~/images/tennic.png" alt="" /></span>
                 </div>
-                @*<input type="text" class="form-control" placeholder="username">*@
-                @Html.TextBoxFor(c => c.UserID, new { @class = "form-control", @placeholder = "User ID", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center" })
-            </div>
-            <div class="input-group form-group">
-                <div class="input-group-prepend">
-                    <span class="input-group-text"><i class="fa fa-key"></i></span>
+                <h1>Tennic Order System</h1>
+                <div class="login-top">
+                    <form action="sys/index.html">
+                        <div class="login-ic">
+                            <i></i>
+                            @Html.TextBoxFor(c => c.UserID, new { @class = "form-control", @placeholder = "User ID", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center" })
+                            <div class="clear"> </div>
+                        </div>
+                        <div class="login-ic">
+                            <i class="icon"></i>
+                            @Html.PasswordFor(c => c.Password, new { @class = "form-control", @placeholder = "Password", @tabindex = "2", @required = "required", @align = "center" })
+                            <div class="clear"> </div>
+                        </div>
+
+                        <div class="log-bwn">
+                            <input type="submit" class="btn btn-success btn-sm" value="OK">
+                        </div>
+                    </form>
+                    <div class="ball" id="ball"><img src="images/fuku.gif" alt="" /></div>
                 </div>
-                @*<input type="password" class="form-control" placeholder="password">*@
-                @Html.PasswordFor(c => c.Password, new { @class = "form-control", @placeholder = "Password", @tabindex = "2", @required = "required", @align = "center" })
-            </div>
-            <div class="form-group">
-                <input type="submit" id="btnLogin" value="Login" class="btn float-right login_btn">
-            </div>
-            <div class="ErrMsg">
-                @ViewBag.ErrorMessage
+                @*<div class="ErrMsg">
+                    @ViewBag.ErrorMessage
+                </div>*@
+                <script>
+
+        var toggleAnim = document.querySelector('.toggleAnim');
+var ball = document.querySelector('.ball');
+
+var animating = false;
+document.getElementById("ball").style.display = "none";
+setTimeout(function(){
+    document.getElementById("ball").style.display = "block";
+  animating = !animating;
+  ball.className = animating ? 'ball ball-running' : 'ball';
+},30000);</script>
+                <p class="copy">© 2020 TENNIC. All rights reserved</p>
             </div>
         }
     </session>
