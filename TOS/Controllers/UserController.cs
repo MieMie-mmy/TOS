@@ -13,16 +13,26 @@ namespace TOS.Controllers
             return View();
         }
 
-        public ActionResult Login()
-        {           
+        public ActionResult Login(int? errorId)
+        {
+            if (errorId > 0)
+            {
+                ViewBag.ErrorMessage = "UserName Or Password Invalid !";
+            }
             return View();
         }
 
         public ActionResult CheckLogin(M_CompanyModel cm)
         {
             M_CompanyModel mc = cbl.CheckLogin(cm);
-            @ViewBag.ErrorMessage = "Login Failed!";
-            return RedirectToAction("Login", "User");
+            if (mc == null)
+            {
+                return RedirectToAction("Login", "User", new { @errorId = 1 });
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
         }
     }
 }
