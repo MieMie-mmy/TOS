@@ -1,42 +1,189 @@
-﻿<!DOCTYPE html>
+﻿
+<!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>「@ViewBag.Title」TennicOrderSystem | TENNIC</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <!-- Bootstrap Core CSS -->
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="@Url.Content("~/Content/manager-style.css")" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="@Url.Content("~/Content/morris.css")" type="text/css" />
+    <!-- Graph CSS -->
+    <link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <!-- //jQuery -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css' />
+    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="@Url.Content("~/Content/icon-font.min.css")" type='text/css' />
+    <!-- //lined-icons -->
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+    <div class="page-container">
+        <!--/content-inner-->
+        <div class="left-content">
+            <div class="mother-grid-inner">
+                <!--header start here-->
+                <div class="header-main">
+                    <div class="w3layouts-left">
+                        <span>帳合先名</span>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+                    <div class="w3layouts-right">
+                        <span>
+                            @{
+                                if (Session["CompanyName"] != null)
+                                {
+                                    <a href="#" style="color:white">@Session["CompanyName"]</a>
+                                }
+                                else
+                                {
+
+                                }
+                            }
+                        </span>
+                        <div class="clearfix">
+                        </div>
+                    </div>
+
+
+                    <div class="clearfix"> </div>
+                </div>
+                <!--heder end here-->
+                @RenderBody()
+                <!-- script-for sticky-nav -->
+                <script>
+                    $(document).ready(function () {
+                        var navoffeset = $(".header-main").offset().top;
+                        $(window).scroll(function () {
+                            var scrollpos = $(window).scrollTop();
+                            if (scrollpos >= navoffeset) {
+                                $(".header-main").addClass("fixed");
+                            } else {
+                                $(".header-main").removeClass("fixed");
+                            }
+                        });
+
+                    });
+                </script>
+                <!-- /script-for sticky-nav -->
+                <!--inner block start here-->
+                <div class="inner-block">
+
+                </div>
+                <!--inner block end here-->
+                <!--copy rights start here-->
+                <div class="copyrights">
+                    <p>© 2020 TENNIC. All rights reserved</p>
+                </div>
+                <!--COPY rights end here-->
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+        </div>
+        <!--//content-inner-->
+        <!--/sidebar-menu-->
+        <div class="sidebar-menu">
+            <header class="logo1">
+                <a href="#" class="sidebar-icon"> <img src="~/images/tennic.png" alt=""></a>
+                <span>Order System</span>
+            </header>
+            <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
+            <div class="menu">
+                <ul id="menu">
+                    <li>
+                        <a href="index.html">
+                            <i class="fa fa-home"></i> <span>ホーム</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+
+
+                    <li id="menu-academico">
+                        <a href="order_portal.html">
+                            <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                    @*<li>
+                        <a href="order_input.html">
+                            <i class="fa fa-table" aria-hidden="true"></i><span>発注入力</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>*@
+                    <li id="menu-academico">
+                        <a href="order_history.html">
+                            <i class="fa fa-history"></i><span>発注履歴</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+
+                    <li id="menu-academico">
+                        <a href="inventories.html">
+                            <i class="fa fa-search" aria-hidden="true"></i><span>在庫照会</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                    <li id="menu-academico">
+                        <a href="news_editor.html">
+                            <i class="fa fa-plus" aria-hidden="true"></i><span>お知らせ入力</span>
+                            <div class="clearfix"></div>
+                        </a>
+
+                    </li>
+
+
+
                 </ul>
             </div>
         </div>
+        <div class="clearfix"></div>
     </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <script>
+        var toggle = true;
 
+        $(".sidebar-icon").click(function () {
+            if (toggle) {
+                $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+                $("#menu span").css({
+                    "position": "absolute"
+                });
+            } else {
+                $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+                setTimeout(function () {
+                    $("#menu span").css({
+                        "position": "relative"
+                    });
+                }, 400);
+            }
+
+            toggle = !toggle;
+        });
+    </script>
+    <!--js -->
+    <script src="~/Scripts/jquery.nicescroll.js"></script>
+    <script src="~/Scripts/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- /Bootstrap Core JavaScript -->
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>
 </html>
+
+

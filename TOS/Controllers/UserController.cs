@@ -19,11 +19,17 @@ namespace TOS.Controllers
             {
                 ViewBag.ErrorMessage = "UserName Or Password Invalid !";
             }
+            else
+            {
+                ViewBag.ErrorMessage = "";
+            }
             return View();
         }
 
         public ActionResult CheckLogin(M_CompanyModel cm)
         {
+
+
             M_CompanyModel mc = cbl.CheckLogin(cm);
             if (mc == null)
             {
@@ -31,6 +37,7 @@ namespace TOS.Controllers
             }
             else
             {
+                Session["CompanyName"] = mc.CompanyName.ToString();
                 return RedirectToAction("Index", "Home");
             }
         }

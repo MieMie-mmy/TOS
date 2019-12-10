@@ -1,0 +1,105 @@
+.histoptab{width: 100%;}
+.tda{ padding: 5px;border: 1px solid #999999;font-size: 0.8em;}
+.histoptabtit{background-color: #003492;color: white;text-align: center;}
+.histoptabno{background-color: #FFF;text-align: right;border: 0px;}
+.tab001{font-size: 0.8em;width: 100%;}
+.tab002{width: 1500px;}
+.tab002 td{ border: 1px solid #999999;padding: 5px;}
+.tab002tit{background-color: #003492;color: white;text-align: center;}
+.hacyuban td{padding-left: 2px;padding-right: 2px;line-height:1em;border-spacing: 0.1em;}
+.mekaban td{border: 1px solid #999999;}
+.mekabantit{background-color: #003492;color: white;text-align: center;padding-left: 10px;padding-right: 10px;}
+.btn{font-size: 0.8em;}
+.form-control{height:2em;}
+.footdiv td{ padding: 5px;border: 0px solid #999999;}
+.footdiv {display:inline-block;}
+.foottd{ border: 1px solid #FFF;}
+
+.t30{width: 30px;}
+.t50{width: 50px;}
+.t60{width: 60px;}
+.t70{width: 70px;}
+.t80{width: 80px;}
+.t100{width: 100px;}
+.t150{width: 150px;}
+.t200{width: 200px;}
+.t230{width: 230px;}
+.t250{width: 250px;}
+.t300{width: 300px;}
+.t350{width: 350px;}
+.t380{width: 380px;}
+.t400{width: 400px;}
+.t450{width: 450px;}
+.t500{width: 500px;}
+.t550{width: 550px;}
+.t700{width: 700px;}
+.t1000{width: 1000px;}
+.t1500{width: 1500px;}
+.t2000{width: 2000px;}
+.t20p{width: 20%;}
+.t30p{width: 30%;}
+.textri{text-align: right;padding-right: 5px;}
+.fori{float:right;}
+.btnod{width: 140px;}
+.saict{text-align: center;}
+.sailf{text-align: left;}
+.sair{text-align: right;}
+.saitop{vertical-align:text-top;}
+.saicc{vertical-align:text-bottom;}
+.odr1:hover{
+   background-color:#fff200;
+}
+.odr2:hover{
+   background-color:#fff200;
+}
+.odr3:hover{
+   background-color:#fff200;
+}
+.odr4:hover{
+   background-color:#fff200;
+}
+.odr5:hover{
+   background-color:#fff200;
+}
+.odr6:hover{
+   background-color:#fff200;
+}
+.odr7:hover{
+   background-color:#fff200;
+}
+.odr8:hover{
+   background-color:#fff200;
+}
+.odr9:hover{
+   background-color:#fff200;
+}
+.odr10:hover{
+   background-color:#fff200;
+}
+.odr11:hover{
+   background-color:#fff200;
+}
+.odr12:hover{
+   background-color:#003492;
+}
+.saisinHeading {
+    background-color: #CCDDFF;
+}
+.hrfg{border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0,0,0,0), rgba(0,0,0,0.75), rgba(0,0,0,0));width: 80%;}
+@media screen and (max-width: 1300px) {
+    .t30{width: auto;}
+.t70{width: auto;}
+.t100{width: auto;}
+.t150{width: auto;}
+.t200{width: auto;}
+.t250{width: auto;}
+.t300{width: auto;}
+.t350{width: auto;}
+.t380{width: auto;}
+.t400{width: auto;}
+.t450{width: auto;}
+.t550{width: auto;}
+    .btnod{width: 90px;}
+}

@@ -22,7 +22,7 @@
         {
             <div class="login-form">
                 <div class="top-login">
-                    <span><img src="~/images/tennic.png" alt="" /></span>
+                    <span><img src="~/images/tenniclogin.png" alt="" /></span>
                 </div>
                 <h1>Tennic Order System</h1>
                 <div class="login-top">
@@ -41,12 +41,13 @@
                         <div class="log-bwn">
                             <input type="submit" class="btn btn-success btn-sm" value="OK">
                         </div>
+                        <div class="ErrMsg">
+                            @ViewBag.ErrorMessage
+                        </div>
                     </form>
                     <div class="ball" id="ball"><img src="images/fuku.gif" alt="" /></div>
                 </div>
-                @*<div class="ErrMsg">
-                    @ViewBag.ErrorMessage
-                </div>*@
+                
                 <script>
 
         var toggleAnim = document.querySelector('.toggleAnim');

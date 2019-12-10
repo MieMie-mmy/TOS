@@ -11,6 +11,7 @@ namespace Company_BL
         {
             TOSEntities ent = new TOSEntities();
             M_Company mc = ent.M_Company.Where(m => m.CompanyCD == mcmodel.UserID && m.Password == mcmodel.Password).SingleOrDefault();
+            mcmodel.CompanyName = mc.CompanyName;
             if (mc == null)
                 return null;
             else
