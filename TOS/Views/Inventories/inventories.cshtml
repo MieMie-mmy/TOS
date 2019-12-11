@@ -1,0 +1,392 @@
+﻿
+@{
+    ViewBag.Title = "inventories";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!--heder end here-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>在庫照会</li>
+</ol>
+
+<div class="inbox-mail">
+    <!-- tab content -->
+    <div class="tab-content tab-content-in w3">
+
+        <div class="tab-pane text-style active" id="tab1">
+
+            <div class="inbox-right">
+                検索パネル
+                <div class="mailbox-content" id="mailbox-content">
+                    <div class="mail-toolbar clearfix">
+                        <table class="hacyuban">
+                            <tbody>
+                                <tr>
+                                    <td class="t550">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="t100 sair">ブランド</td>
+                                                    <td>
+                                                        <div class="btn-group t200">
+                                                            <button aria-expanded="false" aria-haspopup="true" class="btn btn-success dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>
+                                                            <div class="dropdown-menu t200">
+                                                                <a class="dropdown-item" href="#">キャピタル</a> <a class="dropdown-item" href="#">BCT</a> <a class="dropdown-item" href="#">ACT</a>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="t700">
+                                        <table>
+                                            <tbody>
+                                                <tr class="sair">
+                                                    <td class="t100">商品名</td>
+                                                    <td>
+                                                        <input type="text" class="form-control" placeholder="">
+
+
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td class="t250">&nbsp;</td>
+                                    <td class="saicc"></td>
+                                    <td class="t70 sair">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="t100 sair">品目</td>
+                                                    <td class="t200">
+                                                        <input type="text" class="form-control" placeholder="">
+
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="t100">メーカー品番</td>
+                                                    <td class="t230"> <textarea class="form-control" id="txtarea" rows="1"></textarea></td>
+                                                    <script>
+                                                        function expandTextarea(id) {
+                                                            document.getElementById(id).addEventListener('keyup', function () {
+                                                                this.style.overflow = 'hidden';
+                                                                this.style.height = 0;
+                                                                this.style.height = this.scrollHeight + 'px';
+                                                            }, false);
+                                                        }
+                                                        expandTextarea('txtarea');</script>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td><button type="button" class="btn btn-warning btn-lg">↺　リセット</button></td>
+                                    <td class="saict"><button type="button" class="btn btn-secondary btn-lg"><a class="fa fa-search" aria-hidden="true"></a>　検索</button></td>
+                                    <td>
+                                        <div class="btn-group btn-lg">
+                                            <button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle btn-lg" data-toggle="dropdown" type="button">10</button>
+                                            <div class="dropdown-menu ">
+                                                <a class="dropdown-item" href="#">10</a>
+                                                <a class="dropdown-item" href="#">30</a><a class="dropdown-item" href="#">50</a> <a class="dropdown-item" href="#">100</a>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    <td class="t70 sair"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        @*<div class="inbox-mail ISProductBody">
+                            tab content*@
+                        @*<object data="Inventories_list.html" width="100%" height="410px" type="text/html">
+                                Alternative Content
+                            </object>*@
+                        <table class="tab002">
+                            <tbody>
+                                <tr class="tab002tit">
+                                    <td class="t30">No</td>
+                                    <td class="t100">メーカー品番</td>
+                                    <td class="t250">商品名</td>
+                                    <td class="t70">サイズ</td>
+                                    <td class="t100">カラー</td>
+                                    <td class="t100">在庫数</td>
+                                    <td class="t200">ブランド</td>
+                                    <td class="t100">品目</td>
+                                    <td class="t150">JANコード</td>
+                                </tr>
+                                <tr class="odr1">
+                                    <td class="saict">1</td>
+                                    <td class="sailf">BAQ005</td>
+                                    <td class="sailf">バドミントンシューズ</td>
+                                    <td class="saict">22.5</td>
+                                    <td class="saict">レッド</td>
+                                    <td class="saict">5</td>
+                                    <td class="saict">テニック</td>
+                                    <td class="sair">シューズ</td>
+                                    <td class="sair">4914145876522</td>
+                                </tr>
+                                <tr class="odr1 saisinHeading">
+                                    <td class="saict">2</td>
+                                    <td class="sailf">BAQ005</td>
+                                    <td class="sailf">バドミントンシューズ</td>
+                                    <td class="saict">22.5</td>
+                                    <td class="saict">レッド</td>
+                                    <td class="saict">5</td>
+                                    <td class="saict">テニック</td>
+                                    <td class="sair">シューズ</td>
+                                    <td class="sair">4914145876522</td>
+                                </tr>
+                                <tr class="odr1">
+                                    <td class="saict">3</td>
+                                    <td class="sailf">BAQ005</td>
+                                    <td class="sailf">バドミントンシューズ</td>
+                                    <td class="saict">22.5</td>
+                                    <td class="saict">レッド</td>
+                                    <td class="saict">5</td>
+                                    <td class="saict">テニック</td>
+                                    <td class="sair">シューズ</td>
+                                    <td class="sair">4914145876522</td>
+                                </tr>
+                                <tr class="odr1 saisinHeading">
+                                    <td class="saict">4</td>
+                                    <td class="sailf">BAQ005</td>
+                                    <td class="sailf">バドミントンシューズ</td>
+                                    <td class="saict">22.5</td>
+                                    <td class="saict">レッド</td>
+                                    <td class="saict">5</td>
+                                    <td class="saict">テニック</td>
+                                    <td class="sair">シューズ</td>
+                                    <td class="sair">4914145876522</td>
+                                </tr>
+                                <tr class="odr1">
+                                    <td class="saict">5</td>
+                                    <td class="sailf">BAQ005</td>
+                                    <td class="sailf">バドミントンシューズ</td>
+                                    <td class="saict">22.5</td>
+                                    <td class="saict">レッド</td>
+                                    <td class="saict">5</td>
+                                    <td class="saict">テニック</td>
+                                    <td class="sair">シューズ</td>
+                                    <td class="sair">4914145876522</td>
+                                </tr>
+                                <tr class="odr1 saisinHeading">
+                                    <td class="saict">6</td>
+                                    <td class="sailf">BAQ005</td>
+                                    <td class="sailf">バドミントンシューズ</td>
+                                    <td class="saict">22.5</td>
+                                    <td class="saict">レッド</td>
+                                    <td class="saict">5</td>
+                                    <td class="saict">テニック</td>
+                                    <td class="sair">シューズ</td>
+                                    <td class="sair">4914145876522</td>
+                                </tr>
+                                <tr class="odr1">
+                                    <td class="saict">7</td>
+                                    <td class="sailf">BAQ005</td>
+                                    <td class="sailf">バドミントンシューズ</td>
+                                    <td class="saict">22.5</td>
+                                    <td class="saict">レッド</td>
+                                    <td class="saict">5</td>
+                                    <td class="saict">テニック</td>
+                                    <td class="sair">シューズ</td>
+                                    <td class="sair">4914145876522</td>
+                                </tr>
+                                <tr class="odr1 saisinHeading">
+                                    <td class="saict">8</td>
+                                    <td class="sailf">BAQ005</td>
+                                    <td class="sailf">バドミントンシューズ</td>
+                                    <td class="saict">22.5</td>
+                                    <td class="saict">レッド</td>
+                                    <td class="saict">5</td>
+                                    <td class="saict">テニック</td>
+                                    <td class="sair">シューズ</td>
+                                    <td class="sair">4914145876522</td>
+                                </tr>
+                                <tr class="odr1">
+                                    <td class="saict">9</td>
+                                    <td class="sailf">BAQ005</td>
+                                    <td class="sailf">バドミントンシューズ</td>
+                                    <td class="saict">22.5</td>
+                                    <td class="saict">レッド</td>
+                                    <td class="saict">5</td>
+                                    <td class="saict">テニック</td>
+                                    <td class="sair">シューズ</td>
+                                    <td class="sair">4914145876522</td>
+                                </tr>
+                                <tr class="odr1 saisinHeading">
+                                    <td class="saict">10</td>
+                                    <td class="sailf">BAQ005</td>
+                                    <td class="sailf">バドミントンシューズ</td>
+                                    <td class="saict">22.5</td>
+                                    <td class="saict">レッド</td>
+                                    <td class="saict">5</td>
+                                    <td class="saict">テニック</td>
+                                    <td class="sair">シューズ</td>
+                                    <td class="sair">4914145876522</td>
+                                </tr>
+
+
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                </div>
+                <!--<div class="odminiblock"><button onclick="odFunction()"  id="btnb" type="button" class="btn btn-secondary">ブロック最小化</button></div>--><div class="tab002tit tab002 sainoch saict">
+                    <table class="footdiv">
+                        <tbody>
+                            <tr>
+                                <td>ページ</td>
+                                <td>&lt;&lt;&lt;</td>
+                                <td class="foottd">1</td>
+                                <td>2</td>
+                                <td>3</td>
+                                <td>7</td>
+                                <td>5</td>
+                                <td>6</td>
+                                <td>7</td>
+                                <td>8</td>
+                                <td>...</td>
+                                <td>&gt;&gt;&gt;</td>
+                                <td></td>
+                                <td>1～10件を表示</td>
+                                <td></td>
+                                <td>合計300件</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- script-for sticky-nav -->
+<script>
+    // define variables
+    var nativePicker = document.querySelector('.nativeDatePicker');
+    var fallbackPicker = document.querySelector('.fallbackDatePicker');
+    var yearSelect = document.querySelector('[name=year]');
+    var monthSelect = document.querySelector('[name=month]');
+    // Test whether a new date input falls back to a text input
+    var testElement = document.createElement('input');
+    try {
+        test.type = 'date';
+    } catch (e) {
+        console.log(e.description);
+    }
+    // If it does, run the code inside the if () {} block
+    if (testElement.type === 'text') {
+        // hide the native picker and show the fallback
+        nativePicker.hidden = true;
+        fallbackPicker.hidden = false;
+        // populate the days and years dynamically
+        // (the months are always the same, therefore hardcoded)
+        populateDays(monthSelect.value);
+        populateYears();
+    }
+    function populateDays(month) {
+        const daySelect = document.querySelector('[name=day]');
+        const month = monthSelect.value;
+        // Create variable to hold new number of days to inject
+        let dayNum;
+        // 31 or 30 days?
+        switch (month) {
+            case 'April':
+            case 'June':
+            case 'September':
+            case 'November':
+                dayNum = 30;
+                break;
+            case 'February':
+                // If month is February, calculate whether it is a leap year or not
+                const year = yearSelect.value;
+                const isLeap = new Date(year, 1, 29).getMonth() === 1;
+                dayNum = isLeap ? 29 : 28;
+                break;
+            default:
+                dayNum = 31;
+        }
+        // inject the right number of new <option>s into the <select>
+        daySelect.options = Array.from({
+            length: dayNum
+        }, function (index) {
+            return index + 1;
+        });
+        // if previous day has already been set, set daySelect's value
+        // to that day, to avoid the day jumping back to 1 when you
+        // change the year
+        if (previousDay) {
+            daySelect.value = previousDay;
+            // If the previous day was set to a high number, say 31, and then
+            // you chose a month with fewer days in it (like February),
+            // this code ensures that the highest day available
+            // is selected, rather than showing a blank daySelect
+            if (previousDay > daySelect.length + 1) {
+                daySelect.selectedIndex = daySelect.length;
+            }
+        }
+    }
+    function populateYears() {
+        // get this year as a number
+        var year = (new Date()).getFullYear();
+        // Make this year and the 100 years before it available in the <select>
+        daySelect.options = Array.from({
+            length: 100
+        }, function (index) {
+            return index + year;
+        });
+    }
+    // when the month or year <select> values are changed, rerun populateDays()
+    // in case the change affected the number of available days
+    yearSelect.onchange = populateDays;
+    monthSelect.onchange = populateDays;
+    // preserve day selection
+    var previousDay;
+    // update what day has been set to previously
+    // see end of populateDays() for usage
+    daySelect.onchange = function () {
+        previousDay = daySelect.value;
+    }
+</script>
+<script>
+    function odFunction() {
+        var x = document.getElementById("mailbox-content");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+        } else {
+            x.style.display = "block";
+        }
+    }
+    $("#btnb").click(function () {
+        $(this).text() === 'ブロック最小化' ?
+            $(this).text('ブロック最小化') :
+            $(this).text('ブロック表示')
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        var navoffeset = $(".header-main").offset().top;
+        $(window).scroll(function () {
+            var scrollpos = $(window).scrollTop();
+            if (scrollpos >= navoffeset) {
+                $(".header-main").addClass("fixed");
+            } else {
+                $(".header-main").removeClass("fixed");
+            }
+        });
+    });
+</script>
+<!-- /script-for sticky-nav -->
+<!--inner block start here-->
