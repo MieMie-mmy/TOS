@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewBag.Title = "Order_History";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注履歴</li>
+</ol>
+
+<div class="inbox-mail">
+    <!-- tab content -->
+    <div class="tab-content tab-content-in w3">
+        <div class="tab-pane text-style active" id="tab1">
+            <div class="inbox-right">
+                全商品発注できました。
+                <table class="histoptab">
+                    <tbody>
+                        <tr class="histoptabtit">
+                            <td class="tda t150">発注番号</td>
+                            <td class="tda t150">合計金額</td>
+                            <td class="tda t200">出荷先名</td>
+                            <td class="tda t150">発注日</td>
+                            <td class="tda t150">出荷可能日</td>
+                            <td class="tda t100">受付時間</td>
+                            <td class="histoptabno t200"></td>
+                            <td class="histoptabno t200"></td>
+                            <td class="histoptabno t200"></td>
+                            <td class="histoptabno t200"></td>
+                        </tr>
+                        <tr>
+                            <td class="tda saict">H19011152033</td>
+                            <td class="tda sair">￥44,800</td>
+                            <td class="tda saict">大阪スポーツ</td>
+                            <td class="tda saict">2019年11月15日</td>
+                            <td class="tda saict">2019年11月19日</td>
+                            <td class="tda saict">20:33:12</td>
+                            <td class="histoptabno sair">&nbsp;</td>
+                            <td class="histoptabno sair">&nbsp;</td>
+                            <td class="histoptabno sair"><button type="button" class="btn btn-info btn-lg ">✏&nbsp;出力</button></td>
+                            <td class="histoptabno sair">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                 </table>
+</div>
+        </div>
+    </div>
+</div>
