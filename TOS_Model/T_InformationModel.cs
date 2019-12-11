@@ -8,6 +8,11 @@ namespace TOS_Model
 {
     public class T_InformationModel
     {
+        public string Date { get; set; }
+
+        public string TitleName { get; set; }
+
+        public int InformationType { get; set; }
 
     }
 }
