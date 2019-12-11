@@ -12,7 +12,7 @@ namespace TOS.Controllers
             T_InformationModel tinfo = new T_InformationModel();
             InformationBL ibl = new InformationBL();
             DataTable dtinfo = ibl.GetInformation(companymodel);
-            return View(tinfo);
+            return View(dtinfo);
         }
 
         public ActionResult product_details()

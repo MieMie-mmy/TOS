@@ -15,7 +15,7 @@ namespace Company_BL
             DataTable dtinfo = new DataTable();
             SqlParameter[] prms = new SqlParameter[1];
             prms[0] = new SqlParameter("@companyCD", SqlDbType.VarChar) { Value = companymodel.UserID};
-            dtinfo = bdl.SelectData("", prms);
+            dtinfo = bdl.SelectData("T_Information_Select", prms);
             return dtinfo;
         }
     }

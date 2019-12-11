@@ -1,5 +1,5 @@
-﻿@model TOS_Model.T_InformationModel 
-@using System.Data;
+﻿@using System.Data;
+@model DataTable
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home Page";
@@ -37,15 +37,12 @@
                     <table class="table">
                         <tbody>
                         <tbody>
-                            @foreach (DataRow r in dt.Rows)
+                            @foreach (DataRow r in Model.Rows)
                             {
-                                <tr>
-                                    <td><a class="btn btn-xs btn-info" href="/Home/ProfileEdit/@r["ProfileID"].ToString()">Edit</a>|<a class="btn btn-xs btn-danger" href="/Home/ProfileDelete/@r["ProfileID"].ToString()">Delete</a></td>
-                                    <td>@r["Name"].ToString()</td>
-                                    <td>@r["Phone"].ToString()</td>
-                                    <td>@r["Email"].ToString()</td>
-                                    <td>@r["Address"].ToString()</td>
-                                    <td>@r["Remark"].ToString()</td>
+                                <tr class="table-row">
+                                    <td class="table-text">@r["Date"].ToString()</td>
+                                    <td class="table-text">@r["TitleName"].ToString()</td>
+                                    <td>@r["InformationType"].ToString()</td>
                                 </tr>
                             }
                         </tbody>
@@ -54,21 +51,21 @@
 
 
                         @*<tr class="table-row">
-            <td class="table-text">
-                <h6>2019年12月22日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細16について</a></h6>
-            </td>
-            <td></td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a></a>
-            </td>
-        </tr>*@
+                                <td class="table-text">
+                                    <h6>2019年12月22日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細16について</a></h6>
+                                </td>
+                                <td></td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a></a>
+                                </td>
+                            </tr>*@
 
 
-                        <tr class="table-row">
+                        @*<tr class="table-row">
                             <td class="table-text">
                                 <h6></h6>
                             </td>
@@ -82,230 +79,230 @@
                             <td>
                                 <a href="product_details.html"><a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a></a>
                             </td>
-                        </tr>
+                        </tr>*@
 
                         @*<tr class="table-row">
-            <td class="table-text">
-                <h6>2019年11月15日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細15について</a></h6>
-            </td>
-            <td>
-                <span class="fam">商品情報</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年10月10日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細14について</a></h6>
-            </td>
-            <td>
-                <span class="mar">重要</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年9月23日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細13について</a></h6>
-            </td>
-            <td>
-                <span class="work">新発売</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年8月10日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細12について</a></h6>
-            </td>
-            <td>
-                <span class="mar">重要</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年9月11日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細11について</a></h6>
-            </td>
-            <td>
-                <span class="fam">商品情報</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年8月10日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細10について</a></h6>
-            </td>
-            <td>
-                <span class="mar">重要</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年7月7日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細9について</a></h6>
-            </td>
-            <td>
-                <span class="work">新発売</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年6月26日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細8について</a></h6>
-            </td>
-            <td>
-                <span class="fam">商品情報</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年5月20日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細7について</a></h6>
-            </td>
-            <td></td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年4月5日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細6について</a></h6>
-            </td>
-            <td>
-                <span class="fam">商品情報</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年3月10日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細5について</a></h6>
-            </td>
-            <td>
-                <span class="mar">重要</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年2月15日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細4について</a></h6>
-            </td>
-            <td>
-                <span class="work">新発売</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2019年1月2日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細3について</a></h6>
-            </td>
-            <td>
-                <span class="fam">商品情報</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2018年12月25日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細2について</a></h6>
-            </td>
-            <td></td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>
-        <tr class="table-row">
-            <td class="table-text">
-                <h6>2018年10月1日</h6>
-            </td>
-            <td class="table-text">
-                <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細1について</a></h6>
-            </td>
-            <td>
-                <span class="fam">商品情報</span>
-            </td>
-            <td class="march"></td>
-            <td>
-                <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
-            </td>
-        </tr>*@
-                        </tbody>
+                                <td class="table-text">
+                                    <h6>2019年11月15日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細15について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="fam">商品情報</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年10月10日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細14について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="mar">重要</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年9月23日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細13について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="work">新発売</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年8月10日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細12について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="mar">重要</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年9月11日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細11について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="fam">商品情報</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年8月10日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細10について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="mar">重要</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年7月7日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細9について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="work">新発売</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年6月26日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細8について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="fam">商品情報</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年5月20日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細7について</a></h6>
+                                </td>
+                                <td></td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年4月5日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細6について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="fam">商品情報</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年3月10日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細5について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="mar">重要</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年2月15日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細4について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="work">新発売</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2019年1月2日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細3について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="fam">商品情報</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2018年12月25日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細2について</a></h6>
+                                </td>
+                                <td></td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>
+                            <tr class="table-row">
+                                <td class="table-text">
+                                    <h6>2018年10月1日</h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html">ハンドポールイージーオーダーシステム商品詳細1について</a></h6>
+                                </td>
+                                <td>
+                                    <span class="fam">商品情報</span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a>
+                                </td>
+                            </tr>*@
+                        @*</tbody>*@
                     </table>
                 </div>
             </div>
