@@ -13,6 +13,11 @@ namespace TOS.Controllers
             return View();
         }
 
+        public ActionResult product_details()
+        {
+            return View();
+        }
+
 
     }
 }
