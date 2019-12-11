@@ -128,6 +128,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
@@ -206,6 +207,7 @@
     <Content Include="Views\Order\Order_Input.cshtml" />
     <Content Include="Views\Order\Order_Portal.cshtml" />
     <Content Include="Views\Home\product_details.cshtml" />
+    <Content Include="Views\Inventories\Inventories.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
