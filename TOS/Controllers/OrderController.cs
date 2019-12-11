@@ -13,5 +13,15 @@ namespace TOS.Controllers
         {
             return View();
         }
+
+        public ActionResult Order_Input()
+        {
+            return View();
+        }
+
+        public ActionResult Order_Portal()
+        {
+            return View();
+        }
     }
 }

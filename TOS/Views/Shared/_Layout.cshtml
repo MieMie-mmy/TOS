@@ -106,7 +106,7 @@
             <div class="menu">
                 <ul id="menu">
                     <li>
-                        <a href="index.html">
+                        <a href="@Url.Action("Index", "Home")">
                             <i class="fa fa-home"></i> <span>ホーム</span>
                             <div class="clearfix"></div>
                         </a>
@@ -114,17 +114,17 @@
 
 
                     <li id="menu-academico">
-                        <a href="order_portal.html">
+                        <a href="@Url.Action("Order_Portal", "Order")">
                             <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
                             <div class="clearfix"></div>
                         </a>
                     </li>
-                    @*<li>
-                        <a href="order_input.html">
+                    <li>
+                        <a href="@Url.Action("Order_Input", "Order")">
                             <i class="fa fa-table" aria-hidden="true"></i><span>発注入力</span>
                             <div class="clearfix"></div>
                         </a>
-                    </li>*@
+                    </li>
                     <li id="menu-academico">
                         @*<a href="order_history.html">*@
                         <a href="@Url.Action("Order_History", "Order")">

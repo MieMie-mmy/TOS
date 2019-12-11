@@ -203,6 +203,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\User\Login.cshtml" />
     <Content Include="Views\Order\Order_History.cshtml" />
+    <Content Include="Views\Order\Order_Input.cshtml" />
+    <Content Include="Views\Order\Order_Portal.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
