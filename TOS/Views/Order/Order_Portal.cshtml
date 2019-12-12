@@ -4,5 +4,501 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Order_Portal</h2>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注ポータル</li>
+</ol>
+<div class="inbox-mail">
 
+    <!-- tab content -->
+    <div class="tab-content tab-content-in w3">
+        <div class="tab-pane text-style active" id="tab1">
+            <div class="inbox-right">
+
+                <div class="mailbox-content" id="mailbox-content">
+                    <div class="mail-toolbar clearfix">
+                        <div class="odfloat-left">
+
+                            <table class="orderpcom">
+                                <tbody class="orderpcomBody">
+                                    <tr class="orderpcomRow">
+                                        <td class="orderpcomCellm">メーカー品番</td>
+                                        <td class="orderpcomCelln">1</td>
+                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCelln">2</td>
+                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                    </tr>
+                                    <tr class="orderpcomRow">
+                                        <td class="orderpcomCellm"></td>
+                                        <td class="orderpcomCelln">3</td>
+                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCelln">4</td>
+                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                    </tr>
+                                    <tr class="orderpcomRow">
+                                        <td class="orderpcomCellm"></td>
+                                        <td class="orderpcomCelln">5</td>
+                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCelln">6</td>
+                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                    </tr>
+                                    <tr class="orderpcomRow">
+                                        <td class="orderpcomCellm"></td>
+                                        <td class="orderpcomCelln">7</td>
+                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCelln">8</td>
+                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+
+                                    </tr>
+                                    <tr class="orderpcomRow">
+                                        <td class="orderpcomCell"></td>
+                                        <td class="orderpcomCell"></td>
+                                        <td class="orderpcomCell"></td>
+                                        <td class="orderpcomCell"></td>
+                                        <td class="orderpcomCell"></td>
+
+                                    </tr>
+                                    <tr class="orderpcomRow">
+                                        <td class="orderpcomCell"></td>
+                                        <td class="orderpcomCell"></td>
+                                        <td class="orderpcomCell"></td>
+                                        <td class="orderpcomCell"></td>
+                                        <td class="orderpcomCell"></td>
+                                        <td class="orderpcomCell">
+                                            <div class="orderpcomCell">
+                                                <div class="orderpcomCell"><button type="button" 　onclick="odFunction()" class="odsec btn btn-success"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></div><div class="orderpcomCell"><button type="button" class="odsec btn btn-warning">↺&nbsp;リセット</button></div>
+                                            </div>
+                                        </td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- orderpcom.com -->
+
+                        </div>
+                        <div class="odfloat-right">
+
+
+                            <div class="odbtn-group odbtn-groupl">
+                                <div class="orderpcom">
+                                    <div class="orderpcomBodycom">
+                                        <div class="orderpcomRow">
+                                            <div class="orderpcomCell">株式会社テニック</div>
+                                            <div class="orderpcomCell"></div>
+                                        </div>
+                                        <div class="orderpcomRow">
+                                            <div class="orderpcomCell">大阪本社</div>
+                                            <div class="orderpcomCell">東京営業所</div>
+                                        </div>
+                                        <div class="orderpcomRow">
+                                            <div class="orderpcomCell">〒530-0043 北区天満2-13-8</div>
+                                            <div class="orderpcomCell">〒108-0073 港区三田4-1-4</div>
+                                        </div>
+                                        <div class="orderpcomRow">
+                                            <div class="orderpcomCell">TEL：06-6358-5031</div>
+                                            <div class="orderpcomCell">TEL：03-5439-6250</div>
+                                        </div>
+                                        <div class="orderpcomRow">
+                                            <div class="orderpcomCell">FAX：06-6358-9210</div>
+                                            <div class="orderpcomCell">FAX：03-5439-6251</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="odbtn-group">
+                                    <div class="eigyo eigyoRowtit"><span>利用可能時間</span></div>
+                                    <div class="eigyo">
+                                        <div class="eigyoBody">
+                                            <div class="eigyoRow">
+
+                                            </div>
+                                            <div class="eigyoRow eigyoRowtit">
+                                                <div class="eigyoCell">業務</div>
+                                                <div class="eigyoCell ">弊社営業時間</div>
+                                            </div>
+                                            <div class="eigyoRow">
+                                                <div class="eigyoCell">照会発注</div>
+                                                <div class="eigyoCell">8：00～22：00</div>
+                                            </div>
+                                            <div class="eigyoRow">
+                                                <div class="eigyoCell">発注取消</div>
+                                                <div class="eigyoCell">8：00～22：00</div>
+                                            </div>
+                                            <div class="eigyoRow">
+                                                <div class="eigyoCell">上記以外</div>
+                                                <div class="eigyoCell saict">24時間後利用可能</div>
+                                            </div>
+
+                                        </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+
+
+    <div class="tab-content tab-content-in w3 orderlist">
+        <div class="tab-pane text-style active" id="tab1">
+            <div class="inbox-right">
+
+                <div class="mailbox-content">
+                    <div class="mail-toolbar clearfix">
+                        <div class="float-left">
+                            <div class="odtitle">
+                                <h4>最新の発注状況(最大20件まで表示)</h4>
+                            </div>
+
+
+                        </div>
+                        <div class="float-right">
+
+
+                            <div class="btn-group">
+                                <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
+                                <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <div class="saisin">
+                        <table class="saisinBody">
+                            <tbody>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell t30 saict titcolor">NO</td>
+                                    <td class="saisinCell t150 saict titcolor">発注番号</td>
+                                    <td class="saisinCell t150 saict titcolor">商品番号</td>
+                                    <td class="saisinCell t250 saict titcolor">商品名</td>
+                                    <td class="saisinCell t100 saict titcolor">サイズ</td>
+                                    <td class="saisinCell t150 saict titcolor">カラー</td>
+                                    <td class="saisinCell t100 saict titcolor">発注数</td>
+                                    <td class="saisinCell t100 saict titcolor">引当数</td>
+                                    <td class="saisinCell t150 saict titcolor">下代</td>
+                                    <td class="saisinCell t150 saict titcolor">合計</td>
+                                    <td class="saisinCell t150 saict titcolor">発注日</td>
+                                    <td class="saisinCell t150 saict titcolor">発注時刻</td>
+                                    <td class="saisinCell t150 saict titcolor">出荷日</td>
+                                </tr>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell">1</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow tablebk1">
+                                    <td class="saisinCell ">2</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell">3</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow tablebk1">
+                                    <td class="saisinCell">4</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell">5</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow tablebk1">
+                                    <td class="saisinCell">6</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell">7</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow tablebk1">
+                                    <td class="saisinCell">8</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell">9</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow tablebk1">
+                                    <td class="saisinCell">10</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell">11</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow tablebk1">
+                                    <td class="saisinCell">12</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell">13</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow tablebk1">
+                                    <td class="saisinCell">14</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell">15</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow tablebk1">
+                                    <td class="saisinCell">16</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell">17</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow tablebk1">
+                                    <td class="saisinCell">18</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow">
+                                    <td class="saisinCell">19</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+                                <tr class="saisinRow tablebk1">
+                                    <td class="saisinCell saict">20</td>
+                                    <td class="saisinCell sailf ">61323117</td>
+                                    <td class="saisinCell sailf">GP-461-B</td>
+                                    <td class="saisinCell sailf">カラーダブルシューズ</td>
+                                    <td class="saisinCell saict">25.5</td>
+                                    <td class="saisinCell saict">ブラック</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell saict">50</td>
+                                    <td class="saisinCell sair">￥10,000</td>
+                                    <td class="saisinCell sair">￥500,000</td>
+                                    <td class="saisinCell saict">2019/11/20</td>
+                                    <td class="saisinCell saict">20:33:12</td>
+                                    <td class="saisinCell saict">2019/11/29</td>
+                                </tr>
+
+                            </tbody>                         
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
