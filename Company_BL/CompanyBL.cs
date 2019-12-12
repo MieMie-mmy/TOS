@@ -10,7 +10,7 @@ namespace Company_BL
         public M_CompanyModel CheckLogin(M_CompanyModel mcmodel)
         {
             TOSEntities ent = new TOSEntities();
-            M_Company mc = ent.M_Company.Where(m => m.CompanyCD == mcmodel.UserID && m.Password == mcmodel.Password).SingleOrDefault();
+            M_Company mc = ent.M_Company.Where(m => m.CompanyCD == mcmodel.CompanyCD && m.Password == mcmodel.Password).SingleOrDefault();
 
             if (mc == null)
                 return null;

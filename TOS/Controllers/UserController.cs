@@ -38,6 +38,7 @@ namespace TOS.Controllers
             else
             {
                 Session["CompanyName"] = mc.CompanyName.ToString();
+                Session["CompanyCD"] = mc.CompanyCD.ToString();
                 return RedirectToAction("Order_Input", "Order");
             }
         }

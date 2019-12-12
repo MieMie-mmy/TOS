@@ -8,7 +8,11 @@ namespace TOS_Model
 {
     public class BaseModel
     {
-        public string InsertedBy { get; set; }
-        public string InsertedDate { get; set; }
+        public string InsertOperator { get; set; }
+        public DateTime InsertDateTime { get; set; }
+        public string UpdateOperator { get; set; }
+        public DateTime UpdateDateTime { get; set; }
+
+
     }
 }

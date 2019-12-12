@@ -9,10 +9,10 @@ namespace TOS.Controllers
     {
         public ActionResult Index(M_CompanyModel companymodel)
         {
-            T_InformationModel tinfo = new T_InformationModel();
-            InformationBL ibl = new InformationBL();
-            DataTable dtinfo = ibl.GetInformation(companymodel);
-            return View(dtinfo);
+            //T_InformationModel tinfo = new T_InformationModel();
+            //InformationBL ibl = new InformationBL();
+            //DataTable dtinfo = ibl.GetInformation(companymodel);
+            return View();
         }
 
         public ActionResult product_details()
