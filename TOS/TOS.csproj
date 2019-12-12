@@ -234,6 +234,10 @@
       <Project>{6bf2ae23-3800-41fe-81de-3ace2aeb06fa}</Project>
       <Name>Company_BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Information_BL\Information_BL.csproj">
+      <Project>{39b9fe4a-8b33-43a2-a72f-3f2687e96036}</Project>
+      <Name>Information_BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TOS_Model\TOS_Model.csproj">
       <Project>{47957d3c-e254-435f-9004-8e2fd2249e2f}</Project>
       <Name>TOS_Model</Name>
