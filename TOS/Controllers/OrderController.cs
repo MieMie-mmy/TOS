@@ -1,15 +1,17 @@
-﻿using Order_Portal_BL;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TOS_Model;
+using Order_Input_BL;
 
 namespace TOS.Controllers
 {
+   
     public class OrderController : Controller
     {
+       
         // GET: Order_History
         public ActionResult Order_History()
         {
@@ -18,21 +20,16 @@ namespace TOS.Controllers
 
         public ActionResult Order_Input()
         {
-            string CompanyCD = Session["CompanyCD"].ToString();
-           // ViewData["JobTime"] = 
+            Order_InputBL obl = new Order_InputBL();
+            M_JobTimeableModel Mjob = new M_JobTimeableModel();
+            Mjob.CompanyCD = Session["CompanyCD"].ToString(); ;
+            ViewData["JobTime"] = obl.JobTimeTable_Select(Mjob);
             return View();
         }
 
         public ActionResult Order_Portal()
-        {
-            //string CompanyCD = Session["CompanyCD"].ToString();
+        {   
             return View();
-        }
-        public ActionResult Get_Order_Portal_List()
-        {
-            Order_PortalBL opbl = new Order_PortalBL();
-            DataTable dtinfo = opbl.Order_Portal_List_Select();
-            return View(dtinfo);
         }
     }
 }

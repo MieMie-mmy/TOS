@@ -234,6 +234,14 @@
       <Project>{6bf2ae23-3800-41fe-81de-3ace2aeb06fa}</Project>
       <Name>Company_BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Information_BL\Information_BL.csproj">
+      <Project>{39b9fe4a-8b33-43a2-a72f-3f2687e96036}</Project>
+      <Name>Information_BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Order_Input_BL\Order_Input_BL.csproj">
+      <Project>{3b0c2797-fe7f-44a4-9eb7-90ccc8da066d}</Project>
+      <Name>Order_Input_BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Order_Portal_BL\Order_Portal_BL.csproj">
       <Project>{9599829a-9c8c-4c02-8e4d-31f248128660}</Project>
       <Name>Order_Portal_BL</Name>

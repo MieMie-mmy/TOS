@@ -40,28 +40,28 @@ namespace TOS
                       )); 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                      "~/Content/bootstrap.css",
-                      "~/Content/site.css",
-                      "~/Content/bootstrap.min.css",
-                      "~/Content/manager-style.css",
-                      "~/Content/basictable.css",
-                      "~/Content/bootstrap-theme.css",
-                      "~/Content/bootstrap-theme.css.map",
-                      "~/Content/bootstrap-theme.min.css",
-                      "~/Content/boostrap-theme.min.css.map",
-                      "~/Content/bootstrap.css.map",
-                      "~/Content/bootstrap.min.css.map",
-                      "~/Content/font-awesome.css",
-                      "~/Content/icon-font.min.css",
-                      "~/Content/jqcandlestick.css",
-                      "~/Content/jquery-ui.css",
-                      "~/Content/lightbox.css",
-                      "~/Content/monthly.css",
-                      "~/Content/morris.css",
-                      "~/Content/news.css",
-                      "~/Content/order_history.css",
-                      "~/Content/order_input.css",
-                      "~/Content/order_portal.css"
+                      //"~/Content/bootstrap.css"
+                      //"~/Content/site.css",
+                      //"~/Content/bootstrap.min.css",
+                      //"~/Content/manager-style.css",
+                      //"~/Content/basictable.css",
+                      //"~/Content/bootstrap-theme.css",
+                      //"~/Content/bootstrap-theme.css.map",
+                      //"~/Content/bootstrap-theme.min.css",
+                      //"~/Content/boostrap-theme.min.css.map",
+                      //"~/Content/bootstrap.css.map",
+                      //"~/Content/bootstrap.min.css.map",
+                      //"~/Content/font-awesome.css",
+                      //"~/Content/icon-font.min.css",
+                      //"~/Content/jqcandlestick.css",
+                      //"~/Content/jquery-ui.css",
+                      //"~/Content/lightbox.css",
+                      //"~/Content/monthly.css",
+                      //"~/Content/morris.css",
+                      //"~/Content/news.css",
+                      //"~/Content/order_history.css",
+                      //"~/Content/order_input.css",
+                      //"~/Content/order_portal.css"
                       ));
         }
     }

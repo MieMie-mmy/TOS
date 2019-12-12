@@ -2,17 +2,18 @@
 using Company_BL;
 using System.Web.Mvc;
 using System.Data;
+using Information_BL;
 
 namespace TOS.Controllers
 {
     public class HomeController : Controller
     {
-        public ActionResult Index(M_CompanyModel companymodel)
+        public ActionResult Index()
         {
-            //T_InformationModel tinfo = new T_InformationModel();
-            //InformationBL ibl = new InformationBL();
-            //DataTable dtinfo = ibl.GetInformation(companymodel);
-            return View();
+            string CompanyCD = Session["CompanyCD"].ToString();
+            InformationBL ibl = new InformationBL();
+            DataTable dtinfo = ibl.GetInformation(CompanyCD);
+            return View(dtinfo);
         }
 
         public ActionResult product_details()

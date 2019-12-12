@@ -47,8 +47,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="InformationBL.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\TOS_DL\TOS_DL.csproj">
+      <Project>{6ad8a80e-1db7-457f-8fbd-37e8ad8655ea}</Project>
+      <Name>TOS_DL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TOS_Model\TOS_Model.csproj">
+      <Project>{47957d3c-e254-435f-9004-8e2fd2249e2f}</Project>
+      <Name>TOS_Model</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
