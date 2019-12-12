@@ -4,11 +4,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TOS_Model;
+using Order_Input_BL;
 
 namespace TOS.Controllers
 {
+   
     public class OrderController : Controller
     {
+       
         // GET: Order_History
         public ActionResult Order_History()
         {
@@ -17,9 +20,10 @@ namespace TOS.Controllers
 
         public ActionResult Order_Input()
         {
+            Order_InputBL obl = new Order_InputBL();
             M_JobTimeableModel Mjob = new M_JobTimeableModel();
             Mjob.CompanyCD = Session["CompanyCD"].ToString(); ;
-            ViewData["JobTime"] = 
+            ViewData["JobTime"] = obl.JobTimeTable_Select(Mjob);
             return View();
         }
 

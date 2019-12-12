@@ -20,7 +20,7 @@ namespace Order_Input_BL
                 Mjt.CompanyCD = mj.CompanyCD;
                 Mjt.OrderAblePeriod = mj.OrderAblePeriod;
                 Mjt.CancelAblePeriod = mj.CancelAblePeriod;
-                Mjt.ExceptionAboutPeriod = Mjt.ExceptionAboutPeriod;
+                Mjt.ExceptionAboutPeriod = mj.ExceptionAboutPeriod;
             }
             return Mjt  ;
         }
