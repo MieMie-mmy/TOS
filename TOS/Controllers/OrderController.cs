@@ -16,11 +16,13 @@ namespace TOS.Controllers
 
         public ActionResult Order_Input()
         {
+            string CompanyCD = Session["CompanyCD"].ToString(); ;
+           // ViewData["JobTime"] = 
             return View();
         }
 
         public ActionResult Order_Portal()
-        {
+        {   
             return View();
         }
     }
