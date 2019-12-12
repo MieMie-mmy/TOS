@@ -2,203 +2,209 @@
 @{
     ViewBag.Title = "Order_Input";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    TOS_Model.M_JobTimeableModel mj = ViewData["JobTime"] as TOS_Model.M_JobTimeableModel;
 }
-                <!--heder end here-->
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注入力</li>
-                </ol>
-                <div class="inbox-mail">
 
-                    <!-- tab content -->
-                    <div class="tab-content tab-content-in w3">
-                        <div class="tab-pane text-style active" id="tab1">
-                            <div class="inbox-right">
+@section Styles {
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="~/Content/manager-style.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="~/Content/morris.css" type="text/css" />
+    <!-- Graph CSS -->
+    <link href="~/Content/font-awesome.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <!-- //jQuery -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css' />
+    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="~/Content/icon-font.min.css" type='text/css' />
+    <link rel="stylesheet" href="~/Content/order_portal.css" type='text/css' />
 
-                                <div class="mailbox-content" id="mailbox-content">
-                                    <div class="mail-toolbar clearfix">
-                                        <div class="odfloat-left">
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
 
-                                            <div class="orderpcom">
-                                                <div class="orderpcomBody">
-                                                    <div class="orderpcomRow">
-                                                        <div class="orderpcomCellm">メーカー品番</div>
-                                                        <div class="orderpcomCelln">1</div>
-                                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
-                                                        <div class="orderpcomCelln">2</div>
-                                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
-                                                    </div>
-                                                    <div class="orderpcomRow">
-                                                        <div class="orderpcomCellm"></div>
-                                                        <div class="orderpcomCelln">3</div>
-                                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
-                                                        <div class="orderpcomCelln">4</div>
-                                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
-                                                    </div>
-                                                    <div class="orderpcomRow">
-                                                        <div class="orderpcomCellm"></div>
-                                                        <div class="orderpcomCelln">5</div>
-                                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
-                                                        <div class="orderpcomCelln">6</div>
-                                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
-                                                    </div>
-                                                    <div class="orderpcomRow">
-                                                        <div class="orderpcomCellm"></div>
-                                                        <div class="orderpcomCelln">7</div>
-                                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
-                                                        <div class="orderpcomCelln">8</div>
-                                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+}
+<!--heder end here-->
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注入力</li>
+</ol>
+<div class="inbox-mail">
 
-                                                    </div>
-                                                    <div class="orderpcomRow">
-                                                        <div class="orderpcomCell"></div>
-                                                        <div class="orderpcomCell"></div>
-                                                        <div class="orderpcomCell"></div>
-                                                        <div class="orderpcomCell"></div>
-                                                        <div class="orderpcomCell"></div>
+    <!-- tab content -->
+    <div class="tab-content tab-content-in w3">
+        <div class="tab-pane text-style active" id="tab1">
+            <div class="inbox-right">
 
-                                                    </div>
-                                                    <div class="orderpcomRow">
-                                                        <div class="orderpcomCell"></div>
-                                                        <div class="orderpcomCell"></div>
-                                                        <div class="orderpcomCell"></div>
-                                                        <div class="orderpcomCell"></div>
-                                                        <div class="orderpcomCell"></div>
-                                                        <div class="orderpcomCell">
-                                                            <div class="orderpcomCell">
-                                                                <div class="orderpcomCell"><button type="button" 　onclick="odFunction()" class="odsec btn btn-success"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></div><div class="orderpcomCell"><button type="button" class="odsec btn btn-warning">↺&nbsp;リセット</button></div>
-                                                            </div>
-                                                        </div>
+                <div class="mailbox-content" id="mailbox-content">
+                    <div class="mail-toolbar clearfix">
+                        <div class="odfloat-left">
 
-                                                    </div>
-                                                </div>
+                            <div class="orderpcom">
+                                <div class="orderpcomBody">
+                                    <div class="orderpcomRow">
+                                        <div class="orderpcomCellm">メーカー品番</div>
+                                        <div class="orderpcomCelln">1</div>
+                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCelln">2</div>
+                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                    </div>
+                                    <div class="orderpcomRow">
+                                        <div class="orderpcomCellm"></div>
+                                        <div class="orderpcomCelln">3</div>
+                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCelln">4</div>
+                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                    </div>
+                                    <div class="orderpcomRow">
+                                        <div class="orderpcomCellm"></div>
+                                        <div class="orderpcomCelln">5</div>
+                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCelln">6</div>
+                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                    </div>
+                                    <div class="orderpcomRow">
+                                        <div class="orderpcomCellm"></div>
+                                        <div class="orderpcomCelln">7</div>
+                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCelln">8</div>
+                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+
+                                    </div>
+                                    <div class="orderpcomRow">
+                                        <div class="orderpcomCell"></div>
+                                        <div class="orderpcomCell"></div>
+                                        <div class="orderpcomCell"></div>
+                                        <div class="orderpcomCell"></div>
+                                        <div class="orderpcomCell"></div>
+
+                                    </div>
+                                    <div class="orderpcomRow">
+                                        <div class="orderpcomCell"></div>
+                                        <div class="orderpcomCell"></div>
+                                        <div class="orderpcomCell"></div>
+                                        <div class="orderpcomCell"></div>
+                                        <div class="orderpcomCell"></div>
+                                        <div class="orderpcomCell">
+                                            <div class="orderpcomCell">
+                                                <div class="orderpcomCell"><button type="button" 　onclick="odFunction()" class="odsec btn btn-success"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></div><div class="orderpcomCell"><button type="button" class="odsec btn btn-warning">↺&nbsp;リセット</button></div>
                                             </div>
-                                            <!-- orderpcom.com -->
-
-                                        </div>
-                                        <div class="odfloat-right">
-
-
-                                            <div class="odbtn-group odbtn-groupl">
-                                                <div class="orderpcom">
-                                                    <div class="orderpcomBodycom">
-                                                        <div class="orderpcomRow">
-                                                            <div class="orderpcomCell">株式会社テニック</div>
-                                                            <div class="orderpcomCell"></div>
-                                                        </div>
-                                                        <div class="orderpcomRow">
-                                                            <div class="orderpcomCell">大阪本社</div>
-                                                            <div class="orderpcomCell">東京営業所</div>
-                                                        </div>
-                                                        <div class="orderpcomRow">
-                                                            <div class="orderpcomCell">〒530-0043 北区天満2-13-8</div>
-                                                            <div class="orderpcomCell">〒108-0073 港区三田4-1-4</div>
-                                                        </div>
-                                                        <div class="orderpcomRow">
-                                                            <div class="orderpcomCell">TEL：06-6358-5031</div>
-                                                            <div class="orderpcomCell">TEL：03-5439-6250</div>
-                                                        </div>
-                                                        <div class="orderpcomRow">
-                                                            <div class="orderpcomCell">FAX：06-6358-9210</div>
-                                                            <div class="orderpcomCell">FAX：03-5439-6251</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="odbtn-group">
-                                                @*<div class="eigyo eigyoRowtit"><span>利用可能時間</span></div>
-                                                <div class="eigyo">
-                                                    <div class="eigyoBody">
-                                                        <div class="eigyoRow">
-
-                                                        </div>
-                                                        <div class="eigyoRow eigyoRowtit">
-                                                            <div class="eigyoCell">業務</div>
-                                                            <div class="eigyoCell ">弊社営業時間</div>
-                                                        </div>
-                                                        <div class="eigyoRow">
-                                                            <div class="eigyoCell">照会発注</div>
-                                                            <div class="eigyoCell">8：00～22：00</div>
-                                                        </div>
-                                                        <div class="eigyoRow">
-                                                            <div class="eigyoCell">発注取消</div>
-                                                            <div class="eigyoCell">8：00～22：00</div>
-                                                        </div>
-                                                        <div class="eigyoRow">
-                                                            <div class="eigyoCell">上記以外</div>
-                                                            <div class="eigyoCell saict">24時間後利用可能</div>
-                                                        </div>
-
-                                                    </div>
-                                                </div>*@
-                                                <div>
-                                                    <table>
-                                                        <thead>
-                                                            <tr>
-                                                                <th scope="col">利用可能時間</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="col">業務</th>
-                                                                <th scope="col">弊社営業時間</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">照会発注</th>
-
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">発注取消</th>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">上記以外</th>
-                                                            </tr>
-                                                        </thead>
-                                                    </table>
-                                                </div>
-
-
-
-                                            </div>
-
-
                                         </div>
 
                                     </div>
-
-                                </div><!--<div class="odminiblock"><button onclick="odFunction()"  id="btnb" type="button" class="btn btn-secondary">ブロック最小化</button></div>-->
+                                </div>
                             </div>
-                        </div>
+                            <!-- orderpcom.com -->
 
+                        </div>
+                        <div class="odfloat-right">
+
+
+                            <div class="odbtn-group odbtn-groupl">
+                                <div class="orderpcom">
+                                    <div class="orderpcomBodycom">
+                                        <div class="orderpcomRow">
+                                            <div class="orderpcomCell">株式会社テニック</div>
+                                            <div class="orderpcomCell"></div>
+                                        </div>
+                                        <div class="orderpcomRow">
+                                            <div class="orderpcomCell">大阪本社</div>
+                                            <div class="orderpcomCell">東京営業所</div>
+                                        </div>
+                                        <div class="orderpcomRow">
+                                            <div class="orderpcomCell">〒530-0043 北区天満2-13-8</div>
+                                            <div class="orderpcomCell">〒108-0073 港区三田4-1-4</div>
+                                        </div>
+                                        <div class="orderpcomRow">
+                                            <div class="orderpcomCell">TEL：06-6358-5031</div>
+                                            <div class="orderpcomCell">TEL：03-5439-6250</div>
+                                        </div>
+                                        <div class="orderpcomRow">
+                                            <div class="orderpcomCell">FAX：06-6358-9210</div>
+                                            <div class="orderpcomCell">FAX：03-5439-6251</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="odbtn-group">
+                                <div class="eigyo eigyoRowtit"><span>利用可能時間</span></div>
+                                <div class="eigyo">
+                                    <div class="eigyoBody">
+                                        <div class="eigyoRow">
+
+                                        </div>
+                                        <div class="eigyoRow eigyoRowtit">
+                                            <div class="eigyoCell">業務</div>
+                                            <div class="eigyoCell ">弊社営業時間</div>
+                                        </div>
+
+                                        <div class="eigyoRow">
+                                            <div class="eigyoCell">照会発注</div>
+                                            <div class="eigyoCell">@mj.OrderAblePeriod</div>
+                                        </div>
+                                        <div class="eigyoRow">
+                                            <div class="eigyoCell">発注取消</div>
+                                            <div class="eigyoCell">@mj.CancelAblePeriod</div>
+                                        </div>
+                                        <div class="eigyoRow">
+                                            <div class="eigyoCell">上記以外</div>
+                                            <div class="eigyoCell saict">@mj.ExceptionAboutPeriod</div>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+
+                        </div>
 
                     </div>
 
-                </div>
-                <!-- script-for sticky-nav -->
-
-                <script>
-function odFunction() {
-  var x = document.getElementById("mailbox-content");
-  if (x.style.display === "block") {
-    x.style.display = "none";
-
-  } else {
-    x.style.display = "block";
-  }
-}
- $("#btnb").click(function() {
-  $(this).text() === 'ブロック最小化'
-    ? $(this).text('ブロック最小化')
-    : $(this).text('ブロック表示')
-})
-                </script>
+                </div><!--<div class="odminiblock"><button onclick="odFunction()"  id="btnb" type="button" class="btn btn-secondary">ブロック最小化</button></div>-->
+            </div>
+        </div>
 
 
+    </div>
 
-                <div class="inbox-mail">
+</div>
+<!-- script-for sticky-nav -->
 
-                    <!-- tab content -->
-                    <object data="order_input_table.html" width="100%" height="1200px" type="text/html">
-                        Alternative Content
-                    </object>
+<script>
+    function odFunction() {
+        var x = document.getElementById("mailbox-content");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+
+        } else {
+            x.style.display = "block";
+        }
+    }
+    $("#btnb").click(function () {
+        $(this).text() === 'ブロック最小化'
+            ? $(this).text('ブロック最小化')
+            : $(this).text('ブロック表示')
+    })
+</script>
 
 
 
-                </div>
+<div class="inbox-mail">
+
+    <!-- tab content -->
+    <object data="order_input_table.html" width="100%" height="1200px" type="text/html">
+        Alternative Content
+    </object>
+
+
+
+</div>
