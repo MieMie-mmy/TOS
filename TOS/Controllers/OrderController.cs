@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using TOS_Model;
 
 namespace TOS.Controllers
 {
@@ -16,8 +17,9 @@ namespace TOS.Controllers
 
         public ActionResult Order_Input()
         {
-            string CompanyCD = Session["CompanyCD"].ToString(); ;
-           // ViewData["JobTime"] = 
+            M_JobTimeableModel Mjob = new M_JobTimeableModel();
+            Mjob.CompanyCD = Session["CompanyCD"].ToString(); ;
+            ViewData["JobTime"] = 
             return View();
         }
 
