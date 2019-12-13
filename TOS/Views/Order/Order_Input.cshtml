@@ -1,8 +1,14 @@
 ﻿
 @{
+    
     ViewBag.Title = "Order_Input";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    TOS_Model.M_JobTimeableModel mj = ViewData["JobTime"] as TOS_Model.M_JobTimeableModel;
+    TOS_Model.M_JobTimeableModel mj = new TOS_Model.M_JobTimeableModel();
+    if (ViewData["JobTime"] != null)
+    {
+         mj = ViewData["JobTime"] as TOS_Model.M_JobTimeableModel;
+    }
+   
 }
 
 @section Styles {
@@ -263,11 +269,13 @@
                                 <td class="t70">発送先名</td>
                                 <td>
                                     <div class="btn-group t200">
-                                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-info dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>
+                                          @*<input class="form-control" type="add" />*@
+                                          <input class ="form-control"  type="add" />
+                                        @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-info dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>
                                         <div class="dropdown-menu t200">
                                             <a class="dropdown-item" href="#">キャピタル</a> <a class="dropdown-item" href="#">BCT</a> <a class="dropdown-item" href="#">ACT</a>
 
-                                        </div>
+                                        </div>*@
                                     </div>
                                 </td>
                             </tr>

@@ -22,9 +22,18 @@ namespace TOS.Controllers
         {
             Order_InputBL obl = new Order_InputBL();
             M_JobTimeableModel Mjob = new M_JobTimeableModel();
-            Mjob.CompanyCD = Session["CompanyCD"].ToString(); 
-            ViewData["JobTime"] = obl.JobTimeTable_Select(Mjob);
-            return View();
+            if (Session["CompanyCD"] != null)
+            {
+                Mjob.CompanyCD = Session["CompanyCD"].ToString();
+                ViewData["JobTime"] = obl.JobTimeTable_Select(Mjob);
+                return View();
+            }
+            else
+            {
+                ViewData["JobTime"] = Mjob;
+                return View();
+            }
+
         }
 
         public ActionResult Order_Portal()
