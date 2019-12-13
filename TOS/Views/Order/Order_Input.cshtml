@@ -21,6 +21,8 @@
     <!-- lined-icons -->
     <link rel="stylesheet" href="~/Content/icon-font.min.css" type='text/css' />
     <link rel="stylesheet" href="~/Content/order_portal.css" type='text/css' />
+    <link rel="stylesheet" href="~/Content/order_input.css" type='text/css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <script type="application/x-javascript">
         addEventListener("load", function() {
@@ -201,9 +203,273 @@
 <div class="inbox-mail">
 
     <!-- tab content -->
-    <object data="order_input_table.html" width="100%" height="1200px" type="text/html">
-        Alternative Content
-    </object>
+    @*<object data="order_input_table.html" width="100%" height="1200px" type="text/html">
+            Alternative Content
+        </object>*@
+
+    <table class="tab001">
+        <tbody>
+            <tr>
+                <td class="t20p">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="t70">出荷先名</td>
+                                <td>
+                                    <div class="btn-group t200">
+                                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle t200" data-toggle="dropdown" type="button">ラケット</button>
+                                        <div class="dropdown-menu t200">
+                                            <a class="dropdown-item" href="#">ラケット</a> <a class="dropdown-item" href="#">CCT</a> <a class="dropdown-item" href="#">DCT</a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="t70 textri">郵便番号</td>
+                                <td class="t100"><input class="form-control" type="add" /></td>
+                                <td class="t30"></td>
+                                <td class="t70 textri">電話番号</td>
+                                <td class="t200"><input class="form-control" type="tel" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td>&nbsp;</td>
+                <td>
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="t150 textri"></td>
+                                <td class="t70 textri">
+                                    <div class="textri"><button type="button" class="btn btn-success btnod">✚&nbsp;金額計算</button></div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="t20p">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="t70">発送先名</td>
+                                <td>
+                                    <div class="btn-group t200">
+                                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-info dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>
+                                        <div class="dropdown-menu t200">
+                                            <a class="dropdown-item" href="#">キャピタル</a> <a class="dropdown-item" href="#">BCT</a> <a class="dropdown-item" href="#">ACT</a>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="t30p">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="t70 textri">住所1</td>
+                                <td class="t400"><input class="form-control" type="addres" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="t20p">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="t100 textri">出荷可能日</td>
+                                <td><input class="form-control t350" type="addres" disabled /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="t20p">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="t150 textri"><button type="button" class="btn btn-warning btnod">↺&nbsp;リセット</button></td>
+                                <td class="t100 textri"><button type="button" class="btn btn-danger btnod">▶&nbsp;発注</button></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+            <tr>
+                <td class="t20p">&nbsp;</td>
+                <td class="t30p">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="t70 textri">住所2</td>
+                                <td class="t400"><input class="form-control" type="tel" /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="t20p">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="t100 textri">発注合計金額</td>
+                                <td><input class="form-control" type="tel" disabled /></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+                <td class="t20p">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td class="t20p textri">摘要</td>
+                                <td class="t230"> <textarea class="form-control" id="txtarea" rows="1"></textarea></td>
+                                <script>
+                                    function expandTextarea(id) {
+                                        document.getElementById(id).addEventListener('keyup', function () {
+                                            this.style.overflow = 'hidden';
+                                            this.style.height = 0;
+                                            this.style.height = this.scrollHeight + 'px';
+                                        }, false);
+                                    }
+
+                                    expandTextarea('txtarea');</script>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <!------>
+    <table class="tab002">
+        <tbody>
+            <tr class="tab002tit">
+                <td class="t100">詳細表示</td>
+
+                <td class="t100">メーカー番号</td>
+                <td class="t300">商品名</td>
+                <td class="t100">ブランド</td>
+                <td class="t100">上代</td>
+                <td class="t100">下代</td>
+                <td class="t100">ロット</td>
+                <td class="t200">摘要</td>
+            </tr>
+            <tr>
+                <td class="saict">
+                    <div class="ISHide"><a href="#clearfix" class="hideLink">非表示</a></div>
+                </td>
+
+                <td class="sailf t100">BAQ005</td>
+                <td class="sailf t300">バドミントンシューズ/メンズ（AYTK087）</td>
+                <td class="saict t100">テニック</td>
+                <td class="sair t100">￥7,400</td>
+                <td class="sair t100">￥6,400</td>
+                <td class="saict t100">1</td>
+                <td class="saict t200"><input class="form-control" type="tel" /></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+
+
+
+
+    <script>
+        $(".hideLink").on("click", function () {
+            if ($(this).text() == "非表示") {
+                $(this).text("表示");
+            } else {
+                $(this).text("非表示");
+            }
+            $(".ISProductBody").toggle();
+
+            return false;
+        });
+
+    </script>
+    <div class="inbox-mail ISProductBody">
+
+        <!-- tab content -->
+        <object data="order_input_info.html" width="100%" height="350px" type="text/html">
+            Alternative Content
+        </object>
+
+
+
+    </div>
+    <!------>
+    <!------>
+    <table class="tab002">
+        <tbody>
+            <tr class="tab002tit">
+                <td class="t100">詳細表示</td>
+
+                <td class="t100">メーカー番号</td>
+                <td class="t300">商品名</td>
+                <td class="t100">ブランド</td>
+                <td class="t100">上代</td>
+                <td class="t100">下代</td>
+                <td class="t100">ロット</td>
+                <td class="t200">摘要</td>
+            </tr>
+            <tr>
+                <td class="saict">
+                    <div class="ISHide"><a href="#clearfix" class="hideLinka">非表示</a></div>
+                </td>
+
+                <td class="sailf t100">AAA005</td>
+                <td class="sailf t300">クエークバスター/（KVI205）</td>
+                <td class="saict t100">テニック</td>
+                <td class="sair t100">￥8,400</td>
+                <td class="sair t100">￥9,400</td>
+                <td class="saict t100">2</td>
+                <td class="saict t200"><input class="form-control" type="tel" /></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+
+
+
+
+    <script>
+        $(".hideLinka").on("click", function () {
+            if ($(this).text() == "非表示") {
+                $(this).text("表示");
+            } else {
+                $(this).text("非表示");
+            }
+            $(".ISProductBodya").toggle();
+
+            return false;
+        });
+
+    </script>
+    <div class="inbox-mail ISProductBodya">
+
+        <!-- tab content -->
+        <object data="order_input_infoa.html" width="100%" height="350px" type="text/html">
+            Alternative Content
+        </object>
+
+
+
+    </div>
 
 
 
