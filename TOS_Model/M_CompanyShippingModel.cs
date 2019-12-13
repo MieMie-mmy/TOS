@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TOS_Model
 {
-    public class M_CompanyShipping:BaseModel
+    public class M_CompanyShippingModel:BaseModel
     {
         public string CompanyCD { get; set; }
         public int ShippingID { get; set; }
