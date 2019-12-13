@@ -238,6 +238,10 @@
       <Project>{39b9fe4a-8b33-43a2-a72f-3f2687e96036}</Project>
       <Name>Information_BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Order_History_BL\Order_History_BL.csproj">
+      <Project>{ea0d42b7-f5ce-4efd-abf0-11d6c8e6eb8e}</Project>
+      <Name>Order_History_BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Order_Input_BL\Order_Input_BL.csproj">
       <Project>{3b0c2797-fe7f-44a4-9eb7-90ccc8da066d}</Project>
       <Name>Order_Input_BL</Name>

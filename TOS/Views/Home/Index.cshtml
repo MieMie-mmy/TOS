@@ -4,6 +4,10 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewBag.Title = "Home Page";
 }
+@*@section Styles
+{
+    <link rel="stylesheet" href="@Url.Content("~/Content/style.css")" type='text/css' />
+}*@
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ情報</li>
@@ -35,15 +39,16 @@
 
                     </div>
                     <table class="table">
-                        <tbody>
+
                         <tbody>
                             @foreach (DataRow r in Model.Rows)
                             {
-                                <tr class="table-row">
-                                    <td class="table-text">@r["Date"].ToString()</td>
-                                    <td class="table-text">@r["TitleName"].ToString()</td>
-                                    <td>@r["InformationType"].ToString()</td>
-                                </tr>
+                            <tr class="table-row">
+                                <td class="table-text"><h6>@r["Date"].ToString()</h6></td>
+                                <td class="table-text"><h6><a href="product_details.html">@r["TitleName"].ToString()</a></h6></td>
+                                <td><span>@r["InformationType"].ToString()</span></td>
+                                <td><a href="product_details.html"><a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a></a></td>
+                            </tr>
                             }
                         </tbody>
 
@@ -66,20 +71,20 @@
 
 
                         @*<tr class="table-row">
-                            <td class="table-text">
-                                <h6></h6>
-                            </td>
-                            <td class="table-text">
-                                <h6><a href="product_details.html"></a></h6>
-                            </td>
-                            <td>
-                                <span class="fam"></span>
-                            </td>
-                            <td class="march"></td>
-                            <td>
-                                <a href="product_details.html"><a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a></a>
-                            </td>
-                        </tr>*@
+                                <td class="table-text">
+                                    <h6></h6>
+                                </td>
+                                <td class="table-text">
+                                    <h6><a href="product_details.html"></a></h6>
+                                </td>
+                                <td>
+                                    <span class="fam"></span>
+                                </td>
+                                <td class="march"></td>
+                                <td>
+                                    <a href="product_details.html"><a href="product_details.html"><i class="fa fa-external-link icon-state-warning"></i></a></a>
+                                </td>
+                            </tr>*@
 
                         @*<tr class="table-row">
                                 <td class="table-text">

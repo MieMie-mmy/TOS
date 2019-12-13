@@ -3,15 +3,22 @@
 .histoptabtit{background-color: #003492;color: white;text-align: center;}
 .histoptabno{background-color: #FFF;text-align: right;border: 0px;}
 .tab001{font-size: 0.8em;width: 100%;}
-.tab002{width: 1500px;}
-.tab002 td{ border: 1px solid #999999;padding: 5px;}
+.tab002{width: 100%;
+}
+  .tab002 td {
+        border: 1px solid #999999;
+        padding: 5px;
+    }
 .tab002tit{background-color: #003492;color: white;text-align: center;}
 .hacyuban td{padding-left: 2px;padding-right: 2px;line-height:1em;border-spacing: 0.1em;}
 .mekaban td{border: 1px solid #999999;}
 .mekabantit{background-color: #003492;color: white;text-align: center;padding-left: 10px;padding-right: 10px;}
 .btn{font-size: 0.8em;}
 .form-control{height:2em;}
-.footdiv td{ padding: 5px;border: 0px solid #999999;}
+.footdiv td{ padding: 5px;
+             border: 0px solid #999999;
+
+}
 .footdiv {display:inline-block;}
 .foottd{ border: 1px solid #FFF;}
 

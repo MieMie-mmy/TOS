@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order_Portal_BL", "Order_Po
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order_Input_BL", "Order_Input_BL\Order_Input_BL.csproj", "{3B0C2797-FE7F-44A4-9EB7-90CCC8DA066D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Order_History_BL", "Order_History_BL\Order_History_BL.csproj", "{EA0D42B7-F5CE-4EFD-ABF0-11D6C8E6EB8E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{3B0C2797-FE7F-44A4-9EB7-90CCC8DA066D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3B0C2797-FE7F-44A4-9EB7-90CCC8DA066D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3B0C2797-FE7F-44A4-9EB7-90CCC8DA066D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA0D42B7-F5CE-4EFD-ABF0-11D6C8E6EB8E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA0D42B7-F5CE-4EFD-ABF0-11D6C8E6EB8E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA0D42B7-F5CE-4EFD-ABF0-11D6C8E6EB8E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA0D42B7-F5CE-4EFD-ABF0-11D6C8E6EB8E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
