@@ -22,15 +22,15 @@ namespace TOS
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
                       "~/Scripts/bootstrap.js",
                       "~/Scripts/bootstrap.min.js",
-                      "~/Scripts/Charts.js",
-                      "~/Scripts/jquery-2.1.4.min.js",
-                      "~/Scripts/jquery-3.3.1intellisense.js",
+                      //"~/Scripts/Charts.js",
+                      //"~/Scripts/jquery-2.1.4.min.js",
+                      //"~/Scripts/jquery-3.3.1intellisense.js",
                       "~/Scripts/jquery-3.3.1.js",
                       "~/Scripts/jquery-3.3.1.min.js",
                       "~/Scripts/jquery-3.3.1.min.map",
                       "~/Scripts/jquery.basictable.min.js",
-                      "~/Scripts/jquery.jqcandlestick.min.js",
-                      "~/Scripts/jquery.nicescroll.js",
+                      //"~/Scripts/jquery.jqcandlestick.min.js",
+                     // "~/Scripts/jquery.nicescroll.js",
                       "~/Scripts/jquery.jquery-ui.js",
                       "~/Scripts/lightbox-plus-jquery.min.js",
                       "~/Scripts/monthly.js",
@@ -45,23 +45,23 @@ namespace TOS
                       "~/Content/bootstrap.min.css",
                       "~/Content/manager-style.css",
                       "~/Content/basictable.css",
-                      "~/Content/bootstrap-theme.css",
-                      "~/Content/bootstrap-theme.css.map",
-                      "~/Content/bootstrap-theme.min.css",
-                      "~/Content/boostrap-theme.min.css.map",
+                      //"~/Content/bootstrap-theme.css",
+                      //"~/Content/bootstrap-theme.css.map",
+                      //"~/Content/bootstrap-theme.min.css",
+                      //"~/Content/boostrap-theme.min.css.map",
                       "~/Content/bootstrap.css.map",
                       "~/Content/bootstrap.min.css.map",
                       "~/Content/font-awesome.css",
                       "~/Content/icon-font.min.css",
                       "~/Content/jqcandlestick.css",
-                      "~/Content/jquery-ui.css",
+                     "~/Content/jquery-ui.css",
                       "~/Content/lightbox.css",
                       "~/Content/monthly.css",
                       "~/Content/morris.css",
                       "~/Content/news.css",
-                      "~/Content/order_history.css",
-                      "~/Content/order_input.css",
-                      "~/Content/order_portal.css"
+                      "~/Content/order_history.css"
+                     // "~/Content/order_input.css"
+                      //"~/Content/order_portal.css"
                       ));
         }
     }
