@@ -6,7 +6,7 @@ namespace TOS_DL
 {
     public class BaseDL
     {
-        public string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        public string conStr = ConfigurationManager.ConnectionStrings["TOSConnection"].ConnectionString;
         public DataTable SelectData(string sSQL, params SqlParameter[] para)
         {
             DataTable dt = new DataTable();

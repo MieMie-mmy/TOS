@@ -4,28 +4,26 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TOS_Model;
-using Order_History_BL;
-
+using Order_Input_BL;
 
 namespace TOS.Controllers
 {
+   
     public class OrderController : Controller
     {
+       
         // GET: Order_History
         public ActionResult Order_History()
         {
-            T_OrderHistoryModel general_ordertable1 = new T_OrderHistoryModel();
-            Order_HistoryBL order_bl = new Order_HistoryBL();
-            general_ordertable1 = order_bl._SelectOrder();
-           
-            return View(general_ordertable1);
+            return View();
         }
 
         public ActionResult Order_Input()
         {
+            Order_InputBL obl = new Order_InputBL();
             M_JobTimeableModel Mjob = new M_JobTimeableModel();
             Mjob.CompanyCD = Session["CompanyCD"].ToString(); ;
-           // ViewData["JobTime"] = 
+            ViewData["JobTime"] = obl.JobTimeTable_Select(Mjob);
             return View();
         }
 
