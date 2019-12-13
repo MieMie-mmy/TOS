@@ -46,6 +46,7 @@
     <Compile Include="M_JobTimeableModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T_InformationModel.cs" />
+    <Compile Include="T_OrderDetailModel.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
