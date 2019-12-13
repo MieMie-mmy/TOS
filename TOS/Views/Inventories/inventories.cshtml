@@ -3,6 +3,35 @@
     ViewBag.Title = "inventories";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Styles {
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="~/Content/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="~/Content/manager-style.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Content/morris.css" type="text/css" />
+    <!-- Graph CSS -->
+    <link href="~/Content/font-awesome.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <!-- //jQuery -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css' />
+    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="~/Content/icon-font.min.css" type='text/css' />
+    <link rel="stylesheet" href="~/Content/order_history.css" type='text/css' />
+    <!-- //lined-icons -->
+    <!-- //lined-icons -->
+
+}
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>在庫照会</li>
@@ -103,7 +132,7 @@
                                             <div class="dropdown-menu ">
                                                 <a class="dropdown-item" href="#">10</a>
                                                 <a class="dropdown-item" href="#">30</a>
-                                                <a class="dropdown-item" href="#">50</a> 
+                                                <a class="dropdown-item" href="#">50</a>
                                                 <a class="dropdown-item" href="#">100</a>
 
                                             </div>
@@ -113,159 +142,159 @@
                                 </tr>
                             </tbody>
                         </table>
-                       
-                            <div class="tab-content tab-content-in w3 orderlist" style="overflow:scroll;overflow-x:scroll;overflow-y:hidden;">
-                                <div class="tab-pane text-style active" id="tab1">
+
+                        <div class="tab-content tab-content-in w3 orderlist" style="overflow:scroll;overflow-x:scroll;overflow-y:hidden;">
+                            <div class="tab-pane text-style active" id="tab1">
 
 
-                                    <div class="mailbox-content">
+                                <div class="mailbox-content">
 
-                                        <!---->
-                                        <table class="tab002">
-                                            <tbody>
-                                                <tr class="tab002tit">
-                                                    <td class="t30">No</td>
-                                                    <td class="t100">メーカー品番</td>
-                                                    <td class="t250">商品名</td>
-                                                    <td class="t70">サイズ</td>
-                                                    <td class="t100">カラー</td>
-                                                    <td class="t100">在庫数</td>
-                                                    <td class="t200">ブランド</td>
-                                                    <td class="t100">品目</td>
-                                                    <td class="t150">JANコード</td>
-                                                </tr>
-                                                <tr class="odr1">
-                                                    <td class="saict">1</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1 saisinHeading">
-                                                    <td class="saict">2</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1">
-                                                    <td class="saict">3</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1 saisinHeading">
-                                                    <td class="saict">4</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1">
-                                                    <td class="saict">5</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1 saisinHeading">
-                                                    <td class="saict">6</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1">
-                                                    <td class="saict">7</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1 saisinHeading">
-                                                    <td class="saict">8</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1">
-                                                    <td class="saict">9</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1 saisinHeading">
-                                                    <td class="saict">10</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-
-
-                                            </tbody>
-                                        </table>
-
-                                        <!---->
-                                    </div>
+                                    <!---->
+                                    <table class="tab002">
+                                        <tbody>
+                                            <tr class="tab002tit">
+                                                <td class="t30">No</td>
+                                                <td class="t100">メーカー品番</td>
+                                                <td class="t250">商品名</td>
+                                                <td class="t70">サイズ</td>
+                                                <td class="t100">カラー</td>
+                                                <td class="t100">在庫数</td>
+                                                <td class="t200">ブランド</td>
+                                                <td class="t100">品目</td>
+                                                <td class="t150">JANコード</td>
+                                            </tr>
+                                            <tr class="odr1">
+                                                <td class="saict">1</td>
+                                                <td class="sailf">BAQ005</td>
+                                                <td class="sailf">バドミントンシューズ</td>
+                                                <td class="saict">22.5</td>
+                                                <td class="saict">レッド</td>
+                                                <td class="saict">5</td>
+                                                <td class="saict">テニック</td>
+                                                <td class="sair">シューズ</td>
+                                                <td class="sair">4914145876522</td>
+                                            </tr>
+                                            <tr class="odr1 saisinHeading">
+                                                <td class="saict">2</td>
+                                                <td class="sailf">BAQ005</td>
+                                                <td class="sailf">バドミントンシューズ</td>
+                                                <td class="saict">22.5</td>
+                                                <td class="saict">レッド</td>
+                                                <td class="saict">5</td>
+                                                <td class="saict">テニック</td>
+                                                <td class="sair">シューズ</td>
+                                                <td class="sair">4914145876522</td>
+                                            </tr>
+                                            <tr class="odr1">
+                                                <td class="saict">3</td>
+                                                <td class="sailf">BAQ005</td>
+                                                <td class="sailf">バドミントンシューズ</td>
+                                                <td class="saict">22.5</td>
+                                                <td class="saict">レッド</td>
+                                                <td class="saict">5</td>
+                                                <td class="saict">テニック</td>
+                                                <td class="sair">シューズ</td>
+                                                <td class="sair">4914145876522</td>
+                                            </tr>
+                                            <tr class="odr1 saisinHeading">
+                                                <td class="saict">4</td>
+                                                <td class="sailf">BAQ005</td>
+                                                <td class="sailf">バドミントンシューズ</td>
+                                                <td class="saict">22.5</td>
+                                                <td class="saict">レッド</td>
+                                                <td class="saict">5</td>
+                                                <td class="saict">テニック</td>
+                                                <td class="sair">シューズ</td>
+                                                <td class="sair">4914145876522</td>
+                                            </tr>
+                                            <tr class="odr1">
+                                                <td class="saict">5</td>
+                                                <td class="sailf">BAQ005</td>
+                                                <td class="sailf">バドミントンシューズ</td>
+                                                <td class="saict">22.5</td>
+                                                <td class="saict">レッド</td>
+                                                <td class="saict">5</td>
+                                                <td class="saict">テニック</td>
+                                                <td class="sair">シューズ</td>
+                                                <td class="sair">4914145876522</td>
+                                            </tr>
+                                            <tr class="odr1 saisinHeading">
+                                                <td class="saict">6</td>
+                                                <td class="sailf">BAQ005</td>
+                                                <td class="sailf">バドミントンシューズ</td>
+                                                <td class="saict">22.5</td>
+                                                <td class="saict">レッド</td>
+                                                <td class="saict">5</td>
+                                                <td class="saict">テニック</td>
+                                                <td class="sair">シューズ</td>
+                                                <td class="sair">4914145876522</td>
+                                            </tr>
+                                            <tr class="odr1">
+                                                <td class="saict">7</td>
+                                                <td class="sailf">BAQ005</td>
+                                                <td class="sailf">バドミントンシューズ</td>
+                                                <td class="saict">22.5</td>
+                                                <td class="saict">レッド</td>
+                                                <td class="saict">5</td>
+                                                <td class="saict">テニック</td>
+                                                <td class="sair">シューズ</td>
+                                                <td class="sair">4914145876522</td>
+                                            </tr>
+                                            <tr class="odr1 saisinHeading">
+                                                <td class="saict">8</td>
+                                                <td class="sailf">BAQ005</td>
+                                                <td class="sailf">バドミントンシューズ</td>
+                                                <td class="saict">22.5</td>
+                                                <td class="saict">レッド</td>
+                                                <td class="saict">5</td>
+                                                <td class="saict">テニック</td>
+                                                <td class="sair">シューズ</td>
+                                                <td class="sair">4914145876522</td>
+                                            </tr>
+                                            <tr class="odr1">
+                                                <td class="saict">9</td>
+                                                <td class="sailf">BAQ005</td>
+                                                <td class="sailf">バドミントンシューズ</td>
+                                                <td class="saict">22.5</td>
+                                                <td class="saict">レッド</td>
+                                                <td class="saict">5</td>
+                                                <td class="saict">テニック</td>
+                                                <td class="sair">シューズ</td>
+                                                <td class="sair">4914145876522</td>
+                                            </tr>
+                                            <tr class="odr1 saisinHeading">
+                                                <td class="saict">10</td>
+                                                <td class="sailf">BAQ005</td>
+                                                <td class="sailf">バドミントンシューズ</td>
+                                                <td class="saict">22.5</td>
+                                                <td class="saict">レッド</td>
+                                                <td class="saict">5</td>
+                                                <td class="saict">テニック</td>
+                                                <td class="sair">シューズ</td>
+                                                <td class="sair">4914145876522</td>
+                                            </tr>
 
 
+                                        </tbody>
+                                    </table>
 
+                                    <!---->
                                 </div>
+
+
+
                             </div>
+                        </div>
 
 
-                            @*<div class="inbox-mail ISProductBody">*@
+                        @*<div class="inbox-mail ISProductBody">*@
 
-                            <!-- tab content -->
-                            @*<object data="inventories_list.html" width="100%" height="410px" type="text/html">
-                    Alternative Content
-                </object>
+                        <!-- tab content -->
+                        @*<object data="inventories_list.html" width="100%" height="410px" type="text/html">
+                                    Alternative Content
+                                </object>
 
-            </div>*@
+                            </div>*@
 
                     </div>
                     <!--<div class="odminiblock"><button onclick="odFunction()"  id="btnb" type="button" class="btn btn-secondary">ブロック最小化</button></div>-->
