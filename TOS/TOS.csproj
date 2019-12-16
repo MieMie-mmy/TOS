@@ -143,6 +143,8 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\CdnDatatable.css" />
+    <Content Include="Content\CdnDatatable.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\icon-font.min.css" />
     <Content Include="Content\jqcandlestick.css" />
@@ -170,6 +172,7 @@
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
+    <Content Include="Scripts\CdnDatatable.js" />
     <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\jquery-2.1.4.min.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
@@ -209,7 +212,12 @@
     <Content Include="Views\Order\Order_Portal.cshtml" />
     <Content Include="Views\Home\product_details.cshtml" />
     <Content Include="Views\Registrations\Company_Entry.cshtml" />
-    <Content Include="Views\Inventories\inventories.cshtml" />
+    <Content Include="..\..\..\..\..\backup\inventories.cshtml">
+      <Link>Views\Inventories\inventories.cshtml</Link>
+    </Content>
+    <Content Include="Views\Registration\Company_Entry.cshtml" />
+    <Content Include="Views\Inventory\Inventories.cshtml" />
+    <Content Include="Views\Inventory\Inventories_list.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -264,6 +272,13 @@
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
   <Target Name="MvcBuildViews" AfterTargets="AfterBuild" Condition="'$(MvcBuildViews)'=='true'">
     <AspNetCompiler VirtualPath="temp" PhysicalPath="$(WebProjectOutputDir)" />
+  </Target>
+  <Target Name="CopyRoslynFiles" AfterTargets="AfterBuild" Condition="!$(Disable_CopyWebApplication) And '$(OutDir)' != '$(OutputPath)'">
+    <ItemGroup>
+      <RoslynFiles Include="$(CscToolPath)\*" />
+    </ItemGroup>
+    <MakeDir Directories="$(WebProjectOutputDir)\bin\roslyn" />
+    <Copy SourceFiles="@(RoslynFiles)" DestinationFolder="$(WebProjectOutputDir)\bin\roslyn" SkipUnchangedFiles="true" Retries="$(CopyRetryCount)" RetryDelayMilliseconds="$(CopyRetryDelayMilliseconds)" />
   </Target>
   <ProjectExtensions>
     <VisualStudio>

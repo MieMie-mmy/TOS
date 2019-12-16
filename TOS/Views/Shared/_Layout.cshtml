@@ -18,33 +18,23 @@
     <title>「@ViewBag.Title」TennicOrderSystem | TENNIC</title>
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
-    @RenderSection("Styles",false)
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <script type="application/x-javascript">
-        addEventListener("load", function() {
-            setTimeout(hideURLbar, 0);
-        }, false);
-
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
-    <!-- Bootstrap Core CSS -->
-    @*<link href="@Url.Content("~/Content/bootstrap.min.css")" rel='stylesheet' type='text/css' />*@
-    <!-- Custom CSS -->
-    @*<link href="@Url.Content("~/Content/manager-style.css")" rel='stylesheet' type='text/css' />
-        <link rel="stylesheet" href="@Url.Content("~/Content/morris.css")" type="text/css" />
-        <!-- Graph CSS -->
-        <link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet">
-        <!-- jQuery -->
-        <script src="~/Scripts/jquery-2.1.4.min.js"></script>*@
-    <!-- //jQuery -->
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <link href="@Url.Content("~/Content/CdnDatatable.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/manager-style.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/morris.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/icon-font.min.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/basictable.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/jqcandlestick.css")" rel="stylesheet" type="text/css" />
+    <link href="@Url.Content("~/Content/icon-font.min.css")" rel="stylesheet" type="text/css" />
     <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css' />
     <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-    <!-- lined-icons -->
-    @*<link rel="stylesheet" href="@Url.Content("~/Content/icon-font.min.css")" type='text/css' />*@
-    <!-- //lined-icons -->
+
+    @RenderSection("Styles", false)
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 </head>
 
 <body>
@@ -82,20 +72,6 @@
                 <!--heder end here-->
                 @RenderBody()
                 <!-- script-for sticky-nav -->
-                <script>
-                    $(document).ready(function () {
-                        var navoffeset = $(".header-main").offset().top;
-                        $(window).scroll(function () {
-                            var scrollpos = $(window).scrollTop();
-                            if (scrollpos >= navoffeset) {
-                                $(".header-main").addClass("fixed");
-                            } else {
-                                $(".header-main").removeClass("fixed");
-                            }
-                        });
-
-                    });
-                </script>
                 <!-- /script-for sticky-nav -->
                 <!--inner block start here-->
                 <div class="inner-block">
@@ -168,6 +144,41 @@
         </div>
         <div class="clearfix"></div>
     </div>
+
+    <!--js -->
+    @*<script src="~/Scripts/jquery.nicescroll.js"></script>
+        <script src="~/Scripts/scripts.js"></script>
+         Bootstrap Core JavaScript
+        <script src="~/Scripts/bootstrap.min.js"></script>*@
+    <!-- /Bootstrap Core JavaScript -->
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    <script src="@Url.Content("~/Scripts/jquery-3.3.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/CdnDatatable.js")"></script>
+    @RenderSection("scripts", required: false)
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+    <script>
+        $(document).ready(function () {
+            var navoffeset = $(".header-main").offset().top;
+            $(window).scroll(function () {
+                var scrollpos = $(window).scrollTop();
+                if (scrollpos >= navoffeset) {
+                    $(".header-main").addClass("fixed");
+                } else {
+                    $(".header-main").removeClass("fixed");
+                }
+            });
+
+        });
+    </script>
     <script>
         var toggle = true;
 
@@ -189,15 +200,6 @@
             toggle = !toggle;
         });
     </script>
-    <!--js -->
-    @*<script src="~/Scripts/jquery.nicescroll.js"></script>
-        <script src="~/Scripts/scripts.js"></script>
-         Bootstrap Core JavaScript
-        <script src="~/Scripts/bootstrap.min.js"></script>*@
-    <!-- /Bootstrap Core JavaScript -->
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
 </body>
 </html>
 
