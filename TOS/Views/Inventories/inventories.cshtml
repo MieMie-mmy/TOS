@@ -1,11 +1,8 @@
 ﻿@model TOS_Model.T_InventoriesModel
 @{
-    /**/
-
     ViewBag.Title = "inventories";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 @section Styles {
     <script type="application/x-javascript">
         addEventListener("load", function() {
@@ -62,24 +59,21 @@
                                                     <td class="t100 sair">ブランド</td>
                                                     <td>
                                                         <div class="btn-group t200">
-                                                            @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-success dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>*@
-                                                            @Html.DropDownList("ddlBrand", new SelectList(Enumerable.Empty<SelectListItem>(), "id", "name"), "キャピタル",
-                                       new { @class = "btn btn-success dropdown-toggle t200" })
+                                                            <button aria-expanded="false" aria-haspopup="true" class="btn btn-success dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>
                                                             @*<div class="dropdown-menu t200">
 
-            <a class="dropdown-item" href="#">キャピタル</a>
-            <a class="dropdown-item" href="#">BCT</a>
-            <a class="dropdown-item" href="#">ACT</a>
+                                                                    <a class="dropdown-item" href="#">キャピタル</a>
+                                                                    <a class="dropdown-item" href="#">BCT</a>
+                                                                    <a class="dropdown-item" href="#">ACT</a>
 
-        </div>*@
-                                                            @*@Html.DropDownList(ddlBrand, new List<SelectListItem> {
-           new SelectListItem { Value = " " , Text = " " },
-           new SelectListItem { Value = "Capital" , Text = "キャピタル" },
-           new SelectListItem { Value = "BCT" , Text = "BCT" },
-           new SelectListItem { Value = "ACT" , Text = "ACT" },
+                                                                </div>*@
+                                                            @Html.DropDownListFor(m=>m.BrandName, new List<SelectListItem> {
+                  new SelectListItem { Value = " " , Text = " " },
+                  new SelectListItem { Value = "Capital" , Text = "キャピタル" },
+                  new SelectListItem { Value = "BCT" , Text = "BCT" },
+                  new SelectListItem { Value = "ACT" , Text = "ACT" },
 
-        }, new { @class = "dropdown-menu t200" }*@
-
+               }, new { @class = "dropdown-menu t200" })
 
 
 
@@ -132,14 +126,14 @@
                                                     <td class="t230"> <textarea class="form-control" id="txtarea" rows="1"></textarea></td>
                                                     <script>
                                                         function expandTextarea(id) {
-                                                                document.getElementById(id).addEventListener('keyup', function () {
-                                                                    this.style.overflow = 'hidden';
-                                                                    this.style.height = 0;
-                                                                    this.style.height = this.scrollHeight + 'px';
-                                                                }, false);
-                                                            }
+                                                            document.getElementById(id).addEventListener('keyup', function () {
+                                                                this.style.overflow = 'hidden';
+                                                                this.style.height = 0;
+                                                                this.style.height = this.scrollHeight + 'px';
+                                                            }, false);
+                                                        }
 
-                                                            expandTextarea('txtarea');</script>
+                                                        expandTextarea('txtarea');</script>
                                                 </tr>
                                             </tbody>
                                         </table>
