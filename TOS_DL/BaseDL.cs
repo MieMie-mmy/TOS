@@ -6,7 +6,7 @@ namespace TOS_DL
 {
     public class BaseDL
     {
-        public string conStr = ConfigurationManager.ConnectionStrings["TOSConnection"].ConnectionString;
+        public static string conStr = ConfigurationManager.ConnectionStrings["TOSConnection"].ConnectionString;
         public DataTable SelectData(string sSQL, params SqlParameter[] para)
         {
             DataTable dt = new DataTable();
@@ -20,6 +20,15 @@ namespace TOS_DL
                 adapt.Fill(dt);
                 newCon.Close();
             }
+            return dt;
+        }
+
+        public static DataTable GetBrandNameList()
+        {
+            DataTable dt = new DataTable();
+            string sql = @"select BrandName From M_Brand";
+            SqlDataAdapter adpt = new SqlDataAdapter(sql, conStr);
+            adpt.Fill(dt);
             return dt;
         }
 
