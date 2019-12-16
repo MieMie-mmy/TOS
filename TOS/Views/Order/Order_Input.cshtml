@@ -1,14 +1,20 @@
 ﻿
 @{
-    
+
     ViewBag.Title = "Order_Input";
     Layout = "~/Views/Shared/_Layout.cshtml";
     TOS_Model.M_JobTimeableModel mj = new TOS_Model.M_JobTimeableModel();
+    TOS_Model.M_CompanyShippingModel mcs = new TOS_Model.M_CompanyShippingModel();
     if (ViewData["JobTime"] != null)
     {
-         mj = ViewData["JobTime"] as TOS_Model.M_JobTimeableModel;
+        mj = ViewData["JobTime"] as TOS_Model.M_JobTimeableModel;
+
     }
-   
+    if (ViewData["ShippingName"] != null)
+    {
+        mcs = ViewData["ShippingName"] as TOS_Model.M_CompanyShippingModel;
+    }
+
 }
 
 @section Styles {
@@ -26,7 +32,7 @@
     <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <!-- lined-icons -->
     <link rel="stylesheet" href="~/Content/icon-font.min.css" type='text/css' />
-    <link rel="stylesheet" href="~/Content/order_portal.css" type='text/css' />
+    @*<link rel="stylesheet" href="~/Content/order_portal.css" type='text/css' />*@
     <link rel="stylesheet" href="~/Content/order_input.css" type='text/css' />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
@@ -38,6 +44,29 @@
         function hideURLbar() {
             window.scrollTo(0, 1);
         }
+    </script>
+}
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Order/ShippingName_Select', // get mall
+                type: "GET",
+                dataType: "JSON",
+                dataSrc: '',
+                success: function (SP) {
+                    $.each(SP, function (i, name) {
+                        $("#ddlShippingName").append(
+                            $('<option></option>').val(name.ShippingID).html(name.ShippingName));
+                    });
+                }
+            });
+        });
+
+        $("#btnreset").click(function () {
+            alert("reset");
+            $('.tab001').find('input: Text').val('');
+        });
     </script>
 }
 <!--heder end here-->
@@ -206,279 +235,639 @@
 
 
 
-<div class="inbox-mail">
+<div class="tab-content tab-content-in w3 orderlist">
+    <div class="tab-pane text-style active" id="tab1">
+        <div class="inbox-right">
 
-    <!-- tab content -->
-    @*<object data="order_input_table.html" width="100%" height="1200px" type="text/html">
-            Alternative Content
-        </object>*@
+            <!-- tab content -->
+            @*<object data="order_input_table.html" width="100%" height="1200px" type="text/html">
+                    Alternative Content
+                </object>*@
 
-    <table class="tab001">
-        <tbody>
-            <tr>
-                <td class="t20p">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="t70">出荷先名</td>
-                                <td>
-                                    <div class="btn-group t200">
-                                        <button aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle t200" data-toggle="dropdown" type="button">ラケット</button>
-                                        <div class="dropdown-menu t200">
-                                            <a class="dropdown-item" href="#">ラケット</a> <a class="dropdown-item" href="#">CCT</a> <a class="dropdown-item" href="#">DCT</a>
+            <table class="tab001">
+                <tbody>
+                    <tr>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t70">出荷先名</td>
+                                        <td>
+                                            @*<div class="btn-group t200">*@
+                                            @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle t200" data-toggle="dropdown" type="button">ラケット</button>*@
+                                            @*<div class="dropdown-menu t200">*@
+                                            @*@Html.DropDownList("ddlShippingName", new SelectList(Enumerable.Empty<SelectListItem>()), "")*@
+                                            @Html.DropDownList("ddlShippingName",
+                          new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
+                          new { @class = "form-control input-sm ",width = "150px" })
 
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="t70 textri">郵便番号</td>
-                                <td class="t100"><input class="form-control" type="add" /></td>
-                                <td class="t30"></td>
-                                <td class="t70 textri">電話番号</td>
-                                <td class="t200"><input class="form-control" type="tel" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td>&nbsp;</td>
-                <td>
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="t150 textri"></td>
-                                <td class="t70 textri">
-                                    <div class="textri"><button type="button" class="btn btn-success btnod">✚&nbsp;金額計算</button></div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td class="t20p">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="t70">発送先名</td>
-                                <td>
-                                    <div class="btn-group t200">
-                                          @*<input class="form-control" type="add" />*@
-                                          <input class ="form-control"  type="add" />
-                                        @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-info dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>
-                                        <div class="dropdown-menu t200">
-                                            <a class="dropdown-item" href="#">キャピタル</a> <a class="dropdown-item" href="#">BCT</a> <a class="dropdown-item" href="#">ACT</a>
+                                            @*</div>*@
+                                            @*</div>*@
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t70 textri">郵便番号</td>
+                                        <td class="t100"><input class="form-control" type="text" /></td>
+                                        <td class="t30"></td>
+                                        <td class="t70 textri">電話番号</td>
+                                        <td class="t200"><input class="form-control" type="text" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t150 textri"></td>
+                                        <td class="t70 textri">
+                                            <div class="textri"><button type="button" class="btn btn-success btnod">✚&nbsp;金額計算</button></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t70">発送先名</td>
+                                        <td>
+                                            <div class="btn-group t200">
+                                                @*<input class="form-control" type="add" />*@
+                                                <input class="form-control" type="text" />
+                                                @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-info dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>
+                                                    <div class="dropdown-menu t200">
+                                                        <a class="dropdown-item" href="#">キャピタル</a> <a class="dropdown-item" href="#">BCT</a> <a class="dropdown-item" href="#">ACT</a>
 
-                                        </div>*@
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td class="t30p">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="t70 textri">住所1</td>
-                                <td class="t400"><input class="form-control" type="addres" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td class="t20p">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="t100 textri">出荷可能日</td>
-                                <td><input class="form-control t350" type="addres" disabled /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td class="t20p">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="t150 textri"><button type="button" class="btn btn-warning btnod">↺&nbsp;リセット</button></td>
-                                <td class="t100 textri"><button type="button" class="btn btn-danger btnod">▶&nbsp;発注</button></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-            <tr>
-                <td class="t20p">&nbsp;</td>
-                <td class="t30p">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="t70 textri">住所2</td>
-                                <td class="t400"><input class="form-control" type="tel" /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td class="t20p">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="t100 textri">発注合計金額</td>
-                                <td><input class="form-control" type="tel" disabled /></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-                <td class="t20p">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td class="t20p textri">摘要</td>
-                                <td class="t230"> <textarea class="form-control" id="txtarea" rows="1"></textarea></td>
-                                <script>
-                                    function expandTextarea(id) {
-                                        document.getElementById(id).addEventListener('keyup', function () {
-                                            this.style.overflow = 'hidden';
-                                            this.style.height = 0;
-                                            this.style.height = this.scrollHeight + 'px';
-                                        }, false);
-                                    }
+                                                    </div>*@
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="t30p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t70 textri">住所1</td>
+                                        <td class="t400"><input class="form-control" type="text" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t100 textri">出荷可能日</td>
+                                        <td><input class="form-control t350" type="text" disabled /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t150 textri"><button ID="btnreset" type="reset" class="btn btn-warning btnod">↺&nbsp;リセット</button></td>
+                                        <td class="t100 textri"><button type="button" class="btn btn-danger btnod">▶&nbsp;発注</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t20p">&nbsp;</td>
+                        <td class="t30p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t70 textri">住所2</td>
+                                        <td class="t400"><input class="form-control" type="text" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t100 textri">発注合計金額</td>
+                                        <td><input class="form-control" type="text" disabled /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t20p textri">摘要</td>
+                                        <td class="t230"> <textarea class="form-control" id="txtarea" rows="1"></textarea></td>
+                                        <script>
 
-                                    expandTextarea('txtarea');</script>
-                            </tr>
-                        </tbody>
-                    </table>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
-    <!------>
-    <table class="tab002">
-        <tbody>
-            <tr class="tab002tit">
-                <td class="t100">詳細表示</td>
+                                            function expandTextarea(id) {
+                                                document.getElementById(id).addEventListener('keyup', function () {
+                                                    this.style.overflow = 'hidden';
+                                                    this.style.height = 0;
+                                                    this.style.height = this.scrollHeight + 'px';
+                                                }, false);
+                                            }
 
-                <td class="t100">メーカー番号</td>
-                <td class="t300">商品名</td>
-                <td class="t100">ブランド</td>
-                <td class="t100">上代</td>
-                <td class="t100">下代</td>
-                <td class="t100">ロット</td>
-                <td class="t200">摘要</td>
-            </tr>
-            <tr>
-                <td class="saict">
-                    <div class="ISHide"><a href="#clearfix" class="hideLink">非表示</a></div>
-                </td>
+                                            expandTextarea('txtarea');
+                                        </script>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <!------>
+            <table class="tab002">
+                <tbody>
+                    <tr class="tab002tit">
+                        <td class="t100">詳細表示</td>
 
-                <td class="sailf t100">BAQ005</td>
-                <td class="sailf t300">バドミントンシューズ/メンズ（AYTK087）</td>
-                <td class="saict t100">テニック</td>
-                <td class="sair t100">￥7,400</td>
-                <td class="sair t100">￥6,400</td>
-                <td class="saict t100">1</td>
-                <td class="saict t200"><input class="form-control" type="tel" /></td>
-            </tr>
+                        <td class="t100">メーカー番号</td>
+                        <td class="t300">商品名</td>
+                        <td class="t100">ブランド</td>
+                        <td class="t100">上代</td>
+                        <td class="t100">下代</td>
+                        <td class="t100">ロット</td>
+                        <td class="t200">摘要</td>
+                    </tr>
+                    <tr>
+                        <td class="saict">
+                            <div class="ISHide"><a href="#clearfix" class="hideLink">非表示</a></div>
+                        </td>
 
-
-        </tbody>
-    </table>
-
-
-
+                        <td class="sailf t100">BAQ005</td>
+                        <td class="sailf t300">バドミントンシューズ/メンズ（AYTK087）</td>
+                        <td class="saict t100">テニック</td>
+                        <td class="sair t100">￥7,400</td>
+                        <td class="sair t100">￥6,400</td>
+                        <td class="saict t100">1</td>
+                        <td class="saict t200"><input class="form-control" type="tel" /></td>
+                    </tr>
 
 
-    <script>
-        $(".hideLink").on("click", function () {
-            if ($(this).text() == "非表示") {
-                $(this).text("表示");
-            } else {
-                $(this).text("非表示");
-            }
-            $(".ISProductBody").toggle();
-
-            return false;
-        });
-
-    </script>
-    <div class="inbox-mail ISProductBody">
-
-        <!-- tab content -->
-        <object data="order_input_info.html" width="100%" height="350px" type="text/html">
-            Alternative Content
-        </object>
+                </tbody>
+            </table>
 
 
 
+
+
+            <script>
+
+                $(".hideLink").on("click", function () {
+                    if ($(this).text() == "非表示") {
+                        $(this).text("表示");
+                    } else {
+                        $(this).text("非表示");
+                    }
+                    $(".ISProductBody").toggle();
+
+                    return false;
+                });
+
+            </script>
+            <div class="inbox-mail ISProductBody">
+
+                <!-- tab content -->
+                @*<object data="order_input_info.html" width="100%" height="350px" type="text/html">
+                        Alternative Content
+                    </object>*@
+                <div class="tab-content tab-content-in w3 orderlist">
+                    <div class="tab-pane text-style active" id="tab1">
+
+
+                        <div class="mailbox-content">
+
+                            <table class="">
+                                <tbody>
+                                    <tr>
+                                        <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                                        <td>
+                                            <table class="tab002 t2000">
+                                                <tbody>
+
+                                                    <tr class="odrinfo">
+                                                        <td class="t300 saict tab002tit ">摘要</td>
+                                                        <td class="t200 tab002tit saict">サイズｘカラー</td>
+                                                        <td class="t70 saict">22.5</td>
+                                                        <td class="t70 saict">23</td>
+                                                        <td class="t70 saict">23.5</td>
+                                                        <td class="t70 saict">24</td>
+                                                        <td class="t70 saict">24.5</td>
+                                                        <td class="t70 saict">25</td>
+                                                        <td class="t70 saict">25.5</td>
+                                                        <td class="t70 saict">26</td>
+                                                        <td class="t70 saict">26.5</td>
+                                                        <td class="t70 saict">27</td>
+                                                        <td class="t70 saict">27.5</td>
+                                                        <td class="t70 saict">28</td>
+                                                        <td class="t70 saict">28.5</td>
+                                                        <td class="t70 saict">29</td>
+                                                        <td class="t70 saict">5H</td>
+                                                        <td class="t70 saict">9</td>
+                                                        <td class="t70 saict">&nbsp;</td>
+                                                        <td class="t70 saict">&nbsp;</td>
+                                                        <td class="t70 saict">&nbsp;</td>
+                                                        <td class="t70 saict">&nbsp;</td>
+                                                        <td class="t70 saict">&nbsp;</td>
+                                                        <td class="t70 saict">&nbsp;</td>
+                                                        <td class="t70 saict">&nbsp;</td>
+                                                        <td class="t70 saict">&nbsp;</td>
+                                                    </tr>
+                                                    <tr class="saisinHeading odrinfo">
+                                                        <td class="t300"><input class="form-control" type="tel" value="Aさんの分" /></td>
+                                                        <td class="t200 saict">レッド</td>
+                                                        <td class="saict">11</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">1</td>
+                                                        <td class="saict">2</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">1</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">3</td>
+                                                        <td class="saict">2</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                    </tr>
+                                                    <tr class="">
+                                                        <td class="t300 saict tab002tit">摘要</td>
+                                                        <td class="t200 tab002tit saict">発注数</td>
+                                                        <td class="odr6 "><input class="form-control sair" type="tel" value="11" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="1" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="2" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="1" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="3" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="2" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                    </tr>
+                                                    <tr class="saisinHeading odrinfo">
+                                                        <td class="t300"><input class="form-control" type="tel" value="Bさんの分" /></td>
+                                                        <td class="t200 saict">オレンジ</td>
+                                                        <td class="saict">11</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">1</td>
+                                                        <td class="saict">2</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">1</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">3</td>
+                                                        <td class="saict">2</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                    </tr>
+                                                    <tr class="">
+                                                        <td class="t300 saict tab002tit">摘要</td>
+                                                        <td class="t200 tab002tit saict">発注数</td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="11" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="1" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="2" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="1" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="3" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="2" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                    </tr>
+                                                    <tr class="saisinHeading odrinfo">
+                                                        <td class="t300"><input class="form-control" type="tel" /></td>
+                                                        <td class="t200 saict">ブラック</td>
+                                                        <td class="saict">11</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">1</td>
+                                                        <td class="saict">2</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">1</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">3</td>
+                                                        <td class="saict">2</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                    </tr>
+                                                    <tr class="">
+                                                        <td class="t300 saict tab002tit">摘要</td>
+                                                        <td class="t200 tab002tit saict">発注数</td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="11" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="1" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="2" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="1" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="3" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="2" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                    </tr>
+                                                    <tr class="saisinHeading odrinfo">
+                                                        <td class="t300"><input class="form-control" type="tel" /></td>
+                                                        <td class="t200 saict">グレー</td>
+                                                        <td class="saict">11</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">1</td>
+                                                        <td class="saict">2</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">1</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">3</td>
+                                                        <td class="saict">2</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                    </tr>
+                                                    <tr class="">
+                                                        <td class="t300 saict tab002tit">摘要</td>
+                                                        <td class="t200 tab002tit saict">発注数</td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="11" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="1" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="2" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="1" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="3" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="2" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                    </tr>
+                                                    <tr class="saisinHeading odrinfo">
+                                                        <td class="t300"><input class="form-control" type="tel" /></td>
+                                                        <td class="t200 saict">ピンク</td>
+                                                        <td class="saict">11</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">1</td>
+                                                        <td class="saict">2</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">1</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict">3</td>
+                                                        <td class="saict">2</td>
+                                                        <td class="saict">0</td>
+                                                        <td class="saict">5</td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                        <td class="saict"></td>
+                                                    </tr>
+                                                    <tr class="">
+                                                        <td class="t300 saict tab002tit">摘要</td>
+                                                        <td class="t200 tab002tit saict">発注数</td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="11" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="1" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="2" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="1" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="3" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="2" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="0" /></td>
+                                                        <td class="odr6"><input class="form-control sair" type="tel" value="5" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                        <td><input class="form-control sair" type="tel" /></td>
+                                                    </tr>
+
+                                                </tbody>
+                                            </table>
+
+
+                                            <!----->
+                                            <!------>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+
+
+                        </div>
+
+
+
+                    </div>
+                </div>
+
+
+
+                <div class="clearfix"> </div>
+                <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+                <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+                <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
+
+
+            </div>
+            <!------>
+            <!------>
+            <table class="tab002">
+                <tbody>
+                    <tr class="tab002tit">
+                        <td class="t100">詳細表示</td>
+
+                        <td class="t100">メーカー番号</td>
+                        <td class="t300">商品名</td>
+                        <td class="t100">ブランド</td>
+                        <td class="t100">上代</td>
+                        <td class="t100">下代</td>
+                        <td class="t100">ロット</td>
+                        <td class="t200">摘要</td>
+                    </tr>
+                    <tr>
+                        <td class="saict">
+                            <div class="ISHide"><a href="#clearfix" class="hideLinka">非表示</a></div>
+                        </td>
+
+                        <td class="sailf t100">AAA005</td>
+                        <td class="sailf t300">クエークバスター/（KVI205）</td>
+                        <td class="saict t100">テニック</td>
+                        <td class="sair t100">￥8,400</td>
+                        <td class="sair t100">￥9,400</td>
+                        <td class="saict t100">2</td>
+                        <td class="saict t200"><input class="form-control" type="tel" /></td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+
+
+
+
+            <script>
+
+                $(".hideLinka").on("click", function () {
+                    if ($(this).text() == "非表示") {
+                        $(this).text("表示");
+                    } else {
+                        $(this).text("非表示");
+                    }
+                    $(".ISProductBodya").toggle();
+
+                    return false;
+                });
+
+            </script>
+            <div class="inbox-mail ISProductBodya">
+
+                <!-- tab content -->
+                <object data="order_input_infoa.html" width="100%" height="350px" type="text/html">
+                    Alternative Content
+                </object>
+
+
+
+            </div>
+
+
+
+        </div>
     </div>
-    <!------>
-    <!------>
-    <table class="tab002">
-        <tbody>
-            <tr class="tab002tit">
-                <td class="t100">詳細表示</td>
-
-                <td class="t100">メーカー番号</td>
-                <td class="t300">商品名</td>
-                <td class="t100">ブランド</td>
-                <td class="t100">上代</td>
-                <td class="t100">下代</td>
-                <td class="t100">ロット</td>
-                <td class="t200">摘要</td>
-            </tr>
-            <tr>
-                <td class="saict">
-                    <div class="ISHide"><a href="#clearfix" class="hideLinka">非表示</a></div>
-                </td>
-
-                <td class="sailf t100">AAA005</td>
-                <td class="sailf t300">クエークバスター/（KVI205）</td>
-                <td class="saict t100">テニック</td>
-                <td class="sair t100">￥8,400</td>
-                <td class="sair t100">￥9,400</td>
-                <td class="saict t100">2</td>
-                <td class="saict t200"><input class="form-control" type="tel" /></td>
-            </tr>
-
-
-        </tbody>
-    </table>
-
-
-
-
-
-    <script>
-        $(".hideLinka").on("click", function () {
-            if ($(this).text() == "非表示") {
-                $(this).text("表示");
-            } else {
-                $(this).text("非表示");
-            }
-            $(".ISProductBodya").toggle();
-
-            return false;
-        });
-
-    </script>
-    <div class="inbox-mail ISProductBodya">
-
-        <!-- tab content -->
-        <object data="order_input_infoa.html" width="100%" height="350px" type="text/html">
-            Alternative Content
-        </object>
-
-
-
-    </div>
-
-
-
 </div>
