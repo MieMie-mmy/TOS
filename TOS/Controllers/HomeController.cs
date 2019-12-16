@@ -3,6 +3,7 @@ using Company_BL;
 using System.Web.Mvc;
 using System.Data;
 using Information_BL;
+using Newtonsoft.Json;
 
 namespace TOS.Controllers
 {
@@ -10,10 +11,15 @@ namespace TOS.Controllers
     {
         public ActionResult Index()
         {
-            string CompanyCD = Session["CompanyCD"].ToString();
-            InformationBL ibl = new InformationBL();
-            DataTable dtinfo = ibl.GetInformation(CompanyCD);
-            return View(dtinfo);
+            if (Session["CompanyCD"] != null)
+            {
+                Get_T_Information();
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("Login", "User");
+            }
         }
 
         public ActionResult product_details()
@@ -21,6 +27,20 @@ namespace TOS.Controllers
             return View();
         }
 
+        [HttpGet]
+        public string Get_T_Information()
+        {
+            M_CompanyModel mc = new M_CompanyModel();
+            mc.CompanyCD = Session["CompanyCD"].ToString();
+            InformationBL ibl = new InformationBL();
+            return DataTableToJSONWithJSONNet(ibl.GetInformation(mc));
+        }
 
+        public string DataTableToJSONWithJSONNet(DataTable table)
+        {
+            string JSONString = string.Empty;
+            JSONString = JsonConvert.SerializeObject(table);
+            return JSONString;
+        }
     }
 }
