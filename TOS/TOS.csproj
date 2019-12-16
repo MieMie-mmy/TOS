@@ -128,9 +128,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="..\..\..\..\..\backup\InventoriesController.cs">
-      <Link>Controllers\InventoriesController.cs</Link>
-    </Compile>
+    <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RegistrationsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -217,6 +215,9 @@
     <Content Include="..\..\..\..\..\backup\inventories.cshtml">
       <Link>Views\Inventories\inventories.cshtml</Link>
     </Content>
+    <Content Include="Views\Registration\Company_Entry.cshtml" />
+    <Content Include="Views\Inventory\Inventories.cshtml" />
+    <Content Include="Views\Inventory\Inventories_list.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
