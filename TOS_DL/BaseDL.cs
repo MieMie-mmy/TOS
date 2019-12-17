@@ -23,13 +23,20 @@ namespace TOS_DL
             return dt;
         }
 
-        public static DataTable GetBrandNameList()
+        protected DataSet SelectDataSet(string sSQL, params SqlParameter[] para)
         {
-            DataTable dt = new DataTable();
-            string sql = @"select BrandName From M_Brand";
-            SqlDataAdapter adpt = new SqlDataAdapter(sql, conStr);
-            adpt.Fill(dt);
-            return dt;
+            DataSet ds1 = new DataSet();
+            var newCon = new SqlConnection(conStr);
+            using (var adapt = new SqlDataAdapter(sSQL, newCon))
+            {
+                newCon.Open();
+                adapt.SelectCommand.CommandType = CommandType.StoredProcedure;
+                if (para != null)
+                    adapt.SelectCommand.Parameters.AddRange(para);
+                adapt.Fill(ds1,"DataList");
+                newCon.Close();
+            }
+            return ds1;
         }
 
         public void InsertUpdateDeleteData(string sSQL, params SqlParameter[] para)
