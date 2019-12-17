@@ -9,7 +9,12 @@ namespace TOS.Controllers
     public class RegistrationsController : Controller
     {
         // GET: Registrations
-        public ActionResult Index()
+        public ActionResult Company_Entry()
+        {
+            return View();
+        }
+
+        public ActionResult Group_Entry()
         {
             return View();
         }
