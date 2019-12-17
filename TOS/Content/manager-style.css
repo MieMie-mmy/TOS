@@ -1606,6 +1606,16 @@ td span {
     td span.mar {
         background: #e74c3c;
         color: #fff;
+    } 
+
+    td span.news {
+        background: #F39;
+        color: #fff;
+    }
+
+    td span.other {
+        background-color:aquamarine;
+        color: #fff;
     }
 
 .nav > li > a {

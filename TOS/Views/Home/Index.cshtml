@@ -10,7 +10,7 @@
 }
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ情報</li>
+    <li class="breadcrumb-item"><a href="~/Views/Home/Index.cshtml">ホーム</a><i class="fa fa-angle-right"></i>お知らせ情報</li>
 </ol>
 <div class="inbox-mail">
 
@@ -38,8 +38,8 @@
                         </div>
 
                     </div>
-                    <table class="table" id="tbinformation">
-                        <thead>
+                    <table class="table" id="tbinformation" style="width:100%;border-collapse:collapse;">
+                        <thead style="display:none;">
                             <tr>
                                 <th></th>
                                 <th></th>
@@ -62,13 +62,15 @@
         $(document).ready(function () {
             var table = $('#tbinformation').DataTable(
                 {
+                    order: [[0, 'desc']],
                     "createdRow": function (row, data, dataIndex) {
                         $(row).addClass("table-row");
                     },
-                    columnDefs: [{
-                        targets: [0, 1, 2, 3],
-                        className: 'table-text'
-                    }],
+                    columnDefs: [
+                        {    
+                        targets: [0, 1],
+                        className: 'table-text',
+                        }],
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
@@ -78,22 +80,26 @@
                         "dataSrc": ""
                     },
                     "columns": [
+                          
                         {
                             "data": "Date", "render": function (data, type, row) {
-                                return '<h6>' + row.Date + '</h6>';
+                                return '<h6>' + row.Date +'</h6>';
 
                             },
-                        },
+                        }, 
                         {
                             "data": "TitleName", "render": function (data, type, row) {
                                 return '<h6><a href="../Home/product_details/' + row.InformationID + '">' + row.TitleName + '</a></h6>';
 
                             },
                         },
-                        { "data": "InformationType", orderable: false },
-                       
                         {
-                            "data": "",
+                            "data": "InformationType", "render": function (data, type, row) {
+                                return '<span class = ' + row.InfoClass + '>' + row.InfoText + '</span>';
+                            },
+                        },
+                        {
+                            "data": "", 
                             "render": function (data, type, row) {
                                 return '<h6><a href="../Home/product_details/' + row.InformationID + '"><i class="fa fa-external-link icon-state-warning"></i></a></h6>';
                             },
