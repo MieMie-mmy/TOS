@@ -44,6 +44,7 @@
     <Compile Include="BaseModel.cs" />
     <Compile Include="M_CompanyModel.cs" />
     <Compile Include="M_CompanyShippingModel.cs" />
+    <Compile Include="M_CompanyTagModel.cs" />
     <Compile Include="M_JobTimeableModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T_InformationModel.cs" />
