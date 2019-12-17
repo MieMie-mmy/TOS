@@ -13,5 +13,10 @@ namespace TOS.Controllers
         {
             return View();
         }
+
+        public ActionResult Group_Entry()
+        {
+            return View();
+        }
     }
 }

@@ -213,6 +213,7 @@
     <Content Include="Views\Home\product_details.cshtml" />
     <Content Include="Views\Registrations\Company_Entry.cshtml" />
     <Content Include="Views\Inventories\inventories.cshtml" />
+    <Content Include="Views\Registrations\Group_Entry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
