@@ -25,41 +25,17 @@ namespace Order_Input_BL
             }
             return Mjt  ;
         }
-        //public DataTable ShippingName_Select(string CompanyName)
-        //{
-        //    DataTable dt = new DataTable();
-        //    BaseDL bl = new BaseDL();
-        //    if ( CompanyName!= null)
-        //    {
-
-        //        SqlParameter[] prms = new SqlParameter[1];
-        //        prms[0] = new SqlParameter("@companyname", SqlDbType.VarChar) { Value = CompanyName };
-        //        dt = bl.SelectData("OrderInput_ShippingName_Select", prms);
-        //    }
-        //    return dt;
-        //}
-
-        //public List<string> ShippingName_Select(M_CompanyShippingModel mcs)
-        //{
-        //    TOSEntities ent = new TOSEntities();
-
-        //    M_CompanyShipping ms = ent.M_CompanyShipping.Where(m => m.CompanyCD == mcs.CompanyCD).AsEnumerable();
-        //    var ms = ent.M_CompanyShipping.Where(m => m.CompanyCD == mcs.CompanyCD).ToList();
-        //    var shipname = (from mshipping in ent.M_CompanyShipping
-        //                    where mshipping.CompanyCD == mcs.CompanyCD
-        //                    select new { mshipping.ShippingName });
-
-
-        //    List<string> d = new List<string>();
-        //    //shipname.ToList();
-        //    //if (shipname != null)
-        //    //{
-        //    //    mcs.ShippingID = shipname.ToList();
-        //    //    mcs.ShippingName = ms.ShippingName;
-        //    //}
-        //    return d;
-        //}
-
-
+        public DataTable ShippingName_Select(string CompanyCD)
+        {
+            DataTable dt = new DataTable();
+            BaseDL dl = new BaseDL();
+            if (!string.IsNullOrWhiteSpace(CompanyCD))
+            {
+                SqlParameter[] prms = new SqlParameter[1];
+                prms[0] = new SqlParameter("@companyCD", SqlDbType.VarChar) { Value = CompanyCD };
+                dt = dl.SelectData("OrderInput_ShippingName_Select", prms);
+            }
+            return dt;
+        }
     }
 }
