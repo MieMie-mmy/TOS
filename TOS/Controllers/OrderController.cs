@@ -55,6 +55,28 @@ namespace TOS.Controllers
             return jsonresult;
         }
 
+        public string Order_Input_M_Item_Select(string id)
+        {
+            
+            Order_InputBL oib = new Order_InputBL();
+           
+            string ItemCD = "cps-test,BAQ005";
+            DataSet dst = new DataSet();
+            dst = oib.Order_Input_M_Item_Data(ItemCD);
+            if (dst.Tables.Count > Convert.ToInt32(id))
+            {
+                string jsonresult;
+                jsonresult = JsonConvert.SerializeObject(dst.Tables["Datalist"]);
+                return jsonresult;
+            }
+            else
+            {
+                return null;
+            }
+           
+        }
+
+
         public ActionResult Order_Portal()
         {
             return View();
