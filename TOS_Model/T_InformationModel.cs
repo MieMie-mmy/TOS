@@ -14,5 +14,24 @@ namespace TOS_Model
 
         public int InformationType { get; set; }
 
+        public DateTime DisplayStartDate { get; set; }
+
+        public DateTime DisplayEndDate { get; set; }
+
+        public string AttachedFile1 { get; set; }
+
+        public string AttachedFile2 { get; set; }
+
+        public string AttachedFile3 { get; set; }
+
+        public string AttachedFile4 { get; set; }
+
+        public int DestinationFlag { get; set; }
+
+
+
+
+
+
     }
 }

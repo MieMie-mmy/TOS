@@ -129,6 +129,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
+    <Compile Include="Controllers\NewsEditorController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\RegistrationsController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -214,6 +215,7 @@
     <Content Include="Views\Registrations\Company_Entry.cshtml" />
     <Content Include="Views\Inventories\inventories.cshtml" />
     <Content Include="Views\Registrations\Group_Entry.cshtml" />
+    <Content Include="Views\NewsEditor\News_Editor.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
