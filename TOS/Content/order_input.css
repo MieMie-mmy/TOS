@@ -290,7 +290,7 @@
 @media screen and (max-width: 1300px) {
     .t30{width: 30px;}
 .t70{width: 70px;}
-.t100{width: 80px;}
+.t100{width: 100px;}
 .t150{width: 100px;}
 .t200{width: 120px;}
 .t250{width: 150px;}
@@ -299,5 +299,5 @@
 .t380{width: 180px;}
 .t400{width: 190px;}
 .t450{width: 250px;}
-    .btnod{width: 90px;}
+.btnod{width: 90px;}
 }

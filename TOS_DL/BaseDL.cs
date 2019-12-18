@@ -23,7 +23,7 @@ namespace TOS_DL
             return dt;
         }
 
-        protected DataSet SelectDataSet(string sSQL, params SqlParameter[] para)
+        public DataSet SelectDataSet(string sSQL, params SqlParameter[] para)
         {
             DataSet ds1 = new DataSet();
             var newCon = new SqlConnection(conStr);
