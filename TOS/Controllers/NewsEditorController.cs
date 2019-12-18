@@ -8,7 +8,7 @@ namespace TOS.Controllers
 {
     public class NewsEditorController : Controller
     {
-        public ActionResult Index()
+        public ActionResult News_Editor()
         {
             return View();
         }

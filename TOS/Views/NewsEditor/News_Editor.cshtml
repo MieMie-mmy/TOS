@@ -10,7 +10,7 @@
     <title>TennicOrderSystem | TENNIC</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-   
+
     @section Styles{
 
         <script type="application/x-javascript">
@@ -27,7 +27,7 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
         <!-- Graph CSS -->
-        <link href="@Url.Content("~/Content/news.css")"  rel="stylesheet">
+        <link href="@Url.Content("~/Content/news.css")" rel="stylesheet">
         <!-- jQuery -->
         <link href="@Url.Content("~/Scripts/jquery-2.1.4.min.j")" rel="stylesheet" type="text/javascript" />
     }
@@ -39,7 +39,7 @@
         <!--/content-inner-->
         <div class="left-content">
             <div class="mother-grid-inner">
-              
+
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="@Url.Content("~/Views/Home/News_Editor.cshtml")">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
                 </ol>
@@ -73,43 +73,43 @@
                                                             <label class="custom-control-label" for="defaultUnchecked">会社指定</label>
                                                         </div>
                                                     </div>
-                                                    <div class="box">
-                                                        <select name="comp" class="comp">
-                                                            <option value="A">株式会社キャピタルスポーツ</option>
-                                                            <option value="B">AAACCスポーツ株式会社</option>
-                                                            <option value="C">株式会社CCCスポーツ</option>
-                                                            <option value="D">有限会社DDDスポーツ</option>
+                                                    @*<div class="box">
+                                                            <select name="comp" class="comp">
+                                                                <option value="A">株式会社キャピタルスポーツ</option>
+                                                                <option value="B">AAACCスポーツ株式会社</option>
+                                                                <option value="C">株式会社CCCスポーツ</option>
+                                                                <option value="D">有限会社DDDスポーツ</option>
 
-                                                        </select>
-                                                    </div>
+                                                            </select>
+                                                        </div>*@
 
                                                 </div>
                                                 <div class="box-row">
                                                     <div class="box">
                                                         <div class="custom-control custom-radio">
-                                                            <input type="radio" class="custom-control-input" id="defaultUnchecked1" name="defaultExampleRadios">
+                                                            <input type="radio" class="custom-control-input" id="rdogroupdesignation" name="defaultExampleRadios">
                                                             <label class="custom-control-label" for="defaultUnchecked">グループ指定</label>
                                                         </div>
                                                     </div>
-                                                    <div class="box">
-                                                        <select name="comp" class="comp">
-                                                            <option value="E">大阪スポーツ会社</option>
-                                                            <option value="F">東京スポーツ会社</option>
-                                                            <option value="G">北海道スポーツ会社</option>
-                                                            <option value="H">沖縄スポーツ会社</option>
+                                                    @*<div class="box">
+                                                            <select name="comp" class="comp">
+                                                                <option value="E">大阪スポーツ会社</option>
+                                                                <option value="F">東京スポーツ会社</option>
+                                                                <option value="G">北海道スポーツ会社</option>
+                                                                <option value="H">沖縄スポーツ会社</option>
 
-                                                        </select>
-                                                    </div>
+                                                            </select>
+                                                        </div>*@
                                                 </div>
                                                 <div class="box-row">
                                                     <div class="box">&nbsp;&nbsp;&nbsp;&nbsp;表示期間</div>
                                                     <div class="box">
                                                         <label class="nativeDatePicker">
-                                                            <input type="date" name="bday" class="form-control">
+                                                            <input type="date" name="bday" class="form-control" id="lbldisplay_startdate">
 
                                                         </label>～
                                                         <label class="nativeDatePicker">
-                                                            <input type="date" name="bday" class="form-control">
+                                                            <input type="date" name="bday" class="form-control" id="lbldisplay_enddate">
 
                                                         </label>
                                                         <fieldset class="fallbackDatePicker" hidden>
@@ -148,7 +148,7 @@
                                                 <div class="box-row">
                                                     <div class="box">
                                                         <div class="form-check">
-                                                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                                                            <input type="checkbox" class="form-check-input" id="chkeffectflag">
                                                             <label class="form-check-label" for="exampleCheck1">有効</label>
                                                         </div>
                                                     </div>
@@ -204,149 +204,148 @@ function expandTextarea(id) {
 expandTextarea('txtarea');</script>
 
                                         </div>
-                                        <div class="newr col-md-7">
-                                            <div class="float-left"><h6>お知らせ一覧</h6></div><div class="float-right">
+                                        @*<div class="newr col-md-7">
+                                                <div class="float-left"><h6>お知らせ一覧</h6></div><div class="float-right">
 
 
-                                                <div class="btn-group">
-                                                    <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
-                                                    <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
+                                                    <div class="btn-group">
+                                                        <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
+                                                        <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
+                                                    </div>
+
+
                                                 </div>
-
-
-                                            </div>
-                                            <table class="tab002">
-                                                <tbody>
-                                                    <tr class="tab002tit">
-                                                        <td>No</td>
-                                                        <td>課題名</td>
-                                                        <td>&nbsp;</td>
-                                                        <td>&nbsp;</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="saict newpd">1</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr class="saisinHeading">
-                                                        <td class="saict newpd">2</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="saict newpd">3</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr class="saisinHeading">
-                                                        <td class="saict newpd">4</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="saict newpd">5</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr class="saisinHeading">
-                                                        <td class="saict newpd">6</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="saict newpd">7</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr class="saisinHeading">
-                                                        <td class="saict newpd">8</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="saict newpd">9</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr class="saisinHeading">
-                                                        <td class="saict newpd">10</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="saict newpd">11</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr class="saisinHeading">
-                                                        <td class="saict newpd">12</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="saict newpd">13</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr class="saisinHeading">
-                                                        <td class="saict newpd">14</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="saict newpd">15</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr class="saisinHeading">
-                                                        <td class="saict newpd">16</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="saict newpd">17</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr class="saisinHeading">
-                                                        <td class="saict newpd">18</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="saict newpd">19</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                    <tr class="saisinHeading">
-                                                        <td class="saict newpd">20</td>
-                                                        <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                        <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                                    </tr>
-                                                </tbody>
-                                            </table>
-                                            <!-- DivTable.com -->
-                                        </div>
+                                                <table class="tab002">
+                                                    <tbody>
+                                                        <tr class="tab002tit">
+                                                            <td>No</td>
+                                                            <td>課題名</td>
+                                                            <td>&nbsp;</td>
+                                                            <td>&nbsp;</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="saict newpd">1</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr class="saisinHeading">
+                                                            <td class="saict newpd">2</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="saict newpd">3</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr class="saisinHeading">
+                                                            <td class="saict newpd">4</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="saict newpd">5</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr class="saisinHeading">
+                                                            <td class="saict newpd">6</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="saict newpd">7</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr class="saisinHeading">
+                                                            <td class="saict newpd">8</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="saict newpd">9</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr class="saisinHeading">
+                                                            <td class="saict newpd">10</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="saict newpd">11</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr class="saisinHeading">
+                                                            <td class="saict newpd">12</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="saict newpd">13</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr class="saisinHeading">
+                                                            <td class="saict newpd">14</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="saict newpd">15</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr class="saisinHeading">
+                                                            <td class="saict newpd">16</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="saict newpd">17</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr class="saisinHeading">
+                                                            <td class="saict newpd">18</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td class="saict newpd">19</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                        <tr class="saisinHeading">
+                                                            <td class="saict newpd">20</td>
+                                                            <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
+                                                            <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div*@>
                                     </div>
                                 </div>
 
@@ -593,7 +592,7 @@ expandTextarea('txtarea');</script>
             toggle = !toggle;
         });
     </script>
-   
+
     <!--js -->
     <script src="js/jquery.nicescroll.js"></script>
     <script src="js/scripts.js"></script>
