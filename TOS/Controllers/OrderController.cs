@@ -8,6 +8,7 @@ using Order_Input_BL;
 using System.Data;
 using System.Data.SqlClient;
 using Newtonsoft.Json;
+using Order_Portal_BL;
 
 namespace TOS.Controllers
 {
@@ -21,7 +22,7 @@ namespace TOS.Controllers
             return View();
         }
 
-        public ActionResult Order_Input()
+        public ActionResult Order_Input(string MakerItemCD)
         {
             Order_InputBL obl = new Order_InputBL();
             M_JobTimeableModel Mjob = new M_JobTimeableModel();
@@ -79,7 +80,35 @@ namespace TOS.Controllers
 
         public ActionResult Order_Portal()
         {
-            return View();
+            if (Session["CompanyCD"] != null)
+            {
+                Order_InputBL obl = new Order_InputBL();
+                M_JobTimeableModel Mjob = new M_JobTimeableModel();
+                Mjob.CompanyCD = Session["CompanyCD"].ToString();
+                ViewData["JobTime"] = obl.JobTimeTable_Select(Mjob);
+
+                //Order_PortalBL opbl = new Order_PortalBL();
+                //DataTable dtorderpotal = opbl.Order_Portal_List_Select();
+
+                return View();
+            }
+            else
+            {
+                return View();
+            }
+        }
+        [HttpGet]
+        public string Get_Order_Portal_List()
+        {
+            Order_PortalBL opbl = new Order_PortalBL();
+            return DataTableToJSONWithJSONNet(opbl.Order_Portal_List_Select());
+        }
+
+        public string DataTableToJSONWithJSONNet(DataTable table)
+        {
+            string JSONString = string.Empty;
+            JSONString = JsonConvert.SerializeObject(table);
+            return JSONString;
         }
     }
 }
