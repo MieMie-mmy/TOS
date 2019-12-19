@@ -1,4 +1,5 @@
-﻿
+﻿@using System.Data;
+@model DataTable
 @{
     ViewBag.Title = "News_Editor";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -65,25 +66,40 @@
         $(document).ready(function () {
             var table = $('#tbinformation').DataTable(
                 {
-                    order: [[0, 'desc']],
-                    "createdRow": function (row, data, dataIndex) {
-                        $(row).addClass("table-row");
+                    columnDefs: [{
+                        targets: [0],
+                        className: 'saict newpd'
                     },
-                    columnDefs: [
-                        {
-                            targets: [0, 1],
-                            className: 'table-text',
-                        }],
+                    {
+                        targets: [1],
+                        className: 'newpd'
+                    },
+                    {
+                        targets: [2,3],
+                        className: 'tab002tit'
+                        }
+                    ],
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Home/Get_T_Information",
+                        "url": "../NewsEditor/T_Information_Select",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
                     },
                     "columns": [
                         { "data": "No", orderable: false },
+                        { "data": "TitleName", orderable: false },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<button type="button" class="btn btn-outline-light">編集</button>';
+                            }
+                        },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<button type="button" class="btn btn-outline-danger">削除</button>';
+                            }
+                        },
                     ],
                 }
             );
@@ -280,15 +296,14 @@
                                             </tr>
                                         </tbody>
                                     </table>*@
-                                <table class="tab002">
+                                <table class="tab002" id="tbinformation">
                                     <thead>
-                                        <tr class="tab002tit">
-                                            <th class="saict newpd">No</th>
-                                            <th class="newpd">課題名</th>
+                                        <tr>
+                                            <th class="tab002tit">No</th>
+                                            <th class="tab002tit">課題名</th>
                                             <th class="tab002tit">&nbsp;</th>
                                             <th class="tab002tit">&nbsp;</th>
                                         </tr>
-
                                     </thead>
                                 </table>
                             </div>
