@@ -6,6 +6,9 @@ using System.Web.Mvc;
 using TOS_Model;
 using Company_Entry_BL;
 using System.Data ;
+using Information_BL;
+using Group_Entry_BL;
+using Newtonsoft.Json;
 
 namespace TOS.Controllers
 {
@@ -69,6 +72,24 @@ namespace TOS.Controllers
         public ActionResult Group_Entry()
         {
             return View();
+        }
+        [HttpGet]
+        public string M_Companay_Select()
+        {
+            InformationBL ibl = new InformationBL();
+            return DataTableToJSONWithJSONNet(ibl.Get_M_CompanyName());
+        }
+        [HttpGet]
+        public string M_Brand_Select()
+        {
+            Group_EntryBL gbl = new Group_EntryBL();
+            return DataTableToJSONWithJSONNet(gbl.Get_M_BrandName());
+        }
+        public string DataTableToJSONWithJSONNet(DataTable table)
+        {
+            string JSONString = string.Empty;
+            JSONString = JsonConvert.SerializeObject(table);
+            return JSONString;
         }
     }
 }

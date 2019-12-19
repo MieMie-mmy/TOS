@@ -1,16 +1,28 @@
 ﻿@using System.Data
-@model DataTable
+@model TOS_Model.T_OrderDetailModel2
 @{
     ViewBag.Title = "Order_Portal";
     Layout = "~/Views/Shared/_Layout.cshtml";
     TOS_Model.M_JobTimeableModel mj = ViewData["JobTime"] as TOS_Model.M_JobTimeableModel;
 }
 @section Styles {
+    <!-- Bootstrap Core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="~/Content/manager-style.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="~/Content/morris.css" type="text/css" />
+    <!-- Graph CSS -->
+    <link href="~/Content/font-awesome.css" rel="stylesheet">
     <!-- jQuery -->
-    <script src="js/jquery-2.1.4.min.js"></script>
-
+    <script src="~/Scripts/jquery-2.1.4.min.js"></script>
+    <!-- //jQuery -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css' />
+    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="~/Content/icon-font.min.css" type='text/css' />
     <link rel="stylesheet" href="~/Content/order_portal.css" type='text/css' />
     <link rel="stylesheet" href="~/Content/order_input.css" type='text/css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <script type="application/x-javascript">
         addEventListener("load", function() {
@@ -177,7 +189,7 @@
                         <table id="tblOrderPortal" class="saisinBody">
                             <thead>
                                 <tr class="saisinRow">
-                                    <th class="saisinCell t30 saict titcolor">NO</th>
+                                    <td class="saisinCell t30 saict titcolor">NO</td>
                                     <th class="saisinCell t150 saict titcolor">発注番号</th>
                                     <th class="saisinCell t150 saict titcolor">商品番号</th>
                                     <th class="saisinCell t250 saict titcolor">商品名</th>
@@ -191,7 +203,50 @@
                                     <th class="saisinCell t150 saict titcolor">発注時刻</th>
                                     <th class="saisinCell t150 saict titcolor">出荷日</th>
                                 </tr>
+                                @*@foreach (DataRow row in Model.Rows)
+                                    {
+                                        <tr class="saisinRow">
+                                            <td class="saisinCell sailf ">
+                                                @row["OrderID"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["MakerItemCD"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["ItemName"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["SizeName"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["ColorName"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["OrderItem"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["StockItem"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["SalePrice"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["TotalAmount"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["OrderDateTime"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["OrderDateTime"]
+                                            </td>
+                                            <td class="saisinCell sailf ">
+                                                @row["ShippingDate"]
+                                            </td>
+                                        </tr>
+                                    }*@
                             </thead>
+                            <tfoot>
+                            </tfoot>
                         </table>
                     </div>
                 </div>
@@ -207,15 +262,12 @@
         $(document).ready(function () {
             var table = $('#tblOrderPortal').DataTable(
                 {
-                    "createdRow": function (row, data, dataIndex) {
-                        $(row).addClass("saisinRow");
+                    "language": {
+                        "info": "Display START to END of TOTAL records",
                     },
-                    columnDefs: [{
-                        targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
-                        className: 'saisinCell'
-                    }],
-                    "dom": 'lrtip',
-                    "bLengthChange": false,
+                    "oLanguage": {
+                        "sLengthMenu": "Display MENU records",
+                    },
                     "ajax": {
                         "url": "../Order/Get_Order_Portal_List",
                         "type": "GET",
@@ -223,87 +275,48 @@
                         "dataSrc": ""
                     },
                     "columns": [
-                        { "data": "No", orderable: false},
-                        { "data": "OrderID", orderable: false},
-                        { "data": "MakerItemCD", orderable: false},
-                        { "data": "ItemName", orderable: false},
-                        { "data": "SizeName", orderable: false},
-                        { "data": "ColorName", orderable: false},
-                        { "data": "OrderItem", orderable: false},
-                        { "data": "StockItem", orderable: false},
-                        { "data": "SalePrice", orderable: false},
-                        { "data": "TotalAmount", orderable: false},
-                        { "data": "OrderDate", orderable: false },
-                        { "data": "OrderTime", orderable: false},
-                        { "data": "ShippingDate", orderable: false},
+                        {
+                            "className": 'saisinCell sailf',
+                            "orderable": false,
+                            "data": null,
+                            "defaultContent": '',
+                            "width": "3%"
+                        },
+                        { "data": "No", orderable: false, "width": "13%" },
+                        { "data": "OrderID", orderable: false, "width": "13%" },
+                        { "data": "MakerItemCD", orderable: false, "width": "13%" },
+                        { "data": "ItemName", orderable: false, "width": "3%" },
+                        { "data": "SizeName", orderable: false, "width": "10%" },
+                        { "data": "ColorName", orderable: false, "width": "10%" },
+                        { "data": "OrderItem", orderable: false, "width": "13%" },
+                        { "data": "StockItem", orderable: false, "width": "10%" },
+                        { "data": "SalePrice", orderable: false, "width": "4%" },
+                        { "data": "TotalAmount", orderable: false, "width": "4%" },
+                        { "data": "OrderDateTime", orderable: false, "width": "4%" },
+                        { "data": "OrderTime", orderable: false, "width": "4%" },
+                        { "data": "ShippingDate", orderable: false, "width": "7%" },
                     ],
                 }
             );
+
+            $('#tblOrderPortal tbody').on('click', 'td.details-control', function () {
+                var tr = $(this).closest('tr');
+                var row = table.row(tr);
+
+                if (row.child.isShown()) {
+                    // This row is already open - close it
+                    row.child.hide();
+                    tr.removeClass('shown');
+                }
+                else {
+                    // Open this row
+                    row.child(format(row.data())).show();
+                    tr.addClass('shown');
+                }
+            });
         });
 
-
     </script>
-
-    @*<script type="text/javascript">
-            $(document).ready(function () {
-                var table = $('#tblOrderPortal').DataTable(
-                    {
-                        "language": {
-                            "info": "Display START to END of TOTAL records",
-                        },
-                        "oLanguage": {
-                            "sLengthMenu": "Display MENU records",
-                        },
-                        "ajax": {
-                            "url": "../Order/Get_Order_Portal_List",
-                            "type": "GET",
-                            "datatype": "json",
-                            "dataSrc": ""
-                        },
-                        "columns": [
-                            {
-                                "className": 'saisinCell sailf',
-                                "orderable": false,
-                                "data": null,
-                                "defaultContent": '',
-                                "width": "3%"
-                            },
-                            { "data": "No", orderable: false, "width": "13%" },
-                            { "data": "OrderID", orderable: false, "width": "13%" },
-                            { "data": "MakerItemCD", orderable: false, "width": "13%" },
-                            { "data": "ItemName", orderable: false, "width": "3%" },
-                            { "data": "SizeName", orderable: false, "width": "10%" },
-                            { "data": "ColorName", orderable: false, "width": "10%" },
-                            { "data": "OrderItem", orderable: false, "width": "13%" },
-                            { "data": "StockItem", orderable: false, "width": "10%" },
-                            { "data": "SalePrice", orderable: false, "width": "4%" },
-                            { "data": "TotalAmount", orderable: false, "width": "4%" },
-                            { "data": "OrderDate", orderable: false, "width": "4%" },
-                            { "data": "OrderTime", orderable: false, "width": "4%" },
-                            { "data": "ShippingDate", orderable: false, "width": "7%" },
-                        ],
-                    }
-                );
-
-                $('#tblOrderPortal tbody').on('click', 'td.details-control', function () {
-                    var tr = $(this).closest('tr');
-                    var row = table.row(tr);
-
-                    if (row.child.isShown()) {
-                        // This row is already open - close it
-                        row.child.hide();
-                        tr.removeClass('shown');
-                    }
-                    else {
-                        // Open this row
-                        row.child(format(row.data())).show();
-                        tr.addClass('shown');
-                    }
-                });
-            });
-
-        </script>*@
-
     <script type="text/javascript">
         $(document).ready(function () {
             $("#btnClear").click(function () {
@@ -341,4 +354,3 @@
         })
     </script>
 }
-

@@ -244,6 +244,10 @@
       <Project>{cfa815f4-eaa1-4cfe-a985-f6dd43e5d7e8}</Project>
       <Name>Company_Entry_BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Group_Entry_BL\Group_Entry_BL.csproj">
+      <Project>{c26cbd6f-fa2e-45af-b97c-25ce39e8f758}</Project>
+      <Name>Group_Entry_BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Information_BL\Information_BL.csproj">
       <Project>{39b9fe4a-8b33-43a2-a72f-3f2687e96036}</Project>
       <Name>Information_BL</Name>
