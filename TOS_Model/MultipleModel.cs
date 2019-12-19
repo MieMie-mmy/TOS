@@ -14,5 +14,9 @@ namespace TOS_Model
         public M_CompanyTagModel TagModel { get; set; }
 
         public T_InformationModel TinfoModel { get; set; }
+
+        public M_GroupModel GroupModel { get; set; }
+
+        public M_GroupListModel GroupListModel { get; set; }
     }
 }
