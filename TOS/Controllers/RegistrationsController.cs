@@ -4,60 +4,101 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TOS_Model;
-using Company_BL;
+using Company_Entry_BL;
 using System.Data ;
+using Information_BL;
+using Group_Entry_BL;
+using Newtonsoft.Json;
 
 namespace TOS.Controllers
 {
     public class RegistrationsController : Controller
     {
-        CompanyBL cbl = new CompanyBL();
+       
         // GET: Registrations
         public ActionResult Company_Entry()
         {
-            return View();
-        }
-
-
-        [HttpPost]
-        public ActionResult Insert(M_CompanyModel cm)
-        {
-
-
-             // DataTable dt  = cbl.Insert(cm);
-            //TempData["Success"] = "登録されました。";
-            //TempData["UserMessage"] = new MessageVM() { CssClassName = "alert-sucess", Title = "Success!", Message = "登録されました。" };
-            //return RedirectToAction("Company_Entry");
-            if (ModelState.IsValid)
+            
+            if (Session["CompanyCD"] != null)
             {
-                //do something
-                TempData["Success"] = "登録されました。";
-                //return RedirectToAction("Company_Entry");
-                return RedirectToAction("Company_Entry");
+                ViewBag.Message = "Welcome to my demo!";
+                return View();
             }
             else
             {
-                ViewData["Error"] = "Error message text.";
-                return View("Company_Entry");
+                return RedirectToAction("Login", "User");
             }
         }
+        [HttpPost]
+        public ActionResult InsertCompany(MultipleModel model)
+        {
 
+            Company_EntryBL cbl = new Company_EntryBL();
 
+            if (model.ComModel.ZipCD1 != null)
+            {
+                string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
+                string zip2 = model.ComModel.ZipCD1.Substring(3);
+                model.ComModel.ZipCD1 = zip1;
+                model.ComModel.ZipCD2 = zip2;
 
+            }
+            model.ComModel.InsertOperator = Session["CompanyCD"].ToString();
+            DataTable dt = cbl.InsertCompany(model.ComModel);
+            Array array = model.ShippingModel.ToArray();
+
+            if (array.Length > 0)
+            {
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if ((!string.IsNullOrWhiteSpace(model.ShippingModel[i].ShippingID.ToString())) && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())) && model.ShippingModel[i].ShippingID.ToString()!="0")
+                    {
+
+                        if (model.ShippingModel[i].ZipCD1 != null)
+                        {
+                            string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
+                            string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
+                            model.ShippingModel[i].ZipCD1 = zipShip1;
+                            model.ShippingModel[i].ZipCD2 = zipShip2;
+                        }
+
+                        model.ShippingModel[i].InsertOperator = Session["CompanyCD"].ToString();
+                        //DataTable dtShip = cbl.InsertCompanyShipping(model.ShippingModel[i], model.ComModel);
+                    }
+            }
+        }
+            if (ModelState.IsValid)
+            {
+               return RedirectToAction("Company_Entry");
+            }
+            else
+            {
+                ViewBag.Success = "登録されました。";
+               return View("Company_Entry");
+               
+            }
+        }
         public ActionResult Group_Entry()
         {
             return View();
         }
-    }
-
-    internal class MessageVM
-    {
-        public MessageVM()
+        [HttpGet]
+        public string M_Companay_Select()
         {
+            InformationBL ibl = new InformationBL();
+            return DataTableToJSONWithJSONNet(ibl.Get_M_CompanyName());
         }
-
-        public string CssClassName { get; set; }
-        public string Title { get; set; }
-        public string Message { get; set; }
+        [HttpGet]
+        public string M_Brand_Select()
+        {
+            Group_EntryBL gbl = new Group_EntryBL();
+            return DataTableToJSONWithJSONNet(gbl.Get_M_BrandName());
+        }
+        public string DataTableToJSONWithJSONNet(DataTable table)
+        {
+            string JSONString = string.Empty;
+            JSONString = JsonConvert.SerializeObject(table);
+            return JSONString;
+        }
     }
 }

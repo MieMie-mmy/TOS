@@ -42,6 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="M_GroupListModel.cs" />
+    <Compile Include="M_GroupModel.cs" />
+    <Compile Include="MultipleModel.cs" />
     <Compile Include="M_CompanyModel.cs" />
     <Compile Include="M_CompanyShippingModel.cs" />
     <Compile Include="M_CompanyTagModel.cs" />
