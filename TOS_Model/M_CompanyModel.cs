@@ -23,6 +23,14 @@ namespace TOS_Model
         public string FaxNo { get; set; }
         public string PresidentName { get; set; }
 
+        public int RankingFlg { get; set; }
+
+
+  
+
+        public List<M_CompanyShippingModel> ShippingModel { get; set; }
+        public M_CompanyTagModel TagModel { get; set; }
+
 
     }
 }

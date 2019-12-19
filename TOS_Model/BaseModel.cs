@@ -13,6 +13,12 @@ namespace TOS_Model
         public string UpdateOperator { get; set; }
         public DateTime UpdateDateTime { get; set; }
 
+        public string Date { get; set; }
+
+        public string TitleName { get; set; }
+
+        public int InformationType { get; set; }
+
 
     }
 }

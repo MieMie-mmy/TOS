@@ -18,9 +18,36 @@ namespace Information_BL
             DataTable dtinfo = new DataTable();
             SqlParameter[] prms = new SqlParameter[1];
             prms[0] = new SqlParameter("@companyCD", SqlDbType.VarChar) { Value = mc.CompanyCD};
-            dtinfo = bdl.SelectData("T_Information_Select", prms);
+            dtinfo = bdl.SelectData("T_Information_Select_ForHomePage", prms);
             return dtinfo;
         }
-     
+
+
+        public DataTable Get_M_CompanyName()
+        {
+            BaseDL bdl = new BaseDL();
+            DataTable dtcompanyname = new DataTable();
+            SqlParameter[] prms = new SqlParameter[1];
+            dtcompanyname = bdl.SelectData("M_Company_Select",null);
+            return dtcompanyname;
+        }
+
+        public DataTable Get_M_GroupName()
+        {
+            BaseDL bdl = new BaseDL();
+            DataTable dtgroupname = new DataTable();
+            SqlParameter[] prms = new SqlParameter[1];
+            dtgroupname = bdl.SelectData("M_Group_Select", null);
+            return dtgroupname;
+        }
+
+        public DataTable T_Information_Select()
+        {
+            BaseDL bdl = new BaseDL();
+            DataTable dtinformation = new DataTable();
+            SqlParameter[] prms = new SqlParameter[1];
+            dtinformation = bdl.SelectData("T_Information_Select", null);
+            return dtinformation;
+        }
     }
 }
