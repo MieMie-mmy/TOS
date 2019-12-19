@@ -4,60 +4,71 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using TOS_Model;
-using Company_BL;
+using Company_Entry_BL;
 using System.Data ;
 
 namespace TOS.Controllers
 {
     public class RegistrationsController : Controller
     {
-        CompanyBL cbl = new CompanyBL();
+       
         // GET: Registrations
         public ActionResult Company_Entry()
         {
-            return View();
-        }
-
-
-        [HttpPost]
-        public ActionResult Insert(M_CompanyModel cm)
-        {
-
-
-             // DataTable dt  = cbl.Insert(cm);
-            //TempData["Success"] = "登録されました。";
-            //TempData["UserMessage"] = new MessageVM() { CssClassName = "alert-sucess", Title = "Success!", Message = "登録されました。" };
-            //return RedirectToAction("Company_Entry");
-            if (ModelState.IsValid)
+            
+            if (Session["CompanyCD"] != null)
             {
-                //do something
-                TempData["Success"] = "登録されました。";
-                //return RedirectToAction("Company_Entry");
-                return RedirectToAction("Company_Entry");
+                ViewBag.Message = "Welcome to my demo!";
+                return View();
             }
             else
             {
-                ViewData["Error"] = "Error message text.";
-                return View("Company_Entry");
+                return RedirectToAction("Login", "User");
             }
         }
+        [HttpPost]
+        public ActionResult InsertCompany(M_CompanyModel cm,M_CompanyShippingModel cmShip )
+        {
+            
+             Company_EntryBL cbl = new Company_EntryBL();
 
+            if (cm.ZipCD1 != null)
+            {
+                string zip1 = cm.ZipCD1.Substring(0, 3);
+                string zip2 = cm.ZipCD1.Substring(3);
+                cm.ZipCD1 = zip1;
+                cm.ZipCD2 = zip2;
 
+            }
+            
+            if (cmShip.ZipCD1 != null)
+            {
+                string zipShip1 = cmShip.ZipCD1.Substring(0, 3);
+                string zipShip2 = cmShip.ZipCD1.Substring(3);
+                cmShip.ZipCD1 = zipShip1;
+                cmShip.ZipCD2 = zipShip2;
+            }
+           
+            cm.InsertOperator=Session["CompanyCD"].ToString();
+            cmShip.InsertOperator = Session["CompanyCD"].ToString();
 
+            DataTable dt  = cbl.InsertCompany(cm);
+            DataTable dtShip = cbl.InsertCompanyShipping(cmShip,cm);
+
+            if (ModelState.IsValid)
+            {
+               return RedirectToAction("Company_Entry");
+            }
+            else
+            {
+                ViewBag.Success = "登録されました。";
+               return View("Company_Entry");
+               
+            }
+        }
         public ActionResult Group_Entry()
         {
             return View();
         }
-    }
-
-    internal class MessageVM
-    {
-        public MessageVM()
-        {
-        }
-
-        public string CssClassName { get; set; }
-        public string Title { get; set; }
-        public string Message { get; set; }
     }
 }
