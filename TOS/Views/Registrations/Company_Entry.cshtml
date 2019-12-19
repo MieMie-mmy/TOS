@@ -477,7 +477,7 @@
                         <div class="form-group">
                             <label for="shipID4" style=" font-size:11px;">発送先ID</label>
                             @*<input type="text" class="form-control" id="txtshipID4" name="txtshipID4" style="background-color:#c4dfe5d6; height:23px; width:130px;" onkeypress="return isNumberKey(event)" />*@
-                            @Html.TextBoxFor(ShippingModel => ShippingModel[3].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;", @onkeypress = "return isNumberKey(event)" })
+                            @Html.TextBoxFor(m => m.ShippingModel[3].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;", @onkeypress = "return isNumberKey(event)" })
 
                         </div>
 
@@ -518,7 +518,7 @@
                         <div class="form-group">
                             <label for="TaxNo4" style=" font-size:11px;">FAX番号</label>
                             @*<input type="text" class="form-control" id="txtTaxNo4" name="txtTaxNo4" style="background-color:#c4dfe5d6;height:23px; width:200px;" />*@
-                            @Html.TextBoxFor(=> .ShippingModel[3].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })
+                            @Html.TextBoxFor(m => m.ShippingModel[3].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })
 
 
                         </div>
