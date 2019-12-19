@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="M_BrandModel.cs" />
+    <Compile Include="M_CompanyBrandModel.cs" />
     <Compile Include="M_GroupListModel.cs" />
     <Compile Include="M_GroupModel.cs" />
     <Compile Include="MultipleModel.cs" />

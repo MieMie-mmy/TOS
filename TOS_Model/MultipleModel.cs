@@ -18,5 +18,7 @@ namespace TOS_Model
         public M_GroupModel GroupModel { get; set; }
 
         public M_GroupListModel GroupListModel { get; set; }
+
+        public M_BrandModel MBrandModel { get; set; }
     }
 }
