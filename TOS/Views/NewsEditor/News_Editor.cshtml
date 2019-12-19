@@ -1,10 +1,11 @@
 ﻿@using System.Data;
-@model DataTable
+@model  TOS_Model.T_InformationModel
+
+
 @{
     ViewBag.Title = "News_Editor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 @section Styles{
 
@@ -75,9 +76,9 @@
                         className: 'newpd'
                     },
                     {
-                        targets: [2,3],
+                        targets: [2, 3],
                         className: 'tab002tit'
-                        }
+                    }
                     ],
                     "dom": 'lrtip',
                     "bLengthChange": false,
@@ -110,7 +111,11 @@
 }
 
 
-<body>
+@using (Html.BeginForm("T_Information_SaveEdit", "NewsEditor", FormMethod.Post, new { enctype = "multipart/form-data", @id = "MyForm" }))
+
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
     </ol>
@@ -128,8 +133,9 @@
                                     <div class="box-row">
                                         <div class="box">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" id="defaultChecked" name="defaultExampleRadios">
-                                                <label class="custom-control-label" for="defaultChecked">全社</label>
+                                                @*<input type="radio" class="custom-control-input" id="rdocompanywide" name="rdocompanywide" value="1">*@
+                                                @Html.RadioButtonFor(m => m.DestinationFlag ,"1", new { @checked = "true" })
+                                                <label>全社</label>
                                             </div>
                                         </div>
                                         <div class="box"></div>
@@ -137,27 +143,30 @@
                                     <div class="box-row">
                                         <div class="box">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" id="rdocompanydesignation" name="defaultExampleRadios">
-                                                <label class="custom-control-label" for="defaultUnchecked">会社指定</label>
+                                                @*<input type="radio" class="custom-control-input" id="rdocompanydesignation" name="rdocompanydesignation" value="2">*@
+                                                @Html.RadioButtonFor(m => m.DestinationFlag , "2")
+                                                <label>会社指定</label>
                                             </div>
                                         </div>
                                         <div class="box">
                                             @Html.DropDownList("ddlCompanyname",
                                             new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                                            new { @class = "comp"})
+                                            new { @class = "comp" })
                                         </div>
-                                    </div>
+                                        グループ指定
+                                    </div>グループ指定
                                     <div class="box-row">
                                         <div class="box">
                                             <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" id="rdogroupdesignation" name="defaultExampleRadios">
-                                                <label class="custom-control-label" for="defaultUnchecked">グループ指定</label>
+                                                @*<input type="radio" class="custom-control-input" id="rdogroupdesignation" name="rdogroupdesignation" value="3">*@
+                                                @Html.RadioButtonFor(m => m.DestinationFlag, "3")
+                                                <label>グループ指定</label>
                                             </div>
                                         </div>
                                         <div class="box">
                                             @Html.DropDownList("ddlGroupname",
                                             new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                                            new { @class = "comp"})
+                                            new { @class = "comp" })
                                         </div>
                                     </div>
                                     <div class="box-row">
@@ -211,7 +220,7 @@
                                                 <label class="form-check-label" for="exampleCheck1">有効</label>
                                             </div>
                                         </div>
-                                        <div class="box"><div class="sair"><button type="button" class="btn btn-success btn-lg">✔　登録</button></div></div>
+                                        <div class="box"><div class="sair"><button type="submit" class="btn btn-success btn-lg">✔　登録</button></div></div>
                                     </div>
                                 </div>
                                 <div class="boxberb">
@@ -274,28 +283,6 @@
 
 
                                 </div>
-                                @*<table class="tab002">
-                                        <tbody>
-                                            <tr class="tab002tit">
-                                                <td>No</td>
-                                                <td>課題名</td>
-                                                <td>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="saict newpd">1</td>
-                                                <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                            </tr>
-                                            <tr class="saisinHeading">
-                                                <td class="saict newpd">2</td>
-                                                <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>*@
                                 <table class="tab002" id="tbinformation">
                                     <thead>
                                         <tr>
@@ -317,226 +304,226 @@
         </div>
 
     </div>
-    <!-- script-for sticky-nav -->
-    <script>
-        // define variables
-        var nativePicker = document.querySelector('.nativeDatePicker');
-        var fallbackPicker = document.querySelector('.fallbackDatePicker');
+}
+<!-- script-for sticky-nav -->
+<script>
+    // define variables
+    var nativePicker = document.querySelector('.nativeDatePicker');
+    var fallbackPicker = document.querySelector('.fallbackDatePicker');
 
-        var yearSelect = document.querySelector('[name=year]');
-        var monthSelect = document.querySelector('[name=month]');
+    var yearSelect = document.querySelector('[name=year]');
+    var monthSelect = document.querySelector('[name=month]');
 
-        // Test whether a new date input falls back to a text input
-        var testElement = document.createElement('input');
+    // Test whether a new date input falls back to a text input
+    var testElement = document.createElement('input');
 
-        try {
-            test.type = 'date';
-        } catch (e) {
-            console.log(e.description);
+    try {
+        test.type = 'date';
+    } catch (e) {
+        console.log(e.description);
+    }
+
+    // If it does, run the code inside the if () {} block
+    if (testElement.type === 'text') {
+        // hide the native picker and show the fallback
+        nativePicker.hidden = true;
+        fallbackPicker.hidden = false;
+
+        // populate the days and years dynamically
+        // (the months are always the same, therefore hardcoded)
+        populateDays(monthSelect.value);
+        populateYears();
+    }
+
+    function populateDays(month) {
+        const daySelect = document.querySelector('[name=day]');
+        const month = monthSelect.value;
+
+        // Create variable to hold new number of days to inject
+        let dayNum;
+
+        // 31 or 30 days?
+        switch (month) {
+            case 'April':
+            case 'June':
+            case 'September':
+            case 'November':
+                dayNum = 30;
+                break;
+            case 'February':
+                // If month is February, calculate whether it is a leap year or not
+                const year = yearSelect.value;
+                const isLeap = new Date(year, 1, 29).getMonth() === 1;
+                dayNum = isLeap ? 29 : 28;
+                break;
+            default:
+                dayNum = 31;
         }
 
-        // If it does, run the code inside the if () {} block
-        if (testElement.type === 'text') {
-            // hide the native picker and show the fallback
-            nativePicker.hidden = true;
-            fallbackPicker.hidden = false;
-
-            // populate the days and years dynamically
-            // (the months are always the same, therefore hardcoded)
-            populateDays(monthSelect.value);
-            populateYears();
-        }
-
-        function populateDays(month) {
-            const daySelect = document.querySelector('[name=day]');
-            const month = monthSelect.value;
-
-            // Create variable to hold new number of days to inject
-            let dayNum;
-
-            // 31 or 30 days?
-            switch (month) {
-                case 'April':
-                case 'June':
-                case 'September':
-                case 'November':
-                    dayNum = 30;
-                    break;
-                case 'February':
-                    // If month is February, calculate whether it is a leap year or not
-                    const year = yearSelect.value;
-                    const isLeap = new Date(year, 1, 29).getMonth() === 1;
-                    dayNum = isLeap ? 29 : 28;
-                    break;
-                default:
-                    dayNum = 31;
-            }
-
-            // inject the right number of new <option>s into the <select>
-            daySelect.options = Array.from({
-                length: dayNum
-            }, function (index) {
-                return index + 1;
-            });
-
-            // if previous day has already been set, set daySelect's value
-            // to that day, to avoid the day jumping back to 1 when you
-            // change the year
-            if (previousDay) {
-                daySelect.value = previousDay;
-
-                // If the previous day was set to a high number, say 31, and then
-                // you chose a month with fewer days in it (like February),
-                // this code ensures that the highest day available
-                // is selected, rather than showing a blank daySelect
-                if (previousDay > daySelect.length + 1) {
-                    daySelect.selectedIndex = daySelect.length;
-                }
-            }
-        }
-
-        function populateYears() {
-            // get this year as a number
-            var year = (new Date()).getFullYear();
-
-            // Make this year and the 100 years before it available in the <select>
-            daySelect.options = Array.from({
-                length: 100
-            }, function (index) {
-                return index + year;
-            });
-        }
-
-        // when the month or year <select> values are changed, rerun populateDays()
-        // in case the change affected the number of available days
-        yearSelect.onchange = populateDays;
-        monthSelect.onchange = populateDays;
-
-        // preserve day selection
-        var previousDay;
-
-        // update what day has been set to previously
-        // see end of populateDays() for usage
-        daySelect.onchange = function () {
-            previousDay = daySelect.value;
-        }
-    </script>
-    <script>
-        function odFunction() {
-            var x = document.getElementById("mailbox-content");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-
-            } else {
-                x.style.display = "block";
-            }
-        }
-        $("#btnb").click(function () {
-            $(this).text() === 'ブロック最小化' ?
-                $(this).text('ブロック最小化') :
-                $(this).text('ブロック表示')
-        })
-    </script>
-    <script>
-        $(document).ready(function () {
-            var navoffeset = $(".header-main").offset().top;
-            $(window).scroll(function () {
-                var scrollpos = $(window).scrollTop();
-                if (scrollpos >= navoffeset) {
-                    $(".header-main").addClass("fixed");
-                } else {
-                    $(".header-main").removeClass("fixed");
-                }
-            });
-
+        // inject the right number of new <option>s into the <select>
+        daySelect.options = Array.from({
+            length: dayNum
+        }, function (index) {
+            return index + 1;
         });
-    </script>
+
+        // if previous day has already been set, set daySelect's value
+        // to that day, to avoid the day jumping back to 1 when you
+        // change the year
+        if (previousDay) {
+            daySelect.value = previousDay;
+
+            // If the previous day was set to a high number, say 31, and then
+            // you chose a month with fewer days in it (like February),
+            // this code ensures that the highest day available
+            // is selected, rather than showing a blank daySelect
+            if (previousDay > daySelect.length + 1) {
+                daySelect.selectedIndex = daySelect.length;
+            }
+        }
+    }
+
+    function populateYears() {
+        // get this year as a number
+        var year = (new Date()).getFullYear();
+
+        // Make this year and the 100 years before it available in the <select>
+        daySelect.options = Array.from({
+            length: 100
+        }, function (index) {
+            return index + year;
+        });
+    }
+
+    // when the month or year <select> values are changed, rerun populateDays()
+    // in case the change affected the number of available days
+    yearSelect.onchange = populateDays;
+    monthSelect.onchange = populateDays;
+
+    // preserve day selection
+    var previousDay;
+
+    // update what day has been set to previously
+    // see end of populateDays() for usage
+    daySelect.onchange = function () {
+        previousDay = daySelect.value;
+    }
+</script>
+<script>
+    function odFunction() {
+        var x = document.getElementById("mailbox-content");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+
+        } else {
+            x.style.display = "block";
+        }
+    }
+    $("#btnb").click(function () {
+        $(this).text() === 'ブロック最小化' ?
+            $(this).text('ブロック最小化') :
+            $(this).text('ブロック表示')
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        var navoffeset = $(".header-main").offset().top;
+        $(window).scroll(function () {
+            var scrollpos = $(window).scrollTop();
+            if (scrollpos >= navoffeset) {
+                $(".header-main").addClass("fixed");
+            } else {
+                $(".header-main").removeClass("fixed");
+            }
+        });
+
+    });
+</script>
 
 
-    <div class="sidebar-menu">
-        <header class="logo1">
-            <a href="#" class="sidebar-icon"> <img src="images/tennic.png" alt=""></a>
-            <span>Order System</span>
-        </header>
-        <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-        <div class="menu">
-            <ul id="menu">
-                <li>
-                    <a href="index.html">
-                        <i class="fa fa-home"></i> <span>ホーム</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
+<div class="sidebar-menu">
+    <header class="logo1">
+        <a href="#" class="sidebar-icon"> <img src="images/tennic.png" alt=""></a>
+        <span>Order System</span>
+    </header>
+    <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
+    <div class="menu">
+        <ul id="menu">
+            <li>
+                <a href="index.html">
+                    <i class="fa fa-home"></i> <span>ホーム</span>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
 
 
-                <li id="menu-academico">
-                    <a href="order_portal.html">
-                        <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
-                <li>
-                    <a href="order_input.html">
-                        <i class="fa fa-table" aria-hidden="true"></i><span>発注入力</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
-                <li id="menu-academico">
-                    <a href="order_history.html">
-                        <i class="fa fa-history"></i><span>発注履歴</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
+            <li id="menu-academico">
+                <a href="order_portal.html">
+                    <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li>
+                <a href="order_input.html">
+                    <i class="fa fa-table" aria-hidden="true"></i><span>発注入力</span>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li id="menu-academico">
+                <a href="order_history.html">
+                    <i class="fa fa-history"></i><span>発注履歴</span>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
 
-                <li id="menu-academico">
-                    <a href="inventories.html">
-                        <i class="fa fa-search" aria-hidden="true"></i><span>在庫照会</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
-                <li id="menu-academico">
-                    <a href="news_editor.html">
-                        <i class="fa fa-plus" aria-hidden="true"></i><span>お知らせ入力</span>
-                        <div class="clearfix"></div>
-                    </a>
+            <li id="menu-academico">
+                <a href="inventories.html">
+                    <i class="fa fa-search" aria-hidden="true"></i><span>在庫照会</span>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li id="menu-academico">
+                <a href="news_editor.html">
+                    <i class="fa fa-plus" aria-hidden="true"></i><span>お知らせ入力</span>
+                    <div class="clearfix"></div>
+                </a>
 
-                </li>
+            </li>
 
 
 
-            </ul>
-        </div>
+        </ul>
     </div>
-    <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
 
-    <script>
-        var toggle = true;
+<script>
+    var toggle = true;
 
-        $(".sidebar-icon").click(function () {
-            if (toggle) {
-                $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+    $(".sidebar-icon").click(function () {
+        if (toggle) {
+            $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+            $("#menu span").css({
+                "position": "absolute"
+            });
+        } else {
+            $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+            setTimeout(function () {
                 $("#menu span").css({
-                    "position": "absolute"
+                    "position": "relative"
                 });
-            } else {
-                $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
-                setTimeout(function () {
-                    $("#menu span").css({
-                        "position": "relative"
-                    });
-                }, 400);
-            }
+            }, 400);
+        }
 
-            toggle = !toggle;
-        });
-    </script>
+        toggle = !toggle;
+    });
+</script>
 
-    <!--js -->
-    <script src="js/jquery.nicescroll.js"></script>
-    <script src="js/scripts.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- /Bootstrap Core JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
+<!--js -->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<!-- /Bootstrap Core JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

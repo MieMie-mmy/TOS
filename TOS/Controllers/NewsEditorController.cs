@@ -12,10 +12,18 @@ namespace TOS.Controllers
 {
     public class NewsEditorController : Controller
     {
+        T_InformationModel tinfo = new T_InformationModel();
         public ActionResult News_Editor()
         {
             return View();
         }
+      
+        public ActionResult T_Information_SaveEdit(T_InformationModel tinfo)
+        {
+            InformationBL ibl = new InformationBL();
+            return View();
+        }
+
 
         [HttpGet]
         public string M_Companay_Select()
