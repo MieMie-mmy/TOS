@@ -9,6 +9,8 @@ namespace Company_Entry_BL
 {
     public class Company_EntryBL
     {
+        MultipleModel model;
+        
         public DataTable InsertCompany(M_CompanyModel mModel)
         {
 
@@ -49,23 +51,24 @@ namespace Company_Entry_BL
         {
             DataTable dt = new DataTable();
             BaseDL dl = new BaseDL();
+            if (mModelShip != null)
+            {
+                SqlParameter[] prmship = new SqlParameter[10];
+                prmship[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
+                prmship[1] = new SqlParameter("@ShippingID", SqlDbType.VarChar) { Value = mModelShip.ShippingID };
+                prmship[2] = new SqlParameter("@ShippingName", SqlDbType.VarChar) { Value = mModelShip.ShippingName };
+                prmship[3] = new SqlParameter("@ZipCD1", SqlDbType.VarChar) { Value = mModelShip.ZipCD1 };
+                prmship[4] = new SqlParameter("@ZipCD2", SqlDbType.VarChar) { Value = mModelShip.ZipCD2 };
+                prmship[5] = new SqlParameter("@Address1", SqlDbType.VarChar) { Value = mModelShip.Address1 };
+                prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = mModelShip.Address2 };
+                prmship[7] = new SqlParameter("@TelephoneNO", SqlDbType.VarChar) { Value = mModelShip.TelephoneNO };
+                prmship[8] = new SqlParameter("@FaxNO", SqlDbType.VarChar) { Value = mModelShip.FaxNO };
+                prmship[9] = new SqlParameter("@InsertOperator", SqlDbType.VarChar) { Value = mModelShip.InsertOperator };
 
-            SqlParameter[] prmship = new SqlParameter[1];
-            prmship[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
-            prmship[1] = new SqlParameter("@ShippingID", SqlDbType.VarChar) { Value = mModelShip.ShippingID };
-            prmship[2] = new SqlParameter("@ShippingName", SqlDbType.VarChar) { Value = mModelShip.ShippingName };
-            prmship[3] = new SqlParameter("@ZipCD1", SqlDbType.VarChar) { Value = mModelShip.ZipCD1 };
-            prmship[4] = new SqlParameter("@ZipCD2", SqlDbType.VarChar) { Value = mModelShip.ZipCD2 };
-            prmship[5] = new SqlParameter("@Address1", SqlDbType.VarChar) { Value = mModelShip.Address1 };
-            prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = mModelShip.Address2 };
-            prmship[9] = new SqlParameter("@TelephoneNO", SqlDbType.VarChar) { Value = mModelShip.TelephoneNO };
-            prmship[10] = new SqlParameter("@FaxNO", SqlDbType.VarChar) { Value = mModelShip.FaxNO };
-            prmship[11] = new SqlParameter("@InsertOperator", SqlDbType.VarChar) { Value = mModelShip.InsertOperator };
-
-            dl.InsertUpdateDeleteData("M_CompanyShipping_Insert", prmship);
-
-
-
+                dl.InsertUpdateDeleteData("M_CompanyShipping_Insert", prmship);
+                
+            
+            }
             return dt;
 
         }

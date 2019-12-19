@@ -30,34 +30,43 @@ namespace TOS.Controllers
             }
         }
         [HttpPost]
-        public ActionResult InsertCompany(M_CompanyModel cm,M_CompanyShippingModel cmShip )
+        public ActionResult InsertCompany(MultipleModel model)
         {
-            
-             Company_EntryBL cbl = new Company_EntryBL();
 
-            if (cm.ZipCD1 != null)
+            Company_EntryBL cbl = new Company_EntryBL();
+
+            if (model.ComModel.ZipCD1 != null)
             {
-                string zip1 = cm.ZipCD1.Substring(0, 3);
-                string zip2 = cm.ZipCD1.Substring(3);
-                cm.ZipCD1 = zip1;
-                cm.ZipCD2 = zip2;
+                string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
+                string zip2 = model.ComModel.ZipCD1.Substring(3);
+                model.ComModel.ZipCD1 = zip1;
+                model.ComModel.ZipCD2 = zip2;
 
             }
-            
-            if (cmShip.ZipCD1 != null)
+            model.ComModel.InsertOperator = Session["CompanyCD"].ToString();
+            DataTable dt = cbl.InsertCompany(model.ComModel);
+            Array array = model.ShippingModel.ToArray();
+
+            if (array.Length > 0)
             {
-                string zipShip1 = cmShip.ZipCD1.Substring(0, 3);
-                string zipShip2 = cmShip.ZipCD1.Substring(3);
-                cmShip.ZipCD1 = zipShip1;
-                cmShip.ZipCD2 = zipShip2;
+                for (int i = 0; i < array.Length; i++)
+                {
+                    if ((!string.IsNullOrWhiteSpace(model.ShippingModel[i].ShippingID.ToString())) && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())) && model.ShippingModel[i].ShippingID.ToString()!="0")
+                    {
+
+                        if (model.ShippingModel[i].ZipCD1 != null)
+                        {
+                            string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
+                            string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
+                            model.ShippingModel[i].ZipCD1 = zipShip1;
+                            model.ShippingModel[i].ZipCD2 = zipShip2;
+                        }
+
+                        model.ShippingModel[i].InsertOperator = Session["CompanyCD"].ToString();
+                        //DataTable dtShip = cbl.InsertCompanyShipping(model.ShippingModel[i], model.ComModel);
+                    }
             }
-           
-            cm.InsertOperator=Session["CompanyCD"].ToString();
-            cmShip.InsertOperator = Session["CompanyCD"].ToString();
-
-            DataTable dt  = cbl.InsertCompany(cm);
-            DataTable dtShip = cbl.InsertCompanyShipping(cmShip,cm);
-
+        }
             if (ModelState.IsValid)
             {
                return RedirectToAction("Company_Entry");

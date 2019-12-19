@@ -1,4 +1,4 @@
-﻿@model TOS_Model.M_CompanyModel
+﻿@model TOS_Model .MultipleModel
 @using System.Data;
 @{
     ViewBag.Title = "Company_Entry";
@@ -72,26 +72,26 @@
                             <div class="form-group">
                                 <label for="ComCD" style=" font-size:11px;">会社CD</label>
                                 @*<input type="text" class="form-control" id="txtComCD" name="txtComCD" style="background-color:#c4dfe5d6;height:23px; width:130px;" onkeypress="return isNumberKey(event)" maxlength="8" />*@
-                                @Html.TextBoxFor(c => c.CompanyCD, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;", @onkeypress = "return isNumberKey(event)", @maxlength = "8" })
+                                @Html.TextBoxFor(m => m.ComModel.CompanyCD, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;", @onkeypress = "return isNumberKey(event)", @maxlength = "8" })
 
                             </div>
                             <div class="form-group">
                                 <label for="ComName" style=" font-size:11px;">会社名</label>
                                 @*<input type="text" class="form-control" id="txtComName" name="txtComName" style="background-color:#c4dfe5d6;height:23px; width:200px;" maxlength="50" />*@
-                                @Html.TextBoxFor(c => c.CompanyName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "50" })
+                                @Html.TextBoxFor(m => m.ComModel.CompanyName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "50" })
 
                             </div>
                             <div class="form-group">
                                 <label for="ComAbbre1" style=" font-size:11px;">会社略名</label>
                                 @*<input type="text" class="form-control" id="txtComAbbre1" name="txtComAbbre1" style="background-color:#c4dfe5d6;height:23px; width:200px;" />*@
-                                @Html.TextBoxFor(c => c.ShortName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "30" })
+                                @Html.TextBoxFor(m => m.ComModel.ShortName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "30" })
 
                             </div>
                             <div class="form-group">
 
                                 <label for="ComPassw" style=" font-size:11px;">Password</label>
                                 @*<input type="password" id="password" name="password" class="form-control" maxlength="20" style="background-color:#c4dfe5d6;height:23px; width:200px;">*@
-                                @Html.TextBoxFor(c => c.Password, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "20" })
+                                @Html.TextBoxFor(m => m.ComModel.Password, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "20" })
 
                             </div>
 
@@ -104,7 +104,7 @@
                             <div class="form-group">
                                 <label for="RepreName" style=" font-size:11px;">代表者名</label>
                                 @*<input type="text" class="form-control" id="txtRepreName" name="txtRepreName" style="background-color:#c4dfe5d6;height:23px; width:200px;" />*@
-                                @Html.TextBoxFor(c => c.PresidentName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "16" })
+                                @Html.TextBoxFor(m => m.ComModel.PresidentName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "16" })
 
                             </div>
 
@@ -112,9 +112,9 @@
                             <div class="form-group">
                                 <label for="Authority" style=" font-size:11px;">権限</label>
                                 <div class="custom-control custom-radio">
-                                    @Html.RadioButtonFor(c => c.UserRole, "1")
+                                    @Html.RadioButtonFor(m => m.ComModel.UserRole, "1")
                                     <label class="custom-control-label" style="font-size :11px;">管理者</label>
-                                    @Html.RadioButtonFor(c => c.UserRole,"2",new { @checked = "true"})
+                                    @Html.RadioButtonFor(m => m.ComModel.UserRole,"2",new { @checked = "true"})
 
                                     <label class="custom-control-label"  style="font-size :11px;">一般者</label>
                                 </div>
@@ -122,7 +122,7 @@
                             <div class="form-group">
                                 <label for="RnkFlag" style=" font-size:11px;">ランクフラグ</label>
                                 <div class="dropdown">
-                                @Html.DropDownListFor(c => c.RankingFlg, new List<SelectListItem>
+                                @Html.DropDownListFor(m => m.ComModel.RankingFlg, new List<SelectListItem>
                                  {
                                  new SelectListItem{ Text="", Value = "0" },
                                  new SelectListItem{ Text="1", Value = "1" },
@@ -143,32 +143,32 @@
                                 <label for="PostCode" style=" font-size:11px;">郵便番号</label>
                                 @*<input type="text" class="form-control" id="txtPostCode" name="txtPostCode" style="background-color:#c4dfe5d6;height:23px; width:150px;" onkeypress="numbersonly" />*@
                                 @*<input id="zip" name="zip" type="text" pattern="[0-9]*" class="form-control" style="background-color:#c4dfe5d6;height:23px; width:150px;" onkeypress="return isNumberKey(event)" maxlength="7">*@
-                                @Html.TextBoxFor(c => c.ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:150px;", @maxlength = "7", @onkeypress = "return isNumberKey(event)" })
+                                @Html.TextBoxFor(m => m.ComModel.ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:150px;", @maxlength = "7", @onkeypress = "return isNumberKey(event)" })
 
                             </div>
                             <div class="form-group">
                                 <label for="Address1" style=" font-size:11px;">住所1</label>
                                 @*<input type="text" class="form-control" id="txtAddress1" name="txtAddress1" style="background-color:#c4dfe5d6;height:23px; width:200px;" />*@
-                                @Html.TextBoxFor(c => c.Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "100" })
+                                @Html.TextBoxFor(m => m.ComModel.Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "100" })
 
                             </div>
                             <div class="form-group">
                                 <label for="Address2" style=" font-size:11px;">住所2</label>
                                 @*<input type="text" class="form-control" id="txtAddress2" name="txtAddress2" style="background-color:#c4dfe5d6;height:23px; width:200px;" />*@
-                                @Html.TextBoxFor(c => c.Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "100" })
+                                @Html.TextBoxFor(m => m.ComModel.Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "100" })
 
                             </div>
                             <div class="form-group">
                                 <label for="Phno" style=" font-size:11px;">電話番号</label>
                                 @*<input type="text" class="form-control" id="txtPhno" name="txtPhno" style="background-color:#c4dfe5d6;height:23px; width:200px;" onkeypress="return isNumberKey(event)" maxlength="15" />*@
-                                @Html.TextBoxFor(c => c.TelephoneNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                @Html.TextBoxFor(m => m.ComModel.TelephoneNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
 
                             </div>
 
                             <div class="form-group">
                                 <label for="Faxno" style=" font-size:11px;"> FAX番号</label>
                                 @*<input type="text" class="form-control" id="txtFaxno" name="txtFaxno" style="background-color:#c4dfe5d6;height:23px; width:200px;" />*@
-                                @Html.TextBoxFor(c => c.FaxNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })
+                                @Html.TextBoxFor(m=> m.ComModel.FaxNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })
 
 
                             </div>
@@ -309,7 +309,7 @@
                         <div class="form-group">
                             <label for="shipID1" style=" font-size:11px;">発送先ID</label>
                             @*<input type="text" class="form-control" id="txtshipID1" name="txtshipID1" style="background-color:#c4dfe5d6;height:23px; width:130px;" onkeypress="return isNumberKey(event)" />*@
-                            @Html.TextBoxFor(m => m.ShippingModel[0].ShippingID , new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;", @onkeypress = "return isNumberKey(event)" })
+                            @Html.TextBoxFor(m =>m.ShippingModel[0].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;", @onkeypress = "return isNumberKey(event)" })
                         </div>
                         <div class="form-group">
                             <label for="shipName1" style=" font-size:11px;">発送先名</label>
@@ -477,7 +477,7 @@
                         <div class="form-group">
                             <label for="shipID4" style=" font-size:11px;">発送先ID</label>
                             @*<input type="text" class="form-control" id="txtshipID4" name="txtshipID4" style="background-color:#c4dfe5d6; height:23px; width:130px;" onkeypress="return isNumberKey(event)" />*@
-                            @Html.TextBoxFor(m => m.ShippingModel[3].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;", @onkeypress = "return isNumberKey(event)" })
+                            @Html.TextBoxFor(ShippingModel => ShippingModel[3].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;", @onkeypress = "return isNumberKey(event)" })
 
                         </div>
 
@@ -518,7 +518,7 @@
                         <div class="form-group">
                             <label for="TaxNo4" style=" font-size:11px;">FAX番号</label>
                             @*<input type="text" class="form-control" id="txtTaxNo4" name="txtTaxNo4" style="background-color:#c4dfe5d6;height:23px; width:200px;" />*@
-                            @Html.TextBoxFor(m => m.ShippingModel[3].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })
+                            @Html.TextBoxFor(=> .ShippingModel[3].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })
 
 
                         </div>
