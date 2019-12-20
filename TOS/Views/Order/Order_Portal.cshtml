@@ -1,10 +1,26 @@
-﻿@using System.Data
-@model DataTable
+﻿
 @{
     ViewBag.Title = "Order_Portal";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    TOS_Model.M_JobTimeableModel mj = ViewData["JobTime"] as TOS_Model.M_JobTimeableModel;
 }
+@section Styles {
+    <!-- jQuery -->
+    <script src="js/jquery-2.1.4.min.js"></script>
 
+    <link rel="stylesheet" href="~/Content/order_portal.css" type='text/css' />
+    <link rel="stylesheet" href="~/Content/order_input.css" type='text/css' />
+
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>
+}
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注ポータル</li>
 </ol>
@@ -14,40 +30,38 @@
     <div class="tab-content tab-content-in w3">
         <div class="tab-pane text-style active" id="tab1">
             <div class="inbox-right">
-
                 <div class="mailbox-content" id="mailbox-content">
                     <div class="mail-toolbar clearfix">
                         <div class="odfloat-left">
-
                             <table class="orderpcom">
                                 <tbody class="orderpcomBody">
                                     <tr class="orderpcomRow">
                                         <td class="orderpcomCellm">メーカー品番</td>
                                         <td class="orderpcomCelln">1</td>
-                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt1" class="form-control" placeholder="品番入力"></td>
                                         <td class="orderpcomCelln">2</td>
-                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt2" class="form-control" placeholder="品番入力"></td>
                                     </tr>
                                     <tr class="orderpcomRow">
                                         <td class="orderpcomCellm"></td>
                                         <td class="orderpcomCelln">3</td>
-                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt3" class="form-control" placeholder="品番入力"></td>
                                         <td class="orderpcomCelln">4</td>
-                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt4" class="form-control" placeholder="品番入力"></td>
                                     </tr>
                                     <tr class="orderpcomRow">
                                         <td class="orderpcomCellm"></td>
                                         <td class="orderpcomCelln">5</td>
-                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt5" class="form-control" placeholder="品番入力"></td>
                                         <td class="orderpcomCelln">6</td>
-                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt6" class="form-control" placeholder="品番入力"></td>
                                     </tr>
                                     <tr class="orderpcomRow">
                                         <td class="orderpcomCellm"></td>
                                         <td class="orderpcomCelln">7</td>
-                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt7" class="form-control" placeholder="品番入力"></td>
                                         <td class="orderpcomCelln">8</td>
-                                        <td class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt8" class="form-control" placeholder="品番入力"></td>
 
                                     </tr>
                                     <tr class="orderpcomRow">
@@ -66,7 +80,12 @@
                                         <td class="orderpcomCell"></td>
                                         <td class="orderpcomCell">
                                             <div class="orderpcomCell">
-                                                <div class="orderpcomCell"><button type="button" 　onclick="odFunction()" class="odsec btn btn-success"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></div><div class="orderpcomCell"><button type="button" class="odsec btn btn-warning">↺&nbsp;リセット</button></div>
+                                                <div class="orderpcomCell">
+                                                    <button type="button" id="btnSearch" class="odsec btn btn-success"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button>
+                                                </div>
+                                                <div class="orderpcomCell">
+                                                    <button type="button" id="btnClear" class="odsec btn btn-warning">↺&nbsp;リセット</button>
+                                                </div>
                                             </div>
                                         </td>
 
@@ -74,11 +93,8 @@
                                 </tbody>
                             </table>
                             <!-- orderpcom.com -->
-
                         </div>
                         <div class="odfloat-right">
-
-
                             <div class="odbtn-group odbtn-groupl">
                                 <div class="orderpcom">
                                     <div class="orderpcomBodycom">
@@ -106,139 +122,222 @@
                                 </div>
                             </div>
                             <div class="odbtn-group">
-                                    <div class="eigyo eigyoRowtit"><span>利用可能時間</span></div>
-                                    <div class="eigyo">
-                                        <div class="eigyoBody">
-                                            <div class="eigyoRow">
-
-                                            </div>
-                                            <div class="eigyoRow eigyoRowtit">
-                                                <div class="eigyoCell">業務</div>
-                                                <div class="eigyoCell ">弊社営業時間</div>
-                                            </div>
-                                            <div class="eigyoRow">
-                                                <div class="eigyoCell">照会発注</div>
-                                                <div class="eigyoCell">8：00～22：00</div>
-                                            </div>
-                                            <div class="eigyoRow">
-                                                <div class="eigyoCell">発注取消</div>
-                                                <div class="eigyoCell">8：00～22：00</div>
-                                            </div>
-                                            <div class="eigyoRow">
-                                                <div class="eigyoCell">上記以外</div>
-                                                <div class="eigyoCell saict">24時間後利用可能</div>
-                                            </div>
+                                <div class="eigyo eigyoRowtit"><span>利用可能時間</span></div>
+                                <div class="eigyo">
+                                    <div class="eigyoBody">
+                                        <div class="eigyoRow">
 
                                         </div>
+                                        <div class="eigyoRow eigyoRowtit">
+                                            <div class="eigyoCell">業務</div>
+                                            <div class="eigyoCell ">弊社営業時間</div>
+                                        </div>
+                                        <div class="eigyoRow">
+                                            <div class="eigyoCell">照会発注</div>
+                                            <div class="eigyoCell">@mj.OrderAblePeriod</div>
+                                        </div>
+                                        <div class="eigyoRow">
+                                            <div class="eigyoCell">発注取消</div>
+                                            <div class="eigyoCell">@mj.CancelAblePeriod</div>
+                                        </div>
+                                        <div class="eigyoRow">
+                                            <div class="eigyoCell">上記以外</div>
+                                            <div class="eigyoCell saict">@mj.ExceptionAboutPeriod</div>
+                                        </div>
+
+                                    </div>
+                                </div>
                             </div>
-
-
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </div>
-
-
     </div>
-
-</div>
-
-
-
-
 
     <div class="tab-content tab-content-in w3 orderlist">
         <div class="tab-pane text-style active" id="tab1">
             <div class="inbox-right">
-
                 <div class="mailbox-content">
                     <div class="mail-toolbar clearfix">
                         <div class="float-left">
                             <div class="odtitle">
                                 <h4>最新の発注状況(最大20件まで表示)</h4>
                             </div>
-
-
                         </div>
                         <div class="float-right">
-
-
                             <div class="btn-group">
                                 <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
                                 <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
                             </div>
-
-
                         </div>
-
                     </div>
                     <div class="saisin">
-                        <table class="saisinBody">
-                            <tbody>
-                                <tr class="saisinRow">
-                                    @*<td class="saisinCell t30 saict titcolor">NO</td>*@
-                                    <td class="saisinCell t150 saict titcolor">発注番号</td>
-                                    <td class="saisinCell t150 saict titcolor">商品番号</td>
-                                    <td class="saisinCell t250 saict titcolor">商品名</td>
-                                    <td class="saisinCell t100 saict titcolor">サイズ</td>
-                                    <td class="saisinCell t150 saict titcolor">カラー</td>
-                                    <td class="saisinCell t100 saict titcolor">発注数</td>
-                                    <td class="saisinCell t100 saict titcolor">引当数</td>
-                                    <td class="saisinCell t150 saict titcolor">下代</td>
-                                    <td class="saisinCell t150 saict titcolor">合計</td>
-                                    <td class="saisinCell t150 saict titcolor">発注日</td>
-                                    <td class="saisinCell t150 saict titcolor">発注時刻</td>
-                                    <td class="saisinCell t150 saict titcolor">出荷日</td>
+                        <table id="tblOrderPortal" class="saisinBody" style="width:100%">
+                            <thead>
+                                <tr class="saisinRow" style="width:100%">
+                                    <th class="titcolor">NO</th>
+                                    <th class="titcolor">発注番号</th>
+                                    <th class="titcolor">商品番号</th>
+                                    <th class="titcolor">商品名</th>
+                                    <th class="titcolor">サイズ</th>
+                                    <th class="titcolor">カラー</th>
+                                    <th class="titcolor">発注数</th>
+                                    <th class="titcolor">引当数</th>
+                                    <th class="titcolor">下代</th>
+                                    <th class="titcolor">合計</th>
+                                    <th class="titcolor">発注日</th>
+                                    <th class="titcolor">発注時刻</th>
+                                    <th class="titcolor">出荷日</th>
                                 </tr>
-                                @foreach (DataRow row in Model.Rows)
-                                {
-                                   
-                                    <tr class="saisinRow">
-                                    <td class="saisinCell sailf ">
-                                        @row["OrderID"]
-                                        </td>
-                                    <td class="saisinCell sailf ">
-                                        @row["MakterItemCD"]
-                                    </td>
-                                    <td class="saisinCell sailf ">
-                                        @row["ItemName"]</td>
-                                    <td class="saisinCell sailf ">
-                                        @row["SizeName"]
-                                        </td>
-                                    <td class="saisinCell sailf ">
-                                        @row["ColorName"]</td>
-                                    <td class="saisinCell sailf ">
-                                        @row["OrderItem"]
-                                        </td>
-                                    <td class="saisinCell sailf ">
-                                        @row["StockItem"]</td>
-                                    <td class="saisinCell sailf ">
-                                        @row["SalePrice"]
-                                        </td>
-                                    <td class="saisinCell sailf ">
-                                        @row["TotalAmount"]
-                                    </td>
-                                    <td class="saisinCell sailf ">
-                                        @row["OrderDateTime"]
-                                    </td>
-                                    <td class="saisinCell sailf ">
-                                        @row["OrderDateTime"]
-                                    </td>
-                                    <td class="saisinCell sailf ">
-                                        @row["ShippingDate"]
-                                    </td>
-                                    </tr>
-                                }
-
-                            </tbody>                         
+                            </thead>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-
-
     </div>
+
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function () {
+            var table = $('#tblOrderPortal').DataTable(
+                {
+                    "createdRow": function (row, data, dataIndex) {
+                        $(row).addClass("saisinRow");
+                    },
+                    columnDefs: [{
+                        targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                        className: 'saisinCell'
+                    }],
+                    "dom": 'lrtip',
+                    "bLengthChange": false,
+                    "ajax": {
+                        "url": "../Order/Get_Order_Portal_List",
+                        "type": "GET",
+                        "datatype": "json",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        { "data": "No", orderable: false, "width": "2%" },
+                        { "data": "OrderID", orderable: false, "width": "10%" },
+                        { "data": "MakerItemCD", orderable: false, "width": "15%" },
+                        { "data": "ItemName", orderable: false, "width": "18%" },
+                        { "data": "SizeName", orderable: false, "width": "5%" },
+                        { "data": "ColorName", orderable: false, "width": "15%" },
+                        { "data": "OrderItem", orderable: false, "width": "5%" },
+                        { "data": "StockItem", orderable: false, "width": "5%" },
+                        { "data": "SalePrice", orderable: false, "width": "5%" },
+                        { "data": "TotalAmount", orderable: false, "width": "5%" },
+                        { "data": "OrderDate", orderable: false, "width": "5%" },
+                        { "data": "OrderTime", orderable: false, "width": "5%" },
+                        { "data": "ShippingDate", orderable: false, "width": "5%" },
+                    ],
+                }
+            );
+        });
+
+
+    </script>
+
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                var table = $('#tblOrderPortal').DataTable(
+                    {
+                        "language": {
+                            "info": "Display START to END of TOTAL records",
+                        },
+                        "oLanguage": {
+                            "sLengthMenu": "Display MENU records",
+                        },
+                        "ajax": {
+                            "url": "../Order/Get_Order_Portal_List",
+                            "type": "GET",
+                            "datatype": "json",
+                            "dataSrc": ""
+                        },
+                        "columns": [
+                            {
+                                "className": 'saisinCell sailf',
+                                "orderable": false,
+                                "data": null,
+                                "defaultContent": '',
+                                "width": "3%"
+                            },
+                            { "data": "No", orderable: false, "width": "13%" },
+                            { "data": "OrderID", orderable: false, "width": "13%" },
+                            { "data": "MakerItemCD", orderable: false, "width": "13%" },
+                            { "data": "ItemName", orderable: false, "width": "3%" },
+                            { "data": "SizeName", orderable: false, "width": "10%" },
+                            { "data": "ColorName", orderable: false, "width": "10%" },
+                            { "data": "OrderItem", orderable: false, "width": "13%" },
+                            { "data": "StockItem", orderable: false, "width": "10%" },
+                            { "data": "SalePrice", orderable: false, "width": "4%" },
+                            { "data": "TotalAmount", orderable: false, "width": "4%" },
+                            { "data": "OrderDate", orderable: false, "width": "4%" },
+                            { "data": "OrderTime", orderable: false, "width": "4%" },
+                            { "data": "ShippingDate", orderable: false, "width": "7%" },
+                        ],
+                    }
+                );
+
+                $('#tblOrderPortal tbody').on('click', 'td.details-control', function () {
+                    var tr = $(this).closest('tr');
+                    var row = table.row(tr);
+
+                    if (row.child.isShown()) {
+                        // This row is already open - close it
+                        row.child.hide();
+                        tr.removeClass('shown');
+                    }
+                    else {
+                        // Open this row
+                        row.child(format(row.data())).show();
+                        tr.addClass('shown');
+                    }
+                });
+            });
+
+        </script>*@
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#btnClear").click(function () {
+                $("#txt1").val("");
+                $("#txt2").val("");
+                $("#txt3").val("");
+                $("#txt4").val("");
+                $("#txt5").val("");
+                $("#txt6").val("");
+                $("#txt7").val("");
+                $("#txt8").val("");
+            })
+            $("#btnSearch").click(function () {
+                var MakerItemCD = "";
+                if ($("#txt1").val() != '')
+                    MakerItemCD += $("#txt1").val() + ',';
+                if ($("#txt2").val() != '')
+                    MakerItemCD += $("#txt2").val() + ',';
+                if ($("#txt3").val() != '')
+                    MakerItemCD += $("#txt3").val() + ',';
+                if ($("#txt4").val() != '')
+                    MakerItemCD += $("#txt4").val() + ',';
+                if ($("#txt5").val() != '')
+                    MakerItemCD += $("#txt5").val() + ',';
+                if ($("#txt6").val() != '')
+                    MakerItemCD += $("#txt6").val() + ',';
+                if ($("#txt7").val() != '')
+                    MakerItemCD += $("#txt7").val() + ',';
+                if ($("#txt8").val() != '')
+                    MakerItemCD += $("#txt8").val() + ',';
+                if (MakerItemCD.indexOf(',') > 0)
+                    MakerItemCD = MakerItemCD.slice(0, -1);
+                window.location.href = '../Order/Order_Input/' + MakerItemCD;
+            })
+        })
+    </script>
+}
+

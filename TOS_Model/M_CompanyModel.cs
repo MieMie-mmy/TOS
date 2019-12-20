@@ -23,6 +23,6 @@ namespace TOS_Model
         public string FaxNo { get; set; }
         public string PresidentName { get; set; }
 
-
+        public int RankingFlg { get; set; }
     }
 }

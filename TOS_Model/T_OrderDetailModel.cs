@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TOS_Model
 {
- public class T_OrderDetailModel:BaseModel
+    public class T_OrderDetailModel : BaseModel
     {
         public string OrderID { get; set; }
 
@@ -14,12 +14,12 @@ namespace TOS_Model
 
         public int StockItem { get; set; }
 
-        public string SalePrice { get; set; }
+        public decimal SalePrice { get; set; }
 
-        public string TotalAmount { get; set; }
+        public decimal TotalAmount { get; set; }
 
-        public string OrderDateTime { get; set; }
+        public DateTime? OrderDateTime { get; set; }
 
-        public string ShippingDate { get; set; }
+        public DateTime? ShippingDate { get; set; }
     }
 }

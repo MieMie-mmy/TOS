@@ -20,23 +20,24 @@ namespace TOS
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                      "~/Scripts/bootstrap.js",
-                      "~/Scripts/bootstrap.min.js",
-                      "~/Scripts/Charts.js",
-                      "~/Scripts/jquery-2.1.4.min.js",
-                      "~/Scripts/jquery-3.3.1intellisense.js",
-                      "~/Scripts/jquery-3.3.1.js",
-                      "~/Scripts/jquery-3.3.1.min.js",
-                      "~/Scripts/jquery-3.3.1.min.map",
-                      "~/Scripts/jquery.basictable.min.js",
-                      "~/Scripts/jquery.jqcandlestick.min.js",
-                      "~/Scripts/jquery.nicescroll.js",
-                      "~/Scripts/jquery.jquery-ui.js",
-                      "~/Scripts/lightbox-plus-jquery.min.js",
-                      "~/Scripts/monthly.js",
-                      "~/Scripts/morris.js",
-                      "~/Scripts/raphael-min.js",
-                      "~/Scripts/scripts.js"
+                      //"~/Scripts/bootstrap.js",
+                      //"~/Scripts/bootstrap.min.js",
+                      //"~/Scripts/Charts.js",
+                      //"~/Scripts/jquery-2.1.4.min.js",
+                      //"~/Scripts/jquery-3.3.1intellisense.js",
+                      //"~/Scripts/jquery-3.3.1.js",
+                      //"~/Scripts/jquery-3.3.1.min.js",
+                      //"~/Scripts/jquery-3.3.1.min.map",
+                      //"~/Scripts/jquery.basictable.min.js",
+                      //"~/Scripts/jquery.jqcandlestick.min.js",
+                      //"~/Scripts/jquery.nicescroll.js",
+                      //"~/Scripts/jquery.jquery-ui.js",
+                      //"~/Scripts/lightbox-plus-jquery.min.js",
+                      //"~/Scripts/monthly.js",
+                      //"~/Scripts/morris.js",
+                      //"~/Scripts/raphael-min.js",
+                      //"~/Scripts/scripts.js",
+                      //"~/Scripts/CdnDatatable.js"                  
                       )); 
 
             bundles.Add(new StyleBundle("~/Content/css").Include(

@@ -42,13 +42,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseModel.cs" />
+    <Compile Include="M_BrandModel.cs" />
+    <Compile Include="M_CompanyBrandModel.cs" />
+    <Compile Include="M_GroupListModel.cs" />
+    <Compile Include="M_GroupModel.cs" />
+    <Compile Include="MultipleModel.cs" />
     <Compile Include="M_CompanyModel.cs" />
+    <Compile Include="M_CompanyShippingModel.cs" />
+    <Compile Include="M_CompanyTagModel.cs" />
     <Compile Include="M_JobTimeableModel.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="T_InformationModel.cs" />
+    <Compile Include="T_InventoriesModel.cs" />
     <Compile Include="T_OrderDetailModel.cs" />
     <Compile Include="T_OrderHistoryModel.cs" />
   </ItemGroup>

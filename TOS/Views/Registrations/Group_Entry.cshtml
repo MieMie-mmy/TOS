@@ -1,0 +1,214 @@
+﻿@{
+    ViewBag.Title = "Group_Entry";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+}
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Registrations/M_Companay_Select',
+                type: "GET",
+                dataType: "JSON",
+                dataSrc: '',
+                success: function (SP) {
+                    $.each(SP, function (i, name) {
+                        $("#ddlCompanyName").append(
+                            $('<option></option>').val(name.CompanyCD).html(name.CompanyName));
+                    });
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Registrations/M_Brand_Select',
+                type: "GET",
+                dataType: "JSON",
+                dataSrc: '',
+                success: function (SP) {
+                    $.each(SP, function (i, name) {
+                        $("#ddlBrandName").append(
+                            $('<option></option>').val(name.BrandCD).html(name.BrandName));
+                    });
+                }
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("[name='ddlCompanyName']").change(function () {
+                var sel = $("#ddlCompanyName option:selected").text();
+                var text = $('#txtarea1').val();
+                if (text.length > 0) {
+                    if (text.includes(sel)) { }
+                    else if (sel != "選択") {
+                        text += "," + sel;
+                    }
+                }
+                else
+                    text = sel;
+                $('#txtarea1').val(text);
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(function () {
+            $("[name='ddlBrandName']").change(function () {
+                var sel = $("#ddlBrandName option:selected").text();
+                var text = $('#txtarea2').val();
+                if (text.length > 0) {
+                    if (text.includes(sel)) { }
+                    else if (sel != "選択") {
+                        text += "," + sel;
+                    }
+                }
+                else
+                    text = sel;
+                $('#txtarea2').val(text);
+            });
+        });
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#rdbCompany').prop('checked', true);
+            $("#ddlBrandName").attr("disabled", "disabled");
+            $('#txtarea2').attr("disabled", "disabled");
+            $('#txtTag').attr("disabled", "disabled");
+        });
+    </script>
+    <script type="text/javascript">
+        $('#rdbCompany').click(function () {
+            $("#ddlBrandName").attr("disabled", "disabled");
+            $('#txtarea2').attr("disabled", "disabled");
+            $('#txtTag').attr("disabled", "disabled");
+        });
+
+        $('#rdbBrand').click(function () {
+            $('#ddlCompanyName').attr("disabled", "disabled");
+            $('#txtarea1').attr("disabled", "disabled");
+            $('#txtTag').attr("disabled", "disabled");
+        });
+        $('#rdbTag').click(function () {
+            $('#ddlBrandName').attr("disabled", "disabled");
+            $('#txtarea2').attr("disabled", "disabled");
+            $('#ddlCompanyName').attr("disabled", "disabled");
+            $('#txtarea1').attr("disabled", "disabled");
+        });
+    </script>
+}
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>会社登録</li>
+</ol>
+    <div class="inbox-mail">
+        <div class="tab-content tab-content-in w3">
+            <div class="tab-pane text-style active" id="tab1">
+                <div class="inbox-right">
+                    <div class="mailbox-content" id="mailbox-content">
+                        <div class="mail-toolbar clearfix">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-dark-green" style="background-color:#90b24d;">登録</button>
+                                    </div>
+                                </div>
+                            </div>
+                            <table>
+                                <tbody>
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label style=" font-size:11px;">グループID</label>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control input-sm" id="txtGroupID" style="background-color:#c4dfe5d6; width:110px;" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label style=" font-size:11px;">グループ名</label>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control input-sm" id="txtGroupName" style="background-color:#c4dfe5d6;width:210px;" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td><b>グループ指定情報</b></td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <input type="radio" id="rdbCompany" name="defaultExampleRadios" class="custom-control-input">
+                                            <label style=" font-size:11px;">会社指定</label>
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlCompanyName",
+new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
+new { @class = "form-control input-sm", @style = "width :210px" })
+                                        </td>
+                                        <td>
+                                            <input type="radio" id="rdbBrand" name="defaultExampleRadios" class="custom-control-input">
+                                            <label style=" font-size:11px;">ブランド</label>
+                                        </td>
+                                        <td>
+                                            @Html.DropDownList("ddlBrandName",
+new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
+new { @class = "form-control input-sm", @style = "width :210px;" })
+                                        </td>
+                                        <td>
+                                            <input type="radio" id="rdbTag" name="defaultExampleRadios" class="custom-control-input">
+                                            <label style=" font-size:11px;">タグ</label>
+                                        </td>
+                                        <td>
+                                            <input type="text" class="form-control input-sm" id="txtTag" style="background-color:#c4dfe5d6;width:210px;" />
+                                        </td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td></td>
+                                        <td>
+                                            <textarea class="form-control input-sm" id="txtarea1" style="background-color:#E5E7E9;height:85px;"></textarea>
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            <textarea class="form-control input-sm" id="txtarea2" style="background-color:#E5E7E9;height:85px;"></textarea>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"> </div>
+    </div>
+
