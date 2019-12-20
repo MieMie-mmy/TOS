@@ -1,5 +1,5 @@
-﻿@using System.Data
-@model DataTable
+﻿@*@using System.Data
+@model DataTable*@
 @{
     ViewBag.Title = "Order_History";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,14 +8,14 @@
 <!-- Style link-->
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<link href="~/Content/Site.css" rel="stylesheet" />
+@*<link href="~/Content/Site.css" rel="stylesheet" />
 <link href="~/Content/manager-style.css" rel="stylesheet" />
 <link href="~/Content/basictable.css" rel="stylesheet" />
 <link href="~/Content/font-awesome.css" rel="stylesheet" />
 <link href="~/Content/icon-font.min.css" rel="stylesheet" />
 <link href="~/Content/jqcandlestick.css" rel="stylesheet" />
 <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-<link href="~/Content/lightbox.css" rel="stylesheet" />
+<link href="~/Content/lightbox.css" rel="stylesheet" />*@
 <link href="~/Content/monthly.css" rel="stylesheet" />
 <link href="~/Content/morris.css" rel="stylesheet" />
 <link href="~/Content/news.css" rel="stylesheet" />
@@ -37,7 +37,7 @@
         <div class="tab-pane text-style active" id="tab1">
             <div class="inbox-right" style="overflow:scroll;overflow-y:scroll;">
                 全商品発注できました。
-                <table class="histoptab">
+                <table class="histoptab" id="Order_First">
                     <thead>
                         <tr class="histoptabtit">
                             <td class="tda t150">発注番号</td>
@@ -54,23 +54,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach (DataRow row in Model.Rows)
-                        {
-                            <tr>
-                                <td class="tda saict">@row["OrderID"] </td>
-                                <td class="tda sair">@row["TotalAmount"] </td>
-                                <td class="tda saict">@row["DestinationName"] </td>
-                                <td class="tda saict">@row["OrderDateTime_h"] </td>
-                                <td class="tda saict">@row["AvailableShippingDate"] </td>
-                                <td class="tda saict">@row["OrderDateTime_d"] </td>
-                                <td class="histoptabno sair">&nbsp;</td>
-                                <td class="histoptabno sair">&nbsp;</td>
-                                <td class="histoptabno sair"></td>
-                                <td class="histoptabno sair">&nbsp;</td>
-                            </tr>
-                        }
-
-
+                      
 
                     </tbody>
                 </table>
@@ -256,7 +240,7 @@
                                         <br><br><br><br><br><br>
                                         <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
                                     </td>
-                                    <td class="t70 sair">
+                                    @*<td class="t70 sair">
                                         <br><br><br><br><br><br><div class="btn-group">
                                             <button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" type="button">10</button>
                                             <div class="dropdown-menu">
@@ -265,7 +249,7 @@
 
                                             </div>
                                         </div>
-                                    </td>
+                                    </td>*@
                                 </tr>
                             </tbody>
                         </table>
@@ -278,7 +262,7 @@
 
 
                             <div class="mailbox-content">
-
+                                <div style="overflow:scroll">
                                 <!---->
                                 <table class="tab002" id="order_detail">
                                     <thead>
@@ -298,48 +282,15 @@
                                             <td class="t150">発注時刻</td>
                                             <td class="t150">出荷日</td>
                                             <td class="t300">摘要</td>
+                                            <td class="t300" hidden>摘要</td>
                                         </tr>
                                     </thead>
                                     <tbody id="order_detail_body">
 
-                                        <tr>
-                                            <td class="saict" id="ID">2</td>
-                                            <td class="saict"><input type="checkbox" value="2" id="horns" class="checkBox" name="0"></td>
-                                            <td class="sailf" id="n">X245454594</td>
-                                            <td class="sailf">BAQ005</td>
-                                            <td class="sailf">バドミントンシューズ</td>
-                                            <td class="saict">23</td>
-                                            <td class="saict">ブラック</td>
-                                            <td class="saict">1</td>
-                                            <td class="saict">1</td>
-                                            <td class="sair">￥6,400</td>
-                                            <td class="sair">￥6,400</td>
-                                            <td class="saict">2019/11/15</td>
-                                            <td class="saict">20:33:22</td>
-                                            <td class="saict">2019/11/20</td>
-                                            <td class="sailf">Bさん分の発注</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="saict" id="ckid">2</td>
-                                            <td class="saict"><input type="checkbox" value="3" id="horns" class="checkBox" name="1"></td>
-                                            <td class="sailf" id="n">X245454594</td>
-                                            <td class="sailf">BAQ005</td>
-                                            <td class="sailf">バドミントンシューズ</td>
-                                            <td class="saict">23</td>
-                                            <td class="saict">ブラック</td>
-                                            <td class="saict">1</td>
-                                            <td class="saict">1</td>
-                                            <td class="sair">￥6,400</td>
-                                            <td class="sair">￥6,400</td>
-                                            <td class="saict">2019/11/15</td>
-                                            <td class="saict">20:33:22</td>
-                                            <td class="saict">2019/11/20</td>
-                                            <td class="sailf">Bさん分の発注</td>
-                                        </tr>
-
+                                      
                                     </tbody>
                                 </table>
-
+                                    </div>
                                 <!---->
                             </div>
 
@@ -351,29 +302,7 @@
                     <br />
                     <br />
                     <br />
-                    <!--<div class="odminiblock"><button onclick="odFunction()"  id="btnb" type="button" class="btn btn-secondary">ブロック最小化</button></div>--><div class="tab002tit tab002 sainoch saict">
-                        <table class="footdiv">
-                            <tbody>
-                                <tr>
-                                    <td>ページ</td>
-                                    <td>&lt;&lt;&lt;</td>
-                                    <td class="foottd">1</td>
-                                    <td>2</td>
-                                    <td>3</td>
-                                    <td>7</td>
-                                    <td>5</td>
-                                    <td>6</td>
-                                    <td>7</td>
-                                    <td>8</td>
-                                    <td>...</td>
-                                    <td>&gt;&gt;&gt;</td>
-                                    <td></td>
-                                    <td>1～10件を表示</td>
-                                    <td></td>
-                                    <td>合計300件</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                   
                     </div>
                 </div>
             </div>
@@ -385,22 +314,51 @@
 
 </div>
 <!-- 2'nd table script-->
+<style>
+   tr td .histoptabno sair{
+       border-color:white;
+    }
+</style>
 <script>
     $(document).ready(function () {
-       
-        BindSecondTable();
+
+        FillGrid_1();
+        FillGrid_2();
     });
+    function FillGrid_1() {
+       
+            $.ajax({
+                type: 'POST',
+                url: "../Order/OH_GetFirstTable",
+                dataType: 'json',
+                success: function (data) {
+                    BindFirstTable(data);
 
-   
+                }
+            });
+      
+    }
 
-    function BindSecondTable(id,o_f,o_t,s_f,s_t,m1,m2,m3,m4,m5,m6,m7,m8) {
-
-
+    function FillGrid_2()
+    {
         $.ajax({
-            url: "@Url.Action("GetOrderHistoryDetail", "Order")",
-
             type: 'POST',
-            dataType: 'JSON',
+            url: "@Url.Action("OH_GetSecondTable", "Order")",
+            dataType: 'json',
+           
+            success: function (data) {
+                BindSecondTable(data);
+
+            }
+        });
+
+    }
+    function FillGrid_3(id, o_f, o_t, s_f, s_t, m1, m2, m3, m4, m5, m6, m7, m8)
+    {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("OH_GetSecondTable", "Order")",
+            dataType: 'json',
             data: {
                 id: id,
                 o_f: o_f,
@@ -417,93 +375,129 @@
                 m8: m8
 
             },
-            success: function (items) {
-
-                FillData(items);
+            success: function (data) {
+                BindSecondTable(data);
 
             }
-
-
         });
 
     }
-    function FillData(items) {
 
-        //var table = $("#order_detail").DataTable(
-        //    {
-        //        "destroy": true,
-        //        responsive: false,
-        //        "scrollX": true,
-        //        paging: false,
-        //        "data": data,
-        //        "columns": [
-        //            { "data": "No", orderable: false },
-        //            { "data": "OrderID", orderable: false },
-        //            { "data": "MakerItemCD_gav", orderable: false },
-        //            { "data": "ItemName_gav", orderable: false },
-        //            { "data": "SizeName_gav", orderable: false },
-        //            { "data": "ColorName_gav", orderable: false },
-        //            { "data": "OrderItem_gav", orderable: false },
-        //            { "data": "StockItem_gav", orderable: false },
-        //            { "data": "SalePrice_gav", orderable: false },
-        //            { "data": "TotalAmount_gav", orderable: false },
-        //            { "data": "OrderDate_gav", orderable: false },
-        //            { "data": "OrderTime_gav", orderable: false },
-        //            { "data": "ShippingDate_gav", orderable: false },
-        //            { "data": "Memo_gav", orderable: false },
+    function BindFirstTable(data)
+    {
 
-
-        //        ],
-        //        "columnDefs": [
-        //            {
-        //                "targets": 1,
-        //                "data": "",
-        //                "render": function (data, type, row) {
-        //                    if (row.Status == "true")
-        //                        return '<input type="checkbox" name="Checked_' + row.id + '" value="' + row.id + '" Checked />';
-        //                    else
-        //                        return '<input type="checkbox" name="Checked_' + row.id + '" value="' + row.id + '" />';
-        //                }
-        //            },
-        //        ],
-        //    }
-        //);
-
-
-
-        alert("success");
-        var tr;
-      
-        if (items.length > 0) {
-            for (var i = 0; i < items.length; i++) {
-                tr = $('<tr/>');
-                tr.append("<td class='saict'>" + items[i].No + "</td>");
-                tr.append("<td class='saict'><input type='checkbox' id='horns'  name='Checked_" + data[i].OrderID + "' value='" + data[i].OrderID + "' > </td>");
-                tr.append("<td class='sailf'>" + items[i].OrderID + "</td>");
-                tr.append("<td class='sailf'>" + items[i].MakerItemCD_gav + "</td>");
-                tr.append("<td class='sailf'>" + items[i].ItemName_gav + "</td>");
-                tr.append("<td class='saict'>" + items[i].SizeName_gav + "</td>");
-                tr.append("<td class='saict'>" + items[i].ColorName_gav + "</td>");
-                tr.append("<td class='saict'>" + items[i].OrderItem_gav + "</td>");
-                tr.append("<td class='saict'>" + items[i].StockItem_gav + "</td>");
-                tr.append("<td class='sair'>" + items[i].SalePrice_gav + "</td>");
-                tr.append("<td  class='sair'>" + items[i].TotalAmount_gav + "</td>");
-                tr.append("<td class='saict'>" + items[i].OrderDate_gav + "</td>");
-                tr.append("<td class='saict'>" + items[i].OrderTime_gav + "</td>");
-                tr.append("<td class='saict'>" + items[i].ShippingDate_gav + "</td>");
-                tr.append("<td class='sailf'>" + items[i].Memo_gav + "</td>");
-                $('#order_detail').append(tr);
-            }
-        }
-            else
+        var table = $("#Order_First").DataTable(
             {
-            alert("There is no data");
-            
+
+                "dom": 'lrtip',
+                "bLengthChange": false,
+
+                "data": data,
+                "columns": [
+                    { "data": "OrderID", orderable: false },
+                    { "data": "TotalAmount", orderable: false },
+                    { "data": "DestinationName", orderable: false },
+                    { "data": "OrderDateTime_h", orderable: false },
+                    { "data": "AvailableShippingDate", orderable: false },
+                    { "data": "OrderDateTime_d", orderable: false },
+                    {},
+                    {},
+                    {},
+                    {}
+
+                ],
+                "columnDefs": [
+                    
+                    {
+                        targets: [0, 1, 2, 3, 4,5],
+                        className: 'tda saict'
+                    },
+                    {
+                        targets: [6,7,8,9],
+                        className: 'histoptabno sair'
+                    },
+                    
+                    ],
+                 
+                    
+           
+               
             }
-
-
+        );
 
     }
+   
+
+    function BindSecondTable(data)
+    {
+        $("#order_detail").find("tbody tr").empty();
+        
+        var table = $("#order_detail").DataTable(
+            { 
+                "destroy": true,
+                //responsive: false,
+                "scrollX": true,
+                "dom": 'lrtip',
+                "bLengthChange": false,
+
+                "data": data,
+                "columns": [
+                    { "data": "No", orderable: false },
+                    {},
+                    { "data": "OrderID", orderable: false },
+                    { "data": "MakerItemAdminCD", orderable: false },
+                    { "data": "ItemName", orderable: false },
+                    { "data": "SizeName", orderable: false },
+                    { "data": "ColorName", orderable: false },
+                    { "data": "OrderItem", orderable: false },
+                    { "data": "StockItem", orderable: false },
+                    { "data": "SalePrice", orderable: false },
+                    { "data": "TotalAmount", orderable: false },
+                    { "data": "OrderDate", orderable: false },
+                    { "data": "OrderTime", orderable: false },
+                    { "data": "ShippingDate", orderable: false },
+                    { "data": "Memo", orderable: false },
+                    { "data": "AdminCD", orderable: false },
+
+
+                ],
+                "columnDefs": [
+                    {
+                        "targets": 1,
+                        className:'saict',
+                        "data": "",
+                        "render": function (data, type, row) {
+
+                            return '<input type="checkbox" value="' + row.OrderID + '" id="horns" class="checkBox" name="' + row.AdminCD + '">';
+                          
+                        }
+                    },
+                    {
+                        targets: [0, 5, 6, 7, 8, 11, 12, 13],
+                        className: 'saict'
+                    },
+                    {
+                        targets: [9, 10],
+                        className: 'sair'
+                    },
+                    {
+                        targets: [2, 3, 4, 14],
+                        className: 'sailf'
+                    },
+                    {
+                        targets: [15],
+                        className: 'sailf',
+                        visible: false
+                      
+                    },
+                ],
+                
+
+            }
+        );
+
+    }
+   
 
 
 
@@ -552,7 +546,7 @@
 
     }
     function _SearchData() {
-        //alert("Hello Search");
+       
         var txt_orderId = document.getElementById('txt_orderId').value;
         var orderdate_from = document.getElementById('orderdate_from').value;
         var orderdate_to = document.getElementById('orderdate_to').value;
@@ -566,7 +560,7 @@
         var MakerItemCD_6 = document.getElementById('MakerItemCD_6').value;
         var MakerItemCD_7 = document.getElementById('MakerItemCD_7').value;
         var MakerItemCD_8 = document.getElementById('MakerItemCD_8').value;
-        BindSecondTable(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
+        FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
     

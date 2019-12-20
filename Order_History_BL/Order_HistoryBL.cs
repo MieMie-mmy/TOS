@@ -17,7 +17,7 @@ namespace Order_History_BL
 
         public  DataTable _SelectOrder(string OrderID)
         {
-             T_OrderHistoryModel general_ordertable1 = new T_OrderHistoryModel();
+            
             SqlParameter prm = new SqlParameter("@OrderID", SqlDbType.VarChar) { Value = OrderID };
             
             dt = dl.SelectData("Order_History_Select", prm);
@@ -28,7 +28,7 @@ namespace Order_History_BL
         {                      
             SqlParameter[] prms = new SqlParameter[14];
            
-            prms[0] = new SqlParameter("@company", SqlDbType.VarChar) { Value = DBNull.Value };
+            prms[0] = new SqlParameter("@company", SqlDbType.VarChar) { Value =DBNull.Value  };
 
             if (data.id==null)
             {
@@ -140,28 +140,17 @@ namespace Order_History_BL
 
             return dt;
         }
-        public string _DeleteCheckedRow(string id,string company,string del_arr_a,string del_arr_o)
+        public string _DeleteCheckedRow(string company,string del_arr_a,string del_arr_o)
         {
 
-            //SqlParameter[] prms = new SqlParameter[15];
+            SqlParameter[] prms = new SqlParameter[3];
+          
+            prms[0] = new SqlParameter("@company", SqlDbType.VarChar) { Value = company };
+            prms[1] = new SqlParameter("@OrderID", SqlDbType.VarChar) { Value = del_arr_o };
+            prms[2] = new SqlParameter("@AdminCD", SqlDbType.VarChar) { Value = del_arr_a };
+           
 
-
-            //prms[0] = new SqlParameter("@company", SqlDbType.VarChar) { Value = company };
-            //prms[1] = new SqlParameter("@id", SqlDbType.VarChar) { Value = id };
-            //prms[2] = new SqlParameter("@of", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[3] = new SqlParameter("@ot", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[4] = new SqlParameter("@sf", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[5] = new SqlParameter("@st", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[6] = new SqlParameter("@m1", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[7] = new SqlParameter("@m2", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[8] = new SqlParameter("@m3", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[9] = new SqlParameter("@m4", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[10] = new SqlParameter("@m5", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[11] = new SqlParameter("@m6", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[12] = new SqlParameter("@m7", SqlDbType.VarChar) { Value = DBNull.Value };
-            //prms[13] = new SqlParameter("@m8", SqlDbType.VarChar) { Value = DBNull.Value };
-
-            //dl.SelectData("Order_History_Delete", prms);
+            dl.SelectData("Order_History_Delete", prms);
 
             var message = "OK";
             return message;
