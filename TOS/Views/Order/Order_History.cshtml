@@ -523,12 +523,12 @@
 
     }
     function _CancleTableRow() {
-        alert("cancle");
+       
         var checked = jQuery('input:checkbox:checked').map(function () {
             return this.value + '_' + this.name;
 
         }).get();
-        alert(checked);
+        
         jQuery('input:checkbox:checked').parents("tr").remove();
 
         $.ajax({
