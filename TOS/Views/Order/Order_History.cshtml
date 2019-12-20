@@ -1,5 +1,5 @@
 ﻿@*@using System.Data
-@model DataTable*@
+    @model DataTable*@
 @{
     ViewBag.Title = "Order_History";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,14 +8,14 @@
 <!-- Style link-->
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-@*<link href="~/Content/Site.css" rel="stylesheet" />
-<link href="~/Content/manager-style.css" rel="stylesheet" />
-<link href="~/Content/basictable.css" rel="stylesheet" />
-<link href="~/Content/font-awesome.css" rel="stylesheet" />
-<link href="~/Content/icon-font.min.css" rel="stylesheet" />
-<link href="~/Content/jqcandlestick.css" rel="stylesheet" />
-<link href="~/Content/jquery-ui.css" rel="stylesheet" />
-<link href="~/Content/lightbox.css" rel="stylesheet" />*@
+<link href="~/Content/Site.css" rel="stylesheet" />
+    @*<link href="~/Content/manager-style.css" rel="stylesheet" />
+    <link href="~/Content/basictable.css" rel="stylesheet" />
+    <link href="~/Content/font-awesome.css" rel="stylesheet" />
+    <link href="~/Content/icon-font.min.css" rel="stylesheet" />
+    <link href="~/Content/jqcandlestick.css" rel="stylesheet" />
+    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
+    <link href="~/Content/lightbox.css" rel="stylesheet" />*@
 <link href="~/Content/monthly.css" rel="stylesheet" />
 <link href="~/Content/morris.css" rel="stylesheet" />
 <link href="~/Content/news.css" rel="stylesheet" />
@@ -30,6 +30,7 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注履歴</li>
 </ol>
+
 
 <div class="inbox-mail">
     <!-- tab content -->
@@ -49,14 +50,12 @@
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200">
-                            <button type="button" onclick="location.href='@Url.Action("ExportReport","Order")'" class="btn btn-info btn-lg ">✏&nbsp;出力</button></td>
+                                <button type="button" onclick="location.href='@Url.Action("ExportReport","Order")'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
+                            </td>
                             <td class="histoptabno t200"></td>
                         </tr>
                     </thead>
-                    <tbody>
-                      
-
-                    </tbody>
+                    <tbody></tbody>
                 </table>
             </div>
         </div>
@@ -241,15 +240,15 @@
                                         <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
                                     </td>
                                     @*<td class="t70 sair">
-                                        <br><br><br><br><br><br><div class="btn-group">
-                                            <button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" type="button">10</button>
-                                            <div class="dropdown-menu">
-                                                <a class="dropdown-item" href="#">10</a>
-                                                <a class="dropdown-item" href="#">30</a><a class="dropdown-item" href="#">50</a> <a class="dropdown-item" href="#">100</a>
+                                            <br><br><br><br><br><br><div class="btn-group">
+                                                <button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" type="button">10</button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">10</a>
+                                                    <a class="dropdown-item" href="#">30</a><a class="dropdown-item" href="#">50</a> <a class="dropdown-item" href="#">100</a>
 
+                                                </div>
                                             </div>
-                                        </div>
-                                    </td>*@
+                                        </td>*@
                                 </tr>
                             </tbody>
                         </table>
@@ -263,34 +262,31 @@
 
                             <div class="mailbox-content">
                                 <div style="overflow:scroll">
-                                <!---->
-                                <table class="tab002" id="order_detail">
-                                    <thead>
-                                        <tr class="tab002tit">
-                                            <td class="t30" id="ID">No</td>
-                                            <td class="checkAll">&nbsp;</td>
-                                            <td class="t100">発注番号</td>
-                                            <td class="t100">商品番号</td>
-                                            <td class="t250">商品名</td>
-                                            <td class="t70">サイズ</td>
-                                            <td class="t100">カラー</td>
-                                            <td class="t70">発注数</td>
-                                            <td class="t70">引当数</td>
-                                            <td class="t100">下代</td>
-                                            <td class="t100">合計</td>
-                                            <td class="t150">発注日</td>
-                                            <td class="t150">発注時刻</td>
-                                            <td class="t150">出荷日</td>
-                                            <td class="t300">摘要</td>
-                                            <td class="t300" hidden>摘要</td>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="order_detail_body">
-
-                                      
-                                    </tbody>
-                                </table>
-                                    </div>
+                                    <!---->
+                                    <table class="tab002" id="order_detail">
+                                        <thead>
+                                            <tr class="tab002tit">
+                                                <td class="t30" id="ID">No</td>
+                                                <td class="checkAll">&nbsp;</td>
+                                                <td class="t100">発注番号</td>
+                                                <td class="t100">商品番号</td>
+                                                <td class="t250">商品名</td>
+                                                <td class="t70">サイズ</td>
+                                                <td class="t100">カラー</td>
+                                                <td class="t70">発注数</td>
+                                                <td class="t70">引当数</td>
+                                                <td class="t100">下代</td>
+                                                <td class="t100">合計</td>
+                                                <td class="t150">発注日</td>
+                                                <td class="t150">発注時刻</td>
+                                                <td class="t150">出荷日</td>
+                                                <td class="t300">摘要</td>
+                                                <td class="t300" hidden>摘要</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="order_detail_body"></tbody>
+                                    </table>
+                                </div>
                                 <!---->
                             </div>
 
@@ -302,21 +298,33 @@
                     <br />
                     <br />
                     <br />
-                   
-                    </div>
+
                 </div>
             </div>
-
         </div>
-
 
     </div>
 
+
+</div>
+
 </div>
 <!-- 2'nd table script-->
+
 <style>
-   tr td .histoptabno sair{
+    /*/*tr td .histoptabno sair{
        border-color:white;
+    }*/
+    /*#order_detail tbody tr.even:hover {
+        background-color: yellow;
+        /*cursor: pointer;
+    }*/
+    table.dataTable thead td {
+        padding: 0px;
+        border-bottom-color: white;
+    }
+
+    table.dataTable {
     }
 </style>
 <script>
@@ -326,7 +334,7 @@
         FillGrid_2();
     });
     function FillGrid_1() {
-       
+
             $.ajax({
                 type: 'POST',
                 url: "../Order/OH_GetFirstTable",
@@ -336,7 +344,7 @@
 
                 }
             });
-      
+
     }
 
     function FillGrid_2()
@@ -345,7 +353,7 @@
             type: 'POST',
             url: "@Url.Action("OH_GetSecondTable", "Order")",
             dataType: 'json',
-           
+
             success: function (data) {
                 BindSecondTable(data);
 
@@ -391,7 +399,7 @@
 
                 "dom": 'lrtip',
                 "bLengthChange": false,
-
+                responsive: true,
                 "data": data,
                 "columns": [
                     { "data": "OrderID", orderable: false },
@@ -407,7 +415,7 @@
 
                 ],
                 "columnDefs": [
-                    
+
                     {
                         targets: [0, 1, 2, 3, 4,5],
                         className: 'tda saict'
@@ -416,24 +424,24 @@
                         targets: [6,7,8,9],
                         className: 'histoptabno sair'
                     },
-                    
+
                     ],
-                 
-                    
-           
-               
+
+
+
+
             }
         );
 
     }
-   
+
 
     function BindSecondTable(data)
     {
         $("#order_detail").find("tbody tr").empty();
-        
+
         var table = $("#order_detail").DataTable(
-            { 
+            {
                 "destroy": true,
                 //responsive: false,
                 "scrollX": true,
@@ -441,6 +449,9 @@
                 "bLengthChange": false,
 
                 "data": data,
+                "createdRow": function (row, data, dataIndex) {
+                    $(row).addClass("odr1");
+                },
                 "columns": [
                     { "data": "No", orderable: false },
                     {},
@@ -464,12 +475,12 @@
                 "columnDefs": [
                     {
                         "targets": 1,
-                        className:'saict',
+                        className:'saict odr1',
                         "data": "",
                         "render": function (data, type, row) {
 
                             return '<input type="checkbox" value="' + row.OrderID + '" id="horns" class="checkBox" name="' + row.AdminCD + '">';
-                          
+
                         }
                     },
                     {
@@ -478,26 +489,26 @@
                     },
                     {
                         targets: [9, 10],
-                        className: 'sair'
+                        className: 'sair '
                     },
                     {
                         targets: [2, 3, 4, 14],
-                        className: 'sailf'
+                        className: 'sailf '
                     },
                     {
                         targets: [15],
-                        className: 'sailf',
+                        className: 'sailf ',
                         visible: false
-                      
+
                     },
                 ],
-                
+
 
             }
         );
 
     }
-   
+
 
 
 
@@ -523,12 +534,12 @@
 
     }
     function _CancleTableRow() {
-       
+
         var checked = jQuery('input:checkbox:checked').map(function () {
             return this.value + '_' + this.name;
 
         }).get();
-        
+
         jQuery('input:checkbox:checked').parents("tr").remove();
 
         $.ajax({
@@ -536,7 +547,7 @@
 
             type: 'POST',
             dataType: 'JSON',
-           
+
             success: function (data) {
                 FillData(data);
             }
@@ -546,7 +557,7 @@
 
     }
     function _SearchData() {
-       
+
         var txt_orderId = document.getElementById('txt_orderId').value;
         var orderdate_from = document.getElementById('orderdate_from').value;
         var orderdate_to = document.getElementById('orderdate_to').value;
@@ -563,6 +574,6 @@
         FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
-    
+
 </script>
 
