@@ -6,7 +6,7 @@ namespace TOS_DL
 {
     public class BaseDL
     {
-        public string conStr = ConfigurationManager.ConnectionStrings["DefaultConnection"].ConnectionString;
+        public string conStr = ConfigurationManager.ConnectionStrings["TOSConnection"].ConnectionString;
         public DataTable SelectData(string sSQL, params SqlParameter[] para)
         {
             DataTable dt = new DataTable();
@@ -32,6 +32,22 @@ namespace TOS_DL
             cmd.Connection.Open();
             cmd.ExecuteNonQuery();
             cmd.Connection.Close();
+        }
+      
+        public DataSet SelectReportData(string sSQL, params SqlParameter[] para)
+        {
+            DataSet ds = new DataSet();
+            var newCon = new SqlConnection(conStr);
+            using (var adapt = new SqlDataAdapter(sSQL, newCon))
+            {
+                newCon.Open();
+                adapt.SelectCommand.CommandType = CommandType.StoredProcedure;
+                if (para != null)
+                    adapt.SelectCommand.Parameters.AddRange(para);
+                adapt.Fill(ds);
+                newCon.Close();
+            }
+            return ds;
         }
     }
 }
