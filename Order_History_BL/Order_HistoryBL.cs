@@ -172,7 +172,7 @@ namespace Order_History_BL
             DataSet ds = new DataSet();
             SqlParameter prm = new SqlParameter();
             prm = new SqlParameter("@OrderID", SqlDbType.VarChar) { Value = OrderID };
-            ds = dl.SelectReportData("Order_History_Report", prm);
+            ds = dl.SelectDataSet("Order_History_Report", prm);
             return ds;
 
         }
