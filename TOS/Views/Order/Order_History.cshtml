@@ -1,5 +1,4 @@
-﻿@*@using System.Data
-    @model DataTable*@
+﻿
 @{
     ViewBag.Title = "Order_History";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -9,13 +8,7 @@
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/Site.css" rel="stylesheet" />
-    @*<link href="~/Content/manager-style.css" rel="stylesheet" />
-    <link href="~/Content/basictable.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/icon-font.min.css" rel="stylesheet" />
-    <link href="~/Content/jqcandlestick.css" rel="stylesheet" />
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/lightbox.css" rel="stylesheet" />*@
+   
 <link href="~/Content/monthly.css" rel="stylesheet" />
 <link href="~/Content/morris.css" rel="stylesheet" />
 <link href="~/Content/news.css" rel="stylesheet" />
@@ -36,7 +29,7 @@
     <!-- tab content -->
     <div class="tab-content tab-content-in w3">
         <div class="tab-pane text-style active" id="tab1">
-            <div class="inbox-right" style="overflow:scroll;overflow-y:scroll;">
+            <div class="inbox-right" style="overflow:scroll;">
                 全商品発注できました。
                 <table class="histoptab" id="Order_First">
                     <thead>
@@ -47,6 +40,7 @@
                             <td class="tda t150">発注日</td>
                             <td class="tda t150">出荷可能日</td>
                             <td class="tda t100">受付時間</td>
+                           
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200">
@@ -281,7 +275,8 @@
                                                 <td class="t150">発注時刻</td>
                                                 <td class="t150">出荷日</td>
                                                 <td class="t300">摘要</td>
-                                                <td class="t300" hidden>摘要</td>
+                                                <td class="t300" hidden>AdminCD</td>
+                                                <td class="t150" hidden>OrderStatus</td>
                                             </tr>
                                         </thead>
                                         <tbody id="order_detail_body"></tbody>
@@ -295,9 +290,7 @@
                         </div>
                     </div>
                     <!--end second table-->
-                    <br />
-                    <br />
-                    <br />
+                   
 
                 </div>
             </div>
@@ -308,25 +301,46 @@
 
 </div>
 
-</div>
+@*</div>*@
 <!-- 2'nd table script-->
 
 <style>
-    /*/*tr td .histoptabno sair{
-       border-color:white;
-    }*/
-    /*#order_detail tbody tr.even:hover {
-        background-color: yellow;
-        /*cursor: pointer;
-    }*/
+
     table.dataTable thead td {
-        padding: 0px;
+        padding: 8px 10px;
         border-bottom-color: white;
     }
 
-    table.dataTable {
+
+    .dataTables_wrapper.no-footer .dataTables_scrollBody {
+        border-bottom: 1px solid #111;
+        border-bottom-color: white;
     }
+    .OrderStatus_5{
+        color:red;
+    }
+    .ffss
+    {
+        color:white;
+    }
+    .tab002 {
+        width: 1500px !important;
+    }
+    .histoptab {
+        width: 100% !important;
+    }
+    .mother-grid-inner {
+        display: block !important;
+        background-color: #edecec
+        !important;
+    }
+    .left-content {
+        background-color: #edecec !important;
+    }
+   
+
 </style>
+
 <script>
     $(document).ready(function () {
 
@@ -337,7 +351,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "../Order/OH_GetFirstTable",
+                url: "../Order/OH_GetFirstTable/"+"101",
                 dataType: 'json',
                 success: function (data) {
                     BindFirstTable(data);
@@ -351,9 +365,10 @@
     {
         $.ajax({
             type: 'POST',
-            url: "@Url.Action("OH_GetSecondTable", "Order")",
+            url: "../Order/OH_GetSecondTable/"+"101",
+           
             dataType: 'json',
-
+           
             success: function (data) {
                 BindSecondTable(data);
 
@@ -361,6 +376,8 @@
         });
 
     }
+
+
     function FillGrid_3(id, o_f, o_t, s_f, s_t, m1, m2, m3, m4, m5, m6, m7, m8)
     {
         $.ajax({
@@ -397,9 +414,12 @@
         var table = $("#Order_First").DataTable(
             {
 
+                "destroy": true,
+                //responsive: false,
+                "scrollX": true,
+                //"scrollY": true,
                 "dom": 'lrtip',
                 "bLengthChange": false,
-                responsive: true,
                 "data": data,
                 "columns": [
                     { "data": "OrderID", orderable: false },
@@ -408,10 +428,10 @@
                     { "data": "OrderDateTime_h", orderable: false },
                     { "data": "AvailableShippingDate", orderable: false },
                     { "data": "OrderDateTime_d", orderable: false },
-                    {},
-                    {},
-                    {},
-                    {}
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false }
 
                 ],
                 "columnDefs": [
@@ -422,7 +442,8 @@
                     },
                     {
                         targets: [6,7,8,9],
-                        className: 'histoptabno sair'
+                        className: 'histoptabno sair ffss',
+                       
                     },
 
                     ],
@@ -469,9 +490,11 @@
                     { "data": "ShippingDate", orderable: false },
                     { "data": "Memo", orderable: false },
                     { "data": "AdminCD", orderable: false },
+                    { "data": "OrderStatus", orderable: false },
 
 
                 ],
+               
                 "columnDefs": [
                     {
                         "targets": 1,
@@ -496,14 +519,24 @@
                         className: 'sailf '
                     },
                     {
-                        targets: [15],
+                        targets: [15,16],
                         className: 'sailf ',
                         visible: false
 
                     },
+                    
                 ],
-
-
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData.OrderStatus == 5) {
+                       
+                        $('td', nRow).css('color', 'red');
+                    }
+                    else if (aData.OrderStatus == "5") {
+                        $('td', nRow).css('color', 'red');
+                    }
+                   
+                }
+            
             }
         );
 
@@ -531,7 +564,38 @@
         document.getElementById('MakerItemCD_6').value = "";
         document.getElementById('MakerItemCD_7').value = "";
         document.getElementById('MakerItemCD_8').value = "";
+        RefreshFirstTable();
 
+
+        RefreshSecondTable();
+
+
+    }
+    function RefreshFirstTable()
+    {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OH_GetFirstTable",
+            dataType: 'json',
+            success: function (data) {
+                BindFirstTable(data);
+
+            }
+        });
+    }
+    function RefreshSecondTable()
+    {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OH_GetSecondTable",
+
+            dataType: 'json',
+
+            success: function (data) {
+                BindSecondTable(data);
+
+            }
+        });
     }
     function _CancleTableRow() {
 
@@ -549,7 +613,7 @@
             dataType: 'JSON',
 
             success: function (data) {
-                FillData(data);
+                RefreshSecondTable();
             }
 
 

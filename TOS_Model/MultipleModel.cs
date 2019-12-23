@@ -10,8 +10,10 @@ namespace TOS_Model
     {
 
         public M_CompanyModel ComModel{ get; set; }
+        //public List<M_CompanyShippingModel> ShippingModel { get; set; }
+
         public List<M_CompanyShippingModel> ShippingModel { get; set; }
-        public M_CompanyTagModel TagModel { get; set; }
+        public List<M_CompanyTagModel> TagModel { get; set; }
 
         public T_InformationModel TinfoModel { get; set; }
 
@@ -20,5 +22,9 @@ namespace TOS_Model
         public M_GroupListModel GroupListModel { get; set; }
 
         public M_BrandModel MBrandModel { get; set; }
+
+        public M_CompanyBrandModel MComBrandModel { get; set; }
+
+        public M_CompanyTagModel tagModel { get; set; }
     }
 }

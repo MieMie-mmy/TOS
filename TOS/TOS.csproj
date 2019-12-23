@@ -47,16 +47,16 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CrystalDecisions.CrystalReports.Engine">
-      <HintPath>..\..\TOS_DOC\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
+      <HintPath>D:\TOS\TOS\CrystalDecisions.CrystalReports.Engine.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.ReportSource">
-      <HintPath>..\..\TOS_DOC\CrystalDecisions.ReportSource.dll</HintPath>
+      <HintPath>D:\TOS\TOS\CrystalDecisions.ReportSource.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Shared">
-      <HintPath>..\..\TOS_DOC\CrystalDecisions.Shared.dll</HintPath>
+      <HintPath>D:\TOS\TOS\CrystalDecisions.Shared.dll</HintPath>
     </Reference>
     <Reference Include="CrystalDecisions.Web">
-      <HintPath>..\..\TOS_DOC\CrystalDecisions.Web.dll</HintPath>
+      <HintPath>D:\TOS\TOS\CrystalDecisions.Web.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.dll</HintPath>
@@ -68,6 +68,7 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -197,7 +198,6 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <Content Include="images\clear.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\FontAwesome.otf" />
@@ -264,9 +264,11 @@
     <Content Include="Views\Inventory\Inventories.cshtml" />
     <Content Include="Views\Inventory\Inventories_list.cshtml" />
     <Content Include="Views\NewsEditor\News_Editor.cshtml" />
+    <Content Include="Views\Registrations\Group_Entry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="images\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>
