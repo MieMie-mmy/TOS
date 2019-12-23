@@ -281,7 +281,8 @@
                                                 <td class="t150">発注時刻</td>
                                                 <td class="t150">出荷日</td>
                                                 <td class="t300">摘要</td>
-                                                <td class="t300" hidden>摘要</td>
+                                                <td class="t300" hidden>AdminCD</td>
+                                                <td class="t150" hidden>OrderStatus</td>
                                             </tr>
                                         </thead>
                                         <tbody id="order_detail_body"></tbody>
@@ -322,6 +323,9 @@
     .dataTables_wrapper.no-footer .dataTables_scrollBody {
         border-bottom: 1px solid #111;
         border-bottom-color: white;
+    }
+    .OrderStatus_5{
+        color:red;
     }
 
 </style>
@@ -473,9 +477,11 @@
                     { "data": "ShippingDate", orderable: false },
                     { "data": "Memo", orderable: false },
                     { "data": "AdminCD", orderable: false },
+                    { "data": "OrderStatus", orderable: false },
 
 
                 ],
+               
                 "columnDefs": [
                     {
                         "targets": 1,
@@ -500,14 +506,24 @@
                         className: 'sailf '
                     },
                     {
-                        targets: [15],
+                        targets: [15,16],
                         className: 'sailf ',
                         visible: false
 
                     },
+                    
                 ],
-
-
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData.OrderStatus == 5) {
+                       
+                        $('td', nRow).css('color', 'red');
+                    }
+                    else if (aData.OrderStatus == "5") {
+                        $('td', nRow).css('color', 'red');
+                    }
+                   
+                }
+            
             }
         );
 
