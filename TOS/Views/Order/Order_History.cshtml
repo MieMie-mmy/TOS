@@ -8,13 +8,7 @@
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/Site.css" rel="stylesheet" />
-    @*<link href="~/Content/manager-style.css" rel="stylesheet" />
-    <link href="~/Content/basictable.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/icon-font.min.css" rel="stylesheet" />
-    <link href="~/Content/jqcandlestick.css" rel="stylesheet" />
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/lightbox.css" rel="stylesheet" />*@
+   
 <link href="~/Content/monthly.css" rel="stylesheet" />
 <link href="~/Content/morris.css" rel="stylesheet" />
 <link href="~/Content/news.css" rel="stylesheet" />
@@ -327,6 +321,10 @@
     .OrderStatus_5{
         color:red;
     }
+    .ffss
+    {
+        color:white;
+    }
 
 </style>
 
@@ -357,7 +355,7 @@
             url: "../Order/OH_GetSecondTable/"+"101",
            
             dataType: 'json',
-
+           
             success: function (data) {
                 BindSecondTable(data);
 
@@ -416,10 +414,10 @@
                     { "data": "OrderDateTime_h", orderable: false },
                     { "data": "AvailableShippingDate", orderable: false },
                     { "data": "OrderDateTime_d", orderable: false },
-                    {},
-                    {},
-                    {},
-                    {}
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false }
 
                 ],
                 "columnDefs": [
@@ -430,7 +428,8 @@
                     },
                     {
                         targets: [6,7,8,9],
-                        className: 'histoptabno sair'
+                        className: 'histoptabno sair ffss',
+                       
                     },
 
                     ],
