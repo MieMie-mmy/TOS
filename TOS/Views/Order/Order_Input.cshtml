@@ -18,6 +18,17 @@
 
 
 }
+<style>
+
+    .mother-grid-inner {
+        display: block !important;
+        background-color: #edecec !important;
+    }
+
+    .left-content {
+        background-color: #edecec !important;
+    }
+</style>
 
 @section Styles {
     <!-- Bootstrap Core CSS -->
@@ -45,9 +56,9 @@
         $(document).ready(function () {
 
             var count = '@ViewBag.count'
-
+           
             //var count = st.match(/,/igm).length
-
+            
             for (var k = 1; k <= 8; k++)
             {
                 //var count = st.match(/,/igm).length;
@@ -72,31 +83,31 @@
             });
 
 
-                var table = $('#makeritem1').DataTable(
+            var table = $('#makeritem1').DataTable(
                 {
 
                     columnDefs: [
-                    //    {
-                    //    "data": null,
-                    //    "defaultContent": " ",
-                    //    "targets": [0,1,2,3,4,5,6,7]
-                    //},
-                    {
-                        targets: [1, 3, 4, 5, 6],
-                        className: 'saict t100'
-                    },
-                    {
-                        targets: [0],
-                        className: 'saict'
-                    },
-                    {
-                        targets: [7],
-                        className: 'saict t200'
-                    },
-                    {
-                        targets: [2],
-                        className: 'saict t300'
-                    }],
+                        //    {
+                        //    "data": null,
+                        //    "defaultContent": " ",
+                        //    "targets": [0,1,2,3,4,5,6,7]
+                        //},
+                        {
+                            targets: [1, 3, 4, 5, 6],
+                            className: 'saict t100'
+                        },
+                        {
+                            targets: [0],
+                            className: 'saict'
+                        },
+                        {
+                            targets: [7],
+                            className: 'saict t200'
+                        },
+                        {
+                            targets: [2],
+                            className: 'saict t300'
+                        }],
                     "destroy": true,
                     responsive: false,
                     //"scrollX": true,
@@ -105,10 +116,10 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/0",
+                        "url": "../../Order/Order_Input_M_Item_Select/0",
                         "type": "GET",
                         "datatype": "json",
-                        "dataSrc": ""
+                        "dataSrc": "",               
                     },
                     "columns": [
                         {
@@ -182,7 +193,7 @@
             //    }
             //});
 
-                    $.getJSON("../Order/Order_Input_M_SKU_Select/0",
+                    $.getJSON("../../Order/Order_Input_M_SKU_Select/0",
                         function (json) {
 
                             var table = $.makeTable(json)
@@ -224,7 +235,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/1",
+                        "url": "../../Order/Order_Input_M_Item_Select/1",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -256,7 +267,7 @@
             //var mytable = document.getElementById('makeritem');
             //var tex = $('#makeritem2').find("tr:eq(0)").find("td:eq(1)").html();
             //alert(tex);
-            $.getJSON("../Order/Order_Input_M_SKU_Select/1",
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/1",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -297,7 +308,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/2",
+                        "url": "../../Order/Order_Input_M_Item_Select/2",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -327,7 +338,7 @@
 
 
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/2",
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/2",
                 function (json) {
                     //if (json != null) {
                         var table = $.makeTable(json)
@@ -368,7 +379,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/3",
+                        "url": "../../Order/Order_Input_M_Item_Select/3",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -396,7 +407,7 @@
                 }
             );
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/3",
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/3",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -437,7 +448,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/4",
+                        "url": "../../Order/Order_Input_M_Item_Select/4",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -465,7 +476,7 @@
                 }
             );
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/4",
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/4",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -506,7 +517,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/5",
+                        "url": "../../Order/Order_Input_M_Item_Select/5",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -534,7 +545,7 @@
                 }
             );
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/5",
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/5",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -575,7 +586,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/6",
+                        "url": "../../Order/Order_Input_M_Item_Select/6",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -603,7 +614,7 @@
                 }
             );
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/6",
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/6",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -644,7 +655,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/7",
+                        "url": "../../Order/Order_Input_M_Item_Select/7",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -672,7 +683,7 @@
                 }
             );
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/7",
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/7",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -819,8 +830,7 @@
                 MakerItemCD += $("#txt8").val() + ',';
             if (MakerItemCD.indexOf(',') > 0)
                 MakerItemCD = MakerItemCD.slice(0, -1);
-            alert(MakerItemCD);
-            window.location.href = '../Order/Order_Input/' + MakerItemCD;
+            window.location.href = '../../Order/Order_Input/' + MakerItemCD;
         })
 
         $("#btnClear").click(function () {
@@ -832,6 +842,14 @@
             $("#txt6").val("");
             $("#txt7").val("");
             $("#txt8").val("");
+        })
+
+        $("#btntotal").click(function () {
+            var count = '@ViewBag.count'
+           
+            var mytable = document.getElementById('makeritem');
+            var tex = $('#sku1').find("tr:eq(1)").find("td:eq(1)").html();
+            alert("10");
         })
 
     </script>
@@ -1026,18 +1044,18 @@
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td class="t70">出荷先名</td>
+                                        <td class="t100">出荷先名</td>
                                         <td>
-                                            @*<div class="btn-group t200">*@
+                                            <div class="btn-group t200">
                                             @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle t200" data-toggle="dropdown" type="button">ラケット</button>*@
                                             @*<div class="dropdown-menu t200">*@
                                             @*@Html.DropDownList("ddlShippingName", new SelectList(Enumerable.Empty<SelectListItem>()), "")*@
                                             @Html.DropDownList("ddlShippingName",
-                          new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                          new { @class = "form-control input-sm ",width = "150px" })
+                          new SelectList(Enumerable.Empty<SelectListItem>()), "",
+                          new { @class = "btn btn-primary dropdown-toggle t200 form-control input-sm ", height = "150px" })
 
                                             @*</div>*@
-                                            @*</div>*@
+                                            </div>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -1063,7 +1081,7 @@
                                     <tr>
                                         <td class="t150 textri"></td>
                                         <td class="t70 textri">
-                                            <div class="textri"><button type="button" class="btn btn-success btnod">✚&nbsp;金額計算</button></div>
+                                            <div class="textri"><button type="button" id ="btntotal"class="btn btn-success btnod">✚&nbsp;金額計算</button></div>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -228,7 +228,7 @@
                                         </table>
                                     </td>
                                     <td>&nbsp;</td>
-                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
+                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg"id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
                                     <td>
                                         <br><br><br><br><br><br>
                                         <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
@@ -346,6 +346,14 @@
 
         FillGrid_1();
         FillGrid_2();
+
+        var input1 = document.getElementById("txt_orderId");
+        input1.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("Searchdata").click();
+            }
+        });
     });
     function FillGrid_1() {
 
@@ -638,6 +646,8 @@
         FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
+
+
 
 </script>
 

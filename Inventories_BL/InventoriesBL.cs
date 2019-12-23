@@ -82,6 +82,13 @@ namespace Inventories_BL
             
 
             dt = dl.SelectData("Inventories_BrandName_Select", prm);
+            if(dt.Rows.Count >0)
+            {
+                for(var i=0;i<dt.Rows.Count;i++)
+                {
+                    dt.Rows[i]["No"] = i + 1;
+                }
+            }
 
             return dt;
         }
