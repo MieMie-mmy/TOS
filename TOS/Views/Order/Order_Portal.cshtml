@@ -1,5 +1,4 @@
-﻿@using System.Data
-@model DataTable
+﻿
 @{
     ViewBag.Title = "Order_Portal";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -174,22 +173,22 @@
                         </div>
                     </div>
                     <div class="saisin">
-                        <table id="tblOrderPortal" class="saisinBody">
+                        <table id="tblOrderPortal" class="saisinBody" style="width:100%">
                             <thead>
-                                <tr class="saisinRow">
-                                    <th class="saisinCell t30 saict titcolor">NO</th>
-                                    <th class="saisinCell t150 saict titcolor">発注番号</th>
-                                    <th class="saisinCell t150 saict titcolor">商品番号</th>
-                                    <th class="saisinCell t250 saict titcolor">商品名</th>
-                                    <th class="saisinCell t100 saict titcolor">サイズ</th>
-                                    <th class="saisinCell t150 saict titcolor">カラー</th>
-                                    <th class="saisinCell t100 saict titcolor">発注数</th>
-                                    <th class="saisinCell t100 saict titcolor">引当数</th>
-                                    <th class="saisinCell t150 saict titcolor">下代</th>
-                                    <th class="saisinCell t150 saict titcolor">合計</th>
-                                    <th class="saisinCell t150 saict titcolor">発注日</th>
-                                    <th class="saisinCell t150 saict titcolor">発注時刻</th>
-                                    <th class="saisinCell t150 saict titcolor">出荷日</th>
+                                <tr class="saisinRow" style="width:100%">
+                                    <th class="titcolor">NO</th>
+                                    <th class="titcolor">発注番号</th>
+                                    <th class="titcolor">商品番号</th>
+                                    <th class="titcolor">商品名</th>
+                                    <th class="titcolor">サイズ</th>
+                                    <th class="titcolor">カラー</th>
+                                    <th class="titcolor">発注数</th>
+                                    <th class="titcolor">引当数</th>
+                                    <th class="titcolor">下代</th>
+                                    <th class="titcolor">合計</th>
+                                    <th class="titcolor">発注日</th>
+                                    <th class="titcolor">発注時刻</th>
+                                    <th class="titcolor">出荷日</th>
                                 </tr>
                             </thead>
                         </table>
@@ -223,19 +222,19 @@
                         "dataSrc": ""
                     },
                     "columns": [
-                        { "data": "No", orderable: false},
-                        { "data": "OrderID", orderable: false},
-                        { "data": "MakerItemCD", orderable: false},
-                        { "data": "ItemName", orderable: false},
-                        { "data": "SizeName", orderable: false},
-                        { "data": "ColorName", orderable: false},
-                        { "data": "OrderItem", orderable: false},
-                        { "data": "StockItem", orderable: false},
-                        { "data": "SalePrice", orderable: false},
-                        { "data": "TotalAmount", orderable: false},
-                        { "data": "OrderDate", orderable: false },
-                        { "data": "OrderTime", orderable: false},
-                        { "data": "ShippingDate", orderable: false},
+                        { "data": "No", orderable: false, "width": "2%" },
+                        { "data": "OrderID", orderable: false, "width": "10%" },
+                        { "data": "MakerItemCD", orderable: false, "width": "15%" },
+                        { "data": "ItemName", orderable: false, "width": "18%" },
+                        { "data": "SizeName", orderable: false, "width": "5%" },
+                        { "data": "ColorName", orderable: false, "width": "15%" },
+                        { "data": "OrderItem", orderable: false, "width": "5%" },
+                        { "data": "StockItem", orderable: false, "width": "5%" },
+                        { "data": "SalePrice", orderable: false, "width": "5%" },
+                        { "data": "TotalAmount", orderable: false, "width": "5%" },
+                        { "data": "OrderDate", orderable: false, "width": "5%" },
+                        { "data": "OrderTime", orderable: false, "width": "5%" },
+                        { "data": "ShippingDate", orderable: false, "width": "5%" },
                     ],
                 }
             );

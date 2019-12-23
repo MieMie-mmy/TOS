@@ -24,6 +24,5 @@ namespace TOS_Model
         public string PresidentName { get; set; }
 
         public int RankingFlg { get; set; }
-       
     }
 }
