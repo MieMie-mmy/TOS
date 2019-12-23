@@ -1,5 +1,4 @@
-﻿@*@using System.Data
-    @model DataTable*@
+﻿
 @{
     ViewBag.Title = "Order_History";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -337,7 +336,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "../Order/OH_GetFirstTable",
+                url: "../Order/OH_GetFirstTable/"+"101",
                 dataType: 'json',
                 success: function (data) {
                     BindFirstTable(data);
@@ -351,7 +350,8 @@
     {
         $.ajax({
             type: 'POST',
-            url: "@Url.Action("OH_GetSecondTable", "Order")",
+            url: "../Order/OH_GetSecondTable/"+"101",
+           
             dataType: 'json',
 
             success: function (data) {
@@ -397,9 +397,11 @@
         var table = $("#Order_First").DataTable(
             {
 
+                "destroy": true,
+                //responsive: false,
+                "scrollX": true,
                 "dom": 'lrtip',
                 "bLengthChange": false,
-                responsive: true,
                 "data": data,
                 "columns": [
                     { "data": "OrderID", orderable: false },
@@ -531,7 +533,33 @@
         document.getElementById('MakerItemCD_6').value = "";
         document.getElementById('MakerItemCD_7').value = "";
         document.getElementById('MakerItemCD_8').value = "";
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OH_GetFirstTable",
+            dataType: 'json',
+            success: function (data) {
+                BindFirstTable(data);
 
+            }
+        });
+
+        RefreshSecondTable();
+
+
+    }
+    function RefreshSecondTable()
+    {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OH_GetSecondTable",
+
+            dataType: 'json',
+
+            success: function (data) {
+                BindSecondTable(data);
+
+            }
+        });
     }
     function _CancleTableRow() {
 

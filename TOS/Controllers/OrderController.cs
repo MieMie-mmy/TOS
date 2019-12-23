@@ -10,7 +10,6 @@ using System.Data.SqlClient;
 using Newtonsoft.Json;
 using Order_Portal_BL;
 using Order_History_BL;
-
 using System.IO;
 
 namespace TOS.Controllers
@@ -28,11 +27,11 @@ namespace TOS.Controllers
             return View();
         }
         [HttpPost]
-        public string OH_GetFirstTable()
+        public string OH_GetFirstTable(string id)
         {
            
-            var OrderID = "101";//Get ID from Order Input
-            dt = bl._SelectOrder(OrderID);
+            //var OrderID = "101";//Get ID from Order Input
+            dt = bl._SelectOrder(id);
             var Jsondata = JsonConvert.SerializeObject(dt);
             return Jsondata;
         }
@@ -91,6 +90,7 @@ namespace TOS.Controllers
             Response.ClearHeaders();
             str.Seek(0, SeekOrigin.Begin);
             return File(str, "application/pdf", savedFileName);
+            
 
         }
 

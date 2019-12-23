@@ -15,10 +15,19 @@ namespace Order_History_BL
         BaseDL dl = new BaseDL();
         DataTable dt = new DataTable();
 
-        public  DataTable _SelectOrder(string OrderID)
+        public  DataTable _SelectOrder(string id)
         {
+            SqlParameter prm = new SqlParameter();
+            if (id ==null)
+            {
+               prm = new SqlParameter("@OrderID", SqlDbType.VarChar) { Value=DBNull.Value };
+            }
+            else
+            {
+               prm = new SqlParameter("@OrderID", SqlDbType.VarChar) { Value = id };
+            }
             
-            SqlParameter prm = new SqlParameter("@OrderID", SqlDbType.VarChar) { Value = OrderID };
+           
             
             dt = dl.SelectData("Order_History_Select", prm);
            
