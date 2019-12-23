@@ -100,5 +100,32 @@ namespace TOS.Controllers
             JSONString = JsonConvert.SerializeObject(table);
             return JSONString;
         }
+
+        [HttpPost]
+        public ActionResult InsertGroupEntry(MultipleModel model)
+        {
+
+            Group_EntryBL gebl = new Group_EntryBL();
+            model.GroupModel.InsertOperator = Session["CompanyCD"].ToString();
+            DataTable dt = new DataTable();
+            dt = gebl.Check_Duplicate_GroupEntry(model);
+            if (dt.Rows.Count > 0)
+            {
+
+            }
+            else
+            {
+                gebl.InsertGroupEntry(model);
+            }
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Group_Entry");
+            }
+            else
+            {
+                return View("Group_Entry");
+
+            }
+        }
     }
 }

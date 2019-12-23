@@ -335,7 +335,14 @@
                     MakerItemCD += $("#txt8").val() + ',';
                 if (MakerItemCD.indexOf(',') > 0)
                     MakerItemCD = MakerItemCD.slice(0, -1);
-                window.location.href = '../Order/Order_Input/' + MakerItemCD;
+                if ($('#txt1').val() == '' && $('#txt2').val() == '' && $('#txt3').val() == '' && $('#txt4').val() == '' && $('#txt5').val() == '' && $('#txt6').val() == '' && $('#txt7').val() == '' && $('#txt8').val() == '') {
+                    alert('Please First Fill Maker_ItemCD!');
+                    window.location.href = '../Order/Order_Portal';
+                }
+                else {
+
+                    window.location.href = '../Order/Order_Input/' + MakerItemCD;
+                }
             })
         })
     </script>
