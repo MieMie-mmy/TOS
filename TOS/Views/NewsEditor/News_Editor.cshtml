@@ -26,6 +26,7 @@
     <link href="@Url.Content("~/Content/news.css")" rel="stylesheet" type="text/css" />
     <!-- jQuery -->
     <link href="@Url.Content("~/Scripts/jquery-2.1.4.min.js")" rel="stylesheet" type="text/javascript" />
+
 }
 
 @section Scripts{
@@ -61,6 +62,39 @@
                 }
             });
         });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("[id='ddlCompanyname']").change(function () {
+                var sel = $("#ddlCompanyname option:selected").text();
+                var text = $('#txtdisplay_designation').val();
+                text = sel;
+                $('#txtdisplay_designation').val(text);
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("[id='ddlGroupname']").change(function () {
+                var sel = $("#ddlGroupname option:selected").text();
+                var text = $('#txtdisplay_designation').val();
+                text = sel;
+                $('#txtdisplay_designation').val(text);
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#rdbcompanywide').change(function () {
+                var text = $('#txtdisplay_designation').val();
+                text = '全社';
+                $('#txtdisplay_designation').val(text);
+            });
+        });
+
     </script>
 
     <script type="text/javascript">
@@ -108,6 +142,7 @@
 
 
     </script>
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('#rdbcompanywide').prop('checked', true);
@@ -115,6 +150,7 @@
             $('#ddlGroupname').attr("disabled", "disabled");
         });
     </script>
+
     <script type="text/javascript">
         $('#rdbcompanywide').click(function () {
             $("#ddlCompanyname").attr("disabled", "disabled");
@@ -132,6 +168,48 @@
             $("#ddlGroupname").removeAttr("disabled");
         });
     </script>
+
+    <script>
+        $(document).ready(function () {
+            //var div1 = document.getElementById('file1');
+            //var div2 = document.getElementById('file2');
+            //div1.style.display = 'none';
+            //div2.style.display = 'none';
+            //$('input[type="file"]').change(function (e) {
+
+            //    var maxlength = 4
+            //    var fileName = e.target.files[0].name;
+            //    var text = $('#lblattachfile1').val();
+            //    text = fileName;
+            //    $('#lblattachfile1').text(text);
+            //    div1.style.display = 'block';
+            //});
+            var div = document.getElementById('file');
+            div.style.display = 'none';
+            var toAdd = document.createDocumentFragment();
+            alert("aa");
+            for (var i = 0; i < 4; i++) {
+                var newDiv = document.createElement('file');
+                newDiv.id = 'file' + i;
+                var fileName = e.target.files[i].name;
+                var text = $('#lblattachfile' + i).val();
+                toAdd.appendChild(newDiv);
+                newDiv.style.display = 'block';
+            }
+            document.appendChild(toAdd);
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btndelete').click(function () {
+                //var text = document.getElementById('file');
+                var filename = $('#lblattachfile').val();
+                $(this).parent('div').remove();
+            });
+        });
+    </script>
+
 }
 
 
@@ -140,6 +218,16 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
+    <style>
+        .mother-grid-inner {
+            display: block !important;
+            background-color: #edecec !important;
+        }
+
+        .left-content {
+            background-color: #edecec !important;
+        }
+    </style>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
     </ol>
@@ -175,7 +263,7 @@
                                         <div class="box">
 
                                             @Html.DropDownListFor(m => m.ComModel.CompanyCD, new SelectList(Enumerable.Empty<SelectListItem>(), "", ""), "--- 選択---",
-         new { @class = "comp", @id = "ddlCompanyname" })
+         new { @class = "comp", @id = "ddlCompanyname"  })
 
                                         </div>
                                     </div>
@@ -250,7 +338,9 @@
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">表示指定</div>
-                                        <div class="boxb"><input class="form-control" type="tel" value="" disabled /></div>
+                                        <div class="boxb">
+                                            <input class="form-control" type="tel" value="" disabled id="txtdisplay_designation" />
+                                        </div>
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">添付ファイル</div>
@@ -267,11 +357,27 @@
                                 </div>
                                 <div class="boxcerc">
                                     <div class="boxc-rowc">
+                                        @*<div class="boxc">
+                                            <button type="button" class="btn btn-outline-secondary">新規商品一覧.pdf&nbsp;&nbsp;✖</button>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span>最大4ファイル添付可能。</span>
+                                            </div>*@
+
                                         <div class="boxc">
-                                        <button type="button" class="btn btn-outline-secondary">新規商品一覧.pdf&nbsp;&nbsp;✖</button>
-                                        <button type="button" class="btn btn-outline-secondary">ブランド一覧.pdf&nbsp;&nbsp;✖</button>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                        <span>最大4ファイル添付可能。</span></div>
+                                            <div id="file">
+                                                <label style="width:150px;" id="lblattachfile"></label>
+                                                <button id="btndelete" class="btn btn-outline-secondary">✖</button>
+                                            </div>
+
+                                            @*<div id="file2">
+                                                <label style="width:150px;" id="lblattachfile2"></label>
+                                                <button id="btndelete" class="btn btn-outline-secondary">✖</button>
+                                            </div>*@
+                                            @*<button type="button" class="btn btn-outline-secondary"></button>*@
+                                            <span>最大4ファイル添付可能。</span>
+                                        </div>
+
+
                                     </div>
                                     <div class="boxc-rowc">
                                         <div class="boxc boxpd tab002tit">お知らせ内容</div>

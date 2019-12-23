@@ -54,8 +54,17 @@ namespace TOS.Controllers
                     model.ComModel.ZipCD2 = zip2;
 
                 }
+
                 model.ComModel.InsertOperator = Session["CompanyCD"].ToString();
+                DataTable Checkdt = cbl.Check_Duplicate_CompanyCD(model.ComModel);
+                if(Checkdt.Rows.Count>0)
+                {
+                    TempData["message"] = "Duplicate Company CD !! Please, Check !!";
+                }
+                else
+                { 
                 DataTable dt = cbl.InsertCompany(model.ComModel);
+                }
 
 
                 //Insert Company Shipping
@@ -115,13 +124,17 @@ namespace TOS.Controllers
                 }
                 scope.Complete();
 
-                if (ModelState.IsValid)
+               if (ModelState.IsValid)
+               {
+                    return RedirectToAction("Company_Entry");
+                   
+               }
+                else
                 {
-                    // Do your stuff
                     TempData["message"] = "登録されました。";
+                    return View("Company_Entry");
 
                 }
-                return RedirectToAction("Company_Entry");
             }
         }
         public ActionResult Group_Entry()

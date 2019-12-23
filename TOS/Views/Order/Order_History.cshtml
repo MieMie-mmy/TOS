@@ -8,13 +8,7 @@
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/Site.css" rel="stylesheet" />
-    @*<link href="~/Content/manager-style.css" rel="stylesheet" />
-    <link href="~/Content/basictable.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/icon-font.min.css" rel="stylesheet" />
-    <link href="~/Content/jqcandlestick.css" rel="stylesheet" />
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/lightbox.css" rel="stylesheet" />*@
+   
 <link href="~/Content/monthly.css" rel="stylesheet" />
 <link href="~/Content/morris.css" rel="stylesheet" />
 <link href="~/Content/news.css" rel="stylesheet" />
@@ -35,7 +29,7 @@
     <!-- tab content -->
     <div class="tab-content tab-content-in w3">
         <div class="tab-pane text-style active" id="tab1">
-            <div class="inbox-right" style="overflow:scroll;overflow-y:scroll;">
+            <div class="inbox-right" style="overflow:scroll;">
                 全商品発注できました。
                 <table class="histoptab" id="Order_First">
                     <thead>
@@ -296,9 +290,7 @@
                         </div>
                     </div>
                     <!--end second table-->
-                    <br />
-                    <br />
-                    <br />
+                   
 
                 </div>
             </div>
@@ -315,7 +307,7 @@
 <style>
 
     table.dataTable thead td {
-        padding: 0px;
+        padding: 8px 10px;
         border-bottom-color: white;
     }
 
@@ -327,6 +319,25 @@
     .OrderStatus_5{
         color:red;
     }
+    .ffss
+    {
+        color:white;
+    }
+    .tab002 {
+        width: 1500px !important;
+    }
+    .histoptab {
+        width: 100% !important;
+    }
+    .mother-grid-inner {
+        display: block !important;
+        background-color: #edecec
+        !important;
+    }
+    .left-content {
+        background-color: #edecec !important;
+    }
+   
 
 </style>
 
@@ -357,7 +368,7 @@
             url: "../Order/OH_GetSecondTable/"+"101",
            
             dataType: 'json',
-
+           
             success: function (data) {
                 BindSecondTable(data);
 
@@ -406,6 +417,7 @@
                 "destroy": true,
                 //responsive: false,
                 "scrollX": true,
+                //"scrollY": true,
                 "dom": 'lrtip',
                 "bLengthChange": false,
                 "data": data,
@@ -416,10 +428,10 @@
                     { "data": "OrderDateTime_h", orderable: false },
                     { "data": "AvailableShippingDate", orderable: false },
                     { "data": "OrderDateTime_d", orderable: false },
-                    {},
-                    {},
-                    {},
-                    {}
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false }
 
                 ],
                 "columnDefs": [
@@ -430,7 +442,8 @@
                     },
                     {
                         targets: [6,7,8,9],
-                        className: 'histoptabno sair'
+                        className: 'histoptabno sair ffss',
+                       
                     },
 
                     ],

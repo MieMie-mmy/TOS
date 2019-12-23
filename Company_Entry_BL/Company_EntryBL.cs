@@ -151,5 +151,16 @@ namespace Company_Entry_BL
             }
             return dt;
         }
+
+
+        public DataTable Check_Duplicate_CompanyCD (M_CompanyModel mModel)
+        {
+            DataTable dt = new DataTable();
+            BaseDL dl = new BaseDL();
+            SqlParameter[] prmName= new SqlParameter[1];
+            prmName[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
+            dl.SelectData("M_Company_SelectBy_CompanyCD", prmName);
+            return dt;
+        }
     }
   }
