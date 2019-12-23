@@ -46,6 +46,7 @@
                             <td class="tda t150">発注日</td>
                             <td class="tda t150">出荷可能日</td>
                             <td class="tda t100">受付時間</td>
+                           
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200">
@@ -307,25 +308,27 @@
 
 </div>
 
-</div>
+@*</div>*@
 <!-- 2'nd table script-->
 
 <style>
-    /*/*tr td .histoptabno sair{
-       border-color:white;
-    }*/
-    /*#order_detail tbody tr.even:hover {
-        background-color: yellow;
-        /*cursor: pointer;
-    }*/
+
+
+
+
     table.dataTable thead td {
         padding: 0px;
         border-bottom-color: white;
     }
 
-    table.dataTable {
+
+    .dataTables_wrapper.no-footer .dataTables_scrollBody {
+        border-bottom: 1px solid #111;
+        border-bottom-color: white;
     }
+
 </style>
+
 <script>
     $(document).ready(function () {
 
