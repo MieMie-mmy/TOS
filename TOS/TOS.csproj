@@ -127,7 +127,9 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DetailInformationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\HtmlToPdf.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\NewsEditorController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
@@ -139,6 +141,27 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="bin\Antlr3.Runtime.dll" />
+    <Content Include="bin\Company_BL.dll" />
+    <Content Include="bin\Company_Entry_BL.dll" />
+    <Content Include="bin\EntityFramework.dll" />
+    <Content Include="bin\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Group_Entry_BL.dll" />
+    <Content Include="bin\Information_BL.dll" />
+    <Content Include="bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll" />
+    <Content Include="bin\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Newtonsoft.Json.dll" />
+    <Content Include="bin\Order_History_BL.dll" />
+    <Content Include="bin\Order_Portal_BL.dll" />
+    <Content Include="bin\System.Web.Helpers.dll" />
+    <Content Include="bin\System.Web.Mvc.dll" />
+    <Content Include="bin\System.Web.Optimization.dll" />
+    <Content Include="bin\System.Web.Razor.dll" />
+    <Content Include="bin\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\System.Web.WebPages.dll" />
+    <Content Include="bin\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\TOS_Model.dll" />
+    <Content Include="bin\WebGrease.dll" />
     <Content Include="Content\basictable.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -172,6 +195,7 @@
     <Content Include="fonts\fontawesome-webfont.ttf" />
     <Content Include="fonts\fontawesome-webfont.woff" />
     <Content Include="fonts\fontawesome-webfont.woff2" />
+    <Content Include="FileFolder\OrderHistory_2019-12-20 %282%29.pdf" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\CdnDatatable.js" />
     <Content Include="Scripts\Chart.js" />
@@ -219,8 +243,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="bin\roslyn\" />
     <Folder Include="images\" />
     <Folder Include="Models\" />
+    <Folder Include="Views\DetailInformation\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -251,6 +277,10 @@
     <ProjectReference Include="..\Information_BL\Information_BL.csproj">
       <Project>{39b9fe4a-8b33-43a2-a72f-3f2687e96036}</Project>
       <Name>Information_BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Inventories_BL\Inventories_BL.csproj">
+      <Project>{bb1f2094-c130-4b4b-ae92-9b7d7fd3f6ba}</Project>
+      <Name>Inventories_BL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Order_History_BL\Order_History_BL.csproj">
       <Project>{ea0d42b7-f5ce-4efd-abf0-11d6c8e6eb8e}</Project>

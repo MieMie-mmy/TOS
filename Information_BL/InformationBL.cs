@@ -5,7 +5,6 @@ using System.Data.SqlClient;
 using TOS_Model;
 using TOS_DL;
 
-
 namespace Information_BL
 {
     public class InformationBL
@@ -48,6 +47,18 @@ namespace Information_BL
             SqlParameter[] prms = new SqlParameter[1];
             dtinformation = bdl.SelectData("T_Information_Select", null);
             return dtinformation;
+        }
+
+        public DataTable Get_InformationTitleName(string id)
+        {
+            
+          
+            BaseDL dl = new BaseDL();
+            SqlParameter prm = new SqlParameter("@InformationID", SqlDbType.Int) { Value=Convert.ToInt16(id)};
+            DataTable dt = dl.SelectData("Select_InformationTitle",prm);
+            
+            
+            return dt;
         }
     }
 }

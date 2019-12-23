@@ -8,6 +8,7 @@ namespace TOS_Model
 {
     public class T_InformationModel
     {
+        public int InformationID { get; set; }
         public string Date { get; set; }
 
         public string TitleName { get; set; }
@@ -25,6 +26,8 @@ namespace TOS_Model
         public string AttachedFile3 { get; set; }
 
         public string AttachedFile4 { get; set; }
+
+        public string DetailInformation { get; set; }
 
         public int DestinationFlag { get; set; }
 
