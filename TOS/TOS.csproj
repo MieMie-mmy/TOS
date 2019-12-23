@@ -267,6 +267,7 @@
     <Content Include="Views\Inventory\Inventories.cshtml" />
     <Content Include="Views\Inventory\Inventories_list.cshtml" />
     <Content Include="Views\NewsEditor\News_Editor.cshtml" />
+    <Content Include="Views\Registrations\Group_Entry.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

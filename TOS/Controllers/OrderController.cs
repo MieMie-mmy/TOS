@@ -94,13 +94,13 @@ namespace TOS.Controllers
 
         }
 
-        public ActionResult Order_Input(string MakerItemCD)
+        public ActionResult Order_Input(string id)
         {
             Order_InputBL obl = new Order_InputBL();
             M_JobTimeableModel Mjob = new M_JobTimeableModel();
             DataSet dst = new DataSet();
-            string ItemCD = "cps-test,cd,BAQ005,cd, , ,dd";
-            dst = obl.Order_Input_M_Item_Data(ItemCD);
+          //  string ItemCD = "cps-test,cd";
+            dst = obl.Order_Input_M_Item_Data(id);
             DataSet dsnew = new DataSet();
             if (dst.Tables.Count > 0)
             {
@@ -123,7 +123,7 @@ namespace TOS.Controllers
                     }
                 }
             }
-            Session["MakerItem"] = ItemCD;
+            Session["MakerItem"] = id;
             ViewBag.count = dsnew.Tables.Count;
             Session["dtsmitem"] = dsnew;
             if (Session["CompanyCD"] != null)
