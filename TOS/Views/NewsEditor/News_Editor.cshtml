@@ -171,32 +171,17 @@
 
     <script>
         $(document).ready(function () {
-            //var div1 = document.getElementById('file1');
-            //var div2 = document.getElementById('file2');
-            //div1.style.display = 'none';
-            //div2.style.display = 'none';
-            //$('input[type="file"]').change(function (e) {
-
-            //    var maxlength = 4
-            //    var fileName = e.target.files[0].name;
-            //    var text = $('#lblattachfile1').val();
-            //    text = fileName;
-            //    $('#lblattachfile1').text(text);
-            //    div1.style.display = 'block';
-            //});
             var div = document.getElementById('file');
-            div.style.display = 'none';
-            var toAdd = document.createDocumentFragment();
-            alert("aa");
-            for (var i = 0; i < 4; i++) {
-                var newDiv = document.createElement('file');
-                newDiv.id = 'file' + i;
-                var fileName = e.target.files[i].name;
-                var text = $('#lblattachfile' + i).val();
-                toAdd.appendChild(newDiv);
-                newDiv.style.display = 'block';
-            }
-            document.appendChild(toAdd);
+            var div1 = document.getElementById('file1');
+            $('input[type="file"]').change(function (e) {
+              
+                var fileName = e.target.files[0].name;
+                var text = $('#lblattachfile').val();
+                text = fileName;
+                $('#lblattachfile').text(text);
+                div.style.display = 'block';
+               
+            });
         });
     </script>
 
@@ -364,16 +349,15 @@
                                             </div>*@
 
                                         <div class="boxc">
-                                            <div id="file">
+                                            <div id="file" style="display:none;">
                                                 <label style="width:150px;" id="lblattachfile"></label>
                                                 <button id="btndelete" class="btn btn-outline-secondary">✖</button>
                                             </div>
 
-                                            @*<div id="file2">
-                                                <label style="width:150px;" id="lblattachfile2"></label>
+                                            <div id="file1" style="display:none;">
+                                                <label style="width:150px;" id="lblattachfile1"></label>
                                                 <button id="btndelete" class="btn btn-outline-secondary">✖</button>
-                                            </div>*@
-                                            @*<button type="button" class="btn btn-outline-secondary"></button>*@
+                                            </div>
                                             <span>最大4ファイル添付可能。</span>
                                         </div>
 
