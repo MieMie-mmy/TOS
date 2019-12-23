@@ -313,9 +313,6 @@
 
 <style>
 
-
-
-
     table.dataTable thead td {
         padding: 0px;
         border-bottom-color: white;
@@ -364,6 +361,8 @@
         });
 
     }
+
+
     function FillGrid_3(id, o_f, o_t, s_f, s_t, m1, m2, m3, m4, m5, m6, m7, m8)
     {
         $.ajax({
@@ -536,6 +535,15 @@
         document.getElementById('MakerItemCD_6').value = "";
         document.getElementById('MakerItemCD_7').value = "";
         document.getElementById('MakerItemCD_8').value = "";
+        RefreshFirstTable();
+
+
+        RefreshSecondTable();
+
+
+    }
+    function RefreshFirstTable()
+    {
         $.ajax({
             type: 'POST',
             url: "../Order/OH_GetFirstTable",
@@ -545,10 +553,6 @@
 
             }
         });
-
-        RefreshSecondTable();
-
-
     }
     function RefreshSecondTable()
     {
@@ -580,7 +584,7 @@
             dataType: 'JSON',
 
             success: function (data) {
-                FillData(data);
+                RefreshSecondTable();
             }
 
 
