@@ -1,5 +1,5 @@
 ﻿@using System.Data;
-@model  TOS_Model.T_InformationModel
+@model  TOS_Model.MultipleModel
 
 
 @{
@@ -108,6 +108,30 @@
 
 
     </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#rdbcompanywide').prop('checked', true);
+            $("#ddlCompanyname").attr("disabled", "disabled");
+            $('#ddlGroupname').attr("disabled", "disabled");
+        });
+    </script>
+    <script type="text/javascript">
+        $('#rdbcompanywide').click(function () {
+            $("#ddlCompanyname").attr("disabled", "disabled");
+            $('#ddlGroupname').attr("disabled", "disabled");
+        });
+
+        $('#rdocompanydesignation').click(function () {
+            $('#ddlGroupname').attr("disabled", "disabled");
+
+            $("#ddlCompanyname").removeAttr("disabled");
+        });
+        $('#rdogroupdesignation').click(function () {
+            $('#ddlCompanyname').attr("disabled", "disabled");
+
+            $("#ddlGroupname").removeAttr("disabled");
+        });
+    </script>
 }
 
 
@@ -132,9 +156,9 @@
                                 <div class="boxer">
                                     <div class="box-row">
                                         <div class="box">
-                                            <div class="custom-control custom-radio">
+                                            <div class="custom-control">
                                                 @*<input type="radio" class="custom-control-input" id="rdocompanywide" name="rdocompanywide" value="1">*@
-                                                @Html.RadioButtonFor(m => m.DestinationFlag ,"1", new { @checked = "true" })
+                                                @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "1", new { @checked = "true", @id = "rdbcompanywide" })
                                                 <label>全社</label>
                                             </div>
                                         </div>
@@ -142,82 +166,68 @@
                                     </div>
                                     <div class="box-row">
                                         <div class="box">
-                                            <div class="custom-control custom-radio">
+                                            <div class="custom-control">
                                                 @*<input type="radio" class="custom-control-input" id="rdocompanydesignation" name="rdocompanydesignation" value="2">*@
-                                                @Html.RadioButtonFor(m => m.DestinationFlag , "2")
+                                                @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "2", new { @id = "rdocompanydesignation" })
                                                 <label>会社指定</label>
                                             </div>
                                         </div>
                                         <div class="box">
-                                            @Html.DropDownList("ddlCompanyname",
-                                            new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                                            new { @class = "comp" })
+
+                                            @Html.DropDownListFor(m => m.ComModel.CompanyCD, new SelectList(Enumerable.Empty<SelectListItem>(), "", ""), "--- 選択---",
+         new { @class = "comp", @id = "ddlCompanyname" })
+
                                         </div>
-                                        グループ指定
-                                    </div>グループ指定
+                                    </div>
                                     <div class="box-row">
                                         <div class="box">
-                                            <div class="custom-control custom-radio">
+                                            <div class="custom-control" style="width: 140px;">
                                                 @*<input type="radio" class="custom-control-input" id="rdogroupdesignation" name="rdogroupdesignation" value="3">*@
-                                                @Html.RadioButtonFor(m => m.DestinationFlag, "3")
+                                                @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "3", new { @id = "rdogroupdesignation" })
                                                 <label>グループ指定</label>
                                             </div>
                                         </div>
                                         <div class="box">
-                                            @Html.DropDownList("ddlGroupname",
-                                            new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                                            new { @class = "comp" })
+
+                                            @Html.DropDownListFor(m => m.GroupModel.GroupID, new SelectList(Enumerable.Empty<SelectListItem>(), "", ""), "--- 選択---",
+        new { @class = "comp", @id = "ddlGroupname" })
                                         </div>
                                     </div>
                                     <div class="box-row">
-                                        <div class="box">&nbsp;&nbsp;&nbsp;&nbsp;表示期間</div>
+
+                                        <div class="box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;お知らせタイプ</div>
+                                        <div class="box">
+                                            @Html.DropDownListFor(m => m.TinfoModel.InformationType, new List<SelectListItem>
+                                            {
+                                            new SelectListItem{ Text="--- 選択---", Value = "0" },
+                                            new SelectListItem{ Text="重要", Value = "1" },
+                                            new SelectListItem{ Text="News", Value = "2" },
+                                            new SelectListItem{ Text="新規発売", Value = "3" },
+                                            new SelectListItem{ Text="商品情報", Value = "4" },
+                                            new SelectListItem{ Text="その他", Value = "5" }
+                                            }, new { @class = "comp", @id = "ddlInfoType" })
+                                        </div>
+                                    </div>
+                                    <div class="box-row">
+                                        <div class="box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示期間</div>
                                         <div class="box">
                                             <label class="nativeDatePicker">
-                                                <input type="date" name="bday" class="form-control" id="lbldisplay_startdate">
+                                                @*<input type="date" name="bday" class="form-control" id="lbldisplay_startdate">*@
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date" })
 
                                             </label>～
                                             <label class="nativeDatePicker">
-                                                <input type="date" name="bday" class="form-control" id="lbldisplay_enddate">
-
+                                                @*<input type="date" name="bday" class="form-control" id="lbldisplay_enddate">*@
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date" })
                                             </label>
-                                            <fieldset class="fallbackDatePicker" hidden>
-                                                <legend class="fallbackLabel">Enter your birthday:</legend>
-
-                                                <label>
-                                                    Day:
-                                                    <select name="day"></select>
-                                                </label>
-
-                                                <label>
-                                                    Month:
-                                                    <select name="month">
-                                                        <option>January</option>
-                                                        <option>February</option>
-                                                        <option>March</option>
-                                                        <option>April</option>
-                                                        <option>May</option>
-                                                        <option>June</option>
-                                                        <option>July</option>
-                                                        <option>August</option>
-                                                        <option>September</option>
-                                                        <option>October</option>
-                                                        <option>November</option>
-                                                        <option>December</option>
-                                                    </select>
-                                                </label>
-
-                                                <label>
-                                                    Year:
-                                                    <select name="year"></select>
-                                                </label>
-                                            </fieldset>
                                         </div>
                                     </div>
                                     <div class="box-row">
                                         <div class="box">
                                             <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                <label class="form-check-label" for="exampleCheck1">有効</label>
+                                                @*<input type="checkbox" id="exampleCheck1">*@
+                                                @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag, true)
+                                                <label>有効</label>
                                             </div>
                                         </div>
                                         <div class="box"><div class="sair"><button type="submit" class="btn btn-success btn-lg">✔　登録</button></div></div>
@@ -226,11 +236,17 @@
                                 <div class="boxberb">
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">日付</div>
-                                        <div class="boxb"><input class="form-control" type="tel" value="" /></div>
+                                        <div class="boxb">
+                                            @*<input class="form-control" type="tel" value="" />*@
+                                            @Html.TextBoxFor(m => m.TinfoModel.Date, new { @class = "form-control", @type = "date" })
+                                        </div>
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">課題名</div>
-                                        <div class="boxb"><input class="form-control" type="tel" value="" /></div>
+                                        <div class="boxb">
+                                            @*<input class="form-control" type="tel" value="" />*@
+                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170" })
+                                        </div>
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">表示指定</div>
@@ -251,13 +267,20 @@
                                 </div>
                                 <div class="boxcerc">
                                     <div class="boxc-rowc">
-                                        <div class="boxc"><button type="button" class="btn btn-outline-secondary">新規商品一覧.pdf&nbsp;&nbsp;✖</button><button type="button" class="btn btn-outline-secondary">ブランド一覧.pdf&nbsp;&nbsp;✖</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>最大4ファイル添付可能。</span></div>
+                                        <div class="boxc">
+                                        <button type="button" class="btn btn-outline-secondary">新規商品一覧.pdf&nbsp;&nbsp;✖</button>
+                                        <button type="button" class="btn btn-outline-secondary">ブランド一覧.pdf&nbsp;&nbsp;✖</button>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                        <span>最大4ファイル添付可能。</span></div>
                                     </div>
                                     <div class="boxc-rowc">
-                                        <div class="boxc boxpd tab002tit ">お知らせ内容</div>
+                                        <div class="boxc boxpd tab002tit">お知らせ内容</div>
                                     </div>
                                     <div class="boxc-rowc">
-                                        <div class="boxc"><textarea class="form-control" id="txtarea" rows="15"></textarea></div>
+                                        <div class="boxc">
+                                            @*<textarea class="form-control" id="txtarea" rows="15"></textarea>*@
+                                            @Html.TextAreaFor(m => m.TinfoModel.DetailInformation, new { @class = "form-control", @rows = "15", @id = "txtarea" })
+                                        </div>
                                     </div>
                                 </div>
                                 <script>
@@ -270,7 +293,6 @@
                                     }
 
                                     expandTextarea('txtarea');</script>
-
                             </div>
                             <div class="newr col-md-7">
                                 <div class="float-left"><h6>お知らせ一覧</h6></div><div class="float-right">
@@ -305,6 +327,7 @@
 
     </div>
 }
+
 <!-- script-for sticky-nav -->
 <script>
     // define variables

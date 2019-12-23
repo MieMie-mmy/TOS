@@ -18,10 +18,12 @@ namespace TOS.Controllers
             return View();
         }
       
-        public ActionResult T_Information_SaveEdit(T_InformationModel tinfo)
+        public ActionResult T_Information_SaveEdit(MultipleModel model)
         {
             InformationBL ibl = new InformationBL();
-            return View();
+            model.TinfoModel.InsertOperator = Session["CompanyCD"].ToString();
+            ibl.News_Editor_Save(model);
+            return RedirectToAction("News_Editor");
         }
 
 
