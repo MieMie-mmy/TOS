@@ -32,9 +32,7 @@ namespace TOS_Model
         public int DestinationFlag { get; set; }
 
         public bool EffectFlag { get; set; }
-
-        public string DetailInformation { get; set; }
-
+        
 
 
 
