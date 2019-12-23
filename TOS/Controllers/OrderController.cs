@@ -96,6 +96,8 @@ namespace TOS.Controllers
 
         public ActionResult Order_Input(string MakerItemCD)
         {
+            string mm = MakerItemCD;
+
             Order_InputBL obl = new Order_InputBL();
             M_JobTimeableModel Mjob = new M_JobTimeableModel();
             DataSet dst = new DataSet();

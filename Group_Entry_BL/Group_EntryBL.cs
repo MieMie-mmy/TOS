@@ -49,7 +49,7 @@ namespace Group_Entry_BL
             }
             if(mModel.TagModel!=null)
             {
-                prms[5] = new SqlParameter("@tag", SqlDbType.VarChar) { Value = mModel.TagModel.Tag };
+                prms[5] = new SqlParameter("@tag", SqlDbType.VarChar) { Value = mModel.tagModel.Tag };
             }
             else
             {
