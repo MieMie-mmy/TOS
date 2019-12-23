@@ -29,7 +29,7 @@
     <!-- tab content -->
     <div class="tab-content tab-content-in w3">
         <div class="tab-pane text-style active" id="tab1">
-            <div class="inbox-right" style="overflow:scroll;overflow-y:scroll;">
+            <div class="inbox-right" style="overflow:scroll;">
                 全商品発注できました。
                 <table class="histoptab" id="Order_First">
                     <thead>
@@ -290,9 +290,7 @@
                         </div>
                     </div>
                     <!--end second table-->
-                    <br />
-                    <br />
-                    <br />
+                   
 
                 </div>
             </div>
@@ -309,7 +307,7 @@
 <style>
 
     table.dataTable thead td {
-        padding: 0px;
+        padding: 8px 10px;
         border-bottom-color: white;
     }
 
@@ -325,6 +323,13 @@
     {
         color:white;
     }
+    .tab002 {
+        width: 1500px !important;
+    }
+    .histoptab {
+        width: 100% !important;
+    }
+   
 
 </style>
 
@@ -404,6 +409,7 @@
                 "destroy": true,
                 //responsive: false,
                 "scrollX": true,
+                //"scrollY": true,
                 "dom": 'lrtip',
                 "bLengthChange": false,
                 "data": data,
