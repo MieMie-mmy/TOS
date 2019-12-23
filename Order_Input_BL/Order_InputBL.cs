@@ -46,7 +46,6 @@ namespace Order_Input_BL
             DataSet ds = new DataSet();
             BaseDL dl = new BaseDL();
             string[] itemcd = MakerItemCD.Split(',');
-            string json_dataset;
             if (!string.IsNullOrWhiteSpace(MakerItemCD))
             {
                 SqlParameter[] prms = new SqlParameter[9];
@@ -62,40 +61,24 @@ namespace Order_Input_BL
                 ds = dl.SelectDataSet("OrderInput_M_Item_Select", prms);
                 
             }
-            //json_dataset = JsonConvert.SerializeObject(ds, Formatting.Indented);
-
-            //return json_dataset;
+          
             return ds;
             
         }
 
-        //public string GetJSON(DataSet ds)
-        //{
-
-        //    //.Serialization.JavaScriptSerializer serializer = new System.Web.Script.Serialization.JavaScriptSerializer();
-        //    //
-        //    ArrayList root = new ArrayList();
-        //    List<Dictionary<string, object>> table;
-        //    Dictionary<string, object> data;
-
-        //    foreach (DataTable dt in ds.Tables)
-        //    {
-        //        table = new List<Dictionary<string, object>>();
-        //        foreach (DataRow dr in dt.Rows)
-        //        {
-        //            data = new Dictionary<string, object>();
-        //            foreach (DataColumn col in dt.Columns)
-        //            {
-        //                data.Add(col.ColumnName, dr[col]);
-        //            }
-        //            table.Add(data);
-        //        }
-        //        root.Add(table);
-        //    }
-
-        //    return JsonConvert.SerializeObject(root);
-        //}
-
-
+        public DataTable Order_Input_M_SKU(string makeritemCD)
+        {
+            DataTable dt = new DataTable();
+            BaseDL dl = new BaseDL();
+            if (!string.IsNullOrWhiteSpace(makeritemCD))
+            {
+                SqlParameter[] prms = new SqlParameter[1];
+                prms[0] = new SqlParameter("@MakerItemCD", SqlDbType.VarChar) { Value = makeritemCD };
+                dt = dl.SelectData("OrderInput_M_SKU_Select", prms);
+            }
+            return dt;
         }
+
+
+    }
 }
