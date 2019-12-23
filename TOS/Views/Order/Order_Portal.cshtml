@@ -304,7 +304,6 @@
         </script>*@
 
     <script type="text/javascript">
-        $(document).ready(function () {
             $("#btnClear").click(function () {
                 $("#txt1").val("");
                 $("#txt2").val("");
@@ -340,11 +339,9 @@
                     window.location.href = '../Order/Order_Portal';
                 }
                 else {
-                    alert(MakerItemCD);
-                    window.location.href = '../Order/Order_Input/MakerItemCD=' + MakerItemCD;
+                    window.location.href = '../Order/Order_Input/' + MakerItemCD;
                 }
             })
-        })
     </script>
 }
 
