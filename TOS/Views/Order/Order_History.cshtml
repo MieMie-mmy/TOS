@@ -8,13 +8,7 @@
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/Site.css" rel="stylesheet" />
-    @*<link href="~/Content/manager-style.css" rel="stylesheet" />
-    <link href="~/Content/basictable.css" rel="stylesheet" />
-    <link href="~/Content/font-awesome.css" rel="stylesheet" />
-    <link href="~/Content/icon-font.min.css" rel="stylesheet" />
-    <link href="~/Content/jqcandlestick.css" rel="stylesheet" />
-    <link href="~/Content/jquery-ui.css" rel="stylesheet" />
-    <link href="~/Content/lightbox.css" rel="stylesheet" />*@
+   
 <link href="~/Content/monthly.css" rel="stylesheet" />
 <link href="~/Content/morris.css" rel="stylesheet" />
 <link href="~/Content/news.css" rel="stylesheet" />
@@ -35,7 +29,7 @@
     <!-- tab content -->
     <div class="tab-content tab-content-in w3">
         <div class="tab-pane text-style active" id="tab1">
-            <div class="inbox-right" style="overflow:scroll;overflow-y:scroll;">
+            <div class="inbox-right" style="overflow:scroll;">
                 全商品発注できました。
                 <table class="histoptab" id="Order_First">
                     <thead>
@@ -234,7 +228,7 @@
                                         </table>
                                     </td>
                                     <td>&nbsp;</td>
-                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
+                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg"id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
                                     <td>
                                         <br><br><br><br><br><br>
                                         <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
@@ -281,7 +275,8 @@
                                                 <td class="t150">発注時刻</td>
                                                 <td class="t150">出荷日</td>
                                                 <td class="t300">摘要</td>
-                                                <td class="t300" hidden>摘要</td>
+                                                <td class="t300" hidden>AdminCD</td>
+                                                <td class="t150" hidden>OrderStatus</td>
                                             </tr>
                                         </thead>
                                         <tbody id="order_detail_body"></tbody>
@@ -295,9 +290,7 @@
                         </div>
                     </div>
                     <!--end second table-->
-                    <br />
-                    <br />
-                    <br />
+                   
 
                 </div>
             </div>
@@ -314,7 +307,7 @@
 <style>
 
     table.dataTable thead td {
-        padding: 0px;
+        padding: 8px 10px;
         border-bottom-color: white;
     }
 
@@ -323,6 +316,28 @@
         border-bottom: 1px solid #111;
         border-bottom-color: white;
     }
+    .OrderStatus_5{
+        color:red;
+    }
+    .ffss
+    {
+        color:white;
+    }
+    .tab002 {
+        width: 1500px !important;
+    }
+    .histoptab {
+        width: 100% !important;
+    }
+    .mother-grid-inner {
+        display: block !important;
+        background-color: #edecec
+        !important;
+    }
+    .left-content {
+        background-color: #edecec !important;
+    }
+   
 
 </style>
 
@@ -331,6 +346,14 @@
 
         FillGrid_1();
         FillGrid_2();
+
+        var input1 = document.getElementById("txt_orderId");
+        input1.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("Searchdata").click();
+            }
+        });
     });
     function FillGrid_1() {
 
@@ -353,7 +376,7 @@
             url: "../Order/OH_GetSecondTable/"+"101",
            
             dataType: 'json',
-
+           
             success: function (data) {
                 BindSecondTable(data);
 
@@ -402,6 +425,7 @@
                 "destroy": true,
                 //responsive: false,
                 "scrollX": true,
+                //"scrollY": true,
                 "dom": 'lrtip',
                 "bLengthChange": false,
                 "data": data,
@@ -412,10 +436,10 @@
                     { "data": "OrderDateTime_h", orderable: false },
                     { "data": "AvailableShippingDate", orderable: false },
                     { "data": "OrderDateTime_d", orderable: false },
-                    {},
-                    {},
-                    {},
-                    {}
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false }
 
                 ],
                 "columnDefs": [
@@ -426,7 +450,8 @@
                     },
                     {
                         targets: [6,7,8,9],
-                        className: 'histoptabno sair'
+                        className: 'histoptabno sair ffss',
+                       
                     },
 
                     ],
@@ -473,9 +498,11 @@
                     { "data": "ShippingDate", orderable: false },
                     { "data": "Memo", orderable: false },
                     { "data": "AdminCD", orderable: false },
+                    { "data": "OrderStatus", orderable: false },
 
 
                 ],
+               
                 "columnDefs": [
                     {
                         "targets": 1,
@@ -500,14 +527,24 @@
                         className: 'sailf '
                     },
                     {
-                        targets: [15],
+                        targets: [15,16],
                         className: 'sailf ',
                         visible: false
 
                     },
+                    
                 ],
-
-
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData.OrderStatus == 5) {
+                       
+                        $('td', nRow).css('color', 'red');
+                    }
+                    else if (aData.OrderStatus == "5") {
+                        $('td', nRow).css('color', 'red');
+                    }
+                   
+                }
+            
             }
         );
 
@@ -609,6 +646,8 @@
         FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
+
+
 
 </script>
 

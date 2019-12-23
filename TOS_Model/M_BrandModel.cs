@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace TOS_Model
 {
-   public  class M_BrandModel
+   public  class M_BrandModel :BaseModel
     {
-      public  int  BrandCD    { get; set; }
-      public string  BrandName { get; set; }
+      public int  BrandCD    { get; set; }
+      public string BrandName { get; set; }
     }
 }

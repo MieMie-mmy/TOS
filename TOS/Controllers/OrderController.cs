@@ -35,6 +35,7 @@ namespace TOS.Controllers
             var Jsondata = JsonConvert.SerializeObject(dt);
             return Jsondata;
         }
+       
         [HttpPost]
         public string OH_GetSecondTable(T_OrderHistorySearch data)
         {
@@ -96,6 +97,8 @@ namespace TOS.Controllers
 
         public ActionResult Order_Input(string id)
         {
+            string mm = MakerItemCD;
+
             Order_InputBL obl = new Order_InputBL();
             M_JobTimeableModel Mjob = new M_JobTimeableModel();
             DataSet dst = new DataSet();

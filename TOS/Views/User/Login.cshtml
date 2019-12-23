@@ -29,12 +29,12 @@
                     <form action="sys/index.html">
                         <div class="login-ic">
                             <i></i>
-                            @Html.TextBoxFor(c => c.CompanyCD, new { @class = "form-control", @placeholder = "User ID", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center" })
+                            @Html.TextBoxFor(c => c.CompanyCD, new { @maxlength = "8", @class = "form-control", @placeholder = "User ID", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", })
                             <div class="clear"> </div>
                         </div>
                         <div class="login-ic">
                             <i class="icon"></i>
-                            @Html.PasswordFor(c => c.Password, new { @class = "form-control", @placeholder = "Password", @tabindex = "2", @required = "required", @align = "center" })
+                            @Html.PasswordFor(c => c.Password, new { @maxlength = "20", @class = "form-control", @placeholder = "Password", @tabindex = "2", @required = "required", @align = "center" })
                             <div class="clear"> </div>
                         </div>
 

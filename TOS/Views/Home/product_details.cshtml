@@ -1,8 +1,251 @@
-﻿
-@{
-    ViewBag.Title = "product_details";
-    Layout = "~/Views/Shared/_Layout.cshtml";
-}
+﻿@*<!DOCTYPE HTML>
+<html>
+<head>
+    <title>TennicOrderSystem | TENNIC</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <script type="application/x-javascript">
+        addEventListener("load", function() {
+            setTimeout(hideURLbar, 0);
+        }, false);
+        function hideURLbar() {
+            window.scrollTo(0, 1);
+        }
+    </script>*@
+    <!-- Bootstrap Core CSS -->
+    <link href="css/bootstrap.min.css" rel='stylesheet' type='text/css' />
+    <!-- Custom CSS -->
+    <link href="css/style.css" rel='stylesheet' type='text/css' />
+    <link rel="stylesheet" href="css/morris.css" type="text/css" />
+    <!-- Graph CSS -->
+    <link href="css/font-awesome.css" rel="stylesheet">
+    <!-- jQuery -->
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <!-- //jQuery -->
+    <link href='//fonts.googleapis.com/css?family=Roboto:700,500,300,100italic,100,400' rel='stylesheet' type='text/css' />
+    <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
+    <!-- lined-icons -->
+    <link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
+    <!-- //lined-icons -->
 
-<h2>product_details</h2>
+                <!--heder end here-->
+                <ol class="breadcrumb">
+                    @*<li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ情報<i class="fa fa-angle-right"></i>ハンドポールイージーオーダーシステム商品詳細16について</li>*@
+                     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ情報<i class="fa fa-angle-right"></i>@ViewData["InfoTitle"]</li>
+                </ol>
+                <div class="inbox-mail">
+                    <!-- tab content -->
+                    <div class="tab-content tab-content-in w3">
+                        <div class="tab-pane text-style active" id="tab1">
+                            <div class="inbox-right">
+                                <div class="mailbox-content">
+                                    <div class="mail-toolbar clearfix">
+                                        <div class="float-left">
+                                            <h5>@ViewData["InfoDate"]</h5> <h3>@ViewData["InfoTitle"]@*ハンドポールイージーオーダーシステム商品詳細16について*@</h3>
+                                        </div>
+                                        <div class="float-right">
+                                            <div class="btn-group">
+                                                <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
+                                                <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @*<table class="table">*@
+                                    <p>
+                                        <span>添付ファイル：</span>
+                                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">新規商品一覧.pdf&nbsp;&nbsp;▼</button>
 
+
+                                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">ブランド一覧.pdf&nbsp;&nbsp;▼</button>
+                                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">出荷先一覧.pdf&nbsp;&nbsp;▼</button>
+                                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">値段一覧.pdf&nbsp;&nbsp;▼</button>
+                                    </p>
+                                    
+
+
+
+                                    </p>
+
+
+
+                                    @*<hr>@ViewData["DetailInfo"]*@
+                                    @*<p>競馬
+        <p>
+        <p>うちの息子も1年生。さっそく、学校で「初テスト」を受けてきたらしい。</p>
+        <p>問「おさかなは1ぴき2ひき、とりは1わ２わと数えます。ではウマは？」</p>
+        <p>答「１ちゃく２ちゃく」</p>
+        <p>回答用紙を見ながら涙が出た。</p>
+        <br>
+        <br>
+        <br>
+        <p>りんご</p>
+        <p>先生「キャシー、あなたがリンゴを5つ持ってるとするわね？</p>
+        <p>そしてメアリーにリンゴを2つちょうだいといってもらったとします。</p>
+        <p>そのあと私がリンゴを3つちょうだいって言ったら、</p>
+        <p>あなたの持ってるリンゴは一体いくつ？」</p>
+        <p>キャシー「7つです」</p>*@
+
+                                    @*</table>*@
+                                    <hr />@ViewData["DetailInfo"]
+                                    @*<p>競馬
+        <p>
+        <p>うちの息子も1年生。さっそく、学校で「初テスト」を受けてきたらしい。</p>
+        <p>問「おさかなは1ぴき2ひき、とりは1わ２わと数えます。ではウマは？」</p>
+        <p>答「１ちゃく２ちゃく」</p>
+        <p>回答用紙を見ながら涙が出た。</p>
+        <br>
+        <br>
+        <br>
+        <p>りんご</p>
+        <p>先生「キャシー、あなたがリンゴを5つ持ってるとするわね？</p>
+        <p>そしてメアリーにリンゴを2つちょうだいといってもらったとします。</p>
+        <p>そのあと私がリンゴを3つちょうだいって言ったら、</p>
+        <p>あなたの持ってるリンゴは一体いくつ？」</p>
+        <p>キャシー「7つです」</p>*@
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clearfix"> </div>
+                </div>
+                <!-- script-for sticky-nav -->
+                <script>
+                    $(document).ready(function () {
+                        var navoffeset = $(".header-main").offset().top;
+                        $(window).scroll(function () {
+                            var scrollpos = $(window).scrollTop();
+                            if (scrollpos >= navoffeset) {
+                                $(".header-main").addClass("fixed");
+                            } else {
+                                $(".header-main").removeClass("fixed");
+                            }
+                        });
+                    });
+                </script>
+                <!-- /script-for sticky-nav -->
+                <!--inner block start here-->
+                <div class="inner-block">
+                </div>
+                <!--inner block end here-->
+                <!--copy rights start here-->
+                @*<div class="copyrights">
+                    <p>© 2020 TENNIC. All rights reserved</p>
+                </div>*@
+                <!--COPY rights end here-->
+            
+        <div class="sidebar-menu">
+            <header class="logo1">
+                <a href="#" class="sidebar-icon"> <img src="images/tennic.png" alt=""></a>
+                <span>Order System</span>
+            </header>
+            <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
+            <div class="menu">
+                <ul id="menu">
+                    <li>
+                        <a href="index.html">
+                            <i class="fa fa-home"></i> <span>ホーム</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                    <li id="menu-academico">
+                        <a href="order_portal.html">
+                            <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="order_input.html">
+                            <i class="fa fa-table" aria-hidden="true"></i><span>発注入力</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                    <li id="menu-academico">
+                        <a href="order_history.html">
+                            <i class="fa fa-history"></i><span>発注履歴</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                    <li id="menu-academico">
+                        <a href="inventories.html">
+                            <i class="fa fa-search" aria-hidden="true"></i><span>在庫照会</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                    <li id="menu-academico">
+                        <a href="news_editor.html">
+                            <i class="fa fa-plus" aria-hidden="true"></i><span>お知らせ入力</span>
+                            <div class="clearfix"></div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+    <script>
+        var toggle = true;
+        $(".sidebar-icon").click(function () {
+            if (toggle) {
+                $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+                $("#menu span").css({
+                    "position": "absolute"
+                });
+            } else {
+                $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+                setTimeout(function () {
+                    $("#menu span").css({
+                        "position": "relative"
+                    });
+                }, 400);
+            }
+            toggle = !toggle;
+        });
+    </script>
+    <script type="text/javascript">
+        var data = { "firstField": "value1", "secondField": "value2" };
+        function saveToFile() {
+            $.ajax({
+                url: "/HomeController/Get_InformationTitleName",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(data),
+
+
+                success: function (data) {
+
+                },
+                error: function (xhr) {
+                    console.log(xhr);
+                }
+            });
+        });
+    </script>
+    <!--js -->
+    <script src="js/jquery.nicescroll.js"></script>
+    <script src="js/scripts.js"></script>
+    <!-- Bootstrap Core JavaScript -->
+    <script src="js/bootstrap.min.js"></script>
+    <!-- /Bootstrap Core JavaScript -->
+
+@*pdf on click function*@
+<script>
+    function Attach1() {
+        var v = $("#a1").val();
+        
+        alert("pdf1");
+    }
+    function Attach2() {
+       
+        alert("pdf2");
+       
+    }
+    function Attach3() {
+        alert("pdf3");
+        var v = this.value();
+    }
+    function Attach4() {
+        alert("pdf4");
+        var v = this.value();
+    }
+</script>
