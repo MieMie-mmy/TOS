@@ -33,7 +33,7 @@ namespace TOS_DL
                 adapt.SelectCommand.CommandType = CommandType.StoredProcedure;
                 if (para != null)
                     adapt.SelectCommand.Parameters.AddRange(para);
-                adapt.Fill(ds1,"DataList");
+                adapt.Fill(ds1);
                 newCon.Close();
             }
             return ds1;

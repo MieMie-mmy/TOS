@@ -26,6 +26,34 @@ namespace TOS.Controllers
         {
             Order_InputBL obl = new Order_InputBL();
             M_JobTimeableModel Mjob = new M_JobTimeableModel();
+            DataSet dst = new DataSet();
+            string ItemCD = "cps-test,cd,BAQ005,cd, , ,dd";
+            dst = obl.Order_Input_M_Item_Data(ItemCD);
+            DataSet dsnew = new DataSet();
+            if (dst.Tables.Count > 0)
+            {
+                int tabcount = 0;
+                int count = dst.Tables.Count;
+                for (int i = 0; i < count; i++)
+                {
+                    if (dst.Tables[i].Rows.Count == 0)
+                    {
+                        dst.Tables.RemoveAt(i);
+                        count--;
+                        i--;
+                    }
+                    else
+                    {
+                        DataTable dtnew = dst.Tables[i];
+                        dtnew.TableName = "Table" + tabcount;
+                        tabcount++;
+                        dsnew.Tables.Add(dst.Tables[i].Copy());
+                    }
+                }
+            }
+            Session["MakerItem"] = ItemCD;
+            ViewBag.count = dsnew.Tables.Count;
+            Session["dtsmitem"] = dsnew;
             if (Session["CompanyCD"] != null)
             {
                 Mjob.CompanyCD = Session["CompanyCD"].ToString();
@@ -51,30 +79,77 @@ namespace TOS.Controllers
                 string CompanyCD = Session["CompanyCD"].ToString();
                 dt = oib.ShippingName_Select(CompanyCD);
             }
-           
+
             jsonresult = JsonConvert.SerializeObject(dt);
             return jsonresult;
         }
 
         public string Order_Input_M_Item_Select(string id)
         {
-            
-            Order_InputBL oib = new Order_InputBL();
-           
-            string ItemCD = "cps-test,BAQ005";
-            DataSet dst = new DataSet();
-            dst = oib.Order_Input_M_Item_Data(ItemCD);
-            if (dst.Tables.Count > Convert.ToInt32(id))
+            DataSet ds = new DataSet();
+            //ds =ViewBag.dtsmitem as DataSet;
+            ds = Session["dtsmitem"] as DataSet;
+            //Order_InputBL oib = new Order_InputBL();
+
+            //string ItemCD = "cps-test,BAQ005";
+            //DataSet dst = new DataSet();
+            //dst = oib.Order_Input_M_Item_Data(ItemCD);
+            //if (id == null)
+            //{
+            //    string jsonresult;
+            //    jsonresult = JsonConvert.SerializeObject(ds.Tables[0]);
+            //    return jsonresult;
+
+            //}
+            //else
+            //{
+            if (ds.Tables.Count > Convert.ToInt32(id))
             {
                 string jsonresult;
-                jsonresult = JsonConvert.SerializeObject(dst.Tables["Datalist"]);
+                jsonresult = JsonConvert.SerializeObject(ds.Tables["Table" + id]);
                 return jsonresult;
             }
             else
             {
-                return null;
+                string jsonresult;
+                DataTable dt = new DataTable();
+                dt.Columns.Add("MakerItemCD");
+                dt.Columns.Add("ItemName");
+                dt.Columns.Add("BrandName");
+                dt.Columns.Add("ListPrice(InTax)");
+                dt.Columns.Add("SalePrice(InTax)");
+                dt.Columns.Add("Lot");
+                jsonresult = JsonConvert.SerializeObject(dt);
+                return jsonresult;
             }
-           
+            //  }
+
+        }
+
+        public string Order_Input_M_SKU_Select(string id)
+        {
+            //String MakerItem = Session["MakerItem"] as string;
+            DataSet dsk = new DataSet();
+            dsk = Session["dtsmitem"] as DataSet;
+            Order_InputBL oib = new Order_InputBL();
+            DataTable dt = new DataTable();
+            //string[] itemcd = MakerItem.Split(',');
+            int i = Convert.ToInt32(id);
+            if (dsk.Tables.Count > i && dsk.Tables["Table" + id].Rows.Count > 0)
+            {
+                DataTable dttemp = dsk.Tables["Table" + id].Copy();
+                string mcd = dttemp.Rows[0]["MakerItemCD"].ToString(); //itemcd[i].ToString();
+                dt = oib.Order_Input_M_SKU(mcd);
+                if (dt.Rows.Count > 0)
+                {
+                    string jsonresult;
+                    jsonresult = JsonConvert.SerializeObject(dt);
+                    return jsonresult;
+                }
+
+            }
+            return null;
+
         }
 
 
@@ -110,5 +185,6 @@ namespace TOS.Controllers
             JSONString = JsonConvert.SerializeObject(table);
             return JSONString;
         }
+
     }
 }
