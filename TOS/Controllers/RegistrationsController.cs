@@ -5,10 +5,12 @@ using System.Web;
 using System.Web.Mvc;
 using TOS_Model;
 using Company_Entry_BL;
-using System.Data ;
+using System.Data;
+using System.Transactions;
 using Information_BL;
 using Group_Entry_BL;
 using Newtonsoft.Json;
+using System.EnterpriseServices;
 
 namespace TOS.Controllers
 {
@@ -21,7 +23,6 @@ namespace TOS.Controllers
             
             if (Session["CompanyCD"] != null)
             {
-                ViewBag.Message = "Welcome to my demo!";
                 return View();
             }
             else
@@ -29,53 +30,98 @@ namespace TOS.Controllers
                 return RedirectToAction("Login", "User");
             }
         }
+
         [HttpPost]
         public ActionResult InsertCompany(MultipleModel model)
         {
 
-            Company_EntryBL cbl = new Company_EntryBL();
-
-            if (model.ComModel.ZipCD1 != null)
+            var option = new TransactionOptions
             {
-                string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
-                string zip2 = model.ComModel.ZipCD1.Substring(3);
-                model.ComModel.ZipCD1 = zip1;
-                model.ComModel.ZipCD2 = zip2;
-
-            }
-            model.ComModel.InsertOperator = Session["CompanyCD"].ToString();
-            DataTable dt = cbl.InsertCompany(model.ComModel);
-            Array array = model.ShippingModel.ToArray();
-
-            if (array.Length > 0)
+                IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
+                Timeout = TimeSpan.MaxValue
+            };
+            TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, option);
+            using (scope)
             {
-                for (int i = 0; i < array.Length; i++)
+                Company_EntryBL cbl = new Company_EntryBL();
+
+                //Insert Company
+                if (model.ComModel.ZipCD1 != null)
                 {
-                    if ((!string.IsNullOrWhiteSpace(model.ShippingModel[i].ShippingID.ToString())) && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())) && model.ShippingModel[i].ShippingID.ToString()!="0")
+                    string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
+                    string zip2 = model.ComModel.ZipCD1.Substring(3);
+                    model.ComModel.ZipCD1 = zip1;
+                    model.ComModel.ZipCD2 = zip2;
+
+                }
+                model.ComModel.InsertOperator = Session["CompanyCD"].ToString();
+                DataTable dt = cbl.InsertCompany(model.ComModel);
+
+
+                //Insert Company Shipping
+                Array arrayShip = model.ShippingModel.ToArray();
+
+                if (arrayShip.Length > 0)
+                {
+                    for (int i = 0; i < arrayShip.Length; i++)
                     {
-
-                        if (model.ShippingModel[i].ZipCD1 != null)
+                        if ((!string.IsNullOrWhiteSpace(model.ShippingModel[i].ShippingID.ToString())) && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())) && model.ShippingModel[i].ShippingID.ToString() != "0")
                         {
-                            string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
-                            string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
-                            model.ShippingModel[i].ZipCD1 = zipShip1;
-                            model.ShippingModel[i].ZipCD2 = zipShip2;
-                        }
 
-                        model.ShippingModel[i].InsertOperator = Session["CompanyCD"].ToString();
-                        //DataTable dtShip = cbl.InsertCompanyShipping(model.ShippingModel[i], model.ComModel);
+                            if (model.ShippingModel[i].ZipCD1 != null)
+                            {
+                                string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
+                                string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
+                                model.ShippingModel[i].ZipCD1 = zipShip1;
+                                model.ShippingModel[i].ZipCD2 = zipShip2;
+                            }
+
+                            model.ShippingModel[i].InsertOperator = Session["CompanyCD"].ToString();
+                            DataTable dtShip = cbl.InsertCompanyShipping(model.ShippingModel[i], model.ComModel);
+                        }
                     }
-            }
-        }
-            if (ModelState.IsValid)
-            {
-               return RedirectToAction("Company_Entry");
-            }
-            else
-            {
-                ViewBag.Success = "登録されました。";
-               return View("Company_Entry");
-               
+                }
+
+                //Insert Company Tag
+
+                Array ArrayTag = model.TagModel.ToArray();
+
+                if (ArrayTag.Length > 0)
+                {
+                    for (int i = 0; i < ArrayTag.Length; i++)
+                    {
+                        if (model.TagModel[i].Tag != null && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())))
+                        {
+
+                            model.TagModel[i].InsertOperator = Session["CompanyCD"].ToString();
+
+                            DataTable dtTag = cbl.InsertCompanyTag(model.TagModel[i], model.ComModel);
+
+                        }
+                    }
+                }
+
+                //Insert  Company  Brand
+                string[] Brandstr = model.MBrandModel.BrandName.Split(',');
+                model.MBrandModel.InsertOperator = Session["CompanyCD"].ToString();
+                if (Brandstr.Length > 0)
+                {
+                    for (int i = 0; i < Brandstr.Length; i++)
+                    {
+                        string BrandName = Brandstr[i].ToString();
+                        model.MBrandModel.BrandName = BrandName;
+                        DataTable dtBrand = cbl.InsertCompanyBrand(model.MBrandModel, model.ComModel);
+                    }
+                }
+                scope.Complete();
+
+                if (ModelState.IsValid)
+                {
+                    // Do your stuff
+                    TempData["message"] = "登録されました。";
+
+                }
+                return RedirectToAction("Company_Entry");
             }
         }
         public ActionResult Group_Entry()
