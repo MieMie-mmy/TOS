@@ -12,10 +12,20 @@ namespace TOS.Controllers
 {
     public class NewsEditorController : Controller
     {
+        T_InformationModel tinfo = new T_InformationModel();
         public ActionResult News_Editor()
         {
             return View();
         }
+      
+        public ActionResult T_Information_SaveEdit(MultipleModel model)
+        {
+            InformationBL ibl = new InformationBL();
+            model.TinfoModel.InsertOperator = Session["CompanyCD"].ToString();
+            ibl.News_Editor_Save(model);
+            return RedirectToAction("News_Editor");
+        }
+
 
         [HttpGet]
         public string M_Companay_Select()

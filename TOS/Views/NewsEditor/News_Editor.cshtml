@@ -1,10 +1,11 @@
 ﻿@using System.Data;
-@model DataTable
+@model  TOS_Model.MultipleModel
+
+
 @{
     ViewBag.Title = "News_Editor";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
 
 @section Styles{
 
@@ -25,6 +26,7 @@
     <link href="@Url.Content("~/Content/news.css")" rel="stylesheet" type="text/css" />
     <!-- jQuery -->
     <link href="@Url.Content("~/Scripts/jquery-2.1.4.min.js")" rel="stylesheet" type="text/javascript" />
+
 }
 
 @section Scripts{
@@ -63,6 +65,39 @@
     </script>
 
     <script type="text/javascript">
+        $(function () {
+            $("[id='ddlCompanyname']").change(function () {
+                var sel = $("#ddlCompanyname option:selected").text();
+                var text = $('#txtdisplay_designation').val();
+                text = sel;
+                $('#txtdisplay_designation').val(text);
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("[id='ddlGroupname']").change(function () {
+                var sel = $("#ddlGroupname option:selected").text();
+                var text = $('#txtdisplay_designation').val();
+                text = sel;
+                $('#txtdisplay_designation').val(text);
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#rdbcompanywide').change(function () {
+                var text = $('#txtdisplay_designation').val();
+                text = '全社';
+                $('#txtdisplay_designation').val(text);
+            });
+        });
+
+    </script>
+
+    <script type="text/javascript">
         $(document).ready(function () {
             var table = $('#tbinformation').DataTable(
                 {
@@ -75,9 +110,9 @@
                         className: 'newpd'
                     },
                     {
-                        targets: [2,3],
+                        targets: [2, 3],
                         className: 'tab002tit'
-                        }
+                    }
                     ],
                     "dom": 'lrtip',
                     "bLengthChange": false,
@@ -107,10 +142,92 @@
 
 
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#rdbcompanywide').prop('checked', true);
+            $("#ddlCompanyname").attr("disabled", "disabled");
+            $('#ddlGroupname').attr("disabled", "disabled");
+        });
+    </script>
+
+    <script type="text/javascript">
+        $('#rdbcompanywide').click(function () {
+            $("#ddlCompanyname").attr("disabled", "disabled");
+            $('#ddlGroupname').attr("disabled", "disabled");
+        });
+
+        $('#rdocompanydesignation').click(function () {
+            $('#ddlGroupname').attr("disabled", "disabled");
+
+            $("#ddlCompanyname").removeAttr("disabled");
+        });
+        $('#rdogroupdesignation').click(function () {
+            $('#ddlCompanyname').attr("disabled", "disabled");
+
+            $("#ddlGroupname").removeAttr("disabled");
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            //var div1 = document.getElementById('file1');
+            //var div2 = document.getElementById('file2');
+            //div1.style.display = 'none';
+            //div2.style.display = 'none';
+            //$('input[type="file"]').change(function (e) {
+
+            //    var maxlength = 4
+            //    var fileName = e.target.files[0].name;
+            //    var text = $('#lblattachfile1').val();
+            //    text = fileName;
+            //    $('#lblattachfile1').text(text);
+            //    div1.style.display = 'block';
+            //});
+            var div = document.getElementById('file');
+            div.style.display = 'none';
+            var toAdd = document.createDocumentFragment();
+            alert("aa");
+            for (var i = 0; i < 4; i++) {
+                var newDiv = document.createElement('file');
+                newDiv.id = 'file' + i;
+                var fileName = e.target.files[i].name;
+                var text = $('#lblattachfile' + i).val();
+                toAdd.appendChild(newDiv);
+                newDiv.style.display = 'block';
+            }
+            document.appendChild(toAdd);
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#btndelete').click(function () {
+                //var text = document.getElementById('file');
+                var filename = $('#lblattachfile').val();
+                $(this).parent('div').remove();
+            });
+        });
+    </script>
+
 }
 
 
-<body>
+@using (Html.BeginForm("T_Information_SaveEdit", "NewsEditor", FormMethod.Post, new { enctype = "multipart/form-data", @id = "MyForm" }))
+
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary("", new { @class = "text-danger" })
+    <style>
+        .mother-grid-inner {
+            display: block !important;
+            background-color: #edecec !important;
+        }
+
+        .left-content {
+            background-color: #edecec !important;
+        }
+    </style>
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
     </ol>
@@ -127,105 +244,103 @@
                                 <div class="boxer">
                                     <div class="box-row">
                                         <div class="box">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" id="defaultChecked" name="defaultExampleRadios">
-                                                <label class="custom-control-label" for="defaultChecked">全社</label>
+                                            <div class="custom-control">
+                                                @*<input type="radio" class="custom-control-input" id="rdocompanywide" name="rdocompanywide" value="1">*@
+                                                @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "1", new { @checked = "true", @id = "rdbcompanywide" })
+                                                <label>全社</label>
                                             </div>
                                         </div>
                                         <div class="box"></div>
                                     </div>
                                     <div class="box-row">
                                         <div class="box">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" id="rdocompanydesignation" name="defaultExampleRadios">
-                                                <label class="custom-control-label" for="defaultUnchecked">会社指定</label>
+                                            <div class="custom-control">
+                                                @*<input type="radio" class="custom-control-input" id="rdocompanydesignation" name="rdocompanydesignation" value="2">*@
+                                                @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "2", new { @id = "rdocompanydesignation" })
+                                                <label>会社指定</label>
                                             </div>
                                         </div>
                                         <div class="box">
-                                            @Html.DropDownList("ddlCompanyname",
-                                            new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                                            new { @class = "comp"})
+
+                                            @Html.DropDownListFor(m => m.ComModel.CompanyCD, new SelectList(Enumerable.Empty<SelectListItem>(), "", ""), "--- 選択---",
+         new { @class = "comp", @id = "ddlCompanyname"  })
+
                                         </div>
                                     </div>
                                     <div class="box-row">
                                         <div class="box">
-                                            <div class="custom-control custom-radio">
-                                                <input type="radio" class="custom-control-input" id="rdogroupdesignation" name="defaultExampleRadios">
-                                                <label class="custom-control-label" for="defaultUnchecked">グループ指定</label>
+                                            <div class="custom-control" style="width: 140px;">
+                                                @*<input type="radio" class="custom-control-input" id="rdogroupdesignation" name="rdogroupdesignation" value="3">*@
+                                                @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "3", new { @id = "rdogroupdesignation" })
+                                                <label>グループ指定</label>
                                             </div>
                                         </div>
                                         <div class="box">
-                                            @Html.DropDownList("ddlGroupname",
-                                            new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                                            new { @class = "comp"})
+
+                                            @Html.DropDownListFor(m => m.GroupModel.GroupID, new SelectList(Enumerable.Empty<SelectListItem>(), "", ""), "--- 選択---",
+        new { @class = "comp", @id = "ddlGroupname" })
                                         </div>
                                     </div>
                                     <div class="box-row">
-                                        <div class="box">&nbsp;&nbsp;&nbsp;&nbsp;表示期間</div>
+
+                                        <div class="box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;お知らせタイプ</div>
+                                        <div class="box">
+                                            @Html.DropDownListFor(m => m.TinfoModel.InformationType, new List<SelectListItem>
+                                            {
+                                            new SelectListItem{ Text="--- 選択---", Value = "0" },
+                                            new SelectListItem{ Text="重要", Value = "1" },
+                                            new SelectListItem{ Text="News", Value = "2" },
+                                            new SelectListItem{ Text="新規発売", Value = "3" },
+                                            new SelectListItem{ Text="商品情報", Value = "4" },
+                                            new SelectListItem{ Text="その他", Value = "5" }
+                                            }, new { @class = "comp", @id = "ddlInfoType" })
+                                        </div>
+                                    </div>
+                                    <div class="box-row">
+                                        <div class="box">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示期間</div>
                                         <div class="box">
                                             <label class="nativeDatePicker">
-                                                <input type="date" name="bday" class="form-control" id="lbldisplay_startdate">
+                                                @*<input type="date" name="bday" class="form-control" id="lbldisplay_startdate">*@
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date" })
 
                                             </label>～
                                             <label class="nativeDatePicker">
-                                                <input type="date" name="bday" class="form-control" id="lbldisplay_enddate">
-
+                                                @*<input type="date" name="bday" class="form-control" id="lbldisplay_enddate">*@
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date" })
                                             </label>
-                                            <fieldset class="fallbackDatePicker" hidden>
-                                                <legend class="fallbackLabel">Enter your birthday:</legend>
-
-                                                <label>
-                                                    Day:
-                                                    <select name="day"></select>
-                                                </label>
-
-                                                <label>
-                                                    Month:
-                                                    <select name="month">
-                                                        <option>January</option>
-                                                        <option>February</option>
-                                                        <option>March</option>
-                                                        <option>April</option>
-                                                        <option>May</option>
-                                                        <option>June</option>
-                                                        <option>July</option>
-                                                        <option>August</option>
-                                                        <option>September</option>
-                                                        <option>October</option>
-                                                        <option>November</option>
-                                                        <option>December</option>
-                                                    </select>
-                                                </label>
-
-                                                <label>
-                                                    Year:
-                                                    <select name="year"></select>
-                                                </label>
-                                            </fieldset>
                                         </div>
                                     </div>
                                     <div class="box-row">
                                         <div class="box">
                                             <div class="form-check">
-                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                                <label class="form-check-label" for="exampleCheck1">有効</label>
+                                                @*<input type="checkbox" id="exampleCheck1">*@
+                                                @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag, true)
+                                                <label>有効</label>
                                             </div>
                                         </div>
-                                        <div class="box"><div class="sair"><button type="button" class="btn btn-success btn-lg">✔　登録</button></div></div>
+                                        <div class="box"><div class="sair"><button type="submit" class="btn btn-success btn-lg">✔　登録</button></div></div>
                                     </div>
                                 </div>
                                 <div class="boxberb">
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">日付</div>
-                                        <div class="boxb"><input class="form-control" type="tel" value="" /></div>
+                                        <div class="boxb">
+                                            @*<input class="form-control" type="tel" value="" />*@
+                                            @Html.TextBoxFor(m => m.TinfoModel.Date, new { @class = "form-control", @type = "date" })
+                                        </div>
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">課題名</div>
-                                        <div class="boxb"><input class="form-control" type="tel" value="" /></div>
+                                        <div class="boxb">
+                                            @*<input class="form-control" type="tel" value="" />*@
+                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170" })
+                                        </div>
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">表示指定</div>
-                                        <div class="boxb"><input class="form-control" type="tel" value="" disabled /></div>
+                                        <div class="boxb">
+                                            <input class="form-control" type="tel" value="" disabled id="txtdisplay_designation" />
+                                        </div>
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">添付ファイル</div>
@@ -242,13 +357,36 @@
                                 </div>
                                 <div class="boxcerc">
                                     <div class="boxc-rowc">
-                                        <div class="boxc"><button type="button" class="btn btn-outline-secondary">新規商品一覧.pdf&nbsp;&nbsp;✖</button><button type="button" class="btn btn-outline-secondary">ブランド一覧.pdf&nbsp;&nbsp;✖</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>最大4ファイル添付可能。</span></div>
+                                        @*<div class="boxc">
+                                            <button type="button" class="btn btn-outline-secondary">新規商品一覧.pdf&nbsp;&nbsp;✖</button>
+                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <span>最大4ファイル添付可能。</span>
+                                            </div>*@
+
+                                        <div class="boxc">
+                                            <div id="file">
+                                                <label style="width:150px;" id="lblattachfile"></label>
+                                                <button id="btndelete" class="btn btn-outline-secondary">✖</button>
+                                            </div>
+
+                                            @*<div id="file2">
+                                                <label style="width:150px;" id="lblattachfile2"></label>
+                                                <button id="btndelete" class="btn btn-outline-secondary">✖</button>
+                                            </div>*@
+                                            @*<button type="button" class="btn btn-outline-secondary"></button>*@
+                                            <span>最大4ファイル添付可能。</span>
+                                        </div>
+
+
                                     </div>
                                     <div class="boxc-rowc">
-                                        <div class="boxc boxpd tab002tit ">お知らせ内容</div>
+                                        <div class="boxc boxpd tab002tit">お知らせ内容</div>
                                     </div>
                                     <div class="boxc-rowc">
-                                        <div class="boxc"><textarea class="form-control" id="txtarea" rows="15"></textarea></div>
+                                        <div class="boxc">
+                                            @*<textarea class="form-control" id="txtarea" rows="15"></textarea>*@
+                                            @Html.TextAreaFor(m => m.TinfoModel.DetailInformation, new { @class = "form-control", @rows = "15", @id = "txtarea" })
+                                        </div>
                                     </div>
                                 </div>
                                 <script>
@@ -261,7 +399,6 @@
                                     }
 
                                     expandTextarea('txtarea');</script>
-
                             </div>
                             <div class="newr col-md-7">
                                 <div class="float-left"><h6>お知らせ一覧</h6></div><div class="float-right">
@@ -274,28 +411,6 @@
 
 
                                 </div>
-                                @*<table class="tab002">
-                                        <tbody>
-                                            <tr class="tab002tit">
-                                                <td>No</td>
-                                                <td>課題名</td>
-                                                <td>&nbsp;</td>
-                                                <td>&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td class="saict newpd">1</td>
-                                                <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                            </tr>
-                                            <tr class="saisinHeading">
-                                                <td class="saict newpd">2</td>
-                                                <td class="newpd">ハンドポールイーオーダーシステム商品詳細1について</td>
-                                                <td class="tab002tit"><button type="button" class="btn btn-outline-light">編集</button></td>
-                                                <td class="tab002tit"><button type="button" class="btn btn-outline-danger">削除</button></td>
-                                            </tr>
-                                        </tbody>
-                                    </table>*@
                                 <table class="tab002" id="tbinformation">
                                     <thead>
                                         <tr>
@@ -317,226 +432,227 @@
         </div>
 
     </div>
-    <!-- script-for sticky-nav -->
-    <script>
-        // define variables
-        var nativePicker = document.querySelector('.nativeDatePicker');
-        var fallbackPicker = document.querySelector('.fallbackDatePicker');
+}
 
-        var yearSelect = document.querySelector('[name=year]');
-        var monthSelect = document.querySelector('[name=month]');
+<!-- script-for sticky-nav -->
+<script>
+    // define variables
+    var nativePicker = document.querySelector('.nativeDatePicker');
+    var fallbackPicker = document.querySelector('.fallbackDatePicker');
 
-        // Test whether a new date input falls back to a text input
-        var testElement = document.createElement('input');
+    var yearSelect = document.querySelector('[name=year]');
+    var monthSelect = document.querySelector('[name=month]');
 
-        try {
-            test.type = 'date';
-        } catch (e) {
-            console.log(e.description);
+    // Test whether a new date input falls back to a text input
+    var testElement = document.createElement('input');
+
+    try {
+        test.type = 'date';
+    } catch (e) {
+        console.log(e.description);
+    }
+
+    // If it does, run the code inside the if () {} block
+    if (testElement.type === 'text') {
+        // hide the native picker and show the fallback
+        nativePicker.hidden = true;
+        fallbackPicker.hidden = false;
+
+        // populate the days and years dynamically
+        // (the months are always the same, therefore hardcoded)
+        populateDays(monthSelect.value);
+        populateYears();
+    }
+
+    function populateDays(month) {
+        const daySelect = document.querySelector('[name=day]');
+        const month = monthSelect.value;
+
+        // Create variable to hold new number of days to inject
+        let dayNum;
+
+        // 31 or 30 days?
+        switch (month) {
+            case 'April':
+            case 'June':
+            case 'September':
+            case 'November':
+                dayNum = 30;
+                break;
+            case 'February':
+                // If month is February, calculate whether it is a leap year or not
+                const year = yearSelect.value;
+                const isLeap = new Date(year, 1, 29).getMonth() === 1;
+                dayNum = isLeap ? 29 : 28;
+                break;
+            default:
+                dayNum = 31;
         }
 
-        // If it does, run the code inside the if () {} block
-        if (testElement.type === 'text') {
-            // hide the native picker and show the fallback
-            nativePicker.hidden = true;
-            fallbackPicker.hidden = false;
-
-            // populate the days and years dynamically
-            // (the months are always the same, therefore hardcoded)
-            populateDays(monthSelect.value);
-            populateYears();
-        }
-
-        function populateDays(month) {
-            const daySelect = document.querySelector('[name=day]');
-            const month = monthSelect.value;
-
-            // Create variable to hold new number of days to inject
-            let dayNum;
-
-            // 31 or 30 days?
-            switch (month) {
-                case 'April':
-                case 'June':
-                case 'September':
-                case 'November':
-                    dayNum = 30;
-                    break;
-                case 'February':
-                    // If month is February, calculate whether it is a leap year or not
-                    const year = yearSelect.value;
-                    const isLeap = new Date(year, 1, 29).getMonth() === 1;
-                    dayNum = isLeap ? 29 : 28;
-                    break;
-                default:
-                    dayNum = 31;
-            }
-
-            // inject the right number of new <option>s into the <select>
-            daySelect.options = Array.from({
-                length: dayNum
-            }, function (index) {
-                return index + 1;
-            });
-
-            // if previous day has already been set, set daySelect's value
-            // to that day, to avoid the day jumping back to 1 when you
-            // change the year
-            if (previousDay) {
-                daySelect.value = previousDay;
-
-                // If the previous day was set to a high number, say 31, and then
-                // you chose a month with fewer days in it (like February),
-                // this code ensures that the highest day available
-                // is selected, rather than showing a blank daySelect
-                if (previousDay > daySelect.length + 1) {
-                    daySelect.selectedIndex = daySelect.length;
-                }
-            }
-        }
-
-        function populateYears() {
-            // get this year as a number
-            var year = (new Date()).getFullYear();
-
-            // Make this year and the 100 years before it available in the <select>
-            daySelect.options = Array.from({
-                length: 100
-            }, function (index) {
-                return index + year;
-            });
-        }
-
-        // when the month or year <select> values are changed, rerun populateDays()
-        // in case the change affected the number of available days
-        yearSelect.onchange = populateDays;
-        monthSelect.onchange = populateDays;
-
-        // preserve day selection
-        var previousDay;
-
-        // update what day has been set to previously
-        // see end of populateDays() for usage
-        daySelect.onchange = function () {
-            previousDay = daySelect.value;
-        }
-    </script>
-    <script>
-        function odFunction() {
-            var x = document.getElementById("mailbox-content");
-            if (x.style.display === "block") {
-                x.style.display = "none";
-
-            } else {
-                x.style.display = "block";
-            }
-        }
-        $("#btnb").click(function () {
-            $(this).text() === 'ブロック最小化' ?
-                $(this).text('ブロック最小化') :
-                $(this).text('ブロック表示')
-        })
-    </script>
-    <script>
-        $(document).ready(function () {
-            var navoffeset = $(".header-main").offset().top;
-            $(window).scroll(function () {
-                var scrollpos = $(window).scrollTop();
-                if (scrollpos >= navoffeset) {
-                    $(".header-main").addClass("fixed");
-                } else {
-                    $(".header-main").removeClass("fixed");
-                }
-            });
-
+        // inject the right number of new <option>s into the <select>
+        daySelect.options = Array.from({
+            length: dayNum
+        }, function (index) {
+            return index + 1;
         });
-    </script>
+
+        // if previous day has already been set, set daySelect's value
+        // to that day, to avoid the day jumping back to 1 when you
+        // change the year
+        if (previousDay) {
+            daySelect.value = previousDay;
+
+            // If the previous day was set to a high number, say 31, and then
+            // you chose a month with fewer days in it (like February),
+            // this code ensures that the highest day available
+            // is selected, rather than showing a blank daySelect
+            if (previousDay > daySelect.length + 1) {
+                daySelect.selectedIndex = daySelect.length;
+            }
+        }
+    }
+
+    function populateYears() {
+        // get this year as a number
+        var year = (new Date()).getFullYear();
+
+        // Make this year and the 100 years before it available in the <select>
+        daySelect.options = Array.from({
+            length: 100
+        }, function (index) {
+            return index + year;
+        });
+    }
+
+    // when the month or year <select> values are changed, rerun populateDays()
+    // in case the change affected the number of available days
+    yearSelect.onchange = populateDays;
+    monthSelect.onchange = populateDays;
+
+    // preserve day selection
+    var previousDay;
+
+    // update what day has been set to previously
+    // see end of populateDays() for usage
+    daySelect.onchange = function () {
+        previousDay = daySelect.value;
+    }
+</script>
+<script>
+    function odFunction() {
+        var x = document.getElementById("mailbox-content");
+        if (x.style.display === "block") {
+            x.style.display = "none";
+
+        } else {
+            x.style.display = "block";
+        }
+    }
+    $("#btnb").click(function () {
+        $(this).text() === 'ブロック最小化' ?
+            $(this).text('ブロック最小化') :
+            $(this).text('ブロック表示')
+    })
+</script>
+<script>
+    $(document).ready(function () {
+        var navoffeset = $(".header-main").offset().top;
+        $(window).scroll(function () {
+            var scrollpos = $(window).scrollTop();
+            if (scrollpos >= navoffeset) {
+                $(".header-main").addClass("fixed");
+            } else {
+                $(".header-main").removeClass("fixed");
+            }
+        });
+
+    });
+</script>
 
 
-    <div class="sidebar-menu">
-        <header class="logo1">
-            <a href="#" class="sidebar-icon"> <img src="images/tennic.png" alt=""></a>
-            <span>Order System</span>
-        </header>
-        <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-        <div class="menu">
-            <ul id="menu">
-                <li>
-                    <a href="index.html">
-                        <i class="fa fa-home"></i> <span>ホーム</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
+<div class="sidebar-menu">
+    <header class="logo1">
+        <a href="#" class="sidebar-icon"> <img src="images/tennic.png" alt=""></a>
+        <span>Order System</span>
+    </header>
+    <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
+    <div class="menu">
+        <ul id="menu">
+            <li>
+                <a href="index.html">
+                    <i class="fa fa-home"></i> <span>ホーム</span>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
 
 
-                <li id="menu-academico">
-                    <a href="order_portal.html">
-                        <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
-                <li>
-                    <a href="order_input.html">
-                        <i class="fa fa-table" aria-hidden="true"></i><span>発注入力</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
-                <li id="menu-academico">
-                    <a href="order_history.html">
-                        <i class="fa fa-history"></i><span>発注履歴</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
+            <li id="menu-academico">
+                <a href="order_portal.html">
+                    <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li>
+                <a href="order_input.html">
+                    <i class="fa fa-table" aria-hidden="true"></i><span>発注入力</span>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li id="menu-academico">
+                <a href="order_history.html">
+                    <i class="fa fa-history"></i><span>発注履歴</span>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
 
-                <li id="menu-academico">
-                    <a href="inventories.html">
-                        <i class="fa fa-search" aria-hidden="true"></i><span>在庫照会</span>
-                        <div class="clearfix"></div>
-                    </a>
-                </li>
-                <li id="menu-academico">
-                    <a href="news_editor.html">
-                        <i class="fa fa-plus" aria-hidden="true"></i><span>お知らせ入力</span>
-                        <div class="clearfix"></div>
-                    </a>
+            <li id="menu-academico">
+                <a href="inventories.html">
+                    <i class="fa fa-search" aria-hidden="true"></i><span>在庫照会</span>
+                    <div class="clearfix"></div>
+                </a>
+            </li>
+            <li id="menu-academico">
+                <a href="news_editor.html">
+                    <i class="fa fa-plus" aria-hidden="true"></i><span>お知らせ入力</span>
+                    <div class="clearfix"></div>
+                </a>
 
-                </li>
+            </li>
 
 
 
-            </ul>
-        </div>
+        </ul>
     </div>
-    <div class="clearfix"></div>
+</div>
+<div class="clearfix"></div>
 
-    <script>
-        var toggle = true;
+<script>
+    var toggle = true;
 
-        $(".sidebar-icon").click(function () {
-            if (toggle) {
-                $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+    $(".sidebar-icon").click(function () {
+        if (toggle) {
+            $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
+            $("#menu span").css({
+                "position": "absolute"
+            });
+        } else {
+            $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
+            setTimeout(function () {
                 $("#menu span").css({
-                    "position": "absolute"
+                    "position": "relative"
                 });
-            } else {
-                $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
-                setTimeout(function () {
-                    $("#menu span").css({
-                        "position": "relative"
-                    });
-                }, 400);
-            }
+            }, 400);
+        }
 
-            toggle = !toggle;
-        });
-    </script>
+        toggle = !toggle;
+    });
+</script>
 
-    <!--js -->
-    <script src="js/jquery.nicescroll.js"></script>
-    <script src="js/scripts.js"></script>
-    <!-- Bootstrap Core JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
-    <!-- /Bootstrap Core JavaScript -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-</body>
+<!--js -->
+<script src="js/jquery.nicescroll.js"></script>
+<script src="js/scripts.js"></script>
+<!-- Bootstrap Core JavaScript -->
+<script src="js/bootstrap.min.js"></script>
+<!-- /Bootstrap Core JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

@@ -1,4 +1,7 @@
-﻿@{
+﻿@using System.Linq;
+
+@model TOS_Model.MultipleModel
+@{
     ViewBag.Title = "Group_Entry";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
@@ -9,12 +12,13 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 }
 @section Scripts{
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
-                url: '/Registrations/M_Companay_Select', // get mall
+                url: '/Registrations/M_Companay_Select',
                 type: "GET",
                 dataType: "JSON",
                 dataSrc: '',
@@ -30,7 +34,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
-                url: '/Registrations/M_Brand_Select', // get mall
+                url: '/Registrations/M_Brand_Select',
                 type: "GET",
                 dataType: "JSON",
                 dataSrc: '',
@@ -45,13 +49,13 @@
     </script>
     <script type="text/javascript">
         $(function () {
-            $("[name='ddlCompanyName']").change(function () {
+            $("[id='ddlCompanyName']").change(function () {
                 var sel = $("#ddlCompanyName option:selected").text();
                 var text = $('#txtarea1').val();
                 if (text.length > 0) {
                     if (text.includes(sel)) { }
                     else if (sel != "選択") {
-                        text += "," + sel;
+                        text += "  ," + sel;
                     }
                 }
                 else
@@ -62,13 +66,13 @@
     </script>
     <script type="text/javascript">
         $(function () {
-            $("[name='ddlBrandName']").change(function () {
+            $("[id='ddlBrandName']").change(function () {
                 var sel = $("#ddlBrandName option:selected").text();
                 var text = $('#txtarea2').val();
                 if (text.length > 0) {
                     if (text.includes(sel)) { }
                     else if (sel != "選択") {
-                        text += "," + sel;
+                        text += "  ," + sel;
                     }
                 }
                 else
@@ -77,108 +81,175 @@
             });
         });
     </script>
-}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#rdbCompany').prop('checked', true);
+            $("#ddlBrandName").attr("disabled", "disabled");
+            $('#txtarea2').attr("disabled", "disabled");
+            $('#txtTag').attr("disabled", "disabled");
+        });
+        function isNumberKey(evt) {
 
+            var charCode = (evt.which) ? evt.which : event.keyCode
+
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                return false;
+            return true;
+        }
+    </script>
+    <script type="text/javascript">
+        $('#rdbCompany').click(function () {
+            $("#ddlBrandName").attr("disabled", "disabled");
+            $('#txtarea2').attr("disabled", "disabled");
+            $('#txtTag').attr("disabled", "disabled");
+
+            $('#ddlCompanyName').removeAttr("disabled");
+            $('#txtarea1').removeAttr("disabled");
+        });
+
+        $('#rdbBrand').click(function () {
+            $('#ddlCompanyName').attr("disabled", "disabled");
+            $('#txtarea1').attr("disabled", "disabled");
+            $('#txtTag').attr("disabled", "disabled");
+
+            $('#ddlBrandName').removeAttr("disabled");
+            $('#txtarea2').removeAttr("disabled");
+        });
+        $('#rdbTag').click(function () {
+            $('#ddlBrandName').attr("disabled", "disabled");
+            $('#txtarea2').attr("disabled", "disabled");
+            $('#ddlCompanyName').attr("disabled", "disabled");
+            $('#txtarea1').attr("disabled", "disabled");
+
+            $('#txtTag').removeAttr("disabled");
+        });
+    </script>
+}
+<style>
+    .mother-grid-inner {
+        display: block !important;
+        background-color: #edecec !important;
+    }
+
+    .left-content {
+        background-color: #edecec !important;
+    }
+</style>
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>会社登録</li>
 </ol>
-<div class="inbox-mail">
-    <div class="tab-content tab-content-in w3">
-        <div class="tab-pane text-style active" id="tab1">
-            <div class="inbox-right">
-                <div class="mailbox-content" id="mailbox-content">
-                    <div class="mail-toolbar clearfix">
-                        <div class="row">
-                            @*<div class="col-md-12 col-sm-12" role="form">*@
-                            <div class="col-md-2">
-                                <div class="form-group">
+@Html.AntiForgeryToken()
+@using (Html.BeginForm("InsertGroupEntry", "Registrations", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="inbox-mail">
+        <div class="tab-content tab-content-in w3">
+            <div class="tab-pane text-style active" id="tab1">
+                <div class="inbox-right">
+                    <div class="mailbox-content" id="mailbox-content">
+                        <div class="mail-toolbar clearfix">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-2">
-                                <div class="form-group">
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
                                 </div>
-                            </div>
 
-                            <div class="col-md-2">
-                                <div class="form-group">
-                                    <button type="submit" class="btn btn-dark-green" style="background-color:#90b24d;">登録</button>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                        <button type="submit" class="btn btn-dark-green" style="background-color:#90b24d;">登録</button>
+                                    </div>
                                 </div>
                             </div>
+                            <table>
+                                <tbody>
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label style=" font-size:11px;">グループID</label>
+                                        </td>
+                                        <td>
+                                            @*<input type="text" class="form-control input-sm" id="txtGroupID" style="background-color:#c4dfe5d6; width:110px;" />*@
+                                            @Html.TextBoxFor(m => m.GroupModel.GroupID, new {@id= "txtGroupID", @class = "form-control input-sm", @autofocus = "autofocus",  @required = "required", @style = "background-color:#c4dfe5d6;width:110px;", @onkeypress = "return isNumberKey(event)", @maxlength = "8" })
+                                        </td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label style=" font-size:11px;">グループ名</label>
+                                        </td>
+                                        <td>
+                                            @*<input type="text" class="form-control input-sm" id="txtGroupName" style="background-color:#c4dfe5d6;width:210px;" />*@
+                                            @Html.TextBoxFor(m => m.GroupModel.GroupName, new {@id= "txtGroupName", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "background-color:#c4dfe5d6;width:210px;"})
+                                        </td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td><b>グループ指定情報</b></td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            @*<input type="radio" id="rdbCompany" name="defaultExampleRadios" class="custom-control-input">*@
+                                            @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "1",new { @id = "rdbCompany"})
+                                            <label style=" font-size:11px;">会社指定</label>
+                                        </td>
+                                        <td>
+                                            @Html.DropDownListFor(m => m.ComModel.CompanyCD,
+                                            new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
+                                            new {@id= "ddlCompanyName",@name= "ddlCompanyName", @class = "form-control input-sm", @style = "width :210px" })
+                                        </td>
+                                        <td>
+                                            @*<input type="radio" id="rdbBrand" name="defaultExampleRadios" class="custom-control-input">*@
+                                            @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "2", new { @id = "rdbBrand" })
+                                            <label style=" font-size:11px;">ブランド</label>
+                                        </td>
+                                        <td>
+                                            @Html.DropDownListFor(m => m.MBrandModel.BrandCD,
+                                            new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
+                                            new {@id="ddlBrandName", @class = "form-control input-sm", @style = "width :210px;" })
+                                        </td>
+                                        <td>
+                                            @*<input type="radio" id="rdbTag" name="defaultExampleRadios" class="custom-control-input">*@
+                                            @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "3", new { @id = "rdbTag" })
+                                            <label style=" font-size:11px;">タグ</label>
+                                        </td>
+                                        <td>
+                                            @*<input type="text" class="form-control input-sm" id="txtTag" style="background-color:#c4dfe5d6;width:210px;" />*@
+                                            @Html.TextBoxFor(m => m.tagModel.Tag, new {@id= "txtTag", @class = "form-control input-sm", @required = "required", @style = "background-color:#c4dfe5d6;width:210px;"})
+                                        </td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td></td>
+                                        <td>
+                                            @*<textarea class="form-control input-sm" id="txtarea1" style="background-color:#E5E7E9;height:85px;"></textarea>*@
+                                            @Html.TextAreaFor(m => m.ComModel.CompanyName, new { @id = "txtarea1", @class = "form-control input-sm", @required = "required", @style = "background-color:#E5E7E9;height:85px;" })
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            @*<textarea class="form-control input-sm" id="txtarea2" style="background-color:#E5E7E9;height:85px;"></textarea>*@
+                                            @Html.TextAreaFor(m => m.MBrandModel.BrandName, new { @id = "txtarea2", @class = "form-control input-sm", @required = "required", @style = "background-color:#E5E7E9;height:85px;" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
-                        <table>
-                            <tbody>
-                                <tr class="form-group_entry">
-                                    <td>
-                                        <label for="Address4" style=" font-size:11px;">グループID</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control input-sm" id="txtGroupID" style="background-color:#c4dfe5d6; width:120px;" />
-                                    </td>
-                                </tr>
-                                <tr class="form-group_entry">
-                                    <td>
-                                        <label for="Address4" style=" font-size:11px;">グループ名</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control input-sm" id="txtGroupName" style="background-color:#c4dfe5d6;width:220px;" />
-                                    </td>
-                                </tr>
-                                <tr class="form-group_entry">
-                                    <td><b>グループ指定情報</b></td>
-                                </tr>
-                                <tr class="form-group_entry">
-                                    <td>
-                                        <label style=" font-size:11px;">会社指定</label>
-                                    </td>
-                                    <td>
-                                        @Html.DropDownList("ddlCompanyName",
-                      new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                      new { @class = "form-control input-sm",@style="width :220px" })
-                                    </td>
-                                    <td>
-                                        <label style=" font-size:11px;">ブランド</label>
-                                    </td>
-                                    <td>
-                                        @Html.DropDownList("ddlBrandName",
-                      new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                      new { @class = "form-control input-sm", @style = "width :220px" })
-                                    </td>
-                                    <td>
-                                        <label style=" font-size:11px;">タグ</label>
-                                    </td>
-                                    <td>
-                                        <input type="text" class="form-control input-sm" id="txtTag" style="background-color:#c4dfe5d6;width:220px;" />
-                                    </td>
-                                </tr>
-                                <tr class="form-group_entry">
-                                    <td></td>
-                                    <td>
-                                        <textarea class="form-control input-sm" id="txtarea1" style="background-color:#E5E7E9;height:85px;"></textarea>
-                                    </td>
-                                    <td></td>
-                                    <td>
-                                        <textarea class="form-control input-sm" id="txtarea2" style="background-color:#E5E7E9;height:85px;"></textarea>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="clearfix"> </div>
-</div>
+        <div class="clearfix"> </div>
+    </div>
+}

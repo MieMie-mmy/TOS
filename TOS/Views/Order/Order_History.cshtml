@@ -3,22 +3,36 @@
     ViewBag.Title = "Order_History";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section AddToHead{
 
-    }
+<!-- Style link-->
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Content/Site.css" rel="stylesheet" />
+   
+<link href="~/Content/monthly.css" rel="stylesheet" />
+<link href="~/Content/morris.css" rel="stylesheet" />
+<link href="~/Content/news.css" rel="stylesheet" />
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+
+<!--Order History page link-->
+<link href="~/Content/order_history.css" rel="stylesheet" />
 
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注履歴</li>
 </ol>
 
+
 <div class="inbox-mail">
     <!-- tab content -->
     <div class="tab-content tab-content-in w3">
         <div class="tab-pane text-style active" id="tab1">
-            <div class="inbox-right">
+            <div class="inbox-right" style="overflow:scroll;">
                 全商品発注できました。
-                <table class="histoptab">
-                    <tbody>
+                <table class="histoptab" id="Order_First">
+                    <thead>
                         <tr class="histoptabtit">
                             <td class="tda t150">発注番号</td>
                             <td class="tda t150">合計金額</td>
@@ -26,26 +40,614 @@
                             <td class="tda t150">発注日</td>
                             <td class="tda t150">出荷可能日</td>
                             <td class="tda t100">受付時間</td>
+                           
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200"></td>
-                            <td class="histoptabno t200"></td>
+                            <td class="histoptabno t200">
+                                <button type="button" onclick="location.href='@Url.Action("ExportReport","Order")'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
+                            </td>
                             <td class="histoptabno t200"></td>
                         </tr>
-                        <tr>
-                            <td class="tda saict">H19011152033</td>
-                            <td class="tda sair">￥44,800</td>
-                            <td class="tda saict">大阪スポーツ</td>
-                            <td class="tda saict">2019年11月15日</td>
-                            <td class="tda saict">2019年11月19日</td>
-                            <td class="tda saict">20:33:12</td>
-                            <td class="histoptabno sair">&nbsp;</td>
-                            <td class="histoptabno sair">&nbsp;</td>
-                            <td class="histoptabno sair"><button type="button" class="btn btn-info btn-lg ">✏&nbsp;出力</button></td>
-                            <td class="histoptabno sair">&nbsp;</td>
-                        </tr>
-                    </tbody>
-                 </table>
-</div>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>
+
+<div class="inbox-mail">
+
+    <!-- tab content -->
+    <div class="tab-content tab-content-in w3">
+        <div class="tab-pane text-style active" id="tab1">
+            <div class="inbox-right">
+
+                <div class="mailbox-content" id="mailbox-content">
+                    <div class="mail-toolbar clearfix">
+
+                        <table class="hacyuban">
+                            <tbody>
+                                <tr>
+                                    <td class="t550">
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>発注番号</td>
+                                                    <td> <input type="text" id="txt_orderId" class="form-control" placeholder=""></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td class="t700">
+                                        <table>
+                                            <tbody>
+                                                <tr class="sair">
+                                                    <td class="t100">発注日</td>
+                                                    <td>
+
+                                                        <label class="nativeDatePicker">
+                                                            <input type="date" name="bday" id="orderdate_from" class="form-control">
+
+                                                        </label>～
+                                                        <label class="nativeDatePicker">
+                                                            <input type="date" name="bday" id="orderdate_to" class="form-control">
+
+                                                        </label>
+                                                        <fieldset class="fallbackDatePicker" hidden>
+                                                            <legend class="fallbackLabel">Enter your birthday:</legend>
+
+                                                            <label>
+                                                                Day:
+                                                                <select name="day"></select>
+                                                            </label>
+
+                                                            <label>
+                                                                Month:
+                                                                <select name="month">
+                                                                    <option>January</option>
+                                                                    <option>February</option>
+                                                                    <option>March</option>
+                                                                    <option>April</option>
+                                                                    <option>May</option>
+                                                                    <option>June</option>
+                                                                    <option>July</option>
+                                                                    <option>August</option>
+                                                                    <option>September</option>
+                                                                    <option>October</option>
+                                                                    <option>November</option>
+                                                                    <option>December</option>
+                                                                </select>
+                                                            </label>
+
+                                                            <label>
+                                                                Year:
+                                                                <select name="year"></select>
+                                                            </label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td class="t250">&nbsp;</td>
+                                    <td class="saicc">
+                                        <button type="button" id="textbox_clear" onclick="_ClearRefresh()" class="btn btn-warning">↺&nbsp;リセット</button>
+                                    </td>
+                                    <td class="t70 sair">&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td>出荷日</td>
+                                                    <td>
+                                                        <label class="nativeDatePicker">
+                                                            <input type="date" name="bday" id="shipdate_from" class="form-control">
+
+                                                        </label>～
+                                                        <label class="nativeDatePicker">
+                                                            <input type="date" name="bday" id="shipdate_to" class="form-control">
+
+                                                        </label>
+                                                        <fieldset class="fallbackDatePicker" hidden>
+                                                            <legend class="fallbackLabel">Enter your birthday:</legend>
+
+                                                            <label>
+                                                                Day:
+                                                                <select name="day"></select>
+                                                            </label>
+
+                                                            <label>
+                                                                Month:
+                                                                <select name="month">
+                                                                    <option>January</option>
+                                                                    <option>February</option>
+                                                                    <option>March</option>
+                                                                    <option>April</option>
+                                                                    <option>May</option>
+                                                                    <option>June</option>
+                                                                    <option>July</option>
+                                                                    <option>August</option>
+                                                                    <option>September</option>
+                                                                    <option>October</option>
+                                                                    <option>November</option>
+                                                                    <option>December</option>
+                                                                </select>
+                                                            </label>
+
+                                                            <label>
+                                                                Year:
+                                                                <select name="year"></select>
+                                                            </label>
+                                                        </fieldset>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>
+                                        <table>
+                                            <tbody>
+                                                <tr>
+                                                    <td class="t100">メーカー番号</td>
+                                                    <td>
+                                                        <table class="mekaban">
+                                                            <tbody>
+                                                                <tr>
+                                                                    <td class="mekabantit t30">1</td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder=""></td>
+                                                                    <td class="mekabantit t30">2</td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder=""></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mekabantit">3</td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder=""></td>
+                                                                    <td class="mekabantit">4</td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder=""></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mekabantit">5</td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder=""></td>
+                                                                    <td class="mekabantit">6</td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder=""></td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td class="mekabantit" class="tab002tit">7</td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder=""></td>
+                                                                    <td class="mekabantit">8</td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder=""></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </td>
+                                    <td>&nbsp;</td>
+                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg"id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
+                                    <td>
+                                        <br><br><br><br><br><br>
+                                        <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                    </td>
+                                    @*<td class="t70 sair">
+                                            <br><br><br><br><br><br><div class="btn-group">
+                                                <button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" type="button">10</button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">10</a>
+                                                    <a class="dropdown-item" href="#">30</a><a class="dropdown-item" href="#">50</a> <a class="dropdown-item" href="#">100</a>
+
+                                                </div>
+                                            </div>
+                                        </td>*@
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                    </div>
+                    <!--Add second table-->
+                    <div class="tab-content tab-content-in w3 orderlist">
+                        <div class="tab-pane text-style active" id="tab1">
+
+
+                            <div class="mailbox-content">
+                                <div style="overflow:scroll">
+                                    <!---->
+                                    <table class="tab002" id="order_detail">
+                                        <thead>
+                                            <tr class="tab002tit">
+                                                <td class="t30" id="ID">No</td>
+                                                <td class="checkAll">&nbsp;</td>
+                                                <td class="t100">発注番号</td>
+                                                <td class="t100">商品番号</td>
+                                                <td class="t250">商品名</td>
+                                                <td class="t70">サイズ</td>
+                                                <td class="t100">カラー</td>
+                                                <td class="t70">発注数</td>
+                                                <td class="t70">引当数</td>
+                                                <td class="t100">下代</td>
+                                                <td class="t100">合計</td>
+                                                <td class="t150">発注日</td>
+                                                <td class="t150">発注時刻</td>
+                                                <td class="t150">出荷日</td>
+                                                <td class="t300">摘要</td>
+                                                <td class="t300" hidden>AdminCD</td>
+                                                <td class="t150" hidden>OrderStatus</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="order_detail_body"></tbody>
+                                    </table>
+                                </div>
+                                <!---->
+                            </div>
+
+
+
+                        </div>
+                    </div>
+                    <!--end second table-->
+                   
+
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+</div>
+
+@*</div>*@
+<!-- 2'nd table script-->
+
+<style>
+
+    table.dataTable thead td {
+        padding: 8px 10px;
+        border-bottom-color: white;
+    }
+
+
+    .dataTables_wrapper.no-footer .dataTables_scrollBody {
+        border-bottom: 1px solid #111;
+        border-bottom-color: white;
+    }
+    .OrderStatus_5{
+        color:red;
+    }
+    .ffss
+    {
+        color:white;
+    }
+    .tab002 {
+        width: 1500px !important;
+    }
+    .histoptab {
+        width: 100% !important;
+    }
+    .mother-grid-inner {
+        display: block !important;
+        background-color: #edecec
+        !important;
+    }
+    .left-content {
+        background-color: #edecec !important;
+    }
+   
+
+</style>
+
+<script>
+    $(document).ready(function () {
+
+        FillGrid_1();
+        FillGrid_2();
+
+        var input1 = document.getElementById("txt_orderId");
+        input1.addEventListener("keyup", function (event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                document.getElementById("Searchdata").click();
+            }
+        });
+    });
+    function FillGrid_1() {
+
+            $.ajax({
+                type: 'POST',
+                url: "../Order/OH_GetFirstTable/"+"101",
+                dataType: 'json',
+                success: function (data) {
+                    BindFirstTable(data);
+
+                }
+            });
+
+    }
+
+    function FillGrid_2()
+    {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OH_GetSecondTable/"+"101",
+           
+            dataType: 'json',
+           
+            success: function (data) {
+                BindSecondTable(data);
+
+            }
+        });
+
+    }
+
+
+    function FillGrid_3(id, o_f, o_t, s_f, s_t, m1, m2, m3, m4, m5, m6, m7, m8)
+    {
+        $.ajax({
+            type: 'POST',
+            url: "@Url.Action("OH_GetSecondTable", "Order")",
+            dataType: 'json',
+            data: {
+                id: id,
+                o_f: o_f,
+                o_t: o_t,
+                s_f: s_f,
+                s_t: s_t,
+                m1: m1,
+                m2: m2,
+                m3: m3,
+                m4: m4,
+                m5: m5,
+                m6: m6,
+                m7: m7,
+                m8: m8
+
+            },
+            success: function (data) {
+                BindSecondTable(data);
+
+            }
+        });
+
+    }
+
+    function BindFirstTable(data)
+    {
+
+        var table = $("#Order_First").DataTable(
+            {
+
+                "destroy": true,
+                //responsive: false,
+                "scrollX": true,
+                //"scrollY": true,
+                "dom": 'lrtip',
+                "bLengthChange": false,
+                "data": data,
+                "columns": [
+                    { "data": "OrderID", orderable: false },
+                    { "data": "TotalAmount", orderable: false },
+                    { "data": "DestinationName", orderable: false },
+                    { "data": "OrderDateTime_h", orderable: false },
+                    { "data": "AvailableShippingDate", orderable: false },
+                    { "data": "OrderDateTime_d", orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false },
+                    { "data": null, orderable: false }
+
+                ],
+                "columnDefs": [
+
+                    {
+                        targets: [0, 1, 2, 3, 4,5],
+                        className: 'tda saict'
+                    },
+                    {
+                        targets: [6,7,8,9],
+                        className: 'histoptabno sair ffss',
+                       
+                    },
+
+                    ],
+
+
+
+
+            }
+        );
+
+    }
+
+
+    function BindSecondTable(data)
+    {
+        $("#order_detail").find("tbody tr").empty();
+
+        var table = $("#order_detail").DataTable(
+            {
+                "destroy": true,
+                //responsive: false,
+                "scrollX": true,
+                "dom": 'lrtip',
+                "bLengthChange": false,
+
+                "data": data,
+                "createdRow": function (row, data, dataIndex) {
+                    $(row).addClass("odr1");
+                },
+                "columns": [
+                    { "data": "No", orderable: false },
+                    {},
+                    { "data": "OrderID", orderable: false },
+                    { "data": "MakerItemAdminCD", orderable: false },
+                    { "data": "ItemName", orderable: false },
+                    { "data": "SizeName", orderable: false },
+                    { "data": "ColorName", orderable: false },
+                    { "data": "OrderItem", orderable: false },
+                    { "data": "StockItem", orderable: false },
+                    { "data": "SalePrice", orderable: false },
+                    { "data": "TotalAmount", orderable: false },
+                    { "data": "OrderDate", orderable: false },
+                    { "data": "OrderTime", orderable: false },
+                    { "data": "ShippingDate", orderable: false },
+                    { "data": "Memo", orderable: false },
+                    { "data": "AdminCD", orderable: false },
+                    { "data": "OrderStatus", orderable: false },
+
+
+                ],
+               
+                "columnDefs": [
+                    {
+                        "targets": 1,
+                        className:'saict odr1',
+                        "data": "",
+                        "render": function (data, type, row) {
+
+                            return '<input type="checkbox" value="' + row.OrderID + '" id="horns" class="checkBox" name="' + row.AdminCD + '">';
+
+                        }
+                    },
+                    {
+                        targets: [0, 5, 6, 7, 8, 11, 12, 13],
+                        className: 'saict'
+                    },
+                    {
+                        targets: [9, 10],
+                        className: 'sair '
+                    },
+                    {
+                        targets: [2, 3, 4, 14],
+                        className: 'sailf '
+                    },
+                    {
+                        targets: [15,16],
+                        className: 'sailf ',
+                        visible: false
+
+                    },
+                    
+                ],
+                "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
+                    if (aData.OrderStatus == 5) {
+                       
+                        $('td', nRow).css('color', 'red');
+                    }
+                    else if (aData.OrderStatus == "5") {
+                        $('td', nRow).css('color', 'red');
+                    }
+                   
+                }
+            
+            }
+        );
+
+    }
+
+
+
+
+</script>
+<!--button's function script-->
+<script>
+
+    function _ClearRefresh() {
+
+        document.getElementById('txt_orderId').value = "";
+        document.getElementById('orderdate_from').value = "";
+        document.getElementById('orderdate_to').value = "";
+        document.getElementById('shipdate_from').value = "";
+        document.getElementById('shipdate_to').value = "";
+        document.getElementById('MakerItemCD_1').value = "";
+        document.getElementById('MakerItemCD_2').value = "";
+        document.getElementById('MakerItemCD_3').value = "";
+        document.getElementById('MakerItemCD_4').value = "";
+        document.getElementById('MakerItemCD_5').value = "";
+        document.getElementById('MakerItemCD_6').value = "";
+        document.getElementById('MakerItemCD_7').value = "";
+        document.getElementById('MakerItemCD_8').value = "";
+        RefreshFirstTable();
+
+
+        RefreshSecondTable();
+
+
+    }
+    function RefreshFirstTable()
+    {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OH_GetFirstTable",
+            dataType: 'json',
+            success: function (data) {
+                BindFirstTable(data);
+
+            }
+        });
+    }
+    function RefreshSecondTable()
+    {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OH_GetSecondTable",
+
+            dataType: 'json',
+
+            success: function (data) {
+                BindSecondTable(data);
+
+            }
+        });
+    }
+    function _CancleTableRow() {
+
+        var checked = jQuery('input:checkbox:checked').map(function () {
+            return this.value + '_' + this.name;
+
+        }).get();
+
+        jQuery('input:checkbox:checked').parents("tr").remove();
+
+        $.ajax({
+            url: "/Order/Delete_OderHistoryDetailRow/" + checked,
+
+            type: 'POST',
+            dataType: 'JSON',
+
+            success: function (data) {
+                RefreshSecondTable();
+            }
+
+
+        });
+
+    }
+    function _SearchData() {
+
+        var txt_orderId = document.getElementById('txt_orderId').value;
+        var orderdate_from = document.getElementById('orderdate_from').value;
+        var orderdate_to = document.getElementById('orderdate_to').value;
+        var shipdate_from = document.getElementById('shipdate_from').value;
+        var shipdate_to = document.getElementById('shipdate_to').value;
+        var MakerItemCD_1 = document.getElementById('MakerItemCD_1').value;
+        var MakerItemCD_2 = document.getElementById('MakerItemCD_2').value;
+        var MakerItemCD_3 = document.getElementById('MakerItemCD_3').value;
+        var MakerItemCD_4 = document.getElementById('MakerItemCD_4').value;
+        var MakerItemCD_5 = document.getElementById('MakerItemCD_5').value;
+        var MakerItemCD_6 = document.getElementById('MakerItemCD_6').value;
+        var MakerItemCD_7 = document.getElementById('MakerItemCD_7').value;
+        var MakerItemCD_8 = document.getElementById('MakerItemCD_8').value;
+        FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
+
+    }
+
+
+
+</script>
+

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TOS_Model
 {
-    public class T_InformationModel
+    public class T_InformationModel:BaseModel 
     {
         public int InformationID { get; set; }
         public string Date { get; set; }
@@ -30,6 +30,10 @@ namespace TOS_Model
         public string DetailInformation { get; set; }
 
         public int DestinationFlag { get; set; }
+
+        public bool EffectFlag { get; set; }
+
+        public string DetailInformation { get; set; }
 
 
 
