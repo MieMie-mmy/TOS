@@ -97,12 +97,10 @@ namespace TOS.Controllers
 
         public ActionResult Order_Input(string id)
         {
-            string mm = MakerItemCD;
-
             Order_InputBL obl = new Order_InputBL();
             M_JobTimeableModel Mjob = new M_JobTimeableModel();
             DataSet dst = new DataSet();
-          //  string ItemCD = "cps-test,cd";
+            //  string ItemCD = "cps-test,cd";
             dst = obl.Order_Input_M_Item_Data(id);
             DataSet dsnew = new DataSet();
             if (dst.Tables.Count > 0)
