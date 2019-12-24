@@ -39,7 +39,7 @@ namespace TOS.Controllers
             brand.BrandName = "";
             DataTable dt = new DataTable();
             string jsonresult;
-            //InventoriesBL bl = new InventoriesBL();
+            InventoriesBL bl = new InventoriesBL();
             dt = bl.BrandName_Select();
 
             jsonresult = JsonConvert.SerializeObject(dt);

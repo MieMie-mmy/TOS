@@ -3,17 +3,8 @@
     ViewBag.Title = "inventories";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
 <link href="@Url.Content("~/Content/order_history.css")" rel="stylesheet" type="text/css" />
-<link href="="@Url.Content("~/Content/CdnDatatable.min.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet" type="text/css" />
-@*<link href="@Url.Content("~/Content/manager-style.css")" rel="stylesheet" type="text/css" />*@
-<link href="@Url.Content("~/Content/morris.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Content/icon-font.min.css")" rel="stylesheet" type="text/css" />
-<link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
-@*<link href="@Url.Content("~/Content/basictable.css")" rel="stylesheet" type="text/css" />*@
-@*<link href="@Url.Content("~/Content/jqcandlestick.css")" rel="stylesheet" type="text/css" />*@
-@*<link href="@Url.Content("~/Content/icon-font.min.css")" rel="stylesheet" type="text/css" />*@
 
 @section Scripts{
     <script type="text/javascript">
@@ -27,10 +18,8 @@
                     $(".header-main").removeClass("fixed");
                 }
             });
-
         });
     </script>
-
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
@@ -41,22 +30,18 @@
                 success: function (SP) {
                     $.each(SP, function (i, name) {
                         $("#ddlBrand").append(
-                            $('<option></option>').val(name.BrandCD).html(name.BrandName));
-                    });
+                            $('<option>  </option>').val(name.BrandCD).html(name.BrandName));
+                    })
                 }
             });
-
-
         });
         $("#btnreset").click(function () {
             //alert('sdfsdf')
             $('input:text').val('');
             $('#txt_mitemCD').val('');
             $("#ddlBrand")[0].selectedIndex = 0;
-
             return false;
         })
-
         $(document).ready(function () {
 
             // FillGrid(); pageload tat dr nae table ma myin chin lo
@@ -77,10 +62,11 @@
 
         function FillGridtable(data) {
 
-            $('#tbl_inventory').DataTable(
+          var table=  $('#tbl_inventory').DataTable(
                 {
                     "dom": 'lrtip',
-                    "bLengthChange": false,
+                  "bLengthChange": false,
+                  "destroy": true,
 
                     "data": data,
                     "columns": [
@@ -98,31 +84,46 @@
             )
 
         }
-
-
     </script>
+    
 }
 
+<style>
 
+    .obl tr:hover {
+        background-color: yellow;
+    }
 
+    .tab002 {
+        width: 1500px !important;
+    }
+    tbody{
+        text-align:center;
+    }
+    .mother-grid-inner {
+        display: block !important;
+        background-color: #edecec !important;
+    }
 
+    .left-content {
+        background-color: #edecec !important;
+    }
 
+    tr.even {
+        background-color:#CCDDFF;
+    }
+</style>
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>在庫照会</li>
 </ol>
-
 <div class="inbox-mail">
-
     <!-- tab content -->
     <div class="tab-content tab-content-in w3">
-
         <div class="tab-pane text-style active" id="tab1">
-
             <div class="inbox-right">
                 検索パネル
                 <div class="mailbox-content" id="mailbox-content">
                     <div class="mail-toolbar clearfix">
-
                         <table class="hacyuban">
                             <tbody>
                                 <tr>
@@ -132,24 +133,22 @@
                                                 <tr>
                                                     <td class="t100 sair">ブランド</td>
                                                     <td>
-                                                        @*<div class="btn-group t200">*@
+                                                        <div class="btn-group t200">
                                                         @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-success dropdown-toggle t200" data-toggle="dropdown" type="button"></button>*@
                                                         @*<div class="dropdown-menu t200">
-                                                               @foreach(DataRow row in Model.Rows)
-                                                                {
-                                                                    <a class="dropdown-item" href="#" >@row["BrandName"]</a>
-                                                                }
+           @foreach(DataRow row in Model.Rows)
+            {
+                <a class="dropdown-item" href="#" >@row["BrandName"]</a>
 
 
-                                                            </div>*@
+            }
 
+
+        </div>*@                                               
                                                         @Html.DropDownList("ddlBrand",
-                      new SelectList(Enumerable.Empty<SelectListItem>()),
-                      new { @class = "btn btn-success dropdown-toggle t200 form-control input-sm ", width = "150px" })
-
-                                                        @*</div>*@
-
-
+        new SelectList(Enumerable.Empty<SelectListItem>())," ",
+        new { @class = "btn btn-success dropdown-toggle t200 form-control input-sm"})
+                                                            </div>
 
                                                     </td>
                                                 </tr>
@@ -163,9 +162,6 @@
                                                     <td class="t100">商品名</td>
                                                     <td>
                                                         <input type="text" id="txt_itemname" class="form-control" placeholder="">
-
-
-
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -201,26 +197,27 @@
                                             </tbody>
                                         </table>
                                     </td>
-                                    <td><button type="button" id="btnreset" class="btn btn-warning btn-lg" style="color:#212529;background-color:#ffc107;border-color:#ffc107">↺　リセット</button></td>
+                                    <td><button type="button" id="btnreset" class="btn btn-warning btn-lg" style="color:#212529;background-color:#ffc107;border-color:#ffc107;font-weight:700;">↺　リセット</button></td>
                                     <td class="saict"><button type="button" id="btnsearch" onclick="_Search()" class="btn btn-secondary btn-lg" style="color:#fff;background-color:#6c757d;"><a class="fa fa-search" aria-hidden="true" style="color:#fff;"></a>　検索</button></td>
                                     <td>
                                         <div class="btn-group btn-lg">
-                                            <button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle btn-lg" data-toggle="dropdown" type="button">10</button>
-                                            <div class="dropdown-menu ">
+                                            @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle btn-lg" style="margin-left:.255em;" data-toggle="dropdown" type="button">10</button>*@
+                                            @*<div class="dropdown-menu ">
                                                 <a class="dropdown-item" href="#">10</a>
                                                 <a class="dropdown-item" href="#">30</a>
                                                 <a class="dropdown-item" href="#">50</a>
                                                 <a class="dropdown-item" href="#">100</a>
 
-                                            </div>
+                                            </div>*@
                                         </div>
                                     </td>
                                     <td class="t70 sair"></td>
                                 </tr>
                             </tbody>
                         </table>
+                        <br />
 
-                        <div class="tab-content tab-content-in w3 orderlist" style="overflow:scroll;overflow-x:scroll;overflow-y:hidden;width:100%">
+                        <div class="tab-content tab-content-in w3 orderlist" style="overflow:scroll;overflow-x:scroll;overflow-y:hidden;width:100%;">
                             <div class="tab-pane text-style active" id="tab1">
 
 
@@ -241,7 +238,7 @@
                                                 <td class="t150">JANコード</td>
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody class="obl">
 
                                             @*<tr class="odr1">
                                                     <td class="saict">1</td>
