@@ -47,7 +47,7 @@ namespace TOS.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete_OderHistoryDetailRow(string id)
+        public string Delete_OderHistoryDetailRow(string id)
         {
             var company = Session["CompanyCD"].ToString();
             string[] del_arr;
@@ -71,7 +71,7 @@ namespace TOS.Controllers
             
             var message = bl._DeleteCheckedRow(company, del_arr_a.TrimEnd(','), del_arr_o.TrimEnd(','));
 
-            return RedirectToAction("Order_History");
+            return message;
         }
 
 
