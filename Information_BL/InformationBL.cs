@@ -44,8 +44,20 @@ namespace Information_BL
         {
             BaseDL bdl = new BaseDL();
             DataTable dtinformation = new DataTable();
-            SqlParameter[] prms = new SqlParameter[1];
-            dtinformation = bdl.SelectData("T_Information_Select", null);
+            SqlParameter[] prms = new SqlParameter[2];
+            prms[0] = new SqlParameter("@id", SqlDbType.VarChar) { Value = DBNull.Value};
+            prms[1] = new SqlParameter("@option", SqlDbType.VarChar) { Value = 0};
+            dtinformation = bdl.SelectData("T_Information_Select", prms);
+            return dtinformation;
+        }
+        public DataTable T_Information_Select_For_Edit(string id)
+        {
+            BaseDL bdl = new BaseDL();
+            DataTable dtinformation = new DataTable();
+            SqlParameter[] prms = new SqlParameter[2];
+            prms[0] = new SqlParameter("@id", SqlDbType.VarChar) { Value = id};
+            prms[1] = new SqlParameter("@option", SqlDbType.VarChar) { Value = 1};
+            dtinformation = bdl.SelectData("T_Information_Select", prms);
             return dtinformation;
         }
 
@@ -115,6 +127,25 @@ namespace Information_BL
             prms[14] = new SqlParameter("@insertoperator", SqlDbType.VarChar) { Value = model.TinfoModel.InsertOperator };
 
             bdl.InsertUpdateDeleteData("News_Editor_Insert", prms);
+        }
+
+
+        public Boolean News_Editor_Delete(string id)
+        {
+            try
+            {
+                BaseDL bdl = new BaseDL();
+                DataTable dtinfo = new DataTable();
+                SqlParameter[] prms = new SqlParameter[1];
+                prms[0] = new SqlParameter("@id", SqlDbType.Int) { Value = id };
+                bdl.InsertUpdateDeleteData("News_Editor_Delete", prms);
+                return true;
+            }
+            catch(Exception)
+            {
+                return false;
+            }
+           
         }
     }
 }
