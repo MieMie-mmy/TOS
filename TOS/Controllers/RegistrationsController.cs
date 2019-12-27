@@ -124,17 +124,24 @@ namespace TOS.Controllers
                 }
                 scope.Complete();
 
-               if (ModelState.IsValid)
-               {
+                if (ModelState.IsValid)
+                {
                     return RedirectToAction("Company_Entry");
-                   
-               }
+
+                }
                 else
                 {
                     TempData["message"] = "登録されました。";
                     return View("Company_Entry");
 
                 }
+
+                //DataTable dtMsg = cbl.Insert_Message_Select("1002", "I");
+                //string message = string.Empty;
+                //if (dtMsg.Rows.Count > 0)
+                //{
+                //    TempData["Emsg"] = dtMsg.Rows[0]["Message1"].ToString();
+                //}
             }
         }
         public ActionResult Group_Entry()
