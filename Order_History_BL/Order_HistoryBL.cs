@@ -149,15 +149,17 @@ namespace Order_History_BL
 
             return dt;
         }
-        public string _DeleteCheckedRow(string company,string del_arr_a,string del_arr_o)
+        public string _DeleteCheckedRow(string company,string del_arr_a,string del_arr_o,string AccessPC)
         {
 
-            SqlParameter[] prms = new SqlParameter[3];
+            SqlParameter[] prms = new SqlParameter[4];
           
             prms[0] = new SqlParameter("@company", SqlDbType.VarChar) { Value = company };
             prms[1] = new SqlParameter("@OrderID", SqlDbType.VarChar) { Value = del_arr_o };
             prms[2] = new SqlParameter("@AdminCD", SqlDbType.VarChar) { Value = del_arr_a };
-           
+            
+            prms[3] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = AccessPC };
+
 
             dl.SelectData("Order_History_Delete", prms);
 
