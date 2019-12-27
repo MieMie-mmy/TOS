@@ -25,6 +25,6 @@ namespace TOS_Model
 
         public M_CompanyBrandModel MComBrandModel { get; set; }
 
-        public M_CompanyTagModel tagModel { get; set; }
+        public M_CompanyTagModel tModel { get; set; }
     }
 }

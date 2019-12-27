@@ -162,5 +162,19 @@ namespace Company_Entry_BL
             dl.SelectData("M_Company_SelectBy_CompanyCD", prmName);
             return dt;
         }
+
+
+
+        public DataTable Insert_Message_Select (string key, string ID )
+        {
+            DataTable dt = new DataTable();
+            BaseDL dl = new BaseDL();
+            SqlParameter[] prmMsg = new SqlParameter[1];
+            prmMsg[0] = new SqlParameter("@key", SqlDbType.VarChar) { Value = key };
+            prmMsg[1] = new SqlParameter("@msgType", SqlDbType.VarChar) { Value = ID };
+            dl.SelectData("Message_Select", prmMsg);
+            return dt;
+        }
     }
-  }
+    }
+  

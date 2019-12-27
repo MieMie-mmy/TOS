@@ -124,17 +124,24 @@ namespace TOS.Controllers
                 }
                 scope.Complete();
 
-               if (ModelState.IsValid)
-               {
+                if (ModelState.IsValid)
+                {
                     return RedirectToAction("Company_Entry");
-                   
-               }
+
+                }
                 else
                 {
                     TempData["message"] = "登録されました。";
                     return View("Company_Entry");
 
                 }
+
+                //DataTable dtMsg = cbl.Insert_Message_Select("1002", "I");
+                //string message = string.Empty;
+                //if (dtMsg.Rows.Count > 0)
+                //{
+                //    TempData["Emsg"] = dtMsg.Rows[0]["Message1"].ToString();
+                //}
             }
         }
         public ActionResult Group_Entry()
@@ -163,28 +170,75 @@ namespace TOS.Controllers
         [HttpPost]
         public ActionResult InsertGroupEntry(MultipleModel model)
         {
-
+            //System.Web.UI.ScriptManager script_manager = new System.Web.UI.ScriptManager();
             Group_EntryBL gebl = new Group_EntryBL();
             model.GroupModel.InsertOperator = Session["CompanyCD"].ToString();
+            Boolean insertFlag = true;
             DataTable dt = new DataTable();
             dt = gebl.Check_Duplicate_GroupEntry(model);
             if (dt.Rows.Count > 0)
             {
-
+                DataTable dtIMsg = gebl.M_Message_Select("1002", "I");
+                string message = string.Empty;
+                if (dtIMsg.Rows.Count > 0)
+                {
+                    TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
+                }
             }
             else
             {
-                gebl.InsertGroupEntry(model);
+                string PcName = System.Environment.MachineName;
+                insertFlag = gebl.InsertGroupEntry(model,PcName);
+                if(insertFlag)
+                {
+                    DataTable dtIMsg = gebl.M_Message_Select("1001", "I");
+                    string message = string.Empty;
+                    if (dtIMsg.Rows.Count > 0)
+                    {
+                        TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
+                    }
+                }
+                else
+                {
+                    DataTable dtEMsg = gebl.M_Message_Select("1001", "E");
+                    string message = string.Empty;
+                    if (dtEMsg.Rows.Count > 0)
+                    {
+                        TempData["Emsg"] = dtEMsg.Rows[0]["Message1"].ToString();
+                    }
+                }
             }
-            if (ModelState.IsValid)
-            {
+            //if (ModelState.IsValid)
+            //{
                 return RedirectToAction("Group_Entry");
-            }
-            else
-            {
-                return View("Group_Entry");
-
-            }
+            //}
+            //else
+            //{
+            //    return View("Group_Entry");
+            //}
         }
+
+        //public string ShowMessage(string MessageID,string msgType)
+        //{
+        //    Group_EntryBL gbl = new Group_EntryBL();
+        //    DataTable dtMsg = gbl.M_Message_Select(MessageID,msgType);
+        //    string message = string.Empty;
+        //    if (dtMsg.Rows.Count > 0)
+        //    {
+        //        message = dtMsg.Rows[0]["Message1"].ToString();
+        //        message += !string.IsNullOrWhiteSpace(dtMsg.Rows[0]["Message2"].ToString()) ? "\n\n" + dtMsg.Rows[0]["Message2"].ToString() : string.Empty;
+        //        message += !string.IsNullOrWhiteSpace(dtMsg.Rows[0]["Message3"].ToString()) ? "\n\n" + dtMsg.Rows[0]["Message3"].ToString() : string.Empty;
+        //        message += !string.IsNullOrWhiteSpace(dtMsg.Rows[0]["Message4"].ToString()) ? "\n\n" + dtMsg.Rows[0]["Message4"].ToString() : string.Empty;
+        //        message += !string.IsNullOrWhiteSpace(dtMsg.Rows[0]["Message5"].ToString()) ? "\n\n" + dtMsg.Rows[0]["Message5"].ToString() : string.Empty;
+
+
+        //        return message;
+        //    }
+        //    else
+        //    {
+        //        return  null;
+        //    }
+
+        //}
     }
 }
