@@ -34,20 +34,18 @@
                     })
                 }
             });
+
+            FillGrid();
+
         });
         $("#btnreset").click(function () {
             //alert('sdfsdf')
             $('input:text').val('');
             $('#txt_mitemCD').val('');
-            $("#ddlBrand")[0].selectedIndex = 0;
+            $("#ddlBrand")[0].selectedIndex = 0; 
             return false;
         })
-        $(document).ready(function () {
-
-            // FillGrid(); pageload tat dr nae table ma myin chin lo
-
-        });
-
+        
         function FillGrid() {
             $.ajax({
                 type: 'POST',
@@ -68,7 +66,10 @@
                   "bLengthChange": false,
                   "destroy": true,
 
-                    "data": data,
+                  "data": data,
+                  "language": {
+                      "emptyTable": "検索結果がありません。"
+                  },
                     "columns": [
                         { "data": "No", orderable: false },
                         { "data": "MakerItemCD", orderable: false },
@@ -79,39 +80,58 @@
                         { "data": "BrandName", orderable: false },
                         { "data": "GeneralClassName", orderable: false },
                         { "data": "JANCD", orderable: false }
-                    ]
+                  ],
+                  "columnDefs": [
+                      {
+                          targets: [0, 3, 4, 5, 6],
+                          className: 'saict'
+                      },
+                      {
+                          targets: [7, 8],
+                          className: 'sair '
+                      },
+                      {
+                          targets: [1, 2],
+                          className: 'sailf '
+                      },
+                  ],
+                  
                 }
             )
 
         }
     </script>
-    
 }
 
 <style>
 
-    .obl tr:hover {
+    tr.odd:hover {
         background-color: yellow;
     }
-
+    tr.even:hover {
+        background-color: yellow !important;
+    }
     .tab002 {
         width: 1500px !important;
-    }
-    tbody{
-        text-align:center;
     }
     .mother-grid-inner {
         display: block !important;
         background-color: #edecec !important;
     }
-
     .left-content {
         background-color: #edecec !important;
     }
-
     tr.even {
-        background-color:#CCDDFF;
+        background-color:#CCDDFF !important;
     }
+    table.dataTable {
+       
+         border-collapse: collapse !important; 
+        border-spacing: 0;
+    }
+    /*td.sorting_1 {
+        text-align: center;
+    }*/
 </style>
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>在庫照会</li>
@@ -134,22 +154,10 @@
                                                     <td class="t100 sair">ブランド</td>
                                                     <td>
                                                         <div class="btn-group t200">
-                                                        @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-success dropdown-toggle t200" data-toggle="dropdown" type="button"></button>*@
-                                                        @*<div class="dropdown-menu t200">
-           @foreach(DataRow row in Model.Rows)
-            {
-                <a class="dropdown-item" href="#" >@row["BrandName"]</a>
-
-
-            }
-
-
-        </div>*@                                               
                                                         @Html.DropDownList("ddlBrand",
         new SelectList(Enumerable.Empty<SelectListItem>())," ",
         new { @class = "btn btn-success dropdown-toggle t200 form-control input-sm"})
                                                             </div>
-
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -180,7 +188,6 @@
                                                     <td class="t100 sair">品目</td>
                                                     <td class="t200">
                                                         <input type="text" id="txt_gclassname" class="form-control" placeholder="">
-
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -192,7 +199,6 @@
                                                 <tr>
                                                     <td class="t100">メーカー品番</td>
                                                     <td class="t230"> <textarea class="form-control" id="txt_mitemCD" rows="1"></textarea></td>
-
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -201,14 +207,6 @@
                                     <td class="saict"><button type="button" id="btnsearch" onclick="_Search()" class="btn btn-secondary btn-lg" style="color:#fff;background-color:#6c757d;"><a class="fa fa-search" aria-hidden="true" style="color:#fff;"></a>　検索</button></td>
                                     <td>
                                         <div class="btn-group btn-lg">
-                                            @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle btn-lg" style="margin-left:.255em;" data-toggle="dropdown" type="button">10</button>*@
-                                            @*<div class="dropdown-menu ">
-                                                <a class="dropdown-item" href="#">10</a>
-                                                <a class="dropdown-item" href="#">30</a>
-                                                <a class="dropdown-item" href="#">50</a>
-                                                <a class="dropdown-item" href="#">100</a>
-
-                                            </div>*@
                                         </div>
                                     </td>
                                     <td class="t70 sair"></td>
@@ -216,13 +214,9 @@
                             </tbody>
                         </table>
                         <br />
-
                         <div class="tab-content tab-content-in w3 orderlist" style="overflow:scroll;overflow-x:scroll;overflow-y:hidden;width:100%;">
                             <div class="tab-pane text-style active" id="tab1">
-
-
                                 <div class="mailbox-content">
-
                                     <!---->
                                     <table class="tab002" id="tbl_inventory" style="width:100%">
                                         <thead>
@@ -239,95 +233,24 @@
                                             </tr>
                                         </thead>
                                         <tbody class="obl">
-
-                                            @*<tr class="odr1">
-                                                    <td class="saict">1</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1 saisinHeading">
-                                                    <td class="saict">2</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>
-                                                <tr class="odr1">
-                                                    <td class="saict">3</td>
-                                                    <td class="sailf">BAQ005</td>
-                                                    <td class="sailf">バドミントンシューズ</td>
-                                                    <td class="saict">22.5</td>
-                                                    <td class="saict">レッド</td>
-                                                    <td class="saict">5</td>
-                                                    <td class="saict">テニック</td>
-                                                    <td class="sair">シューズ</td>
-                                                    <td class="sair">4914145876522</td>
-                                                </tr>*@
-
-
                                         </tbody>
                                     </table>
-
                                     <!---->
                                 </div>
-
-
-
                             </div>
                         </div>
-
                     </div>
-                    <!--<div class="odminiblock"><button onclick="odFunction()"  id="btnb" type="button" class="btn btn-secondary">ブロック最小化</button></div>-->
-                    @*<div class="tab002tit tab002 sainoch saict">
-                            <table class="footdiv">
-                                <tbody>
-                                    <tr>
-                                        <td>ページ</td>
-                                        <td><<<</td>
-                                        <td class="foottd">1</td>
-                                        <td>2</td>
-                                        <td>3</td>
-                                        <td>7</td>
-                                        <td>5</td>
-                                        <td>6</td>
-                                        <td>7</td>
-                                        <td>8</td>
-                                        <td>...</td>
-                                        <td>>>></td>
-                                        <td></td>
-                                        <td>1～10件を表示</td>
-                                        <td></td>
-                                        <td>合計300件</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>*@
                 </div>
             </div>
         </div>
-
-
     </div>
-
 </div>
-
 <script>
     function _Search() {
         var item_name = document.getElementById("txt_itemname").value;;
         var gclassname = document.getElementById("txt_gclassname").value;;
         var mitemcd = document.getElementById("txt_mitemCD").value;;
         var brandcd = document.getElementById("ddlBrand").value;;
-        //var brandcd = document.getElementById("")
         $.ajax({
             type: 'POST',
             url: "../Inventories/_InventorySearch/" + item_name + '_' + gclassname + '_' + mitemcd + '_' + brandcd,
@@ -337,8 +260,5 @@
 
             }
         });
-
-
-    }
-
+}
 </script>

@@ -318,7 +318,7 @@ namespace TOS.Report {
             
             private global::System.Data.DataColumn columnOrderDateTime;
             
-            private global::System.Data.DataColumn columnDestinationName;
+            private global::System.Data.DataColumn columnShippingName;
             
             private global::System.Data.DataColumn columnZipCode;
             
@@ -377,9 +377,9 @@ namespace TOS.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public global::System.Data.DataColumn DestinationNameColumn {
+            public global::System.Data.DataColumn ShippingNameColumn {
                 get {
-                    return this.columnDestinationName;
+                    return this.columnShippingName;
                 }
             }
             
@@ -444,12 +444,12 @@ namespace TOS.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public OH_HeaderRow AddOH_HeaderRow(string OrderID, string OrderDateTime, string DestinationName, string ZipCode, string Address, string TelephoneNO) {
+            public OH_HeaderRow AddOH_HeaderRow(string OrderID, string OrderDateTime, string ShippingName, string ZipCode, string Address, string TelephoneNO) {
                 OH_HeaderRow rowOH_HeaderRow = ((OH_HeaderRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         OrderID,
                         OrderDateTime,
-                        DestinationName,
+                        ShippingName,
                         ZipCode,
                         Address,
                         TelephoneNO};
@@ -477,7 +477,7 @@ namespace TOS.Report {
             internal void InitVars() {
                 this.columnOrderID = base.Columns["OrderID"];
                 this.columnOrderDateTime = base.Columns["OrderDateTime"];
-                this.columnDestinationName = base.Columns["DestinationName"];
+                this.columnShippingName = base.Columns["ShippingName"];
                 this.columnZipCode = base.Columns["ZipCode"];
                 this.columnAddress = base.Columns["Address"];
                 this.columnTelephoneNO = base.Columns["TelephoneNO"];
@@ -490,8 +490,8 @@ namespace TOS.Report {
                 base.Columns.Add(this.columnOrderID);
                 this.columnOrderDateTime = new global::System.Data.DataColumn("OrderDateTime", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnOrderDateTime);
-                this.columnDestinationName = new global::System.Data.DataColumn("DestinationName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDestinationName);
+                this.columnShippingName = new global::System.Data.DataColumn("ShippingName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnShippingName);
                 this.columnZipCode = new global::System.Data.DataColumn("ZipCode", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnZipCode);
                 this.columnAddress = new global::System.Data.DataColumn("Address", typeof(string), null, global::System.Data.MappingType.Element);
@@ -1084,17 +1084,17 @@ namespace TOS.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public string DestinationName {
+            public string ShippingName {
                 get {
                     try {
-                        return ((string)(this[this.tableOH_Header.DestinationNameColumn]));
+                        return ((string)(this[this.tableOH_Header.ShippingNameColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'DestinationName\' in table \'OH_Header\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'ShippingName\' in table \'OH_Header\' is DBNull.", e);
                     }
                 }
                 set {
-                    this[this.tableOH_Header.DestinationNameColumn] = value;
+                    this[this.tableOH_Header.ShippingNameColumn] = value;
                 }
             }
             
@@ -1172,14 +1172,14 @@ namespace TOS.Report {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public bool IsDestinationNameNull() {
-                return this.IsNull(this.tableOH_Header.DestinationNameColumn);
+            public bool IsShippingNameNull() {
+                return this.IsNull(this.tableOH_Header.ShippingNameColumn);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "15.0.0.0")]
-            public void SetDestinationNameNull() {
-                this[this.tableOH_Header.DestinationNameColumn] = global::System.Convert.DBNull;
+            public void SetShippingNameNull() {
+                this[this.tableOH_Header.ShippingNameColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
