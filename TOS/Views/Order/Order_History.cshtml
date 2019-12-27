@@ -8,7 +8,7 @@
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Content/Site.css" rel="stylesheet" />
-   
+
 <link href="~/Content/monthly.css" rel="stylesheet" />
 <link href="~/Content/morris.css" rel="stylesheet" />
 <link href="~/Content/news.css" rel="stylesheet" />
@@ -40,7 +40,7 @@
                             <td class="tda t150">発注日</td>
                             <td class="tda t150">出荷可能日</td>
                             <td class="tda t100">受付時間</td>
-                           
+
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200">
@@ -228,21 +228,13 @@
                                         </table>
                                     </td>
                                     <td>&nbsp;</td>
-                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg"id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
+                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg" id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
                                     <td>
                                         <br><br><br><br><br><br>
+                                       
                                         <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
                                     </td>
-                                    @*<td class="t70 sair">
-                                            <br><br><br><br><br><br><div class="btn-group">
-                                                <button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" type="button">10</button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#">10</a>
-                                                    <a class="dropdown-item" href="#">30</a><a class="dropdown-item" href="#">50</a> <a class="dropdown-item" href="#">100</a>
 
-                                                </div>
-                                            </div>
-                                        </td>*@
                                 </tr>
                             </tbody>
                         </table>
@@ -290,7 +282,7 @@
                         </div>
                     </div>
                     <!--end second table-->
-                   
+
 
                 </div>
             </div>
@@ -300,6 +292,10 @@
 
 
 </div>
+
+
+
+
 
 @*</div>*@
 <!-- 2'nd table script-->
@@ -316,29 +312,31 @@
         border-bottom: 1px solid #111;
         border-bottom-color: white;
     }
-    .OrderStatus_5{
-        color:red;
+
+    .OrderStatus_5 {
+        color: red;
     }
-    .ffss
-    {
-        color:white;
+
+    .ffss {
+        color: white;
     }
+
     .tab002 {
         width: 1500px !important;
     }
+
     .histoptab {
         width: 100% !important;
     }
+
     .mother-grid-inner {
         display: block !important;
-        background-color: #edecec
-        !important;
+        background-color: #edecec !important;
     }
+
     .left-content {
         background-color: #edecec !important;
     }
-   
-
 </style>
 
 <script>
@@ -374,9 +372,9 @@
         $.ajax({
             type: 'POST',
             url: "../Order/OH_GetSecondTable/"+"101",
-           
+
             dataType: 'json',
-           
+
             success: function (data) {
                 BindSecondTable(data);
 
@@ -429,6 +427,9 @@
                 "dom": 'lrtip',
                 "bLengthChange": false,
                 "data": data,
+                "language": {
+                    "emptyTable": "検索結果がありません。"
+                },
                 "columns": [
                     { "data": "OrderID", orderable: false },
                     { "data": "TotalAmount", orderable: false },
@@ -451,7 +452,7 @@
                     {
                         targets: [6,7,8,9],
                         className: 'histoptabno sair ffss',
-                       
+
                     },
 
                     ],
@@ -478,6 +479,9 @@
                 "bLengthChange": false,
 
                 "data": data,
+                "language": {
+                    "emptyTable": "検索結果がありません。"
+                },
                 "createdRow": function (row, data, dataIndex) {
                     $(row).addClass("odr1");
                 },
@@ -502,7 +506,7 @@
 
 
                 ],
-               
+
                 "columnDefs": [
                     {
                         "targets": 1,
@@ -532,19 +536,19 @@
                         visible: false
 
                     },
-                    
+
                 ],
                 "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                     if (aData.OrderStatus == 5) {
-                       
+
                         $('td', nRow).css('color', 'red');
                     }
                     else if (aData.OrderStatus == "5") {
                         $('td', nRow).css('color', 'red');
                     }
-                   
+
                 }
-            
+
             }
         );
 
@@ -579,8 +583,7 @@
 
 
     }
-    function RefreshFirstTable()
-    {
+    function RefreshFirstTable() {
         $.ajax({
             type: 'POST',
             url: "../Order/OH_GetFirstTable",
@@ -591,8 +594,7 @@
             }
         });
     }
-    function RefreshSecondTable()
-    {
+    function RefreshSecondTable() {
         $.ajax({
             type: 'POST',
             url: "../Order/OH_GetSecondTable",
@@ -612,7 +614,6 @@
 
         }).get();
 
-        jQuery('input:checkbox:checked').parents("tr").remove();
 
         $.ajax({
             url: "/Order/Delete_OderHistoryDetailRow/" + checked,
@@ -621,11 +622,16 @@
             dataType: 'JSON',
 
             success: function (data) {
+
                 RefreshSecondTable();
+
             }
 
 
         });
+
+
+        jQuery('input:checkbox:checked').parents("tr").remove();
 
     }
     function _SearchData() {
@@ -646,8 +652,6 @@
         FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
-
-
 
 </script>
 
