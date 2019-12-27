@@ -12,6 +12,7 @@ using Order_Portal_BL;
 using Order_History_BL;
 using System.IO;
 
+
 namespace TOS.Controllers
 {
 
@@ -49,29 +50,35 @@ namespace TOS.Controllers
         [HttpPost]
         public string Delete_OderHistoryDetailRow(string id)
         {
-            var company = Session["CompanyCD"].ToString();
-            string[] del_arr;
-            var del_arr_o = "";
-            var del_arr_a = "";
+            var message = string.Empty;
             if(id==null)
             {
-
+                message = "NOK";
             }
-          else
+            else
             {
+                var company = Session["CompanyCD"].ToString();
+                string[] del_arr;
+                var del_arr_o = "";
+                var del_arr_a = "";
+                
                 del_arr = id.Split(',');
 
-                for (var i = 0; i < del_arr.Length; i++)
-                {
-                    del_arr_o += (del_arr[i].Split('_'))[0] + ',';
-                    del_arr_a += (del_arr[i].Split('_'))[1] + ',';
-                }
-            }
-           
-            
-            var message = bl._DeleteCheckedRow(company, del_arr_a.TrimEnd(','), del_arr_o.TrimEnd(','));
+                    for (var i = 0; i < del_arr.Length; i++)
+                    {
+                        del_arr_o += (del_arr[i].Split('_'))[0] + ',';
+                        del_arr_a += (del_arr[i].Split('_'))[1] + ',';
+                    }
+                
+               
+               
+                var AccessPC = System.Environment.MachineName;
 
-            return message;
+                message = bl._DeleteCheckedRow(company, del_arr_a.TrimEnd(','), del_arr_o.TrimEnd(','), AccessPC);
+
+            }
+
+            return JsonConvert.SerializeObject( message);
         }
 
 

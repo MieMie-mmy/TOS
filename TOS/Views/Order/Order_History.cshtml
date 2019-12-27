@@ -231,6 +231,7 @@
                                     <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg" id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
                                     <td>
                                         <br><br><br><br><br><br>
+                                       
                                         <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
                                     </td>
 
@@ -291,6 +292,8 @@
 
 
 </div>
+
+
 
 
 
@@ -611,25 +614,25 @@
 
         }).get();
 
-      
-            $.ajax({
-                url: "/Order/Delete_OderHistoryDetailRow/" + checked,
 
-                type: 'POST',
-                dataType: 'JSON',
+        $.ajax({
+            url: "/Order/Delete_OderHistoryDetailRow/" + checked,
 
-                success: function (data) {
-                    
-                    RefreshSecondTable();
-                   
-                }
+            type: 'POST',
+            dataType: 'JSON',
+
+            success: function (data) {
+
+                RefreshSecondTable();
+
+            }
 
 
         });
-      
+
 
         jQuery('input:checkbox:checked').parents("tr").remove();
-       
+
     }
     function _SearchData() {
 
@@ -650,5 +653,5 @@
 
     }
 
-    </script>
+</script>
 
