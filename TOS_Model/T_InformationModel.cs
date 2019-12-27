@@ -8,6 +8,7 @@ namespace TOS_Model
 {
     public class T_InformationModel:BaseModel 
     {
+        public int ID { get; set; }
         public int InformationID { get; set; }
         public string Date { get; set; }
 
@@ -32,6 +33,8 @@ namespace TOS_Model
         public int DestinationFlag { get; set; }
 
         public bool EffectFlag { get; set; }
+
+        public string control { get; set; }
         
 
 
