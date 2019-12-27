@@ -180,8 +180,8 @@ namespace TOS.Controllers
             }
             else
             {
-                //string PcName = System.Environment.MachineName;
-                insertFlag = gebl.InsertGroupEntry(model);
+                string PcName = System.Environment.MachineName;
+                insertFlag = gebl.InsertGroupEntry(model,PcName);
                 if(insertFlag)
                 {
                     DataTable dtIMsg = gebl.M_Message_Select("1001", "I");

@@ -22,13 +22,13 @@ namespace Group_Entry_BL
             return dtcompanyname;
         }
 
-        public Boolean InsertGroupEntry(MultipleModel mModel)
+        public Boolean InsertGroupEntry(MultipleModel mModel,string PcName)
         {
             try
             {
                 DataTable dt = new DataTable();
                 BaseDL dl = new BaseDL();
-                SqlParameter[] prms = new SqlParameter[7];
+                SqlParameter[] prms = new SqlParameter[8];
                 prms[0] = new SqlParameter("@groupID", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupID };
                 prms[1] = new SqlParameter("@groupName", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupName };
                 prms[2] = new SqlParameter("@groupInfoFlag", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupInfoFlg };
@@ -56,8 +56,8 @@ namespace Group_Entry_BL
                 {
                     prms[5] = new SqlParameter("@tag", SqlDbType.VarChar) { Value = DBNull.Value };
                 }
-
-                prms[6] = new SqlParameter("@insertOperator", SqlDbType.VarChar) { Value = mModel.GroupModel.InsertOperator };
+                prms[6] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value=PcName};
+                prms[7] = new SqlParameter("@insertOperator", SqlDbType.VarChar) { Value = mModel.GroupModel.InsertOperator };
                 dl.InsertUpdateDeleteData("Group_Entry_Insert", prms);
                 return true;
             }
