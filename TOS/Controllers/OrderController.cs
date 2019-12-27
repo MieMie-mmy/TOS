@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 using Order_Portal_BL;
 using Order_History_BL;
 using System.IO;
+using Group_Entry_BL;
 
 namespace TOS.Controllers
 {
@@ -257,6 +258,22 @@ namespace TOS.Controllers
             string JSONString = string.Empty;
             JSONString = JsonConvert.SerializeObject(table);
             return JSONString;
+        }
+
+        [HttpGet]
+        public JsonResult GetMessage()
+        {
+            // some service call to get data
+            string output = string.Empty;
+            Group_EntryBL gebl = new Group_EntryBL();
+            DataTable dtIMsg = gebl.M_Message_Select("1001", "I");
+            string message = string.Empty;
+            if (dtIMsg.Rows.Count > 0)
+            {
+                TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
+                output= dtIMsg.Rows[0]["Message1"].ToString();
+            }
+            return Json(output, JsonRequestBehavior.AllowGet);
         }
 
     }

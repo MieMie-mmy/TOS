@@ -22,42 +22,50 @@ namespace Group_Entry_BL
             return dtcompanyname;
         }
 
-        public void InsertGroupEntry(MultipleModel mModel)
+        public Boolean InsertGroupEntry(MultipleModel mModel)
         {
+            try
+            {
+                DataTable dt = new DataTable();
+                BaseDL dl = new BaseDL();
+                SqlParameter[] prms = new SqlParameter[7];
+                prms[0] = new SqlParameter("@groupID", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupID };
+                prms[1] = new SqlParameter("@groupName", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupName };
+                prms[2] = new SqlParameter("@groupInfoFlag", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupInfoFlg };
+                if (mModel.ComModel != null)
+                {
+                    prms[3] = new SqlParameter("@companyName", SqlDbType.VarChar) { Value = mModel.ComModel.CompanyName };
+                }
+                else
+                {
+                    prms[3] = new SqlParameter("@companyName", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
+                if (mModel.MBrandModel != null)
+                {
+                    prms[4] = new SqlParameter("@BrandName", SqlDbType.VarChar) { Value = mModel.MBrandModel.BrandName };
+                }
+                else
+                {
+                    prms[4] = new SqlParameter("@BrandName", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
+                if (mModel.tModel != null)
+                {
+                    prms[5] = new SqlParameter("@tag", SqlDbType.VarChar) { Value = mModel.tModel.Tag };
+                }
+                else
+                {
+                    prms[5] = new SqlParameter("@tag", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
 
-            DataTable dt = new DataTable();
-            BaseDL dl = new BaseDL();
-            SqlParameter[] prms = new SqlParameter[7];
-            prms[0] = new SqlParameter("@groupID", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupID };
-            prms[1] = new SqlParameter("@groupName", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupName };
-            prms[2] = new SqlParameter("@groupInfoFlag", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupInfoFlg };
-            if(mModel.ComModel !=null)
-            {
-                prms[3] = new SqlParameter("@companyName", SqlDbType.VarChar) { Value = mModel.ComModel.CompanyName };
+                prms[6] = new SqlParameter("@insertOperator", SqlDbType.VarChar) { Value = mModel.GroupModel.InsertOperator };
+                dl.InsertUpdateDeleteData("Group_Entry_Insert", prms);
+                return true;
             }
-            else
+            catch(Exception)
             {
-                prms[3] = new SqlParameter("@companyName", SqlDbType.VarChar) { Value = DBNull.Value };
+                return false;
             }
-            if (mModel.MBrandModel != null)
-            {
-                prms[4] = new SqlParameter("@BrandName", SqlDbType.VarChar) { Value = mModel.MBrandModel.BrandName };
-            }
-            else
-            {
-                prms[4] = new SqlParameter("@BrandName", SqlDbType.VarChar) { Value = DBNull.Value };
-            }
-            if(mModel.TagModel!=null)
-            {
-                prms[5] = new SqlParameter("@tag", SqlDbType.VarChar) { Value = mModel.tagModel.Tag };
-            }
-            else
-            {
-                prms[5] = new SqlParameter("@tag", SqlDbType.VarChar) { Value = DBNull.Value };
-            }
-          
-            prms[6] = new SqlParameter("@insertOperator", SqlDbType.VarChar) { Value = mModel.GroupModel.InsertOperator };
-            dl.InsertUpdateDeleteData("Group_Entry_Insert", prms);
+           
         }
 
         public DataTable Check_Duplicate_GroupEntry(MultipleModel mModel)
@@ -68,6 +76,18 @@ namespace Group_Entry_BL
             prms[0] = new SqlParameter("@groupID", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupID };
             dtgroupID = bdl.SelectData("M_Group_SelectBy_GroupID", prms);
             return dtgroupID;
+        }
+
+        
+        public DataTable M_Message_Select(string messageKey,string msgType)
+        {
+            BaseDL bdl = new BaseDL();
+            DataTable dtMessage = new DataTable();
+            SqlParameter[] prms = new SqlParameter[2];
+            prms[0] = new SqlParameter("@key", SqlDbType.VarChar) { Value = messageKey };
+            prms[1] = new SqlParameter("@msgType", SqlDbType.VarChar) { Value = msgType };
+            dtMessage = bdl.SelectData("Message_Select", prms);
+            return dtMessage;
         }
     }
 }
