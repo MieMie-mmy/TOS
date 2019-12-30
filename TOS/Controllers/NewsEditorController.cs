@@ -29,16 +29,23 @@ namespace TOS.Controllers
                 {
                     tinfo.DestinationFlag = Convert.ToInt32(dtinfo.Rows[0]["DestinationFlg"].ToString());
                     if(tinfo.DestinationFlag == 2)
-                       cmodel.CompanyCD = dtinfo.Rows[0]["CompanyCD"].ToString();
+                    {
+                        cmodel.CompanyCD = dtinfo.Rows[0]["CompanyCD"].ToString();
+                        cmodel.CompanyName = dtinfo.Rows[0]["CompanyName"].ToString();
+                    }
                     if(tinfo.DestinationFlag == 3)
-                        mg.GroupID= dtinfo.Rows[0]["GroupID"].ToString();
+                    {
+                        mg.GroupID = dtinfo.Rows[0]["GroupID"].ToString();
+                        mg.GroupName = dtinfo.Rows[0]["GroupName"].ToString();
+                    } 
                     tinfo.InformationType = Convert.ToInt32(dtinfo.Rows[0]["InformationType"].ToString());
                     tinfo.DisplayStartDate= Convert.ToDateTime(dtinfo.Rows[0]["DisplayStartDate"].ToString());
                     tinfo.DisplayEndDate = Convert.ToDateTime(dtinfo.Rows[0]["DisplayEndDate"].ToString());
                     tinfo.Date = dtinfo.Rows[0]["Date"].ToString();
                     tinfo.TitleName = dtinfo.Rows[0]["TitleName"].ToString();
                     tinfo.DetailInformation = dtinfo.Rows[0]["DetailInformation"].ToString();
-                    tinfo.control = "Edit";
+
+                  
                     m.TinfoModel = tinfo;
                     m.ComModel = cmodel;
                     m.GroupModel = mg;
@@ -48,8 +55,10 @@ namespace TOS.Controllers
             }
             else
             {
-                tinfo.control = "New";
                 m.TinfoModel = tinfo;
+                m.ComModel = cmodel;
+                m.GroupModel = mg;
+        
                 return View(m);
             }
             
