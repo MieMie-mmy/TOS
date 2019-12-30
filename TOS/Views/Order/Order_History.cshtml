@@ -91,11 +91,11 @@
                                                     <td>
 
                                                         <label class="nativeDatePicker">
-                                                            <input type="date" name="bday" id="orderdate_from" class="form-control">
+                                                            <input type="date" name="bday" id="orderdate_from" onchange="check_orderdate()" class="form-control">
 
                                                         </label>～
                                                         <label class="nativeDatePicker">
-                                                            <input type="date" name="bday" id="orderdate_to" class="form-control">
+                                                            <input type="date" name="bday" id="orderdate_to" onchange="check_orderdate()" class="form-control">
 
                                                         </label>
                                                         <fieldset class="fallbackDatePicker" hidden>
@@ -149,11 +149,11 @@
                                                     <td>出荷日</td>
                                                     <td>
                                                         <label class="nativeDatePicker">
-                                                            <input type="date" name="bday" id="shipdate_from" class="form-control">
+                                                            <input type="date" name="bday" id="shipdate_from" onchange="check_shipdate()" class="form-control">
 
                                                         </label>～
                                                         <label class="nativeDatePicker">
-                                                            <input type="date" name="bday" id="shipdate_to" class="form-control">
+                                                            <input type="date" name="bday" id="shipdate_to" onchange="check_shipdate()" class="form-control">
 
                                                         </label>
                                                         <fieldset class="fallbackDatePicker" hidden>
@@ -308,7 +308,8 @@
         <div class="modal-content">
             <div class="modal-header">
 
-                <h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
+                @*<h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>*@
+                <img src="~/images/question.png"style="width:26px;height:26px;" /> <h4 class="modal-title"  style="color:red;"> </h4>
             </div>
 
             <div class="modal-footer">
@@ -327,7 +328,7 @@
         <div class="modal-content">
             <div class="modal-header">
 
-                <h4 class="modal-title" style="color:forestgreen;"><img src="~/images/SuccessImg.jpg" style="width:26px;height:26px;" />削除されました。</h4>
+                <img src="~/images/SuccessImg.jpg" style="width:26px;height:26px;" />   <h4 class="modal-title" style="color:forestgreen;"> </h4>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:forestgreen;">閉じる</button>
@@ -344,10 +345,10 @@
         <div class="modal-content">
             <div class="modal-header">
 
-                <h4 class="modal-title" style="color:dodgerblue;"><img src="~/images/InfoImg.jpg" style="width:26px;height:26px;" />対象レコードを選択してください。</h4>
+                <img src="~/images/info.jpg" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:#003492;"></h4>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:dodgerblue;">閉じる</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:#003492;">閉じる</button>
 
             </div>
         </div>
@@ -359,6 +360,12 @@
 <!-- 2'nd table script-->
 
 <style>
+    .modal-header img{
+        display:inline-block;
+    }
+    .modal-header h4{
+        display:inline-block
+    }
 
     table.dataTable thead td {
         padding: 8px 10px;
@@ -674,18 +681,23 @@
             return this.value + '_' + this.name;
 
         }).get();
-        //alert(checked);
-        if (checked == null || checked == "") {
-            $("#btn_cancle2").click();
+   
+        if (checked == "") {
+            var E = "E";
+            var T = "1001";
+            var M = "Message1";
+            Infomessage(E,T,M);
+          
         }
         else {
-
-            $("#btn_cancle0").click();
-
-
+            var Q = "Q";
+            var K = "1001";
+            var M = "Message1";
+            Confrimmessage(Q,K,M);
         }
 
     }
+    
     function _CancleRow() {
         var checked = jQuery('input:checkbox:checked').map(function () {
             return this.value + '_' + this.name;
@@ -700,7 +712,10 @@
 
             success: function (data) {
                 if (data == "OK") {
-                    $("#btn_cancle1").click();
+                    var Q = "Q";
+                    var K = "1001";
+                    var M = "Message2";
+                    Successmessage(Q,K,M);
                     jQuery('input:checkbox:checked').parents("tr").remove();
                   
                     RefreshSecondTable();
@@ -713,6 +728,77 @@
 
         });
 
+    }
+    function Successmessage(t,k,m) {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+            dataType: 'json',
+            success: function (data) {
+                $('.modal-title').text(data);
+
+                $("#btn_cancle1").click();
+
+            }
+        }); 
+    }
+   
+    function Infomessage(t,k,m) {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+            dataType: 'json',
+            success: function (data) {
+                $('.modal-title').text(data);
+
+                $("#btn_cancle2").click();
+
+            }
+        }); 
+    }
+    function Confrimmessage(t,k,m) {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+            dataType: 'json',
+            success: function (data) {
+                $('.modal-title').text(data);
+
+                $("#btn_cancle0").click();
+
+            }
+        });         
+
+    }
+    function check_orderdate()
+    {
+        
+        var fromDate = document.getElementById("orderdate_from").value;
+        var toDate = document.getElementById("orderdate_to").value;
+        if ((fromDate != "" && toDate != "") && Date.parse(fromDate) > Date.parse(toDate)) {
+             //alert("To date should be greater than From date.");
+           
+            var T = "E";
+            var K = "1003";
+            var M = "Message1";
+            Infomessage(T,K,M);
+
+          
+        }
+       
+    }
+    function check_shipdate()
+    {
+        var fromDate = document.getElementById("shipdate_from").value;
+        var toDate = document.getElementById("shipdate_to").value;
+        if ((fromDate != "" && toDate != "") && Date.parse(fromDate) > Date.parse(toDate)) {
+            //alert("To date should be greater than From date.");
+            var T = "E";
+            var K = "1003";
+            var M = "Message1";
+            Infomessage(T, K, M);
+        }
+       
     }
     function _SearchData() {
 
@@ -729,9 +815,34 @@
         var MakerItemCD_6 = document.getElementById('MakerItemCD_6').value;
         var MakerItemCD_7 = document.getElementById('MakerItemCD_7').value;
         var MakerItemCD_8 = document.getElementById('MakerItemCD_8').value;
+        //check_makeritemcd(MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
         FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
+    //function check_makeritemcd(m1,m2,m3,m4,m5,m6,m7,m8)
+    //{
+    //    $.ajax({
+    //        type: 'POST',
+    //        url: "../Order/Check_MakerItemCD",
+    //        data: {
+    //            m1: m1,
+    //            m2: m2,
+    //            m3: m3,
+    //            m4: m4,
+    //            m5: m5,
+    //            m6: m6,
+    //            m7: m7,
+    //            m8: m8
+    //        },
+    //        dataType: 'json',
+    //        success: function (data) {
+    //            $('.modal-title').text(data);
+
+    //            $("#btn_cancle0").click();
+
+    //        }
+    //    });  
+    //}
 
 </script>
 

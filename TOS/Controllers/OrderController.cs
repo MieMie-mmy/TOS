@@ -14,6 +14,7 @@ using System.IO;
 using Group_Entry_BL;
 
 
+
 namespace TOS.Controllers
 {
 
@@ -101,6 +102,20 @@ namespace TOS.Controllers
             return File(str, "application/pdf", savedFileName);
             
 
+        }
+
+
+       
+
+        [HttpPost]
+        public string  OrderHistoryMessage(string id)
+        {
+           
+           
+            var msg=bl.OH_MessageDialog(id);
+          
+            ViewData["SuccessMessage"] = msg;
+            return JsonConvert.SerializeObject(msg);
         }
 
         public ActionResult Order_Input(string id)
