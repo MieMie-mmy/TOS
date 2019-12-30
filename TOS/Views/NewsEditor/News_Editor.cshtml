@@ -247,16 +247,29 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <style>
+       
         .mother-grid-inner {
             display: block !important;
             background-color: #edecec !important;
+        }  
+        tr.even {
+            background-color: #CCDDFF !important;
         }
-
-        .left-content {
-            background-color: #edecec !important;
+        table.dataTable {
+            border-collapse: collapse !important;
+            border-spacing: 0;
+        }
+        table.dataTable tbody th, table.dataTable tbody td {
+            padding:unset;
+        }
+        table.dataTable thead th, table.dataTable thead td {
+            padding:unset;
+            border-bottom:unset;
+        }
+        .btn{
+            border-radius:0px;
         }
     </style>
-
 
 
 
