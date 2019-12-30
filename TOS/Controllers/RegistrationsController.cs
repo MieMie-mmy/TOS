@@ -166,7 +166,7 @@ namespace TOS.Controllers
             //System.Web.UI.ScriptManager script_manager = new System.Web.UI.ScriptManager();
             Group_EntryBL gebl = new Group_EntryBL();
             model.GroupModel.InsertOperator = Session["CompanyCD"].ToString();
-            Boolean insertFlag = true;
+            Boolean insertFlag = false;
             DataTable dt = new DataTable();
             dt = gebl.Check_Duplicate_GroupEntry(model);
             if (dt.Rows.Count > 0)
