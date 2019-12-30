@@ -144,11 +144,11 @@ namespace Company_Entry_BL
                 }
                 if (!string.IsNullOrWhiteSpace(mModelShip.Address2))
                 { 
-                prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = mModelShip.Address2 };
                 }
                 else
                 {
-                    prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = mModelShip.Address2 };
+                    prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = System.DBNull.Value };
                 }
                 if(!string.IsNullOrWhiteSpace(mModelShip.TelephoneNO) )
                 { 
@@ -206,7 +206,7 @@ namespace Company_Entry_BL
             BaseDL dl = new BaseDL();
             if (mBrand != null)
             {
-                SqlParameter[] prmBrand = new SqlParameter[3];
+                SqlParameter[] prmBrand = new SqlParameter[4];
                 prmBrand[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
                 if (!string.IsNullOrWhiteSpace(mBrand.BrandName))
                 {
