@@ -775,7 +775,7 @@
         
         var fromDate = document.getElementById("orderdate_from").value;
         var toDate = document.getElementById("orderdate_to").value;
-        if ((fromDate != "" && toDate != "") && Date.parse(fromDate) > Date.parse(toDate)) {
+        if ((fromDate != "" && toDate != "") && (Date.parse(fromDate) > Date.parse(toDate))) {
              //alert("To date should be greater than From date.");
            
             var T = "E";
@@ -791,7 +791,7 @@
     {
         var fromDate = document.getElementById("shipdate_from").value;
         var toDate = document.getElementById("shipdate_to").value;
-        if ((fromDate != "" && toDate != "") && Date.parse(fromDate) > Date.parse(toDate)) {
+        if ((fromDate != "" && toDate != "") && (Date.parse(fromDate) > Date.parse(toDate))) {
             //alert("To date should be greater than From date.");
             var T = "E";
             var K = "1003";
