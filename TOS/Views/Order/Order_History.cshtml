@@ -7,6 +7,7 @@
 <!-- Style link-->
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
 <link href="~/Content/Site.css" rel="stylesheet" />
 
 <link href="~/Content/monthly.css" rel="stylesheet" />
@@ -14,9 +15,12 @@
 <link href="~/Content/news.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
+
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!--Order History page link-->
 <link href="~/Content/order_history.css" rel="stylesheet" />
 
@@ -44,7 +48,7 @@
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200">
-                                <button type="button" onclick="location.href='@Url.Action("ExportReport","Order")'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
+                                <button type="button" id="PrintDoc" onclick="location.href='@Url.Action("ExportReport","Order")'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
                             </td>
                             <td class="histoptabno t200"></td>
                         </tr>
@@ -231,8 +235,12 @@
                                     <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg" id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
                                     <td>
                                         <br><br><br><br><br><br>
-                                       
+                                        <button type="button" id="btn_cancle0" data-toggle="modal" data-target="#myModal" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                        <button type="button" id="btn_cancle1" data-toggle="modal" data-target="#myModalSuccess" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                        <button type="button" id="btn_cancle2" data-toggle="modal" data-target="#myModalInfo" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+
                                         <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+
                                     </td>
 
                                 </tr>
@@ -241,6 +249,7 @@
 
 
                     </div>
+                    <!--modal-->
                     <!--Add second table-->
                     <div class="tab-content tab-content-in w3 orderlist">
                         <div class="tab-pane text-style active" id="tab1">
@@ -289,13 +298,62 @@
         </div>
 
     </div>
-
-
 </div>
 
+<!-- Modal -->
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
 
+                <h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
+            </div>
 
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
+                <button type="button" class="btn btn-default" onclick="_CancleRow()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<div class="modal fade" id="myModalSuccess" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title" style="color:forestgreen;"><img src="~/images/SuccessImg.jpg" style="width:26px;height:26px;" />削除されました。</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:forestgreen;">閉じる</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="modal fade" id="myModalInfo" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title" style="color:dodgerblue;"><img src="~/images/InfoImg.jpg" style="width:26px;height:26px;" />対象レコードを選択してください。</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:dodgerblue;">閉じる</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
 @*</div>*@
 <!-- 2'nd table script-->
@@ -341,7 +399,9 @@
 
 <script>
     $(document).ready(function () {
-
+        $("#btn_cancle1").hide();
+        $("#btn_cancle2").hide();
+        $("#btn_cancle0").hide();
         FillGrid_1();
         FillGrid_2();
 
@@ -433,7 +493,7 @@
                 "columns": [
                     { "data": "OrderID", orderable: false },
                     { "data": "TotalAmount", orderable: false },
-                    { "data": "DestinationName", orderable: false },
+                    { "data": "ShippingName", orderable: false },
                     { "data": "OrderDateTime_h", orderable: false },
                     { "data": "AvailableShippingDate", orderable: false },
                     { "data": "OrderDateTime_d", orderable: false },
@@ -610,10 +670,27 @@
     function _CancleTableRow() {
 
         var checked = jQuery('input:checkbox:checked').map(function () {
+
             return this.value + '_' + this.name;
 
         }).get();
+        //alert(checked);
+        if (checked == null || checked == "") {
+            $("#btn_cancle2").click();
+        }
+        else {
 
+            $("#btn_cancle0").click();
+
+
+        }
+
+    }
+    function _CancleRow() {
+        var checked = jQuery('input:checkbox:checked').map(function () {
+            return this.value + '_' + this.name;
+
+        }).get();
 
         $.ajax({
             url: "/Order/Delete_OderHistoryDetailRow/" + checked,
@@ -622,16 +699,19 @@
             dataType: 'JSON',
 
             success: function (data) {
+                if (data == "OK") {
+                    $("#btn_cancle1").click();
+                    jQuery('input:checkbox:checked').parents("tr").remove();
+                  
+                    RefreshSecondTable();
+                   
 
-                RefreshSecondTable();
+                }
 
             }
 
 
         });
-
-
-        jQuery('input:checkbox:checked').parents("tr").remove();
 
     }
     function _SearchData() {

@@ -9,7 +9,7 @@ namespace Company_Entry_BL
 {
     public class Company_EntryBL
     {
-        public DataTable InsertCompany(M_CompanyModel mModel)
+        public DataTable InsertCompany(M_CompanyModel mModel,string PcName)
         {
 
             DataTable dt = new DataTable();
@@ -19,7 +19,9 @@ namespace Company_Entry_BL
             if (mModel !=null)
             {
 
-                SqlParameter[] prms = new SqlParameter[14];
+                SqlParameter[] prms = new SqlParameter[15];
+
+         
             prms[0] = new SqlParameter("@companyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
             prms[1] = new SqlParameter("@companyName", SqlDbType.VarChar) { Value = mModel.CompanyName };
             prms[2] = new SqlParameter("@Passwd", SqlDbType.VarChar) { Value = mModel.Password };
@@ -27,12 +29,49 @@ namespace Company_Entry_BL
             prms[4] = new SqlParameter("@ShortName", SqlDbType.VarChar) { Value = mModel.ShortName };
             prms[5] = new SqlParameter("@Zip1", SqlDbType.VarChar) { Value = mModel.ZipCD1 };
             prms[6] = new SqlParameter("@Zip2", SqlDbType.VarChar) { Value = mModel.ZipCD2 };
-            prms[7] = new SqlParameter("@Add1", SqlDbType.VarChar) { Value = mModel.Address1 };
-            prms[8] = new SqlParameter("@Add2", SqlDbType.VarChar) { Value = mModel.Address2 };
-            prms[9] = new SqlParameter("@phno", SqlDbType.VarChar) { Value = mModel.TelephoneNo };
-            prms[10] = new SqlParameter("@faxNo", SqlDbType.VarChar) { Value = mModel.FaxNo };
-            prms[11] = new SqlParameter("@PresiName", SqlDbType.VarChar) { Value = mModel.PresidentName };
-            if(mModel.RankingFlg != 0)
+                if (!string.IsNullOrWhiteSpace(mModel.Address1))
+                {
+                    prms[7] = new SqlParameter("@Add1", SqlDbType.VarChar) { Value = mModel.Address1 };
+                }
+                else
+                {
+                    prms[7] = new SqlParameter("@Add1", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                }
+
+                if (!string.IsNullOrWhiteSpace(mModel.Address2))
+                {
+                    prms[8] = new SqlParameter("@Add2", SqlDbType.VarChar) { Value = mModel.Address2 };
+                }
+                else
+                {
+                    prms[8] = new SqlParameter("@Add2", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                }
+                if (!string.IsNullOrWhiteSpace(mModel.TelephoneNo))
+                {
+                    prms[9] = new SqlParameter("@phno", SqlDbType.VarChar) { Value = mModel.TelephoneNo };
+                }
+                else
+                {
+                    prms[9] = new SqlParameter("@phno", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                }
+                if (!string.IsNullOrWhiteSpace(mModel.FaxNo))
+                {
+                    prms[10] = new SqlParameter("@faxNo", SqlDbType.VarChar) { Value = mModel.FaxNo };
+                }
+                else
+                {
+                    prms[10] = new SqlParameter("@faxNo", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                }
+                if (!string.IsNullOrWhiteSpace(mModel.PresidentName))
+                {
+                    prms[11] = new SqlParameter("@PresiName", SqlDbType.VarChar) { Value = mModel.PresidentName };
+                }
+                else
+                {
+                    prms[11] = new SqlParameter("@PresiName", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                }
+
+               if(mModel.RankingFlg != 0)
                 { 
                  prms[12] = new SqlParameter("@RnkFlag", SqlDbType.VarChar) { Value = mModel.RankingFlg };
                 }
@@ -41,21 +80,43 @@ namespace Company_Entry_BL
                     prms[12] = new SqlParameter("@RnkFlag", SqlDbType.VarChar) { Value = System.DBNull.Value };
                 }
                 prms[13] = new SqlParameter("@insertOperator", SqlDbType.VarChar) { Value = mModel.InsertOperator };
-            dl.InsertUpdateDeleteData("M_Company_Insert", prms);
+                prms[14] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = PcName };
+                dl.InsertUpdateDeleteData("M_Company_Insert", prms);
             }
             return dt;
         }
-        public DataTable InsertCompanyShipping(M_CompanyShippingModel mModelShip, M_CompanyModel mModel)
+        public DataTable InsertCompanyShipping(M_CompanyShippingModel mModelShip, M_CompanyModel mModel,string PcName)
         {
             DataTable dt = new DataTable();
             BaseDL dl = new BaseDL();
             if (mModelShip != null)
             {
-                SqlParameter[] prmship = new SqlParameter[10];
-                prmship[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
-                prmship[1] = new SqlParameter("@ShippingID", SqlDbType.VarChar) { Value = mModelShip.ShippingID };
-                prmship[2] = new SqlParameter("@ShippingName", SqlDbType.VarChar) { Value = mModelShip.ShippingName };
-                if (mModelShip.ZipCD1 != null)
+                SqlParameter[] prmship = new SqlParameter[11];
+                if (!string.IsNullOrWhiteSpace(mModel.CompanyCD))
+                {
+                    prmship[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
+                }
+                else
+                {
+                    prmship[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                }
+                if (mModelShip.ShippingID != 0)
+                {
+                    prmship[1] = new SqlParameter("@ShippingID", SqlDbType.VarChar) { Value = mModelShip.ShippingID };
+                }
+                else
+                {
+                    prmship[1] = new SqlParameter("@ShippingID", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                }
+                if (!string.IsNullOrWhiteSpace(mModelShip.ShippingName))
+                {
+                    prmship[2] = new SqlParameter("@ShippingName", SqlDbType.VarChar) { Value = mModelShip.ShippingName };
+                }
+                else
+                {
+                    prmship[2] = new SqlParameter("@ShippingName", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                }
+                if (!string.IsNullOrWhiteSpace(mModelShip.ZipCD1))
                 { 
                 prmship[3] = new SqlParameter("@ZipCD1", SqlDbType.VarChar) { Value = mModelShip.ZipCD1 };
                 }
@@ -64,7 +125,7 @@ namespace Company_Entry_BL
                  prmship[3] = new SqlParameter("@ZipCD1", SqlDbType.VarChar) { Value = System.DBNull.Value };
                 }
 
-                if (mModelShip.ZipCD2 != null)
+                if (!string.IsNullOrWhiteSpace(mModelShip.ZipCD2))
                 {
                  prmship[4] = new SqlParameter("@ZipCD2", SqlDbType.VarChar) { Value = mModelShip.ZipCD2 };
                 }
@@ -73,7 +134,7 @@ namespace Company_Entry_BL
                     prmship[4] = new SqlParameter("@ZipCD2", SqlDbType.VarChar) { Value = System.DBNull.Value };
 
                 }
-                if(mModelShip.Address1 !=null)
+                if(!string.IsNullOrWhiteSpace(mModelShip.Address1))
                 { 
                 prmship[5] = new SqlParameter("@Address1", SqlDbType.VarChar) { Value = mModelShip.Address1 };
                 }
@@ -81,7 +142,7 @@ namespace Company_Entry_BL
                 {
                     prmship[5] = new SqlParameter("@Address1", SqlDbType.VarChar) { Value = System.DBNull.Value };
                 }
-                if (mModelShip.Address2 !=null)
+                if (!string.IsNullOrWhiteSpace(mModelShip.Address2))
                 { 
                 prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = System.DBNull.Value };
                 }
@@ -89,7 +150,7 @@ namespace Company_Entry_BL
                 {
                     prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = mModelShip.Address2 };
                 }
-                if(mModelShip.TelephoneNO != null)
+                if(!string.IsNullOrWhiteSpace(mModelShip.TelephoneNO) )
                 { 
                 prmship[7] = new SqlParameter("@TelephoneNO", SqlDbType.VarChar) { Value = mModelShip.TelephoneNO };
                 }
@@ -98,7 +159,7 @@ namespace Company_Entry_BL
                  prmship[7] = new SqlParameter("@TelephoneNO", SqlDbType.VarChar) { Value = System.DBNull.Value };
 
                 }
-                if (mModelShip.FaxNO !=null)
+                if (!string.IsNullOrWhiteSpace(mModelShip.FaxNO))
                 { 
                 prmship[8] = new SqlParameter("@FaxNO", SqlDbType.VarChar) { Value = mModelShip.FaxNO };
                 }
@@ -108,28 +169,38 @@ namespace Company_Entry_BL
 
                 }
                 prmship[9] = new SqlParameter("@InsertOperator", SqlDbType.VarChar) { Value = mModelShip.InsertOperator };
+                prmship[10] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = PcName };
                 dl.InsertUpdateDeleteData("M_CompanyShipping_Insert", prmship);
             }
             return dt;
 
         }
 
-        public DataTable InsertCompanyTag (M_CompanyTagModel mModelTag, M_CompanyModel mModel)
+        public DataTable InsertCompanyTag (M_CompanyTagModel mModelTag, M_CompanyModel mModel,string PcName)
         {
             DataTable dt = new DataTable();
             BaseDL dl = new BaseDL();
             if (mModelTag != null)
             {
-                SqlParameter[] prmtag = new SqlParameter[3];
+                SqlParameter[] prmtag = new SqlParameter[4];
                 prmtag[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
-                prmtag[1] = new SqlParameter("@Tag", SqlDbType.VarChar) { Value = mModelTag.Tag };
+
+                if (!string.IsNullOrWhiteSpace(mModelTag.Tag))
+                {
+                    prmtag[1] = new SqlParameter("@Tag", SqlDbType.VarChar) { Value = mModelTag.Tag };
+                }
+                else
+                {
+                    prmtag[1] = new SqlParameter("@Tag", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                }
                 prmtag[2] = new SqlParameter("@InsertOperator", SqlDbType.VarChar) { Value = mModelTag.InsertOperator };
+                prmtag[3] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = PcName };
                 dl.InsertUpdateDeleteData("M_CompanyTag_Insert", prmtag);
             }
             return dt;
         }
 
-        public DataTable InsertCompanyBrand (M_BrandModel mBrand, M_CompanyModel mModel)
+        public DataTable InsertCompanyBrand (M_BrandModel mBrand, M_CompanyModel mModel,string PcName)
         {
             DataTable dt = new DataTable();
             BaseDL dl = new BaseDL();
@@ -137,7 +208,7 @@ namespace Company_Entry_BL
             {
                 SqlParameter[] prmBrand = new SqlParameter[3];
                 prmBrand[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
-                if (mBrand.BrandName != null)
+                if (!string.IsNullOrWhiteSpace(mBrand.BrandName))
                 {
                     prmBrand[1] = new SqlParameter("@BrandName", SqlDbType.VarChar) { Value = mBrand.BrandName };
                 }
@@ -146,6 +217,7 @@ namespace Company_Entry_BL
                     prmBrand[1] = new SqlParameter("@BrandName", SqlDbType.VarChar) { Value= System.DBNull.Value};
                 }
                 prmBrand[2] = new SqlParameter("@InsertOperator", SqlDbType.VarChar) { Value = mBrand.InsertOperator };
+                prmBrand[3] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = PcName };
                 dl.InsertUpdateDeleteData("M_CompanyBrand_Insert", prmBrand);
 
             }
@@ -159,8 +231,22 @@ namespace Company_Entry_BL
             BaseDL dl = new BaseDL();
             SqlParameter[] prmName= new SqlParameter[1];
             prmName[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
-            dl.SelectData("M_Company_SelectBy_CompanyCD", prmName);
+           dt= dl.SelectData("M_Company_SelectBy_CompanyCD", prmName);
+            return dt;
+        }
+
+
+
+        public DataTable Message_Select (string key, string ID )
+        {
+            DataTable dt = new DataTable();
+            BaseDL dl = new BaseDL();
+            SqlParameter[] prmMsg = new SqlParameter[2];
+            prmMsg[0] = new SqlParameter("@key", SqlDbType.VarChar) { Value = key };
+            prmMsg[1] = new SqlParameter("@msgType", SqlDbType.VarChar) { Value = ID };
+           dt= dl.SelectData("Message_Select", prmMsg);
             return dt;
         }
     }
-  }
+    }
+  

@@ -27,6 +27,9 @@
     <!-- jQuery -->
     <link href="@Url.Content("~/Scripts/jquery-2.1.4.min.js")" rel="stylesheet" type="text/javascript" />
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
 }
 
 @section Scripts{
@@ -42,6 +45,10 @@
                         $("#ddlCompanyname").append(
                             $('<option></option>').val(name.CompanyCD).html(name.CompanyName));
                     });
+                    @*if ("@Model.TinfoModel.control" == 'New') {
+                        alert("1");
+                        $("#ddlCompanyname").val(@Model.ComModel.CompanyCD);
+                    }*@
                 }
             });
         });
@@ -59,6 +66,10 @@
                         $("#ddlGroupname").append(
                             $('<option></option>').val(name.GroupID).html(name.GroupName));
                     });
+                     
+                    @*if ("@Model.TinfoModel.control" == 'Edit') {
+                        $("#ddlGroupname").val('@Model.GroupModel.GroupID');
+                    }*@
                 }
             });
         });
@@ -117,7 +128,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../NewsEditor/T_Information_Select",
+                        "url": "../../NewsEditor/T_Information_Select",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -127,12 +138,12 @@
                         { "data": "TitleName", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
-                                return '<button type="button" class="btn btn-outline-light">編集</button>';
+                                return '<button type="button" class="btn btn-outline-light"><a href="../../NewsEditor/News_Editor/' + row.InformationID + '">編集</a></button>';
                             }
                         },
                         {
                             "data": "", "render": function (data, type, row) {
-                                return '<button type="button" class="btn btn-outline-danger">削除</button>';
+                                return '<button type="button" class="btn btn-outline-danger"><a href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
                             }
                         },
                     ],
@@ -148,6 +159,8 @@
             $('#rdbcompanywide').prop('checked', true);
             $("#ddlCompanyname").attr("disabled", "disabled");
             $('#ddlGroupname').attr("disabled", "disabled");
+
+
         });
     </script>
 
@@ -174,29 +187,59 @@
             var div = document.getElementById('file');
             var div1 = document.getElementById('file1');
             $('input[type="file"]').change(function (e) {
-              
+
                 var fileName = e.target.files[0].name;
                 var text = $('#lblattachfile').val();
                 text = fileName;
                 $('#lblattachfile').text(text);
                 div.style.display = 'block';
-               
+
             });
         });
     </script>
 
+
     <script type="text/javascript">
         $(document).ready(function () {
             $('#btndelete').click(function () {
-                //var text = document.getElementById('file');
-                var filename = $('#lblattachfile').val();
                 $(this).parent('div').remove();
             });
         });
     </script>
 
 }
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
+</ol>
 
+@if (TempData["Imsg"] != null)
+{
+    <div class="row ">
+        <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
+            @*<div class="alert alert-success alert-dismissible fade in">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>*@
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                @*<h4><i class="icon fa fa-info-circle"></i> Info!</h4>*@
+                <strong><span class="glyphicon glyphicon-ok"></span>Info:</strong>
+                @TempData["Imsg"]
+            </div>
+        </div>
+    </div>
+}
+
+@if (TempData["Emsg"] != null)
+{
+    <div class="row ">
+        <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong><span class="glyphicon glyphicon-warning-sign"></span> ERROR: </strong>
+                @TempData["Emsg"]
+            </div>
+        </div>
+    </div>
+}
 
 @using (Html.BeginForm("T_Information_SaveEdit", "NewsEditor", FormMethod.Post, new { enctype = "multipart/form-data", @id = "MyForm" }))
 
@@ -204,18 +247,31 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
     <style>
+       
         .mother-grid-inner {
             display: block !important;
             background-color: #edecec !important;
+        }  
+        tr.even {
+            background-color: #CCDDFF !important;
         }
-
-        .left-content {
-            background-color: #edecec !important;
+        table.dataTable {
+            border-collapse: collapse !important;
+            border-spacing: 0;
+        }
+        table.dataTable tbody th, table.dataTable tbody td {
+            padding:unset;
+        }
+        table.dataTable thead th, table.dataTable thead td {
+            padding:unset;
+            border-bottom:unset;
+        }
+        .btn{
+            border-radius:0px;
         }
     </style>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
-    </ol>
+
+
 
     <div class="inbox-mail">
         <!-- tab content -->
@@ -231,6 +287,7 @@
                                         <div class="box">
                                             <div class="custom-control">
                                                 @*<input type="radio" class="custom-control-input" id="rdocompanywide" name="rdocompanywide" value="1">*@
+                                                @Html.HiddenFor(m => m.TinfoModel.ID)
                                                 @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "1", new { @checked = "true", @id = "rdbcompanywide" })
                                                 <label>全社</label>
                                             </div>
@@ -247,7 +304,7 @@
                                         </div>
                                         <div class="box">
 
-                                            @Html.DropDownListFor(m => m.ComModel.CompanyCD, new SelectList(Enumerable.Empty<SelectListItem>(), "", ""), "--- 選択---",
+                                            @Html.DropDownListFor(m => m.ComModel.CompanyCD, new SelectList(Enumerable.Empty<SelectListItem>(), "CompanyCD", "CompanyName"), "--- 選択---",
          new { @class = "comp", @id = "ddlCompanyname"  })
 
                                         </div>
@@ -262,7 +319,7 @@
                                         </div>
                                         <div class="box">
 
-                                            @Html.DropDownListFor(m => m.GroupModel.GroupID, new SelectList(Enumerable.Empty<SelectListItem>(), "", ""), "--- 選択---",
+                                            @Html.DropDownListFor(m => m.GroupModel.GroupID, new SelectList(Enumerable.Empty<SelectListItem>(), "GroupID", "GroupName"), "--- 選択---",
         new { @class = "comp", @id = "ddlGroupname" })
                                         </div>
                                     </div>
@@ -320,6 +377,7 @@
                                             @*<input class="form-control" type="tel" value="" />*@
                                             @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170" })
                                         </div>
+
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">表示指定</div>
@@ -356,7 +414,17 @@
 
                                             <div id="file1" style="display:none;">
                                                 <label style="width:150px;" id="lblattachfile1"></label>
-                                                <button id="btndelete" class="btn btn-outline-secondary">✖</button>
+                                                <button id="btndelete1" class="btn btn-outline-secondary">✖</button>
+                                            </div>
+
+                                            <div id="file2" style="display:none;">
+                                                <label style="width:150px;" id="lblattachfile2"></label>
+                                                <button id="btndelete2" class="btn btn-outline-secondary">✖</button>
+                                            </div>
+
+                                            <div id="file3" style="display:none;">
+                                                <label style="width:150px;" id="lblattachfile3"></label>
+                                                <button id="btndelete3" class="btn btn-outline-secondary">✖</button>
                                             </div>
                                             <span>最大4ファイル添付可能。</span>
                                         </div>
