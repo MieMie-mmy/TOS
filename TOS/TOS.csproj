@@ -327,6 +327,10 @@
       <Project>{9599829a-9c8c-4c02-8e4d-31f248128660}</Project>
       <Name>Order_Portal_BL</Name>
     </ProjectReference>
+    <ProjectReference Include="..\TOS_DL\TOS_DL.csproj">
+      <Project>{6AD8A80E-1DB7-457F-8FBD-37E8AD8655EA}</Project>
+      <Name>TOS_DL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\TOS_Model\TOS_Model.csproj">
       <Project>{47957d3c-e254-435f-9004-8e2fd2249e2f}</Project>
       <Name>TOS_Model</Name>
