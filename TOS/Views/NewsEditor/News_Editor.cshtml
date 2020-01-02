@@ -163,6 +163,8 @@
                 url: '../../NewsEditor/News_Editor_Edit/' + id,
                 dataType: 'json',
                 success: function (result) {
+                    $('#btnsave').text('✔ Update');
+
                     if (result[0].DestinationFlg == 1) {
                         $('#rdbcompanywide').prop('checked', true);
                         $("#ddlCompanyname").val(null);
