@@ -78,7 +78,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>発注番号</td>
-                                                    <td> <input type="text" id="txt_orderId" onkeypress="return ValidateUsernameOnly(event);" class="form-control" placeholder=""></td>
+                                                    <td> <input type="text" id="txt_orderId" onkeypress="return ValidateSpecialOnly(event);" class="form-control" placeholder=""></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -582,16 +582,7 @@
 
     }
 
-    function ValidateUsernameOnly(evt) {
-        evt = (evt) ? evt : event;
-        var characterCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
-            ((evt.which) ? evt.which : 0));
-        if (characterCode > 31 && (characterCode < 65 || characterCode > 90) && (characterCode < 45 || characterCode > 46) &&
-            (characterCode < 97 || characterCode > 122) && (characterCode < 48 || characterCode > 57)) {
-            return false;
-        }
-        return true;
-    }
+    
 
 
 </script>

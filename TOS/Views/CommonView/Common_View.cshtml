@@ -81,5 +81,16 @@
         });
     }
 
+    function ValidateSpecialOnly(evt) {
+        evt = (evt) ? evt : event;
+        var characterCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+            ((evt.which) ? evt.which : 0));
+        if (characterCode > 31 && (characterCode < 65 || characterCode > 90) && (characterCode < 45 || characterCode > 46) &&
+            (characterCode < 97 || characterCode > 122) && (characterCode < 48 || characterCode > 57)) {
+            return false;
+        }
+        return true;
+    }
+
 
 </script>
