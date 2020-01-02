@@ -490,7 +490,9 @@
                 "destroy": true,
                 //responsive: false,
                 "scrollX": true,
-                //"scrollY": true,
+                //"scrollY": true
+                "paging": false,
+                "info": false,
                 "dom": 'lrtip',
                 "bLengthChange": false,
                 "data": data,
@@ -541,7 +543,7 @@
             {
                 "destroy": true,
                 //responsive: false,
-                "scrollX": true,
+                "scroll": false,
                 "dom": 'lrtip',
                 "bLengthChange": false,
 
@@ -652,8 +654,8 @@
         document.getElementById('MakerItemCD_6').value = "";
         document.getElementById('MakerItemCD_7').value = "";
         document.getElementById('MakerItemCD_8').value = "";
-        RefreshFirstTable();
-
+        //RefreshFirstTable();
+        $("#Order_First").hide();
 
         RefreshSecondTable();
 
