@@ -1,6 +1,9 @@
 ﻿using System.Web.Mvc;
 using TOS_Model;
 using Company_BL;
+using System.Data;
+using TOS_DL;
+using System.Linq;
 
 namespace TOS.Controllers
 {
@@ -13,11 +16,18 @@ namespace TOS.Controllers
             return View();
         }
 
+
+
         public ActionResult Login(int? errorId)
         {
+
             if (errorId > 0)
             {
-                ViewBag.ErrorMessage = "UserName Or Password Invalid !";
+                TOSEntities en = new TOSEntities();
+                string IDs = "E";
+                string Key = "1002";
+                ViewBag.ErrorMessage = en.Messages.Where(s => s.ID.Equals(IDs) && s.KEY.Equals(Key)).Select(s => s.Message1).FirstOrDefault();
+
             }
             else
             {
@@ -26,10 +36,10 @@ namespace TOS.Controllers
             return View();
         }
 
+                             
         public ActionResult CheckLogin(M_CompanyModel cm)
         {
-
-
+            
             M_CompanyModel mc = cbl.CheckLogin(cm);
             if (mc == null)
             {
