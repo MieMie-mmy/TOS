@@ -72,7 +72,7 @@
                 if (text.length > 0) {
                     if (text.includes(sel)) { }
                     else if (sel != "選択") {
-                        text += "  ," + sel;
+                        text += "," + sel;
                     }
                 }
                 else
@@ -208,7 +208,7 @@
                                     <tbody>
                                         <tr class="form-group_entry">
                                             <td>
-                                                <label style=" font-size:11px;">グループID</label>
+                                                <label style=" font-size:11px;font-weight:100">グループID</label>
                                             </td>
                                             <td>
                                                 @*<input type="text" class="form-control input-sm" id="txtGroupID" style="background-color:#c4dfe5d6; width:110px;" />*@
@@ -217,7 +217,7 @@
                                         </tr>
                                         <tr class="form-group_entry">
                                             <td>
-                                                <label style=" font-size:11px;">グループ名</label>
+                                                <label style=" font-size:11px;font-weight:100">グループ名</label>
                                             </td>
                                             <td>
                                                 @*<input type="text" class="form-control input-sm" id="txtGroupName" style="background-color:#c4dfe5d6;width:210px;" />*@
@@ -225,13 +225,13 @@
                                             </td>
                                         </tr>
                                         <tr class="form-group_entry">
-                                            <td><b>グループ指定情報</b></td>
+                                            <td style="font-size:12px;"><b>グループ指定情報</b></td>
                                         </tr>
                                         <tr class="form-group_entry">
                                             <td>
                                                 @*<input type="radio" id="rdbCompany" name="defaultExampleRadios" class="custom-control-input">*@
                                                 @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "1", new { @id = "rdbCompany" })
-                                                <label style=" font-size:11px;">会社指定</label>
+                                                <label style=" font-size:11px;font-weight:100">会社指定</label>
                                             </td>
                                             <td>
                                                 @Html.DropDownListFor(m => m.ComModel.CompanyCD,
@@ -241,7 +241,7 @@
                                             <td>
                                                 @*<input type="radio" id="rdbBrand" name="defaultExampleRadios" class="custom-control-input">*@
                                                 @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "2", new { @id = "rdbBrand" })
-                                                <label style=" font-size:11px;">ブランド</label>
+                                                <label style=" font-size:11px;font-weight:100">ブランド</label>
                                             </td>
                                             <td>
                                                 @Html.DropDownListFor(m => m.MBrandModel.BrandCD,
@@ -251,7 +251,7 @@
                                             <td>
                                                 @*<input type="radio" id="rdbTag" name="defaultExampleRadios" class="custom-control-input">*@
                                                 @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "3", new { @id = "rdbTag" })
-                                                <label style=" font-size:11px;">タグ</label>
+                                                <label style=" font-size:11px;font-weight:100">タグ</label>
                                             </td>
                                             <td>
                                                 @*<input type="text" class="form-control input-sm" id="txtTag" style="background-color:#c4dfe5d6;width:210px;" />*@
