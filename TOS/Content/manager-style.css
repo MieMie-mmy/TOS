@@ -1,6 +1,6 @@
 ﻿html, body {
     font-family: 'Roboto', sans-serif;
-    font-size: 100%;
+    font-size: 100% !important;
     overflow-x: hidden;
     background-color: #edecec;
 }
