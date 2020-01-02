@@ -186,12 +186,7 @@ namespace Order_History_BL
 
         }
 
-        //public string OH_CheckMItemCD(T_OrderHistorySearch model);
-        //{
-        //var r = "OK";
-        //return r;
-        //}
-        public String OH_MessageDialog(string id)
+        public String _MessageDialog(string id)
         {
             var ID = string.Empty;
             var key = string.Empty;
@@ -210,6 +205,43 @@ namespace Order_History_BL
             dt = dl.SelectData("Message_Select", prm);
             var msg = dt.Rows[0][msgType].ToString();
             return msg;
+        }
+
+        public string _CheckMakerItemCD(T_OrderHistorySearch model)
+        {
+            TOSEntities entity = new TOSEntities();
+
+            var result_micd = string.Empty;
+            var result = 0;
+            var micd = new string[8] {model.m1,model.m2,model.m3,model.m4,model.m5,model.m6,model.m7,model.m8 };
+            for (var i = 0; i < micd.Length; i++)
+            {
+                var micdd = micd[i];
+                result = entity.T_OrderDetail
+                     .Join(
+                           entity.T_OrderHeader,
+                           d => d.OrderID,
+                           h => h.OrderID,
+                           (d, h) => new { d, h })
+                     .Join(entity.M_SKU,
+                           ud => ud.d.AdminCD,
+                           sku => sku.AdminCD,
+                           (ud, sku) => new { ud, sku }
+                     ).Join(entity.M_Item,
+                           usku => usku.sku.MakerItemAdminCD,
+                           it => it.MakerItemAdminCD,
+                           (usku, it) => new { usku, it }
+                     ).Where(r => r.it.MakerItemCD != micdd).Select(s => s.it.MakerItemCD).Count();
+
+                if (result > 0 && (micdd != null))
+                {
+                    result_micd += micdd + ",";
+                }
+            }
+          
+          
+         
+            return result_micd.TrimEnd(',') ;
         }
 
     }

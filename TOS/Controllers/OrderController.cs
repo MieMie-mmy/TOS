@@ -104,13 +104,17 @@ namespace TOS.Controllers
 
         }
 
-
-       
+        [HttpPost]
+       public string Check_MakerItemCD(T_OrderHistorySearch model)
+        {
+            string result = bl._CheckMakerItemCD(model);
+            return JsonConvert.SerializeObject(result);
+        }
 
         [HttpPost]
         public string  OrderHistoryMessage(string id)
         {                    
-            var msg=bl.OH_MessageDialog(id);
+            var msg=bl._MessageDialog(id);
                     
             return JsonConvert.SerializeObject(msg);
         }
