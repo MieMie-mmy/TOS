@@ -1,5 +1,7 @@
 ﻿<button type="button" id="btn_cancle1" data-toggle="modal" data-target="#myModalSuccess" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
 <button type="button" id="btn_cancle2" data-toggle="modal" data-target="#myModalInfo" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+<button type="button" id="btn_cancle3" data-toggle="modal" data-target="#myModalError" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+
 <!-- Modal -->
 
 <div class="modal fade" id="myModalSuccess" role="dialog">
@@ -36,6 +38,24 @@
 
     </div>
 </div>
+<div class="modal fade" id="myModalError" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <img src="~/images/error.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"></h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">閉じる</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
 
 <style>
     .modal-header img {
@@ -49,6 +69,7 @@
 <script>
     $("#btn_cancle1").hide();
     $("#btn_cancle2").hide();
+    $("#btn_cancle3").hide();
     function Successmessage(t, k, m) {
         //var result = "";
         $.ajax({
@@ -76,6 +97,20 @@
                 $('.modal-title').text(data);
 
                 $("#btn_cancle2").click();
+
+            }
+        });
+    }
+
+    function Errormessage(t, k, m) {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+            dataType: 'json',
+            success: function (data) {
+                $('.modal-title').text(data);
+
+                $("#btn_cancle3").click();
 
             }
         });
