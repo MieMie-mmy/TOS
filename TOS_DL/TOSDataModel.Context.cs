@@ -25,23 +25,22 @@ namespace TOS_DL
             throw new UnintentionalCodeFirstException();
         }
     
+        public virtual DbSet<L_Log> L_Log { get; set; }
         public virtual DbSet<M_Brand> M_Brand { get; set; }
         public virtual DbSet<M_Company> M_Company { get; set; }
-        public virtual DbSet<M_CompanyBrand> M_CompanyBrand { get; set; }
-        public virtual DbSet<M_CompanyShipping> M_CompanyShipping { get; set; }
-        public virtual DbSet<M_CompanyTag> M_CompanyTag { get; set; }
         public virtual DbSet<M_Group> M_Group { get; set; }
-        public virtual DbSet<M_GroupList> M_GroupList { get; set; }
         public virtual DbSet<M_Item> M_Item { get; set; }
         public virtual DbSet<M_JobTimeable> M_JobTimeable { get; set; }
-        public virtual DbSet<M_MultiPorpose> M_MultiPorpose { get; set; }
         public virtual DbSet<M_Price> M_Price { get; set; }
         public virtual DbSet<M_SKU> M_SKU { get; set; }
-        public virtual DbSet<Message> Messages { get; set; }
         public virtual DbSet<T_Information> T_Information { get; set; }
-        public virtual DbSet<T_InformationDestination> T_InformationDestination { get; set; }
         public virtual DbSet<T_Inventory> T_Inventory { get; set; }
-        public virtual DbSet<T_OrderDetail> T_OrderDetail { get; set; }
         public virtual DbSet<T_OrderHeader> T_OrderHeader { get; set; }
+        public virtual DbSet<M_CompanyShipping> M_CompanyShipping { get; set; }
+        public virtual DbSet<M_GroupList> M_GroupList { get; set; }
+        public virtual DbSet<M_MultiPorpose> M_MultiPorpose { get; set; }
+        public virtual DbSet<Message> Messages { get; set; }
+        public virtual DbSet<T_InformationDestination> T_InformationDestination { get; set; }
+        public virtual DbSet<T_OrderDetail> T_OrderDetail { get; set; }
     }
 }

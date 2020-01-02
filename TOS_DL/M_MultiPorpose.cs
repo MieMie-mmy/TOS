@@ -22,7 +22,7 @@ namespace TOS_DL
         public string text3 { get; set; }
         public string text4 { get; set; }
         public string text5 { get; set; }
-        public Nullable<int> Num1 { get; set; }
+        public Nullable<decimal> Num1 { get; set; }
         public Nullable<int> Num2 { get; set; }
         public Nullable<int> Num3 { get; set; }
         public Nullable<int> Num4 { get; set; }

@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 using System.EnterpriseServices;
 
 namespace TOS.Controllers
-{
+{   
     public class RegistrationsController : Controller
     {
        
@@ -130,8 +130,11 @@ namespace TOS.Controllers
                                 for (int i = 0; i < Brandstr.Length; i++)
                                 {
                                     string BrandName = Brandstr[i].ToString();
+                                    if(!String.IsNullOrWhiteSpace(BrandName))
+                                    { 
                                     model.MBrandModel.BrandName = BrandName;
                                     DataTable dtBrand = cbl.InsertCompanyBrand(model.MBrandModel, model.ComModel, PcName);
+                                    }
                                 }
                             }
                         }

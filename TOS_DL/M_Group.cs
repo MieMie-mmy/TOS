@@ -16,6 +16,8 @@ namespace TOS_DL
     {
         public string GroupID { get; set; }
         public string GroupName { get; set; }
+        public byte GroupInfoFlg { get; set; }
+        public string GroupIDInfo { get; set; }
         public string InsertOperator { get; set; }
         public Nullable<System.DateTime> InsertDateTime { get; set; }
         public string UpdateOperator { get; set; }
