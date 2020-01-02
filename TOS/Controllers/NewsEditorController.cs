@@ -151,6 +151,7 @@ namespace TOS.Controllers
 
         public ActionResult T_Information_Delete(string id)
         {
+           
             Boolean deleteflag = true;
             InformationBL ibl = new InformationBL();
             string InsertOperator = Session["CompanyCD"].ToString();
