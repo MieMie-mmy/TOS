@@ -63,6 +63,25 @@ namespace TOS.Controllers
             }
             
         }
+
+        [HttpGet]
+        public string News_Editor_Edit(string id)
+        {
+            InformationBL ibl = new InformationBL();
+            if (id != null)
+            {
+                DataTable dtinfo = new DataTable();
+                dtinfo = ibl.T_Information_Select_For_Edit(id);
+                if (dtinfo.Rows.Count > 0)
+                {
+                    string jsonresult;
+                    jsonresult = JsonConvert.SerializeObject(dtinfo);
+                    return jsonresult;
+                }
+            }
+            return null;
+           
+        }
       
         public ActionResult T_Information_SaveEdit(MultipleModel model)
         {

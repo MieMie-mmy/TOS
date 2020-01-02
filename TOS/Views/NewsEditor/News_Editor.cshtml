@@ -142,12 +142,13 @@
                         { "data": "TitleName", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
-                                return '<button type="button" class="btn btn-outline-light" ><a class="edit" href="../../NewsEditor/News_Editor/' + row.InformationID + '"  >編集</a></button>';
+                                //return '<button type="button" id="btnEdit" class="btn btn-outline-light" ><a class="edit" href="../../NewsEditor/News_Editor/' + row.InformationID + '"  >編集</a></button>';
+                                return '<button type="button" id="btnEdit" class="btn btn-outline-light" onclick="edit(\'' + row.InformationID + '\')">編集</button>';
                             }
                         },
                         {
                             "data": "", "render": function (data, type, row) {
-                                return '<button type="button" class="btn btn-outline-danger" ><a class="delete" href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
+                                return '<button type="button" id="btnDelete" class="btn btn-outline-danger" ><a class="delete" href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
                             }
                         },
                     ],
@@ -155,7 +156,53 @@
             );
         });
 
+        function edit(id) {
+            var id = id;
+            $.ajax({
+                type: 'GET',
+                url: '../../NewsEditor/News_Editor_Edit/' + id,
+                dataType: 'json',
+                success: function (result) {
+                    if (result[0].DestinationFlg == 1) {
+                        $('#rdbcompanywide').prop('checked', true);
+                        $("#ddlCompanyname").val(null);
+                        $("#ddlGroupname").val(null);
+                        $('#txtdisplay_designation').val('全社');
+                    }
+                        
 
+                    if (result[0].DestinationFlg == 2) {
+                        $('#rdocompanydesignation').prop('checked', true);
+                        $("#ddlCompanyname").removeAttr("disabled");
+                        $("#ddlCompanyname").val(result[0].CompanyCD);
+                        $('#txtdisplay_designation').val(result[0].CompanyName);
+                        $("#ddlGroupname").attr("disabled", "disabled");
+                        $("#ddlGroupname").val(null);
+                    }
+
+                    if (result[0].DestinationFlg == 3) {
+                        $('#rdogroupdesignation').prop('checked', true);
+                        $("#ddlGroupname").removeAttr("disabled");
+                        $("#ddlGroupname").val(result[0].GroupID);
+                        $('#txtdisplay_designation').val(result[0].GroupName);
+                        $("#ddlCompanyname").attr("disabled", "disabled");
+                        $("#ddlCompanyname").val(null);
+                    }
+                        
+                    if (result[0].EffectFlg == 1)
+                        $('#chkeffect').prop('checked', true);
+                    else
+                        $('#chkeffect').prop('checked', false);
+
+                    $("#ddlInfoType").val(result[0].InformationType);
+                    $('#txtDate').val(result[0].Date)
+                    $('#txtStartDate').val(result[0].DisplayStartDate);
+                    $('#txtEndDate').val(result[0].DisplayEndDate);
+                    $('#txttitlename').val(result[0].TitleName);
+                    $('#txtarea').val(result[0].DetailInformation);
+                }
+            });
+        }
     </script>
 
     <script type="text/javascript">
@@ -203,23 +250,27 @@
     </script>
 
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#btndelete').click(function () {
-                $(this).parent('div').remove();
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                $('#btndelete').click(function () {
+                    $(this).parent('div').remove();
+                });
             });
-        });
-    </script>
+        </script>*@
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            if ("@Model.TinfoModel"!= null) {
-                if ("@Model.TinfoModel.DestinationFlag" == "2") {
-                    document.getElementById("rdocompanydesignation").checked = true;
+    @*<script type="text/javascript">
+            $(document).ready(function () {
+                if ("@Model.TinfoModel"!= null) {
+                    if ("@Model.TinfoModel.DestinationFlag" == "2") {
+                        document.getElementById("rdocompanydesignation").checked = true;
+                    }
                 }
-            }
-        });
-    </script>
+            });
+        </script>*@
+
+
+
+
 }
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
@@ -390,12 +441,12 @@
                                         <div class="box">
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_startdate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date" ,@id="txtStartDate" })
 
                                             </label>～
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_enddate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date" ,@id="txtEndDate"})
                                             </label>
                                         </div>
                                     </div>
@@ -403,13 +454,13 @@
                                         <div class="box">
                                             <div class="form-check">
                                                 @*<input type="checkbox" id="exampleCheck1">*@
-                                                @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag, true)
+                                                @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag,new { @id="chkeffect"})
                                                 <label style="font-weight:unset;">有効</label>
                                             </div>
                                         </div>
                                         <div class="box">
                                             <div class="sair">
-                                                <button type="submit" class="btn btn-success btn-lg">✔　登録</button>
+                                                <button type="submit" id="btnsave" class="btn btn-success btn-lg">✔　登録</button>
                                             </div>
                                         </div>
                                     </div>
@@ -419,14 +470,14 @@
                                         <div class="boxb sair boxpd tab002tit">日付</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.Date, new { @class = "form-control", @type = "date" })
+                                            @Html.TextBoxFor(m => m.TinfoModel.Date, new { @class = "form-control", @type = "date" , @id ="txtDate" })
                                         </div>
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">課題名</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170" })
+                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170", @id="txttitlename"})
                                         </div>
 
                                     </div>
