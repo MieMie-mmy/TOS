@@ -45,10 +45,10 @@
                         $("#ddlCompanyname").append(
                             $('<option></option>').val(name.CompanyCD).html(name.CompanyName));
                     });
-                    @*if ("@Model.TinfoModel.control" == 'New') {
-                        alert("1");
+
+                    if ("@Model.ComModel" != null) {
                         $("#ddlCompanyname").val(@Model.ComModel.CompanyCD);
-                    }*@
+                    }
                 }
             });
         });
@@ -66,10 +66,10 @@
                         $("#ddlGroupname").append(
                             $('<option></option>').val(name.GroupID).html(name.GroupName));
                     });
-                     
-                    @*if ("@Model.TinfoModel.control" == 'Edit') {
-                        $("#ddlGroupname").val('@Model.GroupModel.GroupID');
-                    }*@
+
+                      if ("@Model.GroupModel" != null) {
+                          $("#ddlGroupname").val(@Model.GroupModel.GroupID);
+                    }
                 }
             });
         });
@@ -108,6 +108,8 @@
 
     </script>
 
+
+
     <script type="text/javascript">
         $(document).ready(function () {
             var table = $('#tbinformation').DataTable(
@@ -127,23 +129,25 @@
                     ],
                     "dom": 'lrtip',
                     "bLengthChange": false,
+                    "aLengthMenu": [20],
                     "ajax": {
                         "url": "../../NewsEditor/T_Information_Select",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
+
                     },
                     "columns": [
                         { "data": "No", orderable: false },
                         { "data": "TitleName", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
-                                return '<button type="button" class="btn btn-outline-light"><a href="../../NewsEditor/News_Editor/' + row.InformationID + '">編集</a></button>';
+                                return '<button type="button" class="btn btn-outline-light" ><a class="edit" href="../../NewsEditor/News_Editor/' + row.InformationID + '"  >編集</a></button>';
                             }
                         },
                         {
                             "data": "", "render": function (data, type, row) {
-                                return '<button type="button" class="btn btn-outline-danger"><a href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
+                                return '<button type="button" class="btn btn-outline-danger" ><a class="delete" href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
                             }
                         },
                     ],
@@ -207,6 +211,15 @@
         });
     </script>
 
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ("@Model.TinfoModel"!= null) {
+                if ("@Model.TinfoModel.DestinationFlag" == "2") {
+                    document.getElementById("rdocompanydesignation").checked = true;
+                }
+            }
+        });
+    </script>
 }
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
@@ -246,28 +259,62 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
+
     <style>
-       
+
         .mother-grid-inner {
             display: block !important;
             background-color: #edecec !important;
-        }  
+        }
+
         tr.even {
             background-color: #CCDDFF !important;
         }
+
         table.dataTable {
             border-collapse: collapse !important;
             border-spacing: 0;
         }
-        table.dataTable tbody th, table.dataTable tbody td {
-            padding:unset;
+
+            table.dataTable tbody th, table.dataTable tbody td {
+                padding: unset;
+            }
+
+            table.dataTable thead th, table.dataTable thead td {
+                padding: unset;
+                border-bottom: unset;
+            }
+
+        .edit {
+            color: #f8f9fa;
         }
-        table.dataTable thead th, table.dataTable thead td {
-            padding:unset;
-            border-bottom:unset;
+
+        .delete {
+            color: #dc3545;
         }
-        .btn{
-            border-radius:0px;
+
+        .btn-outline-light {
+            border-style: none;
+        }
+
+        .edit:hover {
+            color: #212529;
+            background-color: #f8f9fa;
+            border-color: #f8f9fa;
+        }
+
+        .delete:hover {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-outline-danger {
+            border-style: none;
+        }
+
+        .btn {
+            border-radius: 0px;
         }
     </style>
 
@@ -289,7 +336,7 @@
                                                 @*<input type="radio" class="custom-control-input" id="rdocompanywide" name="rdocompanywide" value="1">*@
                                                 @Html.HiddenFor(m => m.TinfoModel.ID)
                                                 @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "1", new { @checked = "true", @id = "rdbcompanywide" })
-                                                <label>全社</label>
+                                                <label style="font-weight:unset;">全社</label>
                                             </div>
                                         </div>
                                         <div class="box"></div>
@@ -299,13 +346,13 @@
                                             <div class="custom-control">
                                                 @*<input type="radio" class="custom-control-input" id="rdocompanydesignation" name="rdocompanydesignation" value="2">*@
                                                 @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "2", new { @id = "rdocompanydesignation" })
-                                                <label>会社指定</label>
+                                                <label style="font-weight:unset;">会社指定</label>
                                             </div>
                                         </div>
                                         <div class="box">
 
                                             @Html.DropDownListFor(m => m.ComModel.CompanyCD, new SelectList(Enumerable.Empty<SelectListItem>(), "CompanyCD", "CompanyName"), "--- 選択---",
-         new { @class = "comp", @id = "ddlCompanyname"  })
+         new { @class = "comp", @id = "ddlCompanyname" , @style = "width:70%;" })
 
                                         </div>
                                     </div>
@@ -314,7 +361,7 @@
                                             <div class="custom-control" style="width: 140px;">
                                                 @*<input type="radio" class="custom-control-input" id="rdogroupdesignation" name="rdogroupdesignation" value="3">*@
                                                 @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "3", new { @id = "rdogroupdesignation" })
-                                                <label>グループ指定</label>
+                                                <label style="font-weight:unset;">グループ指定</label>
                                             </div>
                                         </div>
                                         <div class="box">
@@ -357,10 +404,14 @@
                                             <div class="form-check">
                                                 @*<input type="checkbox" id="exampleCheck1">*@
                                                 @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag, true)
-                                                <label>有効</label>
+                                                <label style="font-weight:unset;">有効</label>
                                             </div>
                                         </div>
-                                        <div class="box"><div class="sair"><button type="submit" class="btn btn-success btn-lg">✔　登録</button></div></div>
+                                        <div class="box">
+                                            <div class="sair">
+                                                <button type="submit" class="btn btn-success btn-lg">✔　登録</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="boxberb">
@@ -465,11 +516,11 @@
                                 </div>
                                 <table class="tab002" id="tbinformation">
                                     <thead>
-                                        <tr>
-                                            <th class="tab002tit">No</th>
-                                            <th class="tab002tit">課題名</th>
-                                            <th class="tab002tit">&nbsp;</th>
-                                            <th class="tab002tit">&nbsp;</th>
+                                        <tr class="tab002tit">
+                                            <th class="tab002tit" style="border: 1px solid #999999;">No</th>
+                                            <th class="tab002tit" style="border: 1px solid #999999;">課題名</th>
+                                            <th class="tab002tit" style="border: 1px solid #999999;">&nbsp;</th>
+                                            <th class="tab002tit" style="border: 1px solid #999999;">&nbsp;</th>
                                         </tr>
                                     </thead>
                                 </table>
