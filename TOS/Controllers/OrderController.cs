@@ -12,8 +12,7 @@ using Order_Portal_BL;
 using Order_History_BL;
 using System.IO;
 using Group_Entry_BL;
-
-
+using Base_BL;
 
 namespace TOS.Controllers
 {
@@ -23,6 +22,7 @@ namespace TOS.Controllers
     {
         Order_HistoryBL bl = new Order_HistoryBL();
         DataTable dt = new DataTable();
+        BaseBL bbl = new BaseBL();
 
         // GET: Order_History
         public ActionResult Order_History()
@@ -114,7 +114,7 @@ namespace TOS.Controllers
         [HttpPost]
         public string  OrderHistoryMessage(string id)
         {                    
-            var msg=bl._MessageDialog(id);
+            var msg=bbl._MessageDialog(id);
                     
             return JsonConvert.SerializeObject(msg);
         }

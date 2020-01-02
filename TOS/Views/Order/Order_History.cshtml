@@ -236,8 +236,8 @@
                                     <td>
                                         <br><br><br><br><br><br>
                                         <button type="button" id="btn_cancle0" data-toggle="modal" data-target="#myModal" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
-                                        <button type="button" id="btn_cancle1" data-toggle="modal" data-target="#myModalSuccess" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
-                                        <button type="button" id="btn_cancle2" data-toggle="modal" data-target="#myModalInfo" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                        @*<button type="button" id="btn_cancle1" data-toggle="modal" data-target="#myModalSuccess" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                        <button type="button" id="btn_cancle2" data-toggle="modal" data-target="#myModalInfo" class="btn btn-dark">✖&nbsp;発注キャンセル</button>*@
 
                                         <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
 
@@ -299,8 +299,6 @@
 
     </div>
 </div>
-
-<!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
@@ -309,7 +307,7 @@
             <div class="modal-header">
 
                 @*<h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>*@
-                <img src="~/images/question.png"style="width:26px;height:26px;" /> <h4 class="modal-title"  style="color:red;"> </h4>
+                <img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>
             </div>
 
             <div class="modal-footer">
@@ -321,51 +319,12 @@
     </div>
 </div>
 
-<div class="modal fade" id="myModalSuccess" role="dialog">
-    <div class="modal-dialog">
+@RenderPage("~/Views/CommonView/Common_View.cshtml");
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-
-                <img src="~/images/SuccessImg.jpg" style="width:26px;height:26px;" />   <h4 class="modal-title" style="color:forestgreen;"> </h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:forestgreen;">閉じる</button>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-<div class="modal fade" id="myModalInfo" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-
-                <img src="~/images/info.jpg" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:#003492;"></h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:#003492;">閉じる</button>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-
-@*</div>*@
 <!-- 2'nd table script-->
 
 <style>
-    .modal-header img{
-        display:inline-block;
-    }
-    .modal-header h4{
-        display:inline-block
-    }
+  
 
     table.dataTable thead td {
         padding: 8px 10px;
@@ -406,8 +365,8 @@
 
 <script>
     $(document).ready(function () {
-        $("#btn_cancle1").hide();
-        $("#btn_cancle2").hide();
+        //$("#btn_cancle1").hide();
+        //$("#btn_cancle2").hide();
         $("#btn_cancle0").hide();
         FillGrid_1();
         FillGrid_2();
@@ -654,7 +613,7 @@
         document.getElementById('MakerItemCD_6').value = "";
         document.getElementById('MakerItemCD_7').value = "";
         document.getElementById('MakerItemCD_8').value = "";
-        //RefreshFirstTable();
+        
         $("#Order_First").hide();
 
         RefreshSecondTable();
@@ -726,7 +685,8 @@
                     var Q = "Q";
                     var K = "1001";
                     var M = "Message2";
-                    Successmessage(Q,K,M);
+                    Successmessage(Q, K, M);
+                
                     jQuery('input:checkbox:checked').parents("tr").remove();
                   
                     RefreshSecondTable();
@@ -740,33 +700,8 @@
         });
 
     }
-    function Successmessage(t,k,m) {
-        $.ajax({
-            type: 'POST',
-            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
-            dataType: 'json',
-            success: function (data) {
-                $('.modal-title').text(data);
-
-                $("#btn_cancle1").click();
-
-            }
-        }); 
-    }
-   
-    function Infomessage(t,k,m) {
-        $.ajax({
-            type: 'POST',
-            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
-            dataType: 'json',
-            success: function (data) {
-                $('.modal-title').text(data);
-
-                $("#btn_cancle2").click();
-
-            }
-        }); 
-    }
+    
+  
     function Confrimmessage(t,k,m) {
         $.ajax({
             type: 'POST',
