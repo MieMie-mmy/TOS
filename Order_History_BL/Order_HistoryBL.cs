@@ -45,7 +45,7 @@ namespace Order_History_BL
                 prms[1] = new SqlParameter("@id", SqlDbType.VarChar) { Value = DBNull.Value };
             }
             else {
-                prms[1] = new SqlParameter("@id", SqlDbType.VarChar) { Value = data.id };
+                prms[1] = new SqlParameter("@id", SqlDbType.VarChar) { Value = (data.id).Trim() };
             }
             if (data.o_f == null)
             {
@@ -86,7 +86,7 @@ namespace Order_History_BL
             }
             else
             {
-                prms[6] = new SqlParameter("@m1", SqlDbType.VarChar) { Value = data.m1 };
+                prms[6] = new SqlParameter("@m1", SqlDbType.VarChar) { Value = (data.m1).Trim() };
             }
             if (data.m2 == null)
             {
@@ -94,7 +94,7 @@ namespace Order_History_BL
             }
             else
             {
-                prms[7] = new SqlParameter("@m2", SqlDbType.VarChar) { Value = data.m2 };
+                prms[7] = new SqlParameter("@m2", SqlDbType.VarChar) { Value = (data.m2).Trim() };
             }
             if (data.m3 == null)
             {
@@ -102,7 +102,7 @@ namespace Order_History_BL
             }
             else
             {
-                prms[8] = new SqlParameter("@m3", SqlDbType.VarChar) { Value = data.m3 };
+                prms[8] = new SqlParameter("@m3", SqlDbType.VarChar) { Value = (data.m3).Trim() };
             }
             if (data.m4 == null)
             {
@@ -110,7 +110,7 @@ namespace Order_History_BL
             }
             else
             {
-                prms[9] = new SqlParameter("@m4", SqlDbType.VarChar) { Value = data.m4 };
+                prms[9] = new SqlParameter("@m4", SqlDbType.VarChar) { Value = (data.m4).Trim() };
             }
             if (data.m5 == null)
             {
@@ -118,7 +118,7 @@ namespace Order_History_BL
             }
             else
             {
-                prms[10] = new SqlParameter("@m5", SqlDbType.VarChar) { Value = data.m5 };
+                prms[10] = new SqlParameter("@m5", SqlDbType.VarChar) { Value = (data.m5).Trim() };
             }
             if (data.m6 == null)
             {
@@ -126,7 +126,7 @@ namespace Order_History_BL
             }
             else
             {
-                prms[11] = new SqlParameter("@m6", SqlDbType.VarChar) { Value = data.m6 };
+                prms[11] = new SqlParameter("@m6", SqlDbType.VarChar) { Value = (data.m6).Trim() };
             }
             if (data.m7 == null)
             {
@@ -134,7 +134,7 @@ namespace Order_History_BL
             }
             else
             {
-                prms[12] = new SqlParameter("@m7", SqlDbType.VarChar) { Value = data.m7 };
+                prms[12] = new SqlParameter("@m7", SqlDbType.VarChar) { Value = (data.m7).Trim() };
             }
             if (data.m8 == null)
             {
@@ -142,7 +142,7 @@ namespace Order_History_BL
             }
             else
             {
-                prms[13] = new SqlParameter("@m8", SqlDbType.VarChar) { Value = data.m8 };
+                prms[13] = new SqlParameter("@m8", SqlDbType.VarChar) { Value = (data.m8).Trim() };
             }
 
 

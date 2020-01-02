@@ -78,7 +78,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>発注番号</td>
-                                                    <td> <input type="text" id="txt_orderId" class="form-control" placeholder=""></td>
+                                                    <td> <input type="text" id="txt_orderId" onkeypress="return ValidateUsernameOnly(event);" class="form-control" placeholder=""></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -202,27 +202,27 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td class="mekabantit t30">1</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                     <td class="mekabantit t30">2</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit">3</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                     <td class="mekabantit">4</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit">5</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                     <td class="mekabantit">6</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit" class="tab002tit">7</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                     <td class="mekabantit">8</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -621,7 +621,16 @@
 
     }
 
-
+    function ValidateUsernameOnly(evt) {
+        evt = (evt) ? evt : event;
+        var characterCode = (evt.charCode) ? evt.charCode : ((evt.keyCode) ? evt.keyCode :
+            ((evt.which) ? evt.which : 0));
+        if (characterCode > 31 && (characterCode < 65 || characterCode > 90) && (characterCode < 45 || characterCode > 46) &&
+            (characterCode < 97 || characterCode > 122) && (characterCode < 48 || characterCode > 57)) {
+            return false;
+        }
+        return true;
+    }
 
 
 </script>
