@@ -78,7 +78,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>発注番号</td>
-                                                    <td> <input type="text" id="txt_orderId" class="form-control" placeholder=""></td>
+                                                    <td> <input type="text" id="txt_orderId" onkeypress="return ValidateSpecialOnly(event);" class="form-control" placeholder=""></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -202,27 +202,27 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td class="mekabantit t30">1</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                     <td class="mekabantit t30">2</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit">3</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                     <td class="mekabantit">4</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit">5</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                     <td class="mekabantit">6</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit" class="tab002tit">7</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                     <td class="mekabantit">8</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -236,8 +236,8 @@
                                     <td>
                                         <br><br><br><br><br><br>
                                         <button type="button" id="btn_cancle0" data-toggle="modal" data-target="#myModal" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
-                                        <button type="button" id="btn_cancle1" data-toggle="modal" data-target="#myModalSuccess" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
-                                        <button type="button" id="btn_cancle2" data-toggle="modal" data-target="#myModalInfo" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                        @*<button type="button" id="btn_cancle1" data-toggle="modal" data-target="#myModalSuccess" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                        <button type="button" id="btn_cancle2" data-toggle="modal" data-target="#myModalInfo" class="btn btn-dark">✖&nbsp;発注キャンセル</button>*@
 
                                         <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
 
@@ -299,8 +299,6 @@
 
     </div>
 </div>
-
-<!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
@@ -309,7 +307,7 @@
             <div class="modal-header">
 
                 @*<h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>*@
-                <img src="~/images/question.png"style="width:26px;height:26px;" /> <h4 class="modal-title"  style="color:red;"> </h4>
+                <img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>
             </div>
 
             <div class="modal-footer">
@@ -321,51 +319,12 @@
     </div>
 </div>
 
-<div class="modal fade" id="myModalSuccess" role="dialog">
-    <div class="modal-dialog">
+@RenderPage("~/Views/CommonView/Common_View.cshtml");
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-
-                <img src="~/images/SuccessImg.jpg" style="width:26px;height:26px;" />   <h4 class="modal-title" style="color:forestgreen;"> </h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:forestgreen;">閉じる</button>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-<div class="modal fade" id="myModalInfo" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-
-                <img src="~/images/info.jpg" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:#003492;"></h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:#003492;">閉じる</button>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-
-@*</div>*@
 <!-- 2'nd table script-->
 
 <style>
-    .modal-header img{
-        display:inline-block;
-    }
-    .modal-header h4{
-        display:inline-block
-    }
+  
 
     table.dataTable thead td {
         padding: 8px 10px;
@@ -406,8 +365,8 @@
 
 <script>
     $(document).ready(function () {
-        $("#btn_cancle1").hide();
-        $("#btn_cancle2").hide();
+        //$("#btn_cancle1").hide();
+        //$("#btn_cancle2").hide();
         $("#btn_cancle0").hide();
         FillGrid_1();
         FillGrid_2();
@@ -490,7 +449,9 @@
                 "destroy": true,
                 //responsive: false,
                 "scrollX": true,
-                //"scrollY": true,
+                //"scrollY": true
+                "paging": false,
+                "info": false,
                 "dom": 'lrtip',
                 "bLengthChange": false,
                 "data": data,
@@ -541,7 +502,7 @@
             {
                 "destroy": true,
                 //responsive: false,
-                "scrollX": true,
+                "scroll": false,
                 "dom": 'lrtip',
                 "bLengthChange": false,
 
@@ -621,7 +582,7 @@
 
     }
 
-
+    
 
 
 </script>
@@ -643,8 +604,8 @@
         document.getElementById('MakerItemCD_6').value = "";
         document.getElementById('MakerItemCD_7').value = "";
         document.getElementById('MakerItemCD_8').value = "";
-        RefreshFirstTable();
-
+        
+        $("#Order_First").hide();
 
         RefreshSecondTable();
 
@@ -715,7 +676,8 @@
                     var Q = "Q";
                     var K = "1001";
                     var M = "Message2";
-                    Successmessage(Q,K,M);
+                    Successmessage(Q, K, M);
+                
                     jQuery('input:checkbox:checked').parents("tr").remove();
                   
                     RefreshSecondTable();
@@ -729,33 +691,8 @@
         });
 
     }
-    function Successmessage(t,k,m) {
-        $.ajax({
-            type: 'POST',
-            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
-            dataType: 'json',
-            success: function (data) {
-                $('.modal-title').text(data);
-
-                $("#btn_cancle1").click();
-
-            }
-        }); 
-    }
-   
-    function Infomessage(t,k,m) {
-        $.ajax({
-            type: 'POST',
-            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
-            dataType: 'json',
-            success: function (data) {
-                $('.modal-title').text(data);
-
-                $("#btn_cancle2").click();
-
-            }
-        }); 
-    }
+    
+  
     function Confrimmessage(t,k,m) {
         $.ajax({
             type: 'POST',
@@ -815,34 +752,41 @@
         var MakerItemCD_6 = document.getElementById('MakerItemCD_6').value;
         var MakerItemCD_7 = document.getElementById('MakerItemCD_7').value;
         var MakerItemCD_8 = document.getElementById('MakerItemCD_8').value;
-        //check_makeritemcd(MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
+        check_makeritemcd(MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
         FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
-    //function check_makeritemcd(m1,m2,m3,m4,m5,m6,m7,m8)
-    //{
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: "../Order/Check_MakerItemCD",
-    //        data: {
-    //            m1: m1,
-    //            m2: m2,
-    //            m3: m3,
-    //            m4: m4,
-    //            m5: m5,
-    //            m6: m6,
-    //            m7: m7,
-    //            m8: m8
-    //        },
-    //        dataType: 'json',
-    //        success: function (data) {
-    //            $('.modal-title').text(data);
+    function check_makeritemcd(m1,m2,m3,m4,m5,m6,m7,m8)
+    {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/Check_MakerItemCD",
+            data: {
+                m1: m1,
+                m2: m2,
+                m3: m3,
+                m4: m4,
+                m5: m5,
+                m6: m6,
+                m7: m7,
+                m8: m8
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data != "")
+                {
+                  
+                    $('.modal-title').text("This MakerItemCD (" + data + ") not exit.");
 
-    //            $("#btn_cancle0").click();
+                    $("#btn_cancle2").click();
+                }
+                
+               
+               
 
-    //        }
-    //    });  
-    //}
+            }
+        });  
+    }
 
 </script>
 
