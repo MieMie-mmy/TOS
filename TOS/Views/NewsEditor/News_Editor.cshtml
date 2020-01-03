@@ -30,6 +30,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+   
+
 }
 
 @section Scripts{
@@ -149,9 +153,9 @@
                         {
                             "data": "", "render": function (data, type, row) {
                                 //return '<button type="button" id="btnDelete" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal"><a class="delete" href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
-                                return '<button type="button" id="btnDelete" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal">削除</button>';
+                                return '<button type="button" id="btndel"  class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal" data-id="' + row.InformationID + '")">削除</button>';
                             }
-                        },
+                        }
                     ],
                 }
             );
@@ -206,6 +210,11 @@
                 }
             });
         }
+
+        function Delete() {
+           
+        }
+       
     </script>
 
     <script type="text/javascript">
@@ -251,7 +260,6 @@
             });
         });
     </script>
-
 
     @*<script type="text/javascript">
             $(document).ready(function () {
@@ -549,7 +557,7 @@
                                     expandTextarea('txtarea');</script>
                             </div>
                             <div class="newr col-md-7">
-                                <div class="float-left"><h6>お知らせ一覧</h6></div><div class="float-right">
+                                <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6></div><div class="float-right">
 
 
                                     <div class="btn-group">
@@ -589,22 +597,24 @@
         <div class="modal-content">
             <div class="modal-header">
 
-                @*<h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>*@
-                <img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>
+                <h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
+                @*<img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>*@
             </div>
+           
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
-                <button type="button" class="btn btn-default" onclick="_CancleRow()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
-
+                <button type="button" class="btn btn-default" id="btnconfirm" onclick="Delete()"  data-dismiss="modal"  style="color:white;background-color:red">はい</button>
             </div>
         </div>
 
     </div>
 </div>
 
+
 <!-- script-for sticky-nav -->
 <script>
+   
     // define variables
     var nativePicker = document.querySelector('.nativeDatePicker');
     var fallbackPicker = document.querySelector('.fallbackDatePicker');
