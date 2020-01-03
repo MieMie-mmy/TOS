@@ -4,33 +4,38 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="TOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.M_Brand' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+    <Schema Namespace="TOSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="L_Log">
+          <Key>
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Name="SEQ" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="OperateDate" Type="date" Nullable="false" />
+          <Property Name="OperateTime" Type="time" Precision="7" Nullable="false" />
+          <Property Name="CompanyCD" Type="varchar" MaxLength="8" />
+          <Property Name="Processed_Program" Type="varchar" MaxLength="8" />
+          <Property Name="AccessPC" Type="varchar" MaxLength="50" />
+          <Property Name="OperateMode" Type="varchar" MaxLength="10" />
+          <Property Name="KeyItem" Type="varchar" MaxLength="100" />
+        </EntityType>
         <EntityType Name="M_Brand">
           <Key>
             <PropertyRef Name="BrandCD" />
-            <PropertyRef Name="BrandName" />
           </Key>
-          <Property Name="BrandCD" Type="int" Nullable="false" />
-          <Property Name="BrandName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="BrandCD" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="BrandName" Type="varchar" MaxLength="50" />
           <Property Name="InsertOperator" Type="varchar" MaxLength="10" />
           <Property Name="InsertDateTime" Type="datetime" />
           <Property Name="UpdateOperator" Type="varchar" MaxLength="10" />
           <Property Name="UpdateDateTime" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.M_Company' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="M_Company">
           <Key>
             <PropertyRef Name="CompanyCD" />
-            <PropertyRef Name="Password" />
-            <PropertyRef Name="UserRole" />
-            <PropertyRef Name="RankingFlg" />
           </Key>
           <Property Name="CompanyCD" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="CompanyName" Type="varchar" MaxLength="50" />
-          <Property Name="Password" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Password" Type="varchar" MaxLength="20" />
           <Property Name="UserRole" Type="tinyint" Nullable="false" />
           <Property Name="ShortName" Type="varchar" MaxLength="30" />
           <Property Name="ZipCD1" Type="varchar" MaxLength="3" />
@@ -39,7 +44,7 @@ warning 6002: The table/view 'TOS.dbo.M_Company' does not have a primary key def
           <Property Name="Address2" Type="varchar" MaxLength="100" />
           <Property Name="TelephoneNo" Type="varchar" MaxLength="15" />
           <Property Name="FaxNo" Type="varchar" MaxLength="15" />
-          <Property Name="PresidentName" Type="varchar" MaxLength="16" />
+          <Property Name="PresidentName" Type="varchar" MaxLength="20" />
           <Property Name="RankingFlg" Type="tinyint" Nullable="false" />
           <Property Name="InsertOperator" Type="varchar" MaxLength="50" />
           <Property Name="InsertDateTime" Type="datetime" />
@@ -47,26 +52,22 @@ warning 6002: The table/view 'TOS.dbo.M_Company' does not have a primary key def
           <Property Name="UpdateDateTime" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.M_CompanyBrand' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6013: The table/view 'TOS.dbo.M_CompanyBrand' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="M_CompanyBrand">
-          <Key>
-            <PropertyRef Name="CompanyCD" />
-          </Key>
-          <Property Name="CompanyCD" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="CompanyCD" Type="varchar" MaxLength="8" />
           <Property Name="BrandCD" Type="int" />
           <Property Name="InsertOperator" Type="varchar" MaxLength="10" />
           <Property Name="InsertDateTime" Type="datetime" />
           <Property Name="UpdateOperator" Type="varchar" MaxLength="10" />
           <Property Name="UpdateDateTime" Type="datetime" />
-        </EntityType>
+        </EntityType>-->
         <!--Errors Found During Generation:
 warning 6002: The table/view 'TOS.dbo.M_CompanyShipping' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="M_CompanyShipping">
           <Key>
-            <PropertyRef Name="CompanyCD" />
             <PropertyRef Name="ShippingID" />
           </Key>
-          <Property Name="CompanyCD" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="CompanyCD" Type="varchar" MaxLength="8" />
           <Property Name="ShippingID" Type="int" Nullable="false" />
           <Property Name="ShippingName" Type="varchar" MaxLength="50" />
           <Property Name="ZipCD1" Type="varchar" MaxLength="3" />
@@ -81,27 +82,23 @@ warning 6002: The table/view 'TOS.dbo.M_CompanyShipping' does not have a primary
           <Property Name="UpdateDateTime" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.M_CompanyTag' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+warning 6013: The table/view 'TOS.dbo.M_CompanyTag' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
         <EntityType Name="M_CompanyTag">
-          <Key>
-            <PropertyRef Name="CompanyCD" />
-            <PropertyRef Name="Tag" />
-          </Key>
-          <Property Name="CompanyCD" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Tag" Type="nchar" MaxLength="50" Nullable="false" />
-          <Property Name="InsertOperator" Type="nchar" MaxLength="50" />
+          <Property Name="CompanyCD" Type="varchar" MaxLength="8" />
+          <Property Name="Tag" Type="nchar" MaxLength="100" />
+          <Property Name="InsertOperator" Type="nchar" MaxLength="100" />
           <Property Name="InsertDateTime" Type="datetime" />
           <Property Name="UpdateOperator" Type="varchar" MaxLength="10" />
           <Property Name="UpdateDateTime" Type="datetime" />
-        </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.M_Group' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        </EntityType>-->
         <EntityType Name="M_Group">
           <Key>
             <PropertyRef Name="GroupID" />
           </Key>
           <Property Name="GroupID" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="GroupName" Type="varchar" MaxLength="50" />
+          <Property Name="GroupInfoFlg" Type="tinyint" Nullable="false" />
+          <Property Name="GroupIDInfo" Type="varchar" MaxLength="800" />
           <Property Name="InsertOperator" Type="varchar" MaxLength="10" />
           <Property Name="InsertDateTime" Type="datetime" />
           <Property Name="UpdateOperator" Type="varchar" MaxLength="10" />
@@ -121,22 +118,14 @@ warning 6002: The table/view 'TOS.dbo.M_GroupList' does not have a primary key d
           <Property Name="UpdateOperator" Type="varchar" MaxLength="10" />
           <Property Name="UpdateDateTime" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.M_Item' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="M_Item">
           <Key>
             <PropertyRef Name="MakerItemAdminCD" />
-            <PropertyRef Name="ItemName" />
-            <PropertyRef Name="BrandCD" />
-            <PropertyRef Name="ListPrice(WithoutTax)" />
-            <PropertyRef Name="ListPrice(InTax)" />
-            <PropertyRef Name="SalePrice(WithoutTax)" />
-            <PropertyRef Name="SalePrice(InTax)" />
           </Key>
           <Property Name="MakerItemAdminCD" Type="int" Nullable="false" />
           <Property Name="MakerItemCD" Type="varchar" MaxLength="60" />
-          <Property Name="ItemName" Type="varchar" MaxLength="300" Nullable="false" />
-          <Property Name="BrandCD" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="300" />
+          <Property Name="BrandCD" Type="varchar" MaxLength="20" />
           <Property Name="ListPrice(WithoutTax)" Type="money" Nullable="false" />
           <Property Name="ListPrice(InTax)" Type="money" Nullable="false" />
           <Property Name="SalePrice(WithoutTax)" Type="money" Nullable="false" />
@@ -145,7 +134,7 @@ warning 6002: The table/view 'TOS.dbo.M_Item' does not have a primary key define
           <Property Name="NormalClassName" Type="varchar" MaxLength="20" />
           <Property Name="AdvenceClassName" Type="varchar" MaxLength="20" />
           <Property Name="Lot" Type="int" />
-          <Property Name="ImageName" Type="int" />
+          <Property Name="ImageName" Type="varchar" MaxLength="40" />
           <Property Name="Year" Type="int" />
           <Property Name="Season" Type="varchar" MaxLength="6" />
           <Property Name="CatelogNo" Type="varchar" MaxLength="20" />
@@ -154,20 +143,15 @@ warning 6002: The table/view 'TOS.dbo.M_Item' does not have a primary key define
           <Property Name="UpdateOperator" Type="varchar" MaxLength="10" />
           <Property Name="UpdateDateTime" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.M_JobTimeable' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="M_JobTimeable">
           <Key>
             <PropertyRef Name="CompanyCD" />
-            <PropertyRef Name="OrderAblePeriod" />
-            <PropertyRef Name="CancelAblePeriod" />
-            <PropertyRef Name="ExceptionAboutPeriod" />
           </Key>
           <Property Name="CompanyCD" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="OrderAblePeriod" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="CancelAblePeriod" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="ExceptionAboutPeriod" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="InsertOperator" Type="nchar" MaxLength="10" />
+          <Property Name="OrderAblePeriod" Type="varchar" MaxLength="30" />
+          <Property Name="CancelAblePeriod" Type="varchar" MaxLength="30" />
+          <Property Name="ExceptionAboutPeriod" Type="varchar" MaxLength="30" />
+          <Property Name="InsertOperator" Type="nchar" MaxLength="20" />
           <Property Name="InsertDateTime" Type="datetime" />
           <Property Name="UpdateOperator" Type="varchar" MaxLength="10" />
           <Property Name="UpdateDateTime" Type="datetime" />
@@ -176,10 +160,9 @@ warning 6002: The table/view 'TOS.dbo.M_JobTimeable' does not have a primary key
 warning 6002: The table/view 'TOS.dbo.M_MultiPorpose' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="M_MultiPorpose">
           <Key>
-            <PropertyRef Name="ID" />
             <PropertyRef Name="KEY" />
           </Key>
-          <Property Name="ID" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="ID" Type="varchar" MaxLength="4" />
           <Property Name="KEY" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="IDName" Type="varchar" MaxLength="20" />
           <Property Name="text1" Type="varchar" MaxLength="50" />
@@ -187,7 +170,7 @@ warning 6002: The table/view 'TOS.dbo.M_MultiPorpose' does not have a primary ke
           <Property Name="text3" Type="varchar" MaxLength="50" />
           <Property Name="text4" Type="varchar" MaxLength="50" />
           <Property Name="text5" Type="varchar" MaxLength="50" />
-          <Property Name="Num1" Type="int" />
+          <Property Name="Num1" Type="decimal" Precision="18" Scale="2" />
           <Property Name="Num2" Type="int" />
           <Property Name="Num3" Type="int" />
           <Property Name="Num4" Type="int" />
@@ -200,13 +183,9 @@ warning 6002: The table/view 'TOS.dbo.M_MultiPorpose' does not have a primary ke
           <Property Name="Updater" Type="varchar" MaxLength="8" />
           <Property Name="UpdatedDateTime" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.M_Price' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="M_Price">
           <Key>
             <PropertyRef Name="MakerItemAdminCD" />
-            <PropertyRef Name="RankingFlg" />
-            <PropertyRef Name="ImageName" />
           </Key>
           <Property Name="MakerItemAdminCD" Type="int" Nullable="false" />
           <Property Name="RankingFlg" Type="tinyint" Nullable="false" />
@@ -217,22 +196,16 @@ warning 6002: The table/view 'TOS.dbo.M_Price' does not have a primary key defin
           <Property Name="UpdateOperator" Type="varchar" MaxLength="10" />
           <Property Name="UpdateDateTime" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.M_SKU' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="M_SKU">
           <Key>
             <PropertyRef Name="AdminCD" />
-            <PropertyRef Name="MakerItemAdminCD" />
-            <PropertyRef Name="SizeName" />
-            <PropertyRef Name="ColorName" />
-            <PropertyRef Name="ZaikoSu" />
           </Key>
           <Property Name="AdminCD" Type="int" Nullable="false" />
           <Property Name="MakerItemAdminCD" Type="int" Nullable="false" />
           <Property Name="SKUCD" Type="varchar" MaxLength="60" />
           <Property Name="JANCD" Type="varchar" MaxLength="13" />
-          <Property Name="SizeName" Type="varchar" MaxLength="30" Nullable="false" />
-          <Property Name="ColorName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="SizeName" Type="varchar" MaxLength="30" />
+          <Property Name="ColorName" Type="varchar" MaxLength="30" />
           <Property Name="ZaikoSu" Type="int" Nullable="false" />
           <Property Name="InsertOperator" Type="varchar" MaxLength="10" />
           <Property Name="InsertDateTime" Type="datetime" />
@@ -243,10 +216,9 @@ warning 6002: The table/view 'TOS.dbo.M_SKU' does not have a primary key defined
 warning 6002: The table/view 'TOS.dbo.Message' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="Message">
           <Key>
-            <PropertyRef Name="ID" />
             <PropertyRef Name="KEY" />
           </Key>
-          <Property Name="ID" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="ID" Type="varchar" MaxLength="1" />
           <Property Name="KEY" Type="varchar" MaxLength="4" Nullable="false" />
           <Property Name="Message1" Type="varchar" MaxLength="100" />
           <Property Name="Message2" Type="varchar" MaxLength="100" />
@@ -259,19 +231,11 @@ warning 6002: The table/view 'TOS.dbo.Message' does not have a primary key defin
           <Property Name="Updater" Type="varchar" MaxLength="8" />
           <Property Name="UpdatedDate" Type="date" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.T_Information' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="T_Information">
           <Key>
             <PropertyRef Name="InformationID" />
-            <PropertyRef Name="DestinationFlg" />
-            <PropertyRef Name="EffectFlg" />
-            <PropertyRef Name="InformationType" />
-            <PropertyRef Name="DisplayStartDate" />
-            <PropertyRef Name="DisplayEndDate" />
-            <PropertyRef Name="Date" />
           </Key>
-          <Property Name="InformationID" Type="int" Nullable="false" />
+          <Property Name="InformationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TitleName" Type="varchar" MaxLength="150" />
           <Property Name="DestinationFlg" Type="tinyint" Nullable="false" />
           <Property Name="EffectFlg" Type="tinyint" Nullable="false" />
@@ -283,7 +247,7 @@ warning 6002: The table/view 'TOS.dbo.T_Information' does not have a primary key
           <Property Name="AttachedFile2" Type="varchar" MaxLength="70" />
           <Property Name="AttachedFile3" Type="varchar" MaxLength="70" />
           <Property Name="AttachedFile4" Type="varchar" MaxLength="70" />
-          <Property Name="DetailInformation" Type="varchar" MaxLength="5000" />
+          <Property Name="DetailInformation" Type="varchar" MaxLength="4000" />
           <Property Name="InsertOperator" Type="varchar" MaxLength="10" />
           <Property Name="InsertDateTime" Type="datetime" />
           <Property Name="UpdateOperator" Type="varchar" MaxLength="10" />
@@ -294,23 +258,17 @@ warning 6002: The table/view 'TOS.dbo.T_InformationDestination' does not have a 
         <EntityType Name="T_InformationDestination">
           <Key>
             <PropertyRef Name="InformationID" />
-            <PropertyRef Name="DestinationID" />
           </Key>
           <Property Name="InformationID" Type="int" Nullable="false" />
-          <Property Name="DestinationID" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="DestinationID" Type="varchar" MaxLength="8" />
           <Property Name="InsertOperator" Type="varchar" MaxLength="10" />
           <Property Name="InsertDateTime" Type="datetime" />
           <Property Name="UpdateOperator" Type="varchar" MaxLength="10" />
           <Property Name="UpdateDateTime" Type="datetime" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.T_Inventory' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="T_Inventory">
           <Key>
             <PropertyRef Name="AdminCD" />
-            <PropertyRef Name="ZaikoSu" />
-            <PropertyRef Name="PlanInstockCount" />
-            <PropertyRef Name="PlanInstockDate" />
           </Key>
           <Property Name="AdminCD" Type="int" Nullable="false" />
           <Property Name="ZaikoSu" Type="int" Nullable="false" />
@@ -333,12 +291,7 @@ warning 6002: The table/view 'TOS.dbo.T_OrderDetail' does not have a primary key
             <PropertyRef Name="SalePrice" />
             <PropertyRef Name="TotalAmount" />
             <PropertyRef Name="OrderStatus" />
-            <PropertyRef Name="DeliveryFlg" />
-            <PropertyRef Name="Shippingfee" />
-            <PropertyRef Name="DeliveryCompanyCD" />
-            <PropertyRef Name="Memo" />
             <PropertyRef Name="AvailableShippingDate" />
-            <PropertyRef Name="ShippingDate" />
           </Key>
           <Property Name="OrderID" Type="varchar" MaxLength="13" Nullable="false" />
           <Property Name="AdminCD" Type="int" Nullable="false" />
@@ -348,91 +301,54 @@ warning 6002: The table/view 'TOS.dbo.T_OrderDetail' does not have a primary key
           <Property Name="SalePrice" Type="money" Nullable="false" />
           <Property Name="TotalAmount" Type="money" Nullable="false" />
           <Property Name="OrderStatus" Type="tinyint" Nullable="false" />
-          <Property Name="DeliveryFlg" Type="tinyint" Nullable="false" />
-          <Property Name="Shippingfee" Type="money" Nullable="false" />
-          <Property Name="DeliveryCompanyCD" Type="varchar" MaxLength="8" Nullable="false" />
-          <Property Name="Memo" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="DeliveryFlg" Type="tinyint" />
+          <Property Name="Shippingfee" Type="money" />
+          <Property Name="DeliveryCompanyCD" Type="varchar" MaxLength="8" />
+          <Property Name="Memo" Type="varchar" MaxLength="500" />
           <Property Name="AvailableShippingDate" Type="date" Nullable="false" />
-          <Property Name="ShippingDate" Type="date" Nullable="false" />
+          <Property Name="ShippingDate" Type="date" />
+          <Property Name="CustomerCD" Type="varchar" MaxLength="8" />
+          <Property Name="OrderDateTime" Type="datetime" />
+          <Property Name="UpdateOperator" Type="varchar" MaxLength="8" />
+          <Property Name="UpdateDateTime" Type="datetime" />
+        </EntityType>
+        <EntityType Name="T_OrderHeader">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="ShippingID" Type="int" Nullable="false" />
+          <Property Name="ShippingName" Type="varchar" MaxLength="50" />
+          <Property Name="ZipCD1" Type="varchar" MaxLength="3" />
+          <Property Name="ZipCD2" Type="varchar" MaxLength="4" />
+          <Property Name="Address1" Type="varchar" MaxLength="100" />
+          <Property Name="Address2" Type="varchar" MaxLength="100" />
+          <Property Name="TelephoneNO" Type="varchar" MaxLength="15" />
+          <Property Name="TotalAmount" Type="money" Nullable="false" />
+          <Property Name="ConsumptionTax" Type="money" Nullable="false" />
+          <Property Name="Memo" Type="varchar" MaxLength="500" />
           <Property Name="CustomerCD" Type="varchar" MaxLength="8" />
           <Property Name="OrderDateTime" Type="datetime" />
           <Property Name="UpdateOperator" Type="varchar" MaxLength="8" />
           <Property Name="UpdateDateTime" Type="datetime" />
         </EntityType>
         <!--Errors Found During Generation:
-warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
-        <EntityType Name="T_OrderHeader">
-          <Key>
-            <PropertyRef Name="OrderID" />
-            <PropertyRef Name="DestinationID" />
-            <PropertyRef Name="DestinationName" />
-            <PropertyRef Name="ZipCD1" />
-            <PropertyRef Name="ZipCD2" />
-            <PropertyRef Name="Address1" />
-            <PropertyRef Name="Address2" />
-            <PropertyRef Name="TelephoneNO" />
-            <PropertyRef Name="TotalAmount" />
-            <PropertyRef Name="ConsumptionTax" />
-            <PropertyRef Name="Memo" />
-          </Key>
-          <Property Name="OrderID" Type="varchar" MaxLength="13" Nullable="false" />
-          <Property Name="DestinationID" Type="int" Nullable="false" />
-          <Property Name="DestinationName" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="ZipCD1" Type="varchar" MaxLength="3" Nullable="false" />
-          <Property Name="ZipCD2" Type="varchar" MaxLength="4" Nullable="false" />
-          <Property Name="Address1" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="Address2" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="TelephoneNO" Type="varchar" MaxLength="15" Nullable="false" />
-          <Property Name="TotalAmount" Type="money" Nullable="false" />
-          <Property Name="ConsumptionTax" Type="money" Nullable="false" />
-          <Property Name="Memo" Type="varchar" MaxLength="500" Nullable="false" />
-          <Property Name="CustomerCD" Type="varchar" MaxLength="8" />
-          <Property Name="OrderDateTime" Type="datetime" />
-          <Property Name="UpdateOperator" Type="varchar" MaxLength="8" />
-          <Property Name="UpdateDateTime" Type="datetime" />
-        </EntityType>
+warning 6013: The table/view 'TOS.dbo.test1' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="test1">
+          <Property Name="test" Type="varchar" MaxLength="10" />
+        </EntityType>-->
         <EntityContainer Name="TOSModelStoreContainer">
-          <EntitySet Name="M_Brand" EntityType="Self.M_Brand" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [M_Brand].[BrandCD] AS [BrandCD], 
-    [M_Brand].[BrandName] AS [BrandName], 
-    [M_Brand].[InsertOperator] AS [InsertOperator], 
-    [M_Brand].[InsertDateTime] AS [InsertDateTime], 
-    [M_Brand].[UpdateOperator] AS [UpdateOperator], 
-    [M_Brand].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[M_Brand] AS [M_Brand]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="M_Company" EntityType="Self.M_Company" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [M_Company].[CompanyCD] AS [CompanyCD], 
-    [M_Company].[CompanyName] AS [CompanyName], 
-    [M_Company].[Password] AS [Password], 
-    [M_Company].[UserRole] AS [UserRole], 
-    [M_Company].[ShortName] AS [ShortName], 
-    [M_Company].[ZipCD1] AS [ZipCD1], 
-    [M_Company].[ZipCD2] AS [ZipCD2], 
-    [M_Company].[Address1] AS [Address1], 
-    [M_Company].[Address2] AS [Address2], 
-    [M_Company].[TelephoneNo] AS [TelephoneNo], 
-    [M_Company].[FaxNo] AS [FaxNo], 
-    [M_Company].[PresidentName] AS [PresidentName], 
-    [M_Company].[RankingFlg] AS [RankingFlg], 
-    [M_Company].[InsertOperator] AS [InsertOperator], 
-    [M_Company].[InsertDateTime] AS [InsertDateTime], 
-    [M_Company].[UpdateOperator] AS [UpdateOperator], 
-    [M_Company].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[M_Company] AS [M_Company]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="M_CompanyBrand" EntityType="Self.M_CompanyBrand" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [M_CompanyBrand].[CompanyCD] AS [CompanyCD], 
-    [M_CompanyBrand].[BrandCD] AS [BrandCD], 
-    [M_CompanyBrand].[InsertOperator] AS [InsertOperator], 
-    [M_CompanyBrand].[InsertDateTime] AS [InsertDateTime], 
-    [M_CompanyBrand].[UpdateOperator] AS [UpdateOperator], 
-    [M_CompanyBrand].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[M_CompanyBrand] AS [M_CompanyBrand]</DefiningQuery>
-          </EntitySet>
+          <EntitySet Name="L_Log" EntityType="Self.L_Log" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Brand" EntityType="Self.M_Brand" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Company" EntityType="Self.M_Company" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Group" EntityType="Self.M_Group" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Item" EntityType="Self.M_Item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_JobTimeable" EntityType="Self.M_JobTimeable" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_Price" EntityType="Self.M_Price" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="M_SKU" EntityType="Self.M_SKU" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Information" EntityType="Self.T_Information" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Inventory" EntityType="Self.T_Inventory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_OrderHeader" EntityType="Self.T_OrderHeader" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="M_CompanyShipping" EntityType="Self.M_CompanyShipping" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [M_CompanyShipping].[CompanyCD] AS [CompanyCD], 
@@ -450,26 +366,6 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
     [M_CompanyShipping].[UpdateDateTime] AS [UpdateDateTime]
     FROM [dbo].[M_CompanyShipping] AS [M_CompanyShipping]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="M_CompanyTag" EntityType="Self.M_CompanyTag" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [M_CompanyTag].[CompanyCD] AS [CompanyCD], 
-    [M_CompanyTag].[Tag] AS [Tag], 
-    [M_CompanyTag].[InsertOperator] AS [InsertOperator], 
-    [M_CompanyTag].[InsertDateTime] AS [InsertDateTime], 
-    [M_CompanyTag].[UpdateOperator] AS [UpdateOperator], 
-    [M_CompanyTag].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[M_CompanyTag] AS [M_CompanyTag]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="M_Group" EntityType="Self.M_Group" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [M_Group].[GroupID] AS [GroupID], 
-    [M_Group].[GroupName] AS [GroupName], 
-    [M_Group].[InsertOperator] AS [InsertOperator], 
-    [M_Group].[InsertDateTime] AS [InsertDateTime], 
-    [M_Group].[UpdateOperator] AS [UpdateOperator], 
-    [M_Group].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[M_Group] AS [M_Group]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="M_GroupList" EntityType="Self.M_GroupList" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [M_GroupList].[CompanyCD] AS [CompanyCD], 
@@ -479,42 +375,6 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
     [M_GroupList].[UpdateOperator] AS [UpdateOperator], 
     [M_GroupList].[UpdateDateTime] AS [UpdateDateTime]
     FROM [dbo].[M_GroupList] AS [M_GroupList]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="M_Item" EntityType="Self.M_Item" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [M_Item].[MakerItemAdminCD] AS [MakerItemAdminCD], 
-    [M_Item].[MakerItemCD] AS [MakerItemCD], 
-    [M_Item].[ItemName] AS [ItemName], 
-    [M_Item].[BrandCD] AS [BrandCD], 
-    [M_Item].[ListPrice(WithoutTax)] AS [ListPrice(WithoutTax)], 
-    [M_Item].[ListPrice(InTax)] AS [ListPrice(InTax)], 
-    [M_Item].[SalePrice(WithoutTax)] AS [SalePrice(WithoutTax)], 
-    [M_Item].[SalePrice(InTax)] AS [SalePrice(InTax)], 
-    [M_Item].[GeneralClassName] AS [GeneralClassName], 
-    [M_Item].[NormalClassName] AS [NormalClassName], 
-    [M_Item].[AdvenceClassName] AS [AdvenceClassName], 
-    [M_Item].[Lot] AS [Lot], 
-    [M_Item].[ImageName] AS [ImageName], 
-    [M_Item].[Year] AS [Year], 
-    [M_Item].[Season] AS [Season], 
-    [M_Item].[CatelogNo] AS [CatelogNo], 
-    [M_Item].[InsertOperator] AS [InsertOperator], 
-    [M_Item].[InsertDateTime] AS [InsertDateTime], 
-    [M_Item].[UpdateOperator] AS [UpdateOperator], 
-    [M_Item].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[M_Item] AS [M_Item]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="M_JobTimeable" EntityType="Self.M_JobTimeable" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [M_JobTimeable].[CompanyCD] AS [CompanyCD], 
-    [M_JobTimeable].[OrderAblePeriod] AS [OrderAblePeriod], 
-    [M_JobTimeable].[CancelAblePeriod] AS [CancelAblePeriod], 
-    [M_JobTimeable].[ExceptionAboutPeriod] AS [ExceptionAboutPeriod], 
-    [M_JobTimeable].[InsertOperator] AS [InsertOperator], 
-    [M_JobTimeable].[InsertDateTime] AS [InsertDateTime], 
-    [M_JobTimeable].[UpdateOperator] AS [UpdateOperator], 
-    [M_JobTimeable].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[M_JobTimeable] AS [M_JobTimeable]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="M_MultiPorpose" EntityType="Self.M_MultiPorpose" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -540,33 +400,6 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
     [M_MultiPorpose].[UpdatedDateTime] AS [UpdatedDateTime]
     FROM [dbo].[M_MultiPorpose] AS [M_MultiPorpose]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="M_Price" EntityType="Self.M_Price" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [M_Price].[MakerItemAdminCD] AS [MakerItemAdminCD], 
-    [M_Price].[RankingFlg] AS [RankingFlg], 
-    [M_Price].[SalePrice] AS [SalePrice], 
-    [M_Price].[ImageName] AS [ImageName], 
-    [M_Price].[InsertOperator] AS [InsertOperator], 
-    [M_Price].[InsertDateTime] AS [InsertDateTime], 
-    [M_Price].[UpdateOperator] AS [UpdateOperator], 
-    [M_Price].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[M_Price] AS [M_Price]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="M_SKU" EntityType="Self.M_SKU" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [M_SKU].[AdminCD] AS [AdminCD], 
-    [M_SKU].[MakerItemAdminCD] AS [MakerItemAdminCD], 
-    [M_SKU].[SKUCD] AS [SKUCD], 
-    [M_SKU].[JANCD] AS [JANCD], 
-    [M_SKU].[SizeName] AS [SizeName], 
-    [M_SKU].[ColorName] AS [ColorName], 
-    [M_SKU].[ZaikoSu] AS [ZaikoSu], 
-    [M_SKU].[InsertOperator] AS [InsertOperator], 
-    [M_SKU].[InsertDateTime] AS [InsertDateTime], 
-    [M_SKU].[UpdateOperator] AS [UpdateOperator], 
-    [M_SKU].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[M_SKU] AS [M_SKU]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="Message" EntityType="Self.Message" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [Message].[ID] AS [ID], 
@@ -583,27 +416,6 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
     [Message].[UpdatedDate] AS [UpdatedDate]
     FROM [dbo].[Message] AS [Message]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="T_Information" EntityType="Self.T_Information" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [T_Information].[InformationID] AS [InformationID], 
-    [T_Information].[TitleName] AS [TitleName], 
-    [T_Information].[DestinationFlg] AS [DestinationFlg], 
-    [T_Information].[EffectFlg] AS [EffectFlg], 
-    [T_Information].[InformationType] AS [InformationType], 
-    [T_Information].[DisplayStartDate] AS [DisplayStartDate], 
-    [T_Information].[DisplayEndDate] AS [DisplayEndDate], 
-    [T_Information].[Date] AS [Date], 
-    [T_Information].[AttachedFile1] AS [AttachedFile1], 
-    [T_Information].[AttachedFile2] AS [AttachedFile2], 
-    [T_Information].[AttachedFile3] AS [AttachedFile3], 
-    [T_Information].[AttachedFile4] AS [AttachedFile4], 
-    [T_Information].[DetailInformation] AS [DetailInformation], 
-    [T_Information].[InsertOperator] AS [InsertOperator], 
-    [T_Information].[InsertDateTime] AS [InsertDateTime], 
-    [T_Information].[UpdateOperator] AS [UpdateOperator], 
-    [T_Information].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[T_Information] AS [T_Information]</DefiningQuery>
-          </EntitySet>
           <EntitySet Name="T_InformationDestination" EntityType="Self.T_InformationDestination" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
     [T_InformationDestination].[InformationID] AS [InformationID], 
@@ -613,18 +425,6 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
     [T_InformationDestination].[UpdateOperator] AS [UpdateOperator], 
     [T_InformationDestination].[UpdateDateTime] AS [UpdateDateTime]
     FROM [dbo].[T_InformationDestination] AS [T_InformationDestination]</DefiningQuery>
-          </EntitySet>
-          <EntitySet Name="T_Inventory" EntityType="Self.T_Inventory" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [T_Inventory].[AdminCD] AS [AdminCD], 
-    [T_Inventory].[ZaikoSu] AS [ZaikoSu], 
-    [T_Inventory].[PlanInstockCount] AS [PlanInstockCount], 
-    [T_Inventory].[PlanInstockDate] AS [PlanInstockDate], 
-    [T_Inventory].[InsertOperator] AS [InsertOperator], 
-    [T_Inventory].[InsertDateTime] AS [InsertDateTime], 
-    [T_Inventory].[UpdateOperator] AS [UpdateOperator], 
-    [T_Inventory].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[T_Inventory] AS [T_Inventory]</DefiningQuery>
           </EntitySet>
           <EntitySet Name="T_OrderDetail" EntityType="Self.T_OrderDetail" store:Type="Tables" store:Schema="dbo">
             <DefiningQuery>SELECT 
@@ -648,38 +448,49 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
     [T_OrderDetail].[UpdateDateTime] AS [UpdateDateTime]
     FROM [dbo].[T_OrderDetail] AS [T_OrderDetail]</DefiningQuery>
           </EntitySet>
-          <EntitySet Name="T_OrderHeader" EntityType="Self.T_OrderHeader" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [T_OrderHeader].[OrderID] AS [OrderID], 
-    [T_OrderHeader].[DestinationID] AS [DestinationID], 
-    [T_OrderHeader].[DestinationName] AS [DestinationName], 
-    [T_OrderHeader].[ZipCD1] AS [ZipCD1], 
-    [T_OrderHeader].[ZipCD2] AS [ZipCD2], 
-    [T_OrderHeader].[Address1] AS [Address1], 
-    [T_OrderHeader].[Address2] AS [Address2], 
-    [T_OrderHeader].[TelephoneNO] AS [TelephoneNO], 
-    [T_OrderHeader].[TotalAmount] AS [TotalAmount], 
-    [T_OrderHeader].[ConsumptionTax] AS [ConsumptionTax], 
-    [T_OrderHeader].[Memo] AS [Memo], 
-    [T_OrderHeader].[CustomerCD] AS [CustomerCD], 
-    [T_OrderHeader].[OrderDateTime] AS [OrderDateTime], 
-    [T_OrderHeader].[UpdateOperator] AS [UpdateOperator], 
-    [T_OrderHeader].[UpdateDateTime] AS [UpdateDateTime]
-    FROM [dbo].[T_OrderHeader] AS [T_OrderHeader]</DefiningQuery>
-          </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="TOSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="TOSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="L_Log" EntityType="TOSModel.L_Log" />
+          <EntitySet Name="M_Brand" EntityType="TOSModel.M_Brand" />
+          <EntitySet Name="M_Company" EntityType="TOSModel.M_Company" />
+          <EntitySet Name="M_Group" EntityType="TOSModel.M_Group" />
+          <EntitySet Name="M_Item" EntityType="TOSModel.M_Item" />
+          <EntitySet Name="M_JobTimeable" EntityType="TOSModel.M_JobTimeable" />
+          <EntitySet Name="M_Price" EntityType="TOSModel.M_Price" />
+          <EntitySet Name="M_SKU" EntityType="TOSModel.M_SKU" />
+          <EntitySet Name="T_Information" EntityType="TOSModel.T_Information" />
+          <EntitySet Name="T_Inventory" EntityType="TOSModel.T_Inventory" />
+          <EntitySet Name="T_OrderHeader" EntityType="TOSModel.T_OrderHeader" />
+          <EntitySet Name="M_CompanyShipping" EntityType="TOSModel.M_CompanyShipping" />
+          <EntitySet Name="M_GroupList" EntityType="TOSModel.M_GroupList" />
+          <EntitySet Name="M_MultiPorpose" EntityType="TOSModel.M_MultiPorpose" />
+          <EntitySet Name="Messages" EntityType="TOSModel.Message" />
+          <EntitySet Name="T_InformationDestination" EntityType="TOSModel.T_InformationDestination" />
+          <EntitySet Name="T_OrderDetail" EntityType="TOSModel.T_OrderDetail" />
+          </EntityContainer>
+        <EntityType Name="L_Log">
+          <Key>
+            <PropertyRef Name="SEQ" />
+          </Key>
+          <Property Name="SEQ" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="OperateDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="OperateTime" Type="Time" Nullable="false" Precision="7" />
+          <Property Name="CompanyCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Processed_Program" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="AccessPC" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="OperateMode" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="KeyItem" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
         <EntityType Name="M_Brand">
           <Key>
             <PropertyRef Name="BrandCD" />
-            <PropertyRef Name="BrandName" />
           </Key>
-          <Property Name="BrandCD" Type="Int32" Nullable="false" />
-          <Property Name="BrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="BrandCD" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="BrandName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
           <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -688,13 +499,10 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
         <EntityType Name="M_Company">
           <Key>
             <PropertyRef Name="CompanyCD" />
-            <PropertyRef Name="Password" />
-            <PropertyRef Name="UserRole" />
-            <PropertyRef Name="RankingFlg" />
           </Key>
-          <Property Name="CompanyCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CompanyCD" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="CompanyName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Password" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="UserRole" Type="Byte" Nullable="false" />
           <Property Name="ShortName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="ZipCD1" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
@@ -703,51 +511,9 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
           <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="TelephoneNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <Property Name="FaxNo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="PresidentName" Type="String" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="PresidentName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="RankingFlg" Type="Byte" Nullable="false" />
           <Property Name="InsertOperator" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="M_CompanyBrand">
-          <Key>
-            <PropertyRef Name="CompanyCD" />
-          </Key>
-          <Property Name="CompanyCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BrandCD" Type="Int32" />
-          <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="M_CompanyShipping">
-          <Key>
-            <PropertyRef Name="CompanyCD" />
-            <PropertyRef Name="ShippingID" />
-          </Key>
-          <Property Name="CompanyCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ShippingID" Type="Int32" Nullable="false" />
-          <Property Name="ShippingName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="ZipCD1" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="ZipCD2" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="TelephoneNO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="FaxNO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="M_CompanyTag">
-          <Key>
-            <PropertyRef Name="CompanyCD" />
-            <PropertyRef Name="Tag" />
-          </Key>
-          <Property Name="CompanyCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Tag" Type="String" MaxLength="50" FixedLength="true" Unicode="true" Nullable="false" />
-          <Property Name="InsertOperator" Type="String" MaxLength="50" FixedLength="true" Unicode="true" />
           <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
           <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
@@ -756,20 +522,10 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
           <Key>
             <PropertyRef Name="GroupID" />
           </Key>
-          <Property Name="GroupID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GroupID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="GroupName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="M_GroupList">
-          <Key>
-            <PropertyRef Name="CompanyCD" />
-            <PropertyRef Name="GroupID" />
-          </Key>
-          <Property Name="CompanyCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="GroupID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GroupInfoFlg" Type="Byte" Nullable="false" />
+          <Property Name="GroupIDInfo" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
           <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
           <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -778,26 +534,20 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
         <EntityType Name="M_Item">
           <Key>
             <PropertyRef Name="MakerItemAdminCD" />
-            <PropertyRef Name="ItemName" />
-            <PropertyRef Name="BrandCD" />
-            <PropertyRef Name="ListPrice_WithoutTax_" />
-            <PropertyRef Name="ListPrice_InTax_" />
-            <PropertyRef Name="SalePrice_WithoutTax_" />
-            <PropertyRef Name="SalePrice_InTax_" />
           </Key>
           <Property Name="MakerItemAdminCD" Type="Int32" Nullable="false" />
           <Property Name="MakerItemCD" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
-          <Property Name="ItemName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="BrandCD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ListPrice_WithoutTax_" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="ListPrice_InTax_" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="SalePrice_WithoutTax_" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="SalePrice_InTax_" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="BrandCD" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="ListPrice_WithoutTax_" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ListPrice_InTax_" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="SalePrice_WithoutTax_" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="SalePrice_InTax_" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="GeneralClassName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="NormalClassName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="AdvenceClassName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
           <Property Name="Lot" Type="Int32" />
-          <Property Name="ImageName" Type="Int32" />
+          <Property Name="ImageName" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
           <Property Name="Year" Type="Int32" />
           <Property Name="Season" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
           <Property Name="CatelogNo" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
@@ -809,50 +559,19 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
         <EntityType Name="M_JobTimeable">
           <Key>
             <PropertyRef Name="CompanyCD" />
-            <PropertyRef Name="OrderAblePeriod" />
-            <PropertyRef Name="CancelAblePeriod" />
-            <PropertyRef Name="ExceptionAboutPeriod" />
           </Key>
-          <Property Name="CompanyCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="OrderAblePeriod" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CancelAblePeriod" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ExceptionAboutPeriod" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Name="CompanyCD" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="OrderAblePeriod" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CancelAblePeriod" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ExceptionAboutPeriod" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="InsertOperator" Type="String" MaxLength="20" FixedLength="true" Unicode="true" />
           <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
           <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="M_MultiPorpose">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="KEY" />
-          </Key>
-          <Property Name="ID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="KEY" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="IDName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
-          <Property Name="text1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="text2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="text3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="text4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="text5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Num1" Type="Int32" />
-          <Property Name="Num2" Type="Int32" />
-          <Property Name="Num3" Type="Int32" />
-          <Property Name="Num4" Type="Int32" />
-          <Property Name="Num5" Type="Int32" />
-          <Property Name="Datetime1" Type="DateTime" Precision="3" />
-          <Property Name="Datetime2" Type="DateTime" Precision="3" />
-          <Property Name="Datetime3" Type="DateTime" Precision="3" />
-          <Property Name="Creator" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDateTime" Type="DateTime" Precision="3" />
-          <Property Name="Updater" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedDateTime" Type="DateTime" Precision="3" />
-        </EntityType>
         <EntityType Name="M_Price">
           <Key>
             <PropertyRef Name="MakerItemAdminCD" />
-            <PropertyRef Name="RankingFlg" />
-            <PropertyRef Name="ImageName" />
           </Key>
           <Property Name="MakerItemAdminCD" Type="Int32" Nullable="false" />
           <Property Name="RankingFlg" Type="Byte" Nullable="false" />
@@ -866,52 +585,24 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
         <EntityType Name="M_SKU">
           <Key>
             <PropertyRef Name="AdminCD" />
-            <PropertyRef Name="MakerItemAdminCD" />
-            <PropertyRef Name="SizeName" />
-            <PropertyRef Name="ColorName" />
-            <PropertyRef Name="ZaikoSu" />
           </Key>
           <Property Name="AdminCD" Type="Int32" Nullable="false" />
           <Property Name="MakerItemAdminCD" Type="Int32" Nullable="false" />
           <Property Name="SKUCD" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="JANCD" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
-          <Property Name="SizeName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ColorName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="SizeName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ColorName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
           <Property Name="ZaikoSu" Type="Int32" Nullable="false" />
           <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
           <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="Message">
-          <Key>
-            <PropertyRef Name="ID" />
-            <PropertyRef Name="KEY" />
-          </Key>
-          <Property Name="ID" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="KEY" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Message1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Message2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Message3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Message4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Message5" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Creater" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
-          <Property Name="Updater" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
-        </EntityType>
         <EntityType Name="T_Information">
           <Key>
             <PropertyRef Name="InformationID" />
-            <PropertyRef Name="DestinationFlg" />
-            <PropertyRef Name="EffectFlg" />
-            <PropertyRef Name="InformationType" />
-            <PropertyRef Name="DisplayStartDate" />
-            <PropertyRef Name="DisplayEndDate" />
-            <PropertyRef Name="Date" />
           </Key>
-          <Property Name="InformationID" Type="Int32" Nullable="false" />
+          <Property Name="InformationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TitleName" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <Property Name="DestinationFlg" Type="Byte" Nullable="false" />
           <Property Name="EffectFlg" Type="Byte" Nullable="false" />
@@ -923,19 +614,7 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
           <Property Name="AttachedFile2" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
           <Property Name="AttachedFile3" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
           <Property Name="AttachedFile4" Type="String" MaxLength="70" FixedLength="false" Unicode="false" />
-          <Property Name="DetailInformation" Type="String" MaxLength="5000" FixedLength="false" Unicode="false" />
-          <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="T_InformationDestination">
-          <Key>
-            <PropertyRef Name="InformationID" />
-            <PropertyRef Name="DestinationID" />
-          </Key>
-          <Property Name="InformationID" Type="Int32" Nullable="false" />
-          <Property Name="DestinationID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DetailInformation" Type="String" MaxLength="4000" FixedLength="false" Unicode="false" />
           <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
           <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -944,14 +623,114 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
         <EntityType Name="T_Inventory">
           <Key>
             <PropertyRef Name="AdminCD" />
-            <PropertyRef Name="ZaikoSu" />
-            <PropertyRef Name="PlanInstockCount" />
-            <PropertyRef Name="PlanInstockDate" />
           </Key>
           <Property Name="AdminCD" Type="Int32" Nullable="false" />
           <Property Name="ZaikoSu" Type="Int32" Nullable="false" />
           <Property Name="PlanInstockCount" Type="Int32" Nullable="false" />
           <Property Name="PlanInstockDate" Type="Int32" Nullable="false" />
+          <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="T_OrderHeader">
+          <Key>
+            <PropertyRef Name="OrderID" />
+          </Key>
+          <Property Name="OrderID" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="ShippingID" Type="Int32" Nullable="false" />
+          <Property Name="ShippingName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCD1" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCD2" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TelephoneNO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ConsumptionTax" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="CustomerCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="OrderDateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateOperator" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="M_CompanyShipping">
+          <Key>
+            <PropertyRef Name="ShippingID" />
+          </Key>
+          <Property Name="CompanyCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="ShippingID" Type="Int32" Nullable="false" />
+          <Property Name="ShippingName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCD1" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="ZipCD2" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="TelephoneNO" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="FaxNO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
+          <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="M_GroupList">
+          <Key>
+            <PropertyRef Name="CompanyCD" />
+            <PropertyRef Name="GroupID" />
+          </Key>
+          <Property Name="CompanyCD" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="GroupID" Type="String" Nullable="false" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
+          <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="M_MultiPorpose">
+          <Key>
+            <PropertyRef Name="KEY" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="KEY" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="IDName" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="text1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="text2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="text3" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="text4" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="text5" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Num1" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Num2" Type="Int32" />
+          <Property Name="Num3" Type="Int32" />
+          <Property Name="Num4" Type="Int32" />
+          <Property Name="Num5" Type="Int32" />
+          <Property Name="Datetime1" Type="DateTime" Precision="3" />
+          <Property Name="Datetime2" Type="DateTime" Precision="3" />
+          <Property Name="Datetime3" Type="DateTime" Precision="3" />
+          <Property Name="Creator" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDateTime" Type="DateTime" Precision="3" />
+          <Property Name="Updater" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDateTime" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Message">
+          <Key>
+            <PropertyRef Name="KEY" />
+          </Key>
+          <Property Name="ID" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="KEY" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="Message1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Message2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Message3" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Message4" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Message5" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Creater" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedDate" Type="DateTime" Precision="0" />
+          <Property Name="Updater" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="UpdatedDate" Type="DateTime" Precision="0" />
+        </EntityType>
+        <EntityType Name="T_InformationDestination">
+          <Key>
+            <PropertyRef Name="InformationID" />
+          </Key>
+          <Property Name="InformationID" Type="Int32" Nullable="false" />
+          <Property Name="DestinationID" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="InsertOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="InsertDateTime" Type="DateTime" Precision="3" />
           <Property Name="UpdateOperator" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
@@ -967,400 +746,337 @@ warning 6002: The table/view 'TOS.dbo.T_OrderHeader' does not have a primary key
             <PropertyRef Name="SalePrice" />
             <PropertyRef Name="TotalAmount" />
             <PropertyRef Name="OrderStatus" />
-            <PropertyRef Name="DeliveryFlg" />
-            <PropertyRef Name="Shippingfee" />
-            <PropertyRef Name="DeliveryCompanyCD" />
-            <PropertyRef Name="Memo" />
             <PropertyRef Name="AvailableShippingDate" />
-            <PropertyRef Name="ShippingDate" />
           </Key>
-          <Property Name="OrderID" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="OrderID" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
           <Property Name="AdminCD" Type="Int32" Nullable="false" />
           <Property Name="OrderItem" Type="Int32" Nullable="false" />
           <Property Name="StockItem" Type="Int32" Nullable="false" />
           <Property Name="PlanStock" Type="Int32" Nullable="false" />
-          <Property Name="SalePrice" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
+          <Property Name="SalePrice" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="OrderStatus" Type="Byte" Nullable="false" />
-          <Property Name="DeliveryFlg" Type="Byte" Nullable="false" />
-          <Property Name="Shippingfee" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="DeliveryCompanyCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DeliveryFlg" Type="Byte" />
+          <Property Name="Shippingfee" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="DeliveryCompanyCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
+          <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="AvailableShippingDate" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ShippingDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ShippingDate" Type="DateTime" Precision="0" />
           <Property Name="CustomerCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="OrderDateTime" Type="DateTime" Precision="3" />
           <Property Name="UpdateOperator" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
         </EntityType>
-        <EntityType Name="T_OrderHeader">
-          <Key>
-            <PropertyRef Name="OrderID" />
-            <PropertyRef Name="DestinationID" />
-            <PropertyRef Name="DestinationName" />
-            <PropertyRef Name="ZipCD1" />
-            <PropertyRef Name="ZipCD2" />
-            <PropertyRef Name="Address1" />
-            <PropertyRef Name="Address2" />
-            <PropertyRef Name="TelephoneNO" />
-            <PropertyRef Name="TotalAmount" />
-            <PropertyRef Name="ConsumptionTax" />
-            <PropertyRef Name="Memo" />
-          </Key>
-          <Property Name="OrderID" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="DestinationID" Type="Int32" Nullable="false" />
-          <Property Name="DestinationName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ZipCD1" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="ZipCD2" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TelephoneNO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="ConsumptionTax" Type="Decimal" Precision="19" Scale="4" Nullable="false" />
-          <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="CustomerCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="OrderDateTime" Type="DateTime" Precision="3" />
-          <Property Name="UpdateOperator" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
-          <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityContainer Name="TOSEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="M_Brand" EntityType="Self.M_Brand" />
-          <EntitySet Name="M_Company" EntityType="Self.M_Company" />
-          <EntitySet Name="M_CompanyBrand" EntityType="Self.M_CompanyBrand" />
-          <EntitySet Name="M_CompanyShipping" EntityType="Self.M_CompanyShipping" />
-          <EntitySet Name="M_CompanyTag" EntityType="Self.M_CompanyTag" />
-          <EntitySet Name="M_Group" EntityType="Self.M_Group" />
-          <EntitySet Name="M_GroupList" EntityType="Self.M_GroupList" />
-          <EntitySet Name="M_Item" EntityType="Self.M_Item" />
-          <EntitySet Name="M_JobTimeable" EntityType="Self.M_JobTimeable" />
-          <EntitySet Name="M_MultiPorpose" EntityType="Self.M_MultiPorpose" />
-          <EntitySet Name="M_Price" EntityType="Self.M_Price" />
-          <EntitySet Name="M_SKU" EntityType="Self.M_SKU" />
-          <EntitySet Name="Messages" EntityType="Self.Message" />
-          <EntitySet Name="T_Information" EntityType="Self.T_Information" />
-          <EntitySet Name="T_InformationDestination" EntityType="Self.T_InformationDestination" />
-          <EntitySet Name="T_Inventory" EntityType="Self.T_Inventory" />
-          <EntitySet Name="T_OrderDetail" EntityType="Self.T_OrderDetail" />
-          <EntitySet Name="T_OrderHeader" EntityType="Self.T_OrderHeader" />
-        </EntityContainer>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="TOSModelStoreContainer" CdmEntityContainer="TOSEntities">
+          <EntitySetMapping Name="L_Log">
+            <EntityTypeMapping TypeName="TOSModel.L_Log">
+              <MappingFragment StoreEntitySet="L_Log">
+                <ScalarProperty Name="KeyItem" ColumnName="KeyItem" />
+                <ScalarProperty Name="OperateMode" ColumnName="OperateMode" />
+                <ScalarProperty Name="AccessPC" ColumnName="AccessPC" />
+                <ScalarProperty Name="Processed_Program" ColumnName="Processed_Program" />
+                <ScalarProperty Name="CompanyCD" ColumnName="CompanyCD" />
+                <ScalarProperty Name="OperateTime" ColumnName="OperateTime" />
+                <ScalarProperty Name="OperateDate" ColumnName="OperateDate" />
+                <ScalarProperty Name="SEQ" ColumnName="SEQ" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="M_Brand">
             <EntityTypeMapping TypeName="TOSModel.M_Brand">
               <MappingFragment StoreEntitySet="M_Brand">
-                <ScalarProperty Name="BrandCD" ColumnName="BrandCD" />
-                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
                 <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="BrandName" ColumnName="BrandName" />
+                <ScalarProperty Name="BrandCD" ColumnName="BrandCD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="M_Company">
             <EntityTypeMapping TypeName="TOSModel.M_Company">
               <MappingFragment StoreEntitySet="M_Company">
-                <ScalarProperty Name="CompanyCD" ColumnName="CompanyCD" />
-                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
-                <ScalarProperty Name="Password" ColumnName="Password" />
-                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
-                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
-                <ScalarProperty Name="ZipCD1" ColumnName="ZipCD1" />
-                <ScalarProperty Name="ZipCD2" ColumnName="ZipCD2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
-                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
-                <ScalarProperty Name="PresidentName" ColumnName="PresidentName" />
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
                 <ScalarProperty Name="RankingFlg" ColumnName="RankingFlg" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
-                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="M_CompanyBrand">
-            <EntityTypeMapping TypeName="TOSModel.M_CompanyBrand">
-              <MappingFragment StoreEntitySet="M_CompanyBrand">
-                <ScalarProperty Name="CompanyCD" ColumnName="CompanyCD" />
-                <ScalarProperty Name="BrandCD" ColumnName="BrandCD" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
-                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="M_CompanyShipping">
-            <EntityTypeMapping TypeName="TOSModel.M_CompanyShipping">
-              <MappingFragment StoreEntitySet="M_CompanyShipping">
-                <ScalarProperty Name="CompanyCD" ColumnName="CompanyCD" />
-                <ScalarProperty Name="ShippingID" ColumnName="ShippingID" />
-                <ScalarProperty Name="ShippingName" ColumnName="ShippingName" />
-                <ScalarProperty Name="ZipCD1" ColumnName="ZipCD1" />
-                <ScalarProperty Name="ZipCD2" ColumnName="ZipCD2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="PresidentName" ColumnName="PresidentName" />
+                <ScalarProperty Name="FaxNo" ColumnName="FaxNo" />
+                <ScalarProperty Name="TelephoneNo" ColumnName="TelephoneNo" />
                 <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="TelephoneNO" ColumnName="TelephoneNO" />
-                <ScalarProperty Name="FaxNO" ColumnName="FaxNO" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
-                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="M_CompanyTag">
-            <EntityTypeMapping TypeName="TOSModel.M_CompanyTag">
-              <MappingFragment StoreEntitySet="M_CompanyTag">
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="ZipCD2" ColumnName="ZipCD2" />
+                <ScalarProperty Name="ZipCD1" ColumnName="ZipCD1" />
+                <ScalarProperty Name="ShortName" ColumnName="ShortName" />
+                <ScalarProperty Name="UserRole" ColumnName="UserRole" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="CompanyName" ColumnName="CompanyName" />
                 <ScalarProperty Name="CompanyCD" ColumnName="CompanyCD" />
-                <ScalarProperty Name="Tag" ColumnName="Tag" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
-                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="M_Group">
             <EntityTypeMapping TypeName="TOSModel.M_Group">
               <MappingFragment StoreEntitySet="M_Group">
-                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="GroupIDInfo" ColumnName="GroupIDInfo" />
+                <ScalarProperty Name="GroupInfoFlg" ColumnName="GroupInfoFlg" />
                 <ScalarProperty Name="GroupName" ColumnName="GroupName" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
-                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="M_GroupList">
-            <EntityTypeMapping TypeName="TOSModel.M_GroupList">
-              <MappingFragment StoreEntitySet="M_GroupList">
-                <ScalarProperty Name="CompanyCD" ColumnName="CompanyCD" />
                 <ScalarProperty Name="GroupID" ColumnName="GroupID" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
-                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="M_Item">
             <EntityTypeMapping TypeName="TOSModel.M_Item">
               <MappingFragment StoreEntitySet="M_Item">
-                <ScalarProperty Name="MakerItemAdminCD" ColumnName="MakerItemAdminCD" />
-                <ScalarProperty Name="MakerItemCD" ColumnName="MakerItemCD" />
-                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
-                <ScalarProperty Name="BrandCD" ColumnName="BrandCD" />
-                <ScalarProperty Name="ListPrice_WithoutTax_" ColumnName="ListPrice(WithoutTax)" />
-                <ScalarProperty Name="ListPrice_InTax_" ColumnName="ListPrice(InTax)" />
-                <ScalarProperty Name="SalePrice_WithoutTax_" ColumnName="SalePrice(WithoutTax)" />
-                <ScalarProperty Name="SalePrice_InTax_" ColumnName="SalePrice(InTax)" />
-                <ScalarProperty Name="GeneralClassName" ColumnName="GeneralClassName" />
-                <ScalarProperty Name="NormalClassName" ColumnName="NormalClassName" />
-                <ScalarProperty Name="AdvenceClassName" ColumnName="AdvenceClassName" />
-                <ScalarProperty Name="Lot" ColumnName="Lot" />
-                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
-                <ScalarProperty Name="Year" ColumnName="Year" />
-                <ScalarProperty Name="Season" ColumnName="Season" />
-                <ScalarProperty Name="CatelogNo" ColumnName="CatelogNo" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
                 <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="CatelogNo" ColumnName="CatelogNo" />
+                <ScalarProperty Name="Season" ColumnName="Season" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="Lot" ColumnName="Lot" />
+                <ScalarProperty Name="AdvenceClassName" ColumnName="AdvenceClassName" />
+                <ScalarProperty Name="NormalClassName" ColumnName="NormalClassName" />
+                <ScalarProperty Name="GeneralClassName" ColumnName="GeneralClassName" />
+                <ScalarProperty Name="SalePrice_InTax_" ColumnName="SalePrice(InTax)" />
+                <ScalarProperty Name="SalePrice_WithoutTax_" ColumnName="SalePrice(WithoutTax)" />
+                <ScalarProperty Name="ListPrice_InTax_" ColumnName="ListPrice(InTax)" />
+                <ScalarProperty Name="ListPrice_WithoutTax_" ColumnName="ListPrice(WithoutTax)" />
+                <ScalarProperty Name="BrandCD" ColumnName="BrandCD" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="MakerItemCD" ColumnName="MakerItemCD" />
+                <ScalarProperty Name="MakerItemAdminCD" ColumnName="MakerItemAdminCD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="M_JobTimeable">
             <EntityTypeMapping TypeName="TOSModel.M_JobTimeable">
               <MappingFragment StoreEntitySet="M_JobTimeable">
-                <ScalarProperty Name="CompanyCD" ColumnName="CompanyCD" />
-                <ScalarProperty Name="OrderAblePeriod" ColumnName="OrderAblePeriod" />
-                <ScalarProperty Name="CancelAblePeriod" ColumnName="CancelAblePeriod" />
-                <ScalarProperty Name="ExceptionAboutPeriod" ColumnName="ExceptionAboutPeriod" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
                 <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="M_MultiPorpose">
-            <EntityTypeMapping TypeName="TOSModel.M_MultiPorpose">
-              <MappingFragment StoreEntitySet="M_MultiPorpose">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="KEY" ColumnName="KEY" />
-                <ScalarProperty Name="IDName" ColumnName="IDName" />
-                <ScalarProperty Name="text1" ColumnName="text1" />
-                <ScalarProperty Name="text2" ColumnName="text2" />
-                <ScalarProperty Name="text3" ColumnName="text3" />
-                <ScalarProperty Name="text4" ColumnName="text4" />
-                <ScalarProperty Name="text5" ColumnName="text5" />
-                <ScalarProperty Name="Num1" ColumnName="Num1" />
-                <ScalarProperty Name="Num2" ColumnName="Num2" />
-                <ScalarProperty Name="Num3" ColumnName="Num3" />
-                <ScalarProperty Name="Num4" ColumnName="Num4" />
-                <ScalarProperty Name="Num5" ColumnName="Num5" />
-                <ScalarProperty Name="Datetime1" ColumnName="Datetime1" />
-                <ScalarProperty Name="Datetime2" ColumnName="Datetime2" />
-                <ScalarProperty Name="Datetime3" ColumnName="Datetime3" />
-                <ScalarProperty Name="Creator" ColumnName="Creator" />
-                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
-                <ScalarProperty Name="Updater" ColumnName="Updater" />
-                <ScalarProperty Name="UpdatedDateTime" ColumnName="UpdatedDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="ExceptionAboutPeriod" ColumnName="ExceptionAboutPeriod" />
+                <ScalarProperty Name="CancelAblePeriod" ColumnName="CancelAblePeriod" />
+                <ScalarProperty Name="OrderAblePeriod" ColumnName="OrderAblePeriod" />
+                <ScalarProperty Name="CompanyCD" ColumnName="CompanyCD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="M_Price">
             <EntityTypeMapping TypeName="TOSModel.M_Price">
               <MappingFragment StoreEntitySet="M_Price">
-                <ScalarProperty Name="MakerItemAdminCD" ColumnName="MakerItemAdminCD" />
-                <ScalarProperty Name="RankingFlg" ColumnName="RankingFlg" />
-                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
-                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
                 <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+                <ScalarProperty Name="RankingFlg" ColumnName="RankingFlg" />
+                <ScalarProperty Name="MakerItemAdminCD" ColumnName="MakerItemAdminCD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="M_SKU">
             <EntityTypeMapping TypeName="TOSModel.M_SKU">
               <MappingFragment StoreEntitySet="M_SKU">
-                <ScalarProperty Name="AdminCD" ColumnName="AdminCD" />
-                <ScalarProperty Name="MakerItemAdminCD" ColumnName="MakerItemAdminCD" />
-                <ScalarProperty Name="SKUCD" ColumnName="SKUCD" />
-                <ScalarProperty Name="JANCD" ColumnName="JANCD" />
-                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
-                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
-                <ScalarProperty Name="ZaikoSu" ColumnName="ZaikoSu" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
                 <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Messages">
-            <EntityTypeMapping TypeName="TOSModel.Message">
-              <MappingFragment StoreEntitySet="Message">
-                <ScalarProperty Name="ID" ColumnName="ID" />
-                <ScalarProperty Name="KEY" ColumnName="KEY" />
-                <ScalarProperty Name="Message1" ColumnName="Message1" />
-                <ScalarProperty Name="Message2" ColumnName="Message2" />
-                <ScalarProperty Name="Message3" ColumnName="Message3" />
-                <ScalarProperty Name="Message4" ColumnName="Message4" />
-                <ScalarProperty Name="Message5" ColumnName="Message5" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="Creater" ColumnName="Creater" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="Updater" ColumnName="Updater" />
-                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="ZaikoSu" ColumnName="ZaikoSu" />
+                <ScalarProperty Name="ColorName" ColumnName="ColorName" />
+                <ScalarProperty Name="SizeName" ColumnName="SizeName" />
+                <ScalarProperty Name="JANCD" ColumnName="JANCD" />
+                <ScalarProperty Name="SKUCD" ColumnName="SKUCD" />
+                <ScalarProperty Name="MakerItemAdminCD" ColumnName="MakerItemAdminCD" />
+                <ScalarProperty Name="AdminCD" ColumnName="AdminCD" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="T_Information">
             <EntityTypeMapping TypeName="TOSModel.T_Information">
               <MappingFragment StoreEntitySet="T_Information">
-                <ScalarProperty Name="InformationID" ColumnName="InformationID" />
-                <ScalarProperty Name="TitleName" ColumnName="TitleName" />
-                <ScalarProperty Name="DestinationFlg" ColumnName="DestinationFlg" />
-                <ScalarProperty Name="EffectFlg" ColumnName="EffectFlg" />
-                <ScalarProperty Name="InformationType" ColumnName="InformationType" />
-                <ScalarProperty Name="DisplayStartDate" ColumnName="DisplayStartDate" />
-                <ScalarProperty Name="DisplayEndDate" ColumnName="DisplayEndDate" />
-                <ScalarProperty Name="Date" ColumnName="Date" />
-                <ScalarProperty Name="AttachedFile1" ColumnName="AttachedFile1" />
-                <ScalarProperty Name="AttachedFile2" ColumnName="AttachedFile2" />
-                <ScalarProperty Name="AttachedFile3" ColumnName="AttachedFile3" />
-                <ScalarProperty Name="AttachedFile4" ColumnName="AttachedFile4" />
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
                 <ScalarProperty Name="DetailInformation" ColumnName="DetailInformation" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
-                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T_InformationDestination">
-            <EntityTypeMapping TypeName="TOSModel.T_InformationDestination">
-              <MappingFragment StoreEntitySet="T_InformationDestination">
+                <ScalarProperty Name="AttachedFile4" ColumnName="AttachedFile4" />
+                <ScalarProperty Name="AttachedFile3" ColumnName="AttachedFile3" />
+                <ScalarProperty Name="AttachedFile2" ColumnName="AttachedFile2" />
+                <ScalarProperty Name="AttachedFile1" ColumnName="AttachedFile1" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="DisplayEndDate" ColumnName="DisplayEndDate" />
+                <ScalarProperty Name="DisplayStartDate" ColumnName="DisplayStartDate" />
+                <ScalarProperty Name="InformationType" ColumnName="InformationType" />
+                <ScalarProperty Name="EffectFlg" ColumnName="EffectFlg" />
+                <ScalarProperty Name="DestinationFlg" ColumnName="DestinationFlg" />
+                <ScalarProperty Name="TitleName" ColumnName="TitleName" />
                 <ScalarProperty Name="InformationID" ColumnName="InformationID" />
-                <ScalarProperty Name="DestinationID" ColumnName="DestinationID" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
-                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
-                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="T_Inventory">
             <EntityTypeMapping TypeName="TOSModel.T_Inventory">
               <MappingFragment StoreEntitySet="T_Inventory">
-                <ScalarProperty Name="AdminCD" ColumnName="AdminCD" />
-                <ScalarProperty Name="ZaikoSu" ColumnName="ZaikoSu" />
-                <ScalarProperty Name="PlanInstockCount" ColumnName="PlanInstockCount" />
-                <ScalarProperty Name="PlanInstockDate" ColumnName="PlanInstockDate" />
-                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
                 <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
-                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="T_OrderDetail">
-            <EntityTypeMapping TypeName="TOSModel.T_OrderDetail">
-              <MappingFragment StoreEntitySet="T_OrderDetail">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="PlanInstockDate" ColumnName="PlanInstockDate" />
+                <ScalarProperty Name="PlanInstockCount" ColumnName="PlanInstockCount" />
+                <ScalarProperty Name="ZaikoSu" ColumnName="ZaikoSu" />
                 <ScalarProperty Name="AdminCD" ColumnName="AdminCD" />
-                <ScalarProperty Name="OrderItem" ColumnName="OrderItem" />
-                <ScalarProperty Name="StockItem" ColumnName="StockItem" />
-                <ScalarProperty Name="PlanStock" ColumnName="PlanStock" />
-                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
-                <ScalarProperty Name="DeliveryFlg" ColumnName="DeliveryFlg" />
-                <ScalarProperty Name="Shippingfee" ColumnName="Shippingfee" />
-                <ScalarProperty Name="DeliveryCompanyCD" ColumnName="DeliveryCompanyCD" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="AvailableShippingDate" ColumnName="AvailableShippingDate" />
-                <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
-                <ScalarProperty Name="CustomerCD" ColumnName="CustomerCD" />
-                <ScalarProperty Name="OrderDateTime" ColumnName="OrderDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
-                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="T_OrderHeader">
             <EntityTypeMapping TypeName="TOSModel.T_OrderHeader">
               <MappingFragment StoreEntitySet="T_OrderHeader">
-                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
-                <ScalarProperty Name="DestinationID" ColumnName="DestinationID" />
-                <ScalarProperty Name="DestinationName" ColumnName="DestinationName" />
-                <ScalarProperty Name="ZipCD1" ColumnName="ZipCD1" />
-                <ScalarProperty Name="ZipCD2" ColumnName="ZipCD2" />
-                <ScalarProperty Name="Address1" ColumnName="Address1" />
-                <ScalarProperty Name="Address2" ColumnName="Address2" />
-                <ScalarProperty Name="TelephoneNO" ColumnName="TelephoneNO" />
-                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
-                <ScalarProperty Name="ConsumptionTax" ColumnName="ConsumptionTax" />
-                <ScalarProperty Name="Memo" ColumnName="Memo" />
-                <ScalarProperty Name="CustomerCD" ColumnName="CustomerCD" />
-                <ScalarProperty Name="OrderDateTime" ColumnName="OrderDateTime" />
-                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
                 <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="OrderDateTime" ColumnName="OrderDateTime" />
+                <ScalarProperty Name="CustomerCD" ColumnName="CustomerCD" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="ConsumptionTax" ColumnName="ConsumptionTax" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="TelephoneNO" ColumnName="TelephoneNO" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="ZipCD2" ColumnName="ZipCD2" />
+                <ScalarProperty Name="ZipCD1" ColumnName="ZipCD1" />
+                <ScalarProperty Name="ShippingName" ColumnName="ShippingName" />
+                <ScalarProperty Name="ShippingID" ColumnName="ShippingID" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          <EntitySetMapping Name="M_CompanyShipping">
+            <EntityTypeMapping TypeName="TOSModel.M_CompanyShipping">
+              <MappingFragment StoreEntitySet="M_CompanyShipping">
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="FaxNO" ColumnName="FaxNO" />
+                <ScalarProperty Name="TelephoneNO" ColumnName="TelephoneNO" />
+                <ScalarProperty Name="Address2" ColumnName="Address2" />
+                <ScalarProperty Name="Address1" ColumnName="Address1" />
+                <ScalarProperty Name="ZipCD2" ColumnName="ZipCD2" />
+                <ScalarProperty Name="ZipCD1" ColumnName="ZipCD1" />
+                <ScalarProperty Name="ShippingName" ColumnName="ShippingName" />
+                <ScalarProperty Name="ShippingID" ColumnName="ShippingID" />
+                <ScalarProperty Name="CompanyCD" ColumnName="CompanyCD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M_GroupList">
+            <EntityTypeMapping TypeName="TOSModel.M_GroupList">
+              <MappingFragment StoreEntitySet="M_GroupList">
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="GroupID" ColumnName="GroupID" />
+                <ScalarProperty Name="CompanyCD" ColumnName="CompanyCD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="M_MultiPorpose">
+            <EntityTypeMapping TypeName="TOSModel.M_MultiPorpose">
+              <MappingFragment StoreEntitySet="M_MultiPorpose">
+                <ScalarProperty Name="UpdatedDateTime" ColumnName="UpdatedDateTime" />
+                <ScalarProperty Name="Updater" ColumnName="Updater" />
+                <ScalarProperty Name="CreatedDateTime" ColumnName="CreatedDateTime" />
+                <ScalarProperty Name="Creator" ColumnName="Creator" />
+                <ScalarProperty Name="Datetime3" ColumnName="Datetime3" />
+                <ScalarProperty Name="Datetime2" ColumnName="Datetime2" />
+                <ScalarProperty Name="Datetime1" ColumnName="Datetime1" />
+                <ScalarProperty Name="Num5" ColumnName="Num5" />
+                <ScalarProperty Name="Num4" ColumnName="Num4" />
+                <ScalarProperty Name="Num3" ColumnName="Num3" />
+                <ScalarProperty Name="Num2" ColumnName="Num2" />
+                <ScalarProperty Name="Num1" ColumnName="Num1" />
+                <ScalarProperty Name="text5" ColumnName="text5" />
+                <ScalarProperty Name="text4" ColumnName="text4" />
+                <ScalarProperty Name="text3" ColumnName="text3" />
+                <ScalarProperty Name="text2" ColumnName="text2" />
+                <ScalarProperty Name="text1" ColumnName="text1" />
+                <ScalarProperty Name="IDName" ColumnName="IDName" />
+                <ScalarProperty Name="KEY" ColumnName="KEY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Messages">
+            <EntityTypeMapping TypeName="TOSModel.Message">
+              <MappingFragment StoreEntitySet="Message">
+                <ScalarProperty Name="UpdatedDate" ColumnName="UpdatedDate" />
+                <ScalarProperty Name="Updater" ColumnName="Updater" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="Creater" ColumnName="Creater" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Message5" ColumnName="Message5" />
+                <ScalarProperty Name="Message4" ColumnName="Message4" />
+                <ScalarProperty Name="Message3" ColumnName="Message3" />
+                <ScalarProperty Name="Message2" ColumnName="Message2" />
+                <ScalarProperty Name="Message1" ColumnName="Message1" />
+                <ScalarProperty Name="KEY" ColumnName="KEY" />
+                <ScalarProperty Name="ID" ColumnName="ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_InformationDestination">
+            <EntityTypeMapping TypeName="TOSModel.T_InformationDestination">
+              <MappingFragment StoreEntitySet="T_InformationDestination">
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="InsertDateTime" ColumnName="InsertDateTime" />
+                <ScalarProperty Name="InsertOperator" ColumnName="InsertOperator" />
+                <ScalarProperty Name="DestinationID" ColumnName="DestinationID" />
+                <ScalarProperty Name="InformationID" ColumnName="InformationID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_OrderDetail">
+            <EntityTypeMapping TypeName="TOSModel.T_OrderDetail">
+              <MappingFragment StoreEntitySet="T_OrderDetail">
+                <ScalarProperty Name="UpdateDateTime" ColumnName="UpdateDateTime" />
+                <ScalarProperty Name="UpdateOperator" ColumnName="UpdateOperator" />
+                <ScalarProperty Name="OrderDateTime" ColumnName="OrderDateTime" />
+                <ScalarProperty Name="CustomerCD" ColumnName="CustomerCD" />
+                <ScalarProperty Name="ShippingDate" ColumnName="ShippingDate" />
+                <ScalarProperty Name="AvailableShippingDate" ColumnName="AvailableShippingDate" />
+                <ScalarProperty Name="Memo" ColumnName="Memo" />
+                <ScalarProperty Name="DeliveryCompanyCD" ColumnName="DeliveryCompanyCD" />
+                <ScalarProperty Name="Shippingfee" ColumnName="Shippingfee" />
+                <ScalarProperty Name="DeliveryFlg" ColumnName="DeliveryFlg" />
+                <ScalarProperty Name="OrderStatus" ColumnName="OrderStatus" />
+                <ScalarProperty Name="TotalAmount" ColumnName="TotalAmount" />
+                <ScalarProperty Name="SalePrice" ColumnName="SalePrice" />
+                <ScalarProperty Name="PlanStock" ColumnName="PlanStock" />
+                <ScalarProperty Name="StockItem" ColumnName="StockItem" />
+                <ScalarProperty Name="OrderItem" ColumnName="OrderItem" />
+                <ScalarProperty Name="AdminCD" ColumnName="AdminCD" />
+                <ScalarProperty Name="OrderID" ColumnName="OrderID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

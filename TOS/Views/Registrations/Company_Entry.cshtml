@@ -1,8 +1,1148 @@
-﻿
+﻿@model TOS_Model.MultipleModel
+@using System.Data;
 @{
     ViewBag.Title = "Company_Entry";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Company_Entry</h2>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+@RenderPage("~/Views/CommonView/Common_View.cshtml");
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>会社登録</li>
+</ol>
+
+@if (TempData["Imsg"] != null)
+{
+    <script>
+        Successmessage('I','1002','Message1');
+    </script>
+    @*<div class="row ">
+            <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
+
+                <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+                    <strong><span class="glyphicon glyphicon-ok"></span>Info:</strong>
+                    @TempData["Imsg"]
+                </div>
+            </div>
+        </div>*@
+
+}
+
+@if (TempData["Emsg"] != null)
+{
+    <script>
+        Errormessage('E', '1004','Message1');
+    </script>
+
+
+    @*<div class="row ">
+        <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
+            <div class="alert alert-warning alert-dismissable">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                <strong><span class="glyphicon glyphicon-warning-sign"></span> ERROR: </strong>
+                @TempData["Emsg"]
+            </div>
+        </div>
+    </div>*@
+}
+
+
+@Html.AntiForgeryToken()
+@using (Html.BeginForm("InsertCompany", "Registrations", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="inbox-mail">
+
+        <div class="tab-content tab-content-in w3">
+            <div class="tab-pane text-style active" id="tab1">
+                <div class="inbox-right">
+
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                            </div>
+                        </div>
+
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-dark-green" id="btnSubmit" style="background-color:rgb(146, 208,80 );">登録</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        @*First column*@
+
+                        <div class="col-md-3">
+
+                            <table>
+                                <tbody>
+                                    <tr class="form-group_entry">
+                                        @*<div class="form-group">*@
+
+                                        @*<label for="ComCD" style=" font-size:11px;">会社CD</label>*@
+                                        <td>
+                                            <label for="ComCD" style="font-size:11px;">会社CD</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.ComModel.CompanyCD, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px; font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "8" })
+                                        </td>
+                                        @*</div>*@
+                                    </tr>
+
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="ComName" style=" font-size:11px;">会社名</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.ComModel.CompanyName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                        @*</div>*@
+                                    </tr>
+
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="ComAbbre1" style=" font-size:11px;">会社略名</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.ComModel.ShortName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px; font-size:13px;", @maxlength = "30" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="ComPassw" style=" font-size:11px;">Password</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.ComModel.Password, new { @class = "form-control", @type = "password", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px; font-size:13px;", @maxlength = "20" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="RepreName" style=" font-size:11px;">代表者名</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.ComModel.PresidentName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px; font-size:13px;", @maxlength = "16" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="RnkFlag" style=" font-size:11px;">ランクフラグ</label>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                @Html.DropDownListFor(m => m.ComModel.RankingFlg, new List<SelectListItem>
+                                                 {
+                                                 new SelectListItem{ Text="", Value = "0" },
+                                                 new SelectListItem{ Text="A", Value = "1" },
+                                                 new SelectListItem{ Text="B", Value = "2" },
+                                                 new SelectListItem{ Text="C", Value = "3" },
+                                                 new SelectListItem{ Text="D", Value = "4" },
+                                                 new SelectListItem{ Text="E", Value = "5" }
+                                            }, new { @class = "form-control", @style = "background-color:#c4dfe5d6;height:30px; width:200px;font-size:11px;text-align:center;" })
+
+
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="Authority" style=" font-size:11px;">権限</label>
+                                        </td>
+                                        <td>
+                                            <div class="custom-control custom-radio">
+                                                @Html.RadioButtonFor(m => m.ComModel.UserRole, "1")
+                                                <label class="custom-control-label" style="font-size :11px;">管理者</label>
+                                                @Html.RadioButtonFor(m => m.ComModel.UserRole, "2", new { @checked = "true" })
+
+                                                <label class="custom-control-label" style="font-size :11px;">一般者</label>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            @*<div class="form-group">*@
+                                            <label for="RnkFlag" style=" font-size:11px;">ブランド</label>
+                                        </td>
+                                        <td>
+                                            <div class="dropdown">
+                                                @Html.DropDownListFor(m => m.MBrandModel.BrandCD, new SelectList(Enumerable.Empty<SelectListItem>()), "",
+                                                new { @class = "form-control", @style = "background-color:#c4dfe5d6;height:30px; width:200px;font-size:11px;", @id = "ddlBrandName" })
+
+                                                @Html.TextAreaFor(m => m.MBrandModel.BrandName, new { @class = "form-control input-sm", @style = "background-color:#E5E7E9;height:70px;width:200px;", @id = "txtarea2" })
+                                            </div>
+
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+                                </tbody>
+                            </table>
+                        </div>
+
+                        @*Second column*@
+                        <div class="col-md-3">
+                            <table>
+                                <tbody>
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            @*<div class="form-group">*@
+                                            <label for="PostCode" style=" font-size:11px;">郵便番号</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.ComModel.ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:150px;font-size:13px;", @maxlength = "7", @onkeypress = "return isNumberKey(event)" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="Address1" style=" font-size:11px;">住所1</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.ComModel.Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="Address2" style=" font-size:11px;">住所2</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.ComModel.Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+
+
+                                    @*<div class="form-group">*@
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="Phno" style=" font-size:11px;">電話番号</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.ComModel.TelephoneNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px; font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            @*<div class="form-group">*@
+                                            <label for="Faxno" style=" font-size:11px;"> FAX番号</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.ComModel.FaxNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
+
+
+                                            @*</div>*@
+                                        </td>
+                                    </tr>
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            @*<div class="form-group">*@
+                                            <label for="tag1" style=" font-size:11px;">タグ1</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[0].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px; font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            @*<div class="form-group">*@
+                                            <label for="tag2" style=" font-size:11px;">タグ2</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[1].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px; font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag3" style=" font-size:11px;">タグ3</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[2].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px; font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                        @*</div>*@
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                        @*Third column*@
+                        <div class="col-md-3">
+                            <table>
+                                <tbody>
+
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            @*<div class=" form-group">*@
+                                            <label for="tag4" style=" font-size:11px;">タグ4</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[3].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            @*<div class="form-group">*@
+                                            <label for="tag5" style=" font-size:11px;">タグ5</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[4].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            @*<div class="form-group">*@
+                                            <label for="tag6" style=" font-size:11px;">タグ6</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[5].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+                                    @*<div class="form-group">*@
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag7" style=" font-size:11px;">タグ7</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[6].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag8" style=" font-size:11px;">タグ8</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[7].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                        @*</div>*@
+                                        @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag9" style=" font-size:11px;">タグ9</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[8].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag10" style=" font-size:11px;">タグ10</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[9].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag11" style=" font-size:11px;">タグ11</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[10].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag12" style=" font-size:11px;">タグ12</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[11].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @*</div>*@
+                        </div>
+
+                        @*Fourth column*@
+                        <div class="col-md-3">
+                            <table>
+                                <tbody>
+
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag13" style=" font-size:11px;">タグ13</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[12].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag14" style=" font-size:11px;">タグ14</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[13].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag15" style=" font-size:11px;">タグ15</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[14].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag16" style=" font-size:11px;">タグ16</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[15].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag17" style=" font-size:11px;">タグ17</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[16].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag18" style=" font-size:11px;">タグ18</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[17].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+
+                                    @*</div>*@
+
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag19" style=" font-size:11px;">タグ19</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[18].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                    @*</div>*@
+                                    @*<div class="form-group">*@
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label for="tag20" style=" font-size:11px;">タグ20</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.TagModel[19].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            @*</div>*@
+
+                        </div>
+                        <div class="success">
+                            @ViewBag.Success
+                        </div>
+                    </div>
+
+
+                    <div class="form-inline col-md-3">
+                    </div>
+                    <div class="form-inline col-md-3">
+                    </div>
+                    <div class="form-inline col-md-3">
+                    </div>
+                    @*}*@
+                </div>
+            </div>
+        </div>
+
+
+        <div class="inbox-right">
+            <div class="container1">
+                <div class="row">
+
+                    <div class="col-md-3">
+
+                        <table>
+                            <tbody>
+
+                                <tr class="form-group_entry">
+                                    <label for="Ship1" style="font-size:12px;">発送先情報登録1</label>
+                                </tr>
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="shipID1" style=" font-size:11px;">発送先ID</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[0].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;font-size:13px;", @onkeypress = "return isNumberKey(event)" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="shipName1" style=" font-size:11px;">発送先名</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[0].ShippingName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="PostCode1" style=" font-size:11px;">郵便番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[0].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "7" })
+                                    </td>
+                                </tr>
+
+                                @*</div>*@
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Add1" style=" font-size:11px;">住所1</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[0].Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Address1" style=" font-size:11px;">住所2</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[0].Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+                                    </td>
+                                </tr>
+
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Phno1" style=" font-size:11px;">電話番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[0].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="TaxNo1" style=" font-size:11px;">FAX番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[0].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        @*</div>*@
+                    </div>
+                    <div class="col-md-3">
+
+                        <table>
+                            <tbody>
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <label for="Ship2" style="font-size :12px;">発送先情報登録2</label>
+                                </tr>
+
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="shipID2" style=" font-size:11px;">発送先ID</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[1].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;font-size:13px;", @onkeypress = "return isNumberKey(event)" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="shipName2" style=" font-size:11px;">発送先名</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[1].ShippingName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="PostCode2" style=" font-size:11px;">郵便番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[1].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "7" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Add2" style=" font-size:11px;">住所1</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[1].Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+
+                                        @*</div>*@
+                                    </td>
+                                </tr>
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Address2" style=" font-size:11px;">住所2</label>
+                                    </td>
+                                    <td>
+
+                                        @Html.TextBoxFor(m => m.ShippingModel[1].Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Phno2" style=" font-size:11px;">電話番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[1].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="TaxNo2" style=" font-size:11px;">FAX番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[1].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        @*</div>*@
+                    </div>
+
+
+                    <div class="col-md-3">
+                        <table>
+                            <tbody>
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+
+                                    <label for="Ship3" style="font-size :12px;">発送先情報登録3</label>
+
+                                </tr>
+                                @*</div>*@
+
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="shipID3" style=" font-size:11px;">発送先ID</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[2].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;font-size:13px;", @onkeypress = "return isNumberKey(event)" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="shipName3" style=" font-size:11px;">発送先名</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[2].ShippingName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="PostCode3" style=" font-size:11px;">郵便番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[2].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "7" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Add3" style=" font-size:11px;">住所1</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[2].Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Address3" style=" font-size:11px;">住所2</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[2].Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Phno3" style=" font-size:11px;">電話番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[2].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                                @* </div> *@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="TaxNo3" style=" font-size:11px;">FAX番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[2].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        @*</div>*@
+
+
+                    </div>
+
+
+
+                    <div class="col-md-3">
+
+                        <table>
+                            <tbody>
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+
+                                    <label for="Ship4" style="font-size :12px;">発送先情報登録4</label>
+
+
+                                    <button type="button" class="add_form_field" style="background-color:rgb(244, 176,132 );">発送情報追加</button>
+                                    @*</div>*@
+
+                                </tr>
+
+
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="shipID4" style=" font-size:11px;">発送先ID</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[3].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;font-size:13px;", @onkeypress = "return isNumberKey(event)" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="shipName4" style=" font-size:11px;">発送先名</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[3].ShippingName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="PostCode4" style=" font-size:11px;">郵便番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[3].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "7" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Add4" style=" font-size:11px;">住所1</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[3].Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Address4" style=" font-size:11px;">住所2</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[3].Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="Phno4" style=" font-size:11px;">電話番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[3].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                                @*</div>*@
+                                @*<div class="form-group">*@
+                                <tr class="form-group_entry">
+                                    <td>
+                                        <label for="TaxNo4" style=" font-size:11px;">FAX番号</label>
+                                    </td>
+                                    <td>
+                                        @Html.TextBoxFor(m => m.ShippingModel[3].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                        @*</div>*@
+                    </div>
+
+                </div>
+
+                <div class="row">
+                    <div class="container2">
+                        <br>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="clearfix"> </div>
+}
+
+
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+
+            //$("#btnSubmit").click(function () {
+
+            //});
+
+
+            var max_fields = 1000;
+            var wrapper = $(".container2");
+            var add_button = $(".add_form_field");
+
+            var x = 5;
+            $(add_button).click(function (e) {
+                e.preventDefault();
+
+
+                 @*var ShipID = '@Html.TextBoxFor(m => m.ShippingModel[4].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px;", @maxlength = "15" })';
+                 var ShipName = '@Html.TextBoxFor(m => m.ShippingModel[4].ShippingName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })';
+                 var Zip1 = '@Html.TextBoxFor(m => m.ShippingModel[4].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "7" })';
+                 var add1 ='@Html.TextBoxFor(m => m.ShippingModel[4].Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "100" })';
+                var add2 = '@Html.TextBoxFor(m => m.ShippingModel[4].Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "100" })';
+                var phno = ' @Html.TextBoxFor(m => m.ShippingModel[4].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })';
+                var faxno = '@Html.TextBoxFor(m => m.ShippingModel[4].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })';*@
+
+
+                var ShipID = '<input align="center" autofocus="autofocus" class="form-control" data-val="true" data-val-number="The field ShippingID must be a number." data-val-required="The ShippingID field is required." id="ShippingModel_' + (x - 1) + '__ShippingID" name="ShippingModel[' + (x - 1) +'].ShippingID" onkeypress="return isNumberKey(event)" required="required" style="background-color:#c4dfe5d6;height:23px; width:130px;font-size:13px;" tabindex="1" type="text" value="">';
+
+                var ShipName = '<input align="center" autofocus="autofocus" class="form-control" data-val="true" data-val-number="The field ShippingName must be a number." data-val-required="The ShippingName field is required." id="ShippingModel_' + (x - 1) + '__ShippingName" maxlength="50" name="ShippingModel[' + (x - 1) +'].ShippingName" style="background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
+
+                var Zip1 = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__ZipCD1" maxlength="7" name="ShippingModel[' + (x - 1) +'].ZipCD1" style="background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
+
+                var add1 = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__Address1" maxlength="100" name="ShippingModel[' + (x - 1) +'].Address1" style="background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
+
+                var add2 = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__Address2" maxlength="100" name="ShippingModel[' + (x - 1) +'].Address2" style="background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
+
+                var phno = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__TelephoneNO" maxlength="15" name="ShippingModel[' + (x - 1) +'].TelephoneNO" onkeypress="return isNumberKey(event)" style="background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
+
+                var faxno = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__FaxNO" maxlength="15" name="ShippingModel[' + (x - 1) +'].FaxNO" style="background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
+
+
+
+
+                if (x <= max_fields) {
+                    @*var st = '@Html.TextBoxFor(m => m.ShippingModel[x].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })';*@
+                    //alert(st);
+                    @*$(wrapper).append('<div class="col-md-3"><div class="form-group"><label for="Ship1" style="font-size :12px;">発送先情報登録' + x + '</label> <div class="form-group"><label for="shipID1"style=" font-size:11px;"> 発送先ID </label>' +@Html.TextBoxFor(m => m.ShippingModel[5].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })+'</div><div class ="form-group"><label for="shipName1"style=" font-size:11px;"> 発送先名 </label><input type="text" class="form-control" id="txtshipName1" name="txtshipName1" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div><div class="form-group"> <label for="PostCode" style=" font-size:11px;">郵便番号 </label><input type="text" class="form-control" id="txtPostCode" name="txtPostCode1" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div><div class="form-group"><label for="Add" style=" font-size:11px;">住所1</label> <input type="text" class="form-control" id="txtAdd1" name="txtAdd1" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div><div class="form-group"> <label for="Address1"style=" font-size:11px;">住所2</label> <input type="text" class="form-control" id="txtAddress1" name="txtAddress1" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div><div class="form-group"><label for="Phno"style=" font-size:11px;">電話番号 </label><input type="text" class="form-control" id="txtPhno" name="txtPhno" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div><div class="form-group"><label for="TaxNo"style=" font-size:11px;">FAX番号 </label> <input type="text" class="form-control" id="txtTaxNo" name="txtTaxNo" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div></div>'); //add input box*@
+
+                    $(wrapper).append('<div class="col-md-3"><table><tbody><tr class="form-group_entry">'+
+                        '<label for= "Ship" style = "font-size :12px;" > 発送先情報登録' + x + '</label ></tr >'+
+                        '<tr class="form-group_entry">' +
+                        '<td><label for="shipID" style=" font-size:11px;"> 発送先ID </label></td><td>' + ShipID + '</td></tr>'+
+                        '<tr class="form-group_entry">'+
+                        '<td><label for="shipName" style=" font-size:11px;"> 発送先名 </label></td><td>' + ShipName + '</td></tr>' +
+                        '<tr class="form-group_entry"><td>'+
+                        '<label for="PostCode" style=" font-size:11px;">郵便番号 </label></td><td>' + Zip1 + '</td></tr>' +
+                        '<tr class="form-group_entry"><td>'+
+                        '<label for="Add" style=" font-size:11px;">住所1</label></td><td>' + add1 + '</td></tr>' +
+                        '<tr class="form-group_entry"><td>'+
+                        '<label for="Address1" style=" font-size:11px;">住所2</label></td><td>' + add2 + '</td></tr>' +
+                        '<tr class="form-group_entry"><td>'+
+                        '<label for="Phno" style=" font-size:11px;">電話番号 </label></td><td>' + phno + '</td></tr>' +
+                        '<tr class="form-group_entry"><td>'+
+                        '<label for="TaxNo" style=" font-size:11px;">FAX番号 </label></td><td>' + faxno + '</td></tr></tbody></table><br>' +
+                        '</div>');
+                    x++;
+
+                } else {
+                    alert('You Reached the limits')
+                }
+            });
+
+            $(wrapper).on("click", ".delete", function (e) {
+                e.preventDefault();
+                $(this).parent('div').remove();
+                x--;
+            })
+        });
+
+
+        function isNumberKey(evt) {
+
+            var charCode = (evt.which) ? evt.which : event.keyCode
+
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+
+                return false;
+            return true;
+        }
+
+        //     function numbersonly()
+        //{
+        //var data=document.getElementById('<%=TextBox1.ClientID %>').value;
+        //     var filter=/^[a-zA-Z0-9]+$/;
+        //      if(!filter.test(data))
+        //    {
+        //         alert("Please enter alphanumeric only");
+        //     document.getElementById('<%=TextBox1.ClientID %>').value="";
+        //    document.getElementById('<%=TextBox1.ClientID %>').focus();
+        //     return false;
+        //     }
+        //     else if(data.Length!=10)
+        //    {
+        //         alert("Please enter 10 digits");
+        //     return false;
+        //     }
+        //     else
+        //     return true;
+        // }
+    </script>
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.ajax({
+                url: '/Registrations/M_Brand_Select',
+                type: "GET",
+                dataType: "JSON",
+                dataSrc: '',
+                success: function (SP) {
+                    $.each(SP, function (i, name) {
+                        $("#ddlBrandName").append(
+                            $('<option></option>').val(name.BrandCD).html(name.BrandName));
+                    });
+                }
+            });
+        });
+    </script>
+
+    <script type="text/javascript">
+        $(function () {
+            $("[id='ddlBrandName']").change(function () {
+                var sel = $("#ddlBrandName option:selected").text();
+                var text = $('#txtarea2').val();
+                if (text.length > 0) {
+                    if (text.includes(sel)) { }
+                    else if (sel != "") {
+                        text += "," + sel;
+                    }
+                }
+                else
+                    text = sel;
+                $('#txtarea2').val(text);
+            });
+        });
+    </script>
+
+    @*if (TempData["message"] != null)
+        {
+        <script type="text/javascript">
+              alert(@Html.Raw(Json.Encode(TempData["message"])));
+        </script>
+        }*@
+}
+
+<style>
+
+    .mother-grid-inner {
+        display: block !important;
+        background-color: #edecec !important;
+    }
+
+    .left-content {
+        background-color: #edecec !important;
+    }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

@@ -2623,12 +2623,19 @@ input[type="search"] {
 .form-group {
   margin-bottom: 15px;
 }
+.form-group_entry {
+    margin-bottom: 15px;
+    height:40px;
+}
+.form-group_entry td{
+    padding-left:15px;
+}
 .radio,
 .checkbox {
-  position: relative;
-  display: block;
-  margin-top: 10px;
-  margin-bottom: 10px;
+    position: relative;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .radio label,
 .checkbox label {

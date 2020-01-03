@@ -1,9 +1,34 @@
 ﻿
 @{
+    /**/
     ViewBag.Title = "Order_Input";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    TOS_Model.M_JobTimeableModel mj = ViewData["JobTime"] as TOS_Model.M_JobTimeableModel;
+    TOS_Model.M_JobTimeableModel mj = new TOS_Model.M_JobTimeableModel();
+
+    TOS_Model.M_CompanyShippingModel mcs = new TOS_Model.M_CompanyShippingModel();
+    if (ViewData["JobTime"] != null)
+    {
+        mj = ViewData["JobTime"] as TOS_Model.M_JobTimeableModel;
+
+    }
+    if (ViewData["ShippingName"] != null)
+    {
+        mcs = ViewData["ShippingName"] as TOS_Model.M_CompanyShippingModel;
+    }
+
+
 }
+<style>
+
+    .mother-grid-inner {
+        display: block !important;
+        background-color: #edecec !important;
+    }
+
+    .left-content {
+        background-color: #edecec !important;
+    }
+</style>
 
 @section Styles {
     <!-- Bootstrap Core CSS -->
@@ -20,18 +45,818 @@
     <link href='//fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
     <!-- lined-icons -->
     <link rel="stylesheet" href="~/Content/icon-font.min.css" type='text/css' />
-    <link rel="stylesheet" href="~/Content/order_portal.css" type='text/css' />
+    @*<link rel="stylesheet" href="~/Content/order_portal.css" type='text/css' />*@
+    <link rel="stylesheet" href="~/Content/order_input.css" type='text/css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-    <script type="application/x-javascript">
-        addEventListener("load", function() {
-            setTimeout(hideURLbar, 0);
-        }, false);
 
-        function hideURLbar() {
-            window.scrollTo(0, 1);
-        }
-    </script>
 }
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            var count = '@ViewBag.count'
+           
+            //var count = st.match(/,/igm).length
+            
+            for (var k = 1; k <= 8; k++)
+            {
+                //var count = st.match(/,/igm).length;
+                if (k > count) {
+                    $("#makeritem" + k).hide();
+                    $(".ISProductBody" + k).hide();
+                }
+
+            }
+
+            $.ajax({
+                url: '/Order/ShippingName_Select', // get mall
+                type: "GET",
+                dataType: "JSON",
+                dataSrc: '',
+                success: function (SP) {
+                    $.each(SP, function (i, name) {
+                        $("#ddlShippingName").append(
+                            $('<option></option>').val(name.ShippingID).html(name.ShippingName));
+                    });
+                }
+            });
+
+
+            var table = $('#makeritem1').DataTable(
+                {
+
+                    columnDefs: [
+                        //    {
+                        //    "data": null,
+                        //    "defaultContent": " ",
+                        //    "targets": [0,1,2,3,4,5,6,7]
+                        //},
+                        {
+                            targets: [1, 3, 4, 5, 6],
+                            className: 'saict t100'
+                        },
+                        {
+                            targets: [0],
+                            className: 'saict'
+                        },
+                        {
+                            targets: [7],
+                            className: 'saict t200'
+                        },
+                        {
+                            targets: [2],
+                            className: 'saict t300'
+                        }],
+                    "destroy": true,
+                    responsive: false,
+                    //"scrollX": true,
+                    "bInfo": false,
+                    paging: false,
+                    "dom": 'lrtip',
+                    "bLengthChange": false,
+                    "ajax": {
+                        "url": "../../Order/Order_Input_M_Item_Select/0",
+                        "type": "GET",
+                        "datatype": "json",
+                        "dataSrc": "",               
+                    },
+                    "columns": [
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<a href="#clearfix" class = "hideLink" >非表示</a>';
+
+                            },
+                        },
+                        //{ "data": "", "orderable": "false", "width": "15%" },
+                        { "data": "MakerItemCD", orderable: false },
+                        { "data": "ItemName", orderable: false },
+                        { "data": "BrandName", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false },
+                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "Lot", orderable: false },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<input class="form-control" type="text" />';
+                            },
+                        },
+                    ],
+                }
+            );
+            //$.ajax({
+
+            //    url: "../Order/Order_Input_M_Item_Select/",
+            //    //method: "POST",
+            //    //contentType: "application/json; charset=utf-8",
+            //    type: "GET",
+            //    dataType: "JSON",
+            //    //dataType: "json",
+            //    success: function (data) {
+            //        alert('1');
+            //        alert(data);
+            //        //var d = data;//JSON.parse(data);
+            //        //alert(d);
+            //        $('#makeritem1').dataTable({
+            //            data: data,
+            //            "destroy": true,
+            //            responsive: false,
+            //            "scrollX": true,
+            //            "bInfo": false,
+            //            paging: false,
+            //            "dom": 'lrtip',
+            //            "bLengthChange": false,
+            //            Columns: [
+            //                {
+            //                    "data": "", "render": function (data, type, row) {
+            //                        return '<a href="#clearfix" class = "hideLink" >非表示</a>';
+
+            //                    },
+            //                },
+            //                { "data": "MakerItemCD", orderable: false },
+            //                { "data": "ItemName", orderable: false },
+            //                { "data": "BrandName", orderable: false },
+            //                { "data": "ListPrice(InTax)", orderable: false },
+            //                { "data": "SalePrice(InTax)", orderable: false },
+            //                { "data": "Lot", orderable: false },
+            //                {
+            //                    "data": "", "render": function (data, type, row) {
+            //                        return '<input class="form-control" type="text" />';
+            //                    },
+            //                },
+            //            ]
+            //        });
+            //    },
+            //    error: function (xhr, ajaxOptions, thrownError) {
+            //        alert(xhr.responseText);
+            //        alert("Error1")
+            //        thrownError;
+            //    }
+            //});
+
+                    $.getJSON("../../Order/Order_Input_M_SKU_Select/0",
+                        function (json) {
+
+                            var table = $.makeTable(json)
+                            $(table).appendTo('#sku1')
+
+                });
+
+            //tb2
+            var table = $('#makeritem2').DataTable(
+                {
+
+                    columnDefs: [
+                        //    {
+                        //    "data": null,
+                        //    "defaultContent": " ",
+                        //    "targets": [0,1,2,3,4,5,6,7]
+                        //},
+                        {
+                            targets: [1, 3, 4, 5, 6],
+                            className: 'saict t100'
+                        },
+                        {
+                            targets: [0],
+                            className: 'saict'
+                        },
+                        {
+                            targets: [7],
+                            className: 'saict t200'
+                        },
+                        {
+                            targets: [2],
+                            className: 'saict t300'
+                        }],
+                    "destroy": true,
+                    responsive: false,
+                    //"scrollX": true,
+                    "bInfo": false,
+                    paging: false,
+                    "dom": 'lrtip',
+                    "bLengthChange": false,
+                    "ajax": {
+                        "url": "../../Order/Order_Input_M_Item_Select/1",
+                        "type": "GET",
+                        "datatype": "json",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<a href="#clearfix" class = "hideLink" >非表示</a>';
+
+                            },
+                        },
+                        //{ "data": "", "orderable": "false", "width": "15%" },
+                        { "data": "MakerItemCD", orderable: false },
+                        { "data": "ItemName", orderable: false },
+                        { "data": "BrandName", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false },
+                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "Lot", orderable: false },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<input class="form-control" type="text" />';
+                            },
+                        },
+                    ],
+                }
+            );
+
+
+            //var mytable = document.getElementById('makeritem');
+            //var tex = $('#makeritem2').find("tr:eq(0)").find("td:eq(1)").html();
+            //alert(tex);
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/1",
+                function (json) {
+
+                    var table = $.makeTable(json)
+                    $(table).appendTo('#sku2')
+
+                });
+
+                var table = $('#makeritem3').DataTable(
+                {
+
+                    columnDefs: [
+                    //    {
+                    //    "data": null,
+                    //    "defaultContent": " ",
+                    //    "targets": [0,1,2,3,4,5,6,7]
+                    //},
+                    {
+                        targets: [1, 3, 4, 5, 6],
+                        className: 'saict t100'
+                    },
+                    {
+                        targets: [0],
+                        className: 'saict'
+                    },
+                    {
+                        targets: [7],
+                        className: 'saict t200'
+                    },
+                    {
+                        targets: [2],
+                        className: 'saict t300'
+                    }],
+                    "destroy": true,
+                    responsive: false,
+                    //"scrollX": true,
+                    "bInfo": false,
+                    paging: false,
+                    "dom": 'lrtip',
+                    "bLengthChange": false,
+                    "ajax": {
+                        "url": "../../Order/Order_Input_M_Item_Select/2",
+                        "type": "GET",
+                        "datatype": "json",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<a href="#clearfix" class = "hideLink" >非表示</a>';
+
+                            },
+                        },
+                        //{ "data": "", "orderable": "false", "width": "15%" },
+                        { "data": "MakerItemCD", orderable: false },
+                        { "data": "ItemName", orderable: false },
+                        { "data": "BrandName", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false },
+                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "Lot", orderable: false },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<input class="form-control" type="text" />';
+                            },
+                        },
+                    ],
+                }
+            );
+
+
+
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/2",
+                function (json) {
+                    //if (json != null) {
+                        var table = $.makeTable(json)
+                        $(table).appendTo('#sku3')
+                    //}
+
+                });
+            var table = $('#makeritem4').DataTable(
+                {
+
+                    columnDefs: [
+                        //    {
+                        //    "data": null,
+                        //    "defaultContent": " ",
+                        //    "targets": [0,1,2,3,4,5,6,7]
+                        //},
+                        {
+                            targets: [1, 3, 4, 5, 6],
+                            className: 'saict t100'
+                        },
+                        {
+                            targets: [0],
+                            className: 'saict'
+                        },
+                        {
+                            targets: [7],
+                            className: 'saict t200'
+                        },
+                        {
+                            targets: [2],
+                            className: 'saict t300'
+                        }],
+                    "destroy": true,
+                    responsive: false,
+                    //"scrollX": true,
+                    "bInfo": false,
+                    paging: false,
+                    "dom": 'lrtip',
+                    "bLengthChange": false,
+                    "ajax": {
+                        "url": "../../Order/Order_Input_M_Item_Select/3",
+                        "type": "GET",
+                        "datatype": "json",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<a href="#clearfix" class = "hideLink" >非表示</a>';
+
+                            },
+                        },
+                        //{ "data": "", "orderable": "false", "width": "15%" },
+                        { "data": "MakerItemCD", orderable: false },
+                        { "data": "ItemName", orderable: false },
+                        { "data": "BrandName", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false },
+                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "Lot", orderable: false },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<input class="form-control" type="text" />';
+                            },
+                        },
+                    ],
+                }
+            );
+
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/3",
+                function (json) {
+
+                    var table = $.makeTable(json)
+                    $(table).appendTo('#sku4')
+
+                });
+
+            var table = $('#makeritem5').DataTable(
+                {
+
+                    columnDefs: [
+                        //    {
+                        //    "data": null,
+                        //    "defaultContent": " ",
+                        //    "targets": [0,1,2,3,4,5,6,7]
+                        //},
+                        {
+                            targets: [1, 3, 4, 5, 6],
+                            className: 'saict t100'
+                        },
+                        {
+                            targets: [0],
+                            className: 'saict'
+                        },
+                        {
+                            targets: [7],
+                            className: 'saict t200'
+                        },
+                        {
+                            targets: [2],
+                            className: 'saict t300'
+                        }],
+                    "destroy": true,
+                    responsive: false,
+                    //"scrollX": true,
+                    "bInfo": false,
+                    paging: false,
+                    "dom": 'lrtip',
+                    "bLengthChange": false,
+                    "ajax": {
+                        "url": "../../Order/Order_Input_M_Item_Select/4",
+                        "type": "GET",
+                        "datatype": "json",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<a href="#clearfix" class = "hideLink" >非表示</a>';
+
+                            },
+                        },
+                        //{ "data": "", "orderable": "false", "width": "15%" },
+                        { "data": "MakerItemCD", orderable: false },
+                        { "data": "ItemName", orderable: false },
+                        { "data": "BrandName", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false },
+                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "Lot", orderable: false },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<input class="form-control" type="text" />';
+                            },
+                        },
+                    ],
+                }
+            );
+
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/4",
+                function (json) {
+
+                    var table = $.makeTable(json)
+                    $(table).appendTo('#sku5')
+
+                });
+
+            var table = $('#makeritem6').DataTable(
+                {
+
+                    columnDefs: [
+                        //    {
+                        //    "data": null,
+                        //    "defaultContent": " ",
+                        //    "targets": [0,1,2,3,4,5,6,7]
+                        //},
+                        {
+                            targets: [1, 3, 4, 5, 6],
+                            className: 'saict t100'
+                        },
+                        {
+                            targets: [0],
+                            className: 'saict'
+                        },
+                        {
+                            targets: [7],
+                            className: 'saict t200'
+                        },
+                        {
+                            targets: [2],
+                            className: 'saict t300'
+                        }],
+                    "destroy": true,
+                    responsive: false,
+                    //"scrollX": true,
+                    "bInfo": false,
+                    paging: false,
+                    "dom": 'lrtip',
+                    "bLengthChange": false,
+                    "ajax": {
+                        "url": "../../Order/Order_Input_M_Item_Select/5",
+                        "type": "GET",
+                        "datatype": "json",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<a href="#clearfix" class = "hideLink" >非表示</a>';
+
+                            },
+                        },
+                        //{ "data": "", "orderable": "false", "width": "15%" },
+                        { "data": "MakerItemCD", orderable: false },
+                        { "data": "ItemName", orderable: false },
+                        { "data": "BrandName", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false },
+                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "Lot", orderable: false },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<input class="form-control" type="text" />';
+                            },
+                        },
+                    ],
+                }
+            );
+
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/5",
+                function (json) {
+
+                    var table = $.makeTable(json)
+                    $(table).appendTo('#sku6')
+
+                });
+
+            var table = $('#makeritem7').DataTable(
+                {
+
+                    columnDefs: [
+                        //    {
+                        //    "data": null,
+                        //    "defaultContent": " ",
+                        //    "targets": [0,1,2,3,4,5,6,7]
+                        //},
+                        {
+                            targets: [1, 3, 4, 5, 6],
+                            className: 'saict t100'
+                        },
+                        {
+                            targets: [0],
+                            className: 'saict'
+                        },
+                        {
+                            targets: [7],
+                            className: 'saict t200'
+                        },
+                        {
+                            targets: [2],
+                            className: 'saict t300'
+                        }],
+                    "destroy": true,
+                    responsive: false,
+                    //"scrollX": true,
+                    "bInfo": false,
+                    paging: false,
+                    "dom": 'lrtip',
+                    "bLengthChange": false,
+                    "ajax": {
+                        "url": "../../Order/Order_Input_M_Item_Select/6",
+                        "type": "GET",
+                        "datatype": "json",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<a href="#clearfix" class = "hideLink" >非表示</a>';
+
+                            },
+                        },
+                        //{ "data": "", "orderable": "false", "width": "15%" },
+                        { "data": "MakerItemCD", orderable: false },
+                        { "data": "ItemName", orderable: false },
+                        { "data": "BrandName", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false },
+                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "Lot", orderable: false },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<input class="form-control" type="text" />';
+                            },
+                        },
+                    ],
+                }
+            );
+
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/6",
+                function (json) {
+
+                    var table = $.makeTable(json)
+                    $(table).appendTo('#sku7')
+
+                });
+
+            var table = $('#makeritem8').DataTable(
+                {
+
+                    columnDefs: [
+                        //    {
+                        //    "data": null,
+                        //    "defaultContent": " ",
+                        //    "targets": [0,1,2,3,4,5,6,7]
+                        //},
+                        {
+                            targets: [1, 3, 4, 5, 6],
+                            className: 'saict t100'
+                        },
+                        {
+                            targets: [0],
+                            className: 'saict'
+                        },
+                        {
+                            targets: [7],
+                            className: 'saict t200'
+                        },
+                        {
+                            targets: [2],
+                            className: 'saict t300'
+                        }],
+                    "destroy": true,
+                    responsive: false,
+                    //"scrollX": true,
+                    "bInfo": false,
+                    paging: false,
+                    "dom": 'lrtip',
+                    "bLengthChange": false,
+                    "ajax": {
+                        "url": "../../Order/Order_Input_M_Item_Select/7",
+                        "type": "GET",
+                        "datatype": "json",
+                        "dataSrc": ""
+                    },
+                    "columns": [
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<a href="#clearfix" class = "hideLink" >非表示</a>';
+
+                            },
+                        },
+                        //{ "data": "", "orderable": "false", "width": "15%" },
+                        { "data": "MakerItemCD", orderable: false },
+                        { "data": "ItemName", orderable: false },
+                        { "data": "BrandName", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false },
+                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "Lot", orderable: false },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<input class="form-control" type="text" />';
+                            },
+                        },
+                    ],
+                }
+            );
+
+            $.getJSON("../../Order/Order_Input_M_SKU_Select/7",
+                function (json) {
+
+                    var table = $.makeTable(json)
+                    $(table).appendTo('#sku8')
+
+                });
+
+        });
+
+
+        $.makeTable = function (mydata) {
+            var table = $('<table class="tab002">');
+            var tblHeader = "<tr class ='odrinfo'>";
+            tblHeader += "<td class='t300 saict tab002tit'>摘要</td>";
+            for (var k in mydata[0]) tblHeader += "<td class='t300 tab002tit saict'>" + k + "</td>";
+            tblHeader += "</tr>";
+            $(tblHeader).appendTo(table);
+            $.each(mydata, function (index, value) {
+
+                var TableRow = "<tr class='saisinHeading odrinfo'>";
+                TableRow += "<td width='20%'><input class='form-control' type='text' value='Aさんの分' /></td>"
+
+                $.each(value, function (key, val) {
+                    TableRow += "<td class='saict'>" + val + "</td>";
+                });
+                TableRow += "</tr>";
+                $(table).append(TableRow);
+
+                //var Tablefixfrow = "<tr>< td width='30px' class='t30 saict tab002tit'> 摘要</td ><td width='30px' class='t30 tab002tit saict'>発注数</td><td class='odr6'><input class='t30 form-control' type='text' value='0' /></td><td class='odr6'><input class='t30 form-control' type='text' value='0' /></td></tr>";
+                var Tablefixfrow = "<tr><td class='t30 saict tab002tit'> 摘要</td >";
+                Tablefixfrow += "<td class='t30 tab002tit saict'>発注数</td>";
+                var count = Object.keys(mydata[0]).length;
+                //alert(count);
+                for (var i = 1; i < count; i++) {
+                    Tablefixfrow += " <td class='odr6'><input class='form-control sair' type='text' value='0'/></td>";
+                };
+                Tablefixfrow += "</tr > ";
+                $(table).append(Tablefixfrow);
+            });
+            return ($(table));
+        };
+        //$("#btnreset").click(function () {
+        //    alert("reset");
+        //    $('.tab001').find('input: Text').val('');
+        //});
+        jQuery('#makeritem1').on('click', 'tr:gt(0)>td>a.hideLink', function () {
+            if ($(this).text() == "非表示") {
+                $(this).text("表示");
+            } else {
+                $(this).text("非表示");
+            }
+            $(".ISProductBody1").toggle();
+
+            return false;
+        });
+        jQuery('#makeritem2').on('click', 'tr:gt(0)>td>a.hideLink', function () {
+            if ($(this).text() == "非表示") {
+                $(this).text("表示");
+            } else {
+                $(this).text("非表示");
+            }
+            $(".ISProductBody2").toggle();
+
+            return false;
+        });
+        jQuery('#makeritem3').on('click', 'tr:gt(0)>td>a.hideLink', function () {
+            if ($(this).text() == "非表示") {
+                $(this).text("表示");
+            } else {
+                $(this).text("非表示");
+            }
+            $(".ISProductBody3").toggle();
+
+            return false;
+        });
+        jQuery('#makeritem4').on('click', 'tr:gt(0)>td>a.hideLink', function () {
+            if ($(this).text() == "非表示") {
+                $(this).text("表示");
+            } else {
+                $(this).text("非表示");
+            }
+            $(".ISProductBody4").toggle();
+
+            return false;
+        });
+        jQuery('#makeritem5').on('click', 'tr:gt(0)>td>a.hideLink', function () {
+            if ($(this).text() == "非表示") {
+                $(this).text("表示");
+            } else {
+                $(this).text("非表示");
+            }
+            $(".ISProductBody5").toggle();
+
+            return false;
+        });
+        jQuery('#makeritem6').on('click', 'tr:gt(0)>td>a.hideLink', function () {
+            if ($(this).text() == "非表示") {
+                $(this).text("表示");
+            } else {
+                $(this).text("非表示");
+            }
+            $(".ISProductBody6").toggle();
+
+            return false;
+        });
+        jQuery('#makeritem7').on('click', 'tr:gt(0)>td>a.hideLink', function () {
+            if ($(this).text() == "非表示") {
+                $(this).text("表示");
+            } else {
+                $(this).text("非表示");
+            }
+            $(".ISProductBody7").toggle();
+
+            return false;
+        });
+        jQuery('#makeritem8').on('click', 'tr:gt(0)>td>a.hideLink', function () {
+            if ($(this).text() == "非表示") {
+                $(this).text("表示");
+            } else {
+                $(this).text("非表示");
+            }
+            $(".ISProductBody8").toggle();
+
+            return false;
+        });
+
+        $("#btnSearch").click(function () {
+            var MakerItemCD = "";
+            if ($("#txt1").val() != '')
+                MakerItemCD += $("#txt1").val() + ',';
+            if ($("#txt2").val() != '')
+                MakerItemCD += $("#txt2").val() + ',';
+            if ($("#txt3").val() != '')
+                MakerItemCD += $("#txt3").val() + ',';
+            if ($("#txt4").val() != '')
+                MakerItemCD += $("#txt4").val() + ',';
+            if ($("#txt5").val() != '')
+                MakerItemCD += $("#txt5").val() + ',';
+            if ($("#txt6").val() != '')
+                MakerItemCD += $("#txt6").val() + ',';
+            if ($("#txt7").val() != '')
+                MakerItemCD += $("#txt7").val() + ',';
+            if ($("#txt8").val() != '')
+                MakerItemCD += $("#txt8").val() + ',';
+            if (MakerItemCD.indexOf(',') > 0)
+                MakerItemCD = MakerItemCD.slice(0, -1);
+            window.location.href = '../../Order/Order_Input/' + MakerItemCD;
+        })
+
+        $("#btnClear").click(function () {
+            $("#txt1").val("");
+            $("#txt2").val("");
+            $("#txt3").val("");
+            $("#txt4").val("");
+            $("#txt5").val("");
+            $("#txt6").val("");
+            $("#txt7").val("");
+            $("#txt8").val("");
+        })
+
+        $("#btntotal").click(function () {
+            var count = '@ViewBag.count'
+           
+            var mytable = document.getElementById('makeritem');
+            var tex = $('#sku1').find("tr:eq(1)").find("td:eq(1)").html();
+            alert("10");
+        })
+
+    </script>
+
+}
+
+
 <!--heder end here-->
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注入力</li>
@@ -52,30 +877,30 @@
                                     <div class="orderpcomRow">
                                         <div class="orderpcomCellm">メーカー品番</div>
                                         <div class="orderpcomCelln">1</div>
-                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCellc"> <input type="text" id="txt1" class="form-control" placeholder="品番入力"></div>
                                         <div class="orderpcomCelln">2</div>
-                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCellc"> <input type="text" id="txt2" class="form-control" placeholder="品番入力"></div>
                                     </div>
                                     <div class="orderpcomRow">
                                         <div class="orderpcomCellm"></div>
                                         <div class="orderpcomCelln">3</div>
-                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCellc"> <input type="text" id="txt3" class="form-control" placeholder="品番入力"></div>
                                         <div class="orderpcomCelln">4</div>
-                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCellc"> <input type="text" id="txt4" class="form-control" placeholder="品番入力"></div>
                                     </div>
                                     <div class="orderpcomRow">
                                         <div class="orderpcomCellm"></div>
                                         <div class="orderpcomCelln">5</div>
-                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCellc"> <input type="text" id="txt5" class="form-control" placeholder="品番入力"></div>
                                         <div class="orderpcomCelln">6</div>
-                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCellc"> <input type="text" id="txt6" class="form-control" placeholder="品番入力"></div>
                                     </div>
                                     <div class="orderpcomRow">
                                         <div class="orderpcomCellm"></div>
                                         <div class="orderpcomCelln">7</div>
-                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCellc"> <input type="text" id="txt7" class="form-control" placeholder="品番入力"></div>
                                         <div class="orderpcomCelln">8</div>
-                                        <div class="orderpcomCellc"> <input type="text" class="form-control" placeholder="品番入力"></div>
+                                        <div class="orderpcomCellc"> <input type="text" id="txt8" class="form-control" placeholder="品番入力"></div>
 
                                     </div>
                                     <div class="orderpcomRow">
@@ -94,7 +919,12 @@
                                         <div class="orderpcomCell"></div>
                                         <div class="orderpcomCell">
                                             <div class="orderpcomCell">
-                                                <div class="orderpcomCell"><button type="button" 　onclick="odFunction()" class="odsec btn btn-success"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></div><div class="orderpcomCell"><button type="button" class="odsec btn btn-warning">↺&nbsp;リセット</button></div>
+                                                <div class="orderpcomCell">
+                                                    <button type="button" id="btnSearch" class="odsec btn btn-success"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button>
+                                                </div>
+                                                <div class="orderpcomCell">
+                                                    <button type="button" id="btnClear" class="odsec btn btn-warning">↺&nbsp;リセット</button>
+                                                </div>
                                             </div>
                                         </div>
 
@@ -198,13 +1028,501 @@
 
 
 
-<div class="inbox-mail">
+<div class="tab-content tab-content-in w3 orderlist">
+    <div class="tab-pane text-style active" id="tab1">
+        <div class="inbox-right">
 
-    <!-- tab content -->
-    <object data="order_input_table.html" width="100%" height="1200px" type="text/html">
-        Alternative Content
-    </object>
+            <!-- tab content -->
+            @*<object data="order_input_table.html" width="100%" height="1200px" type="text/html">
+                    Alternative Content
+                </object>*@
+
+            <table class="tab001">
+                <tbody>
+                    <tr>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t100">出荷先名</td>
+                                        <td>
+                                            <div class="btn-group t200">
+                                            @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle t200" data-toggle="dropdown" type="button">ラケット</button>*@
+                                            @*<div class="dropdown-menu t200">*@
+                                            @*@Html.DropDownList("ddlShippingName", new SelectList(Enumerable.Empty<SelectListItem>()), "")*@
+                                            @Html.DropDownList("ddlShippingName",
+                          new SelectList(Enumerable.Empty<SelectListItem>()), "",
+                          new { @class = "btn btn-primary dropdown-toggle t200 form-control input-sm ", height = "150px" })
+
+                                            @*</div>*@
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t70 textri">郵便番号</td>
+                                        <td class="t100"><input class="form-control" type="text" /></td>
+                                        <td class="t30"></td>
+                                        <td class="t70 textri">電話番号</td>
+                                        <td class="t200"><input class="form-control" type="text" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td>&nbsp;</td>
+                        <td>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t150 textri"></td>
+                                        <td class="t70 textri">
+                                            <div class="textri"><button type="button" id ="btntotal"class="btn btn-success btnod">✚&nbsp;金額計算</button></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t70">発送先名</td>
+                                        <td>
+                                            <div class="btn-group t200">
+                                                @*<input class="form-control" type="add" />*@
+                                                <input class="form-control" type="text" />
+                                                @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-info dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>
+                                                    <div class="dropdown-menu t200">
+                                                        <a class="dropdown-item" href="#">キャピタル</a> <a class="dropdown-item" href="#">BCT</a> <a class="dropdown-item" href="#">ACT</a>
+
+                                                    </div>*@
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="t30p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t70 textri">住所1</td>
+                                        <td class="t400"><input class="form-control" type="text" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t100 textri">出荷可能日</td>
+                                        <td><input class="form-control t350" type="text" disabled /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t150 textri"><button ID="btnreset" type="reset" class="btn btn-warning btnod">↺&nbsp;リセット</button></td>
+                                        <td class="t100 textri"><button type="button" class="btn btn-danger btnod">▶&nbsp;発注</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="t20p">&nbsp;</td>
+                        <td class="t30p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t70 textri">住所2</td>
+                                        <td class="t400"><input class="form-control" type="text" /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t100 textri">発注合計金額</td>
+                                        <td><input class="form-control" type="text" disabled /></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                        <td class="t20p">
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td class="t20p textri">摘要</td>
+                                        <td class="t230"> <textarea class="form-control" id="txtarea" rows="1"></textarea></td>
+                                        @*<script>
+
+                                                function expandTextarea(id) {
+                                                    document.getElementById(id).addEventListener('keyup', function () {
+                                                        this.style.overflow = 'hidden';
+                                                        this.style.height = 0;
+                                                        this.style.height = this.scrollHeight + 'px';
+                                                    }, false);
+                                                }
+
+                                                expandTextarea('txtarea');
+                                            </script>*@
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <br>
+            <!------>
+
+            <table class="tab002" id="makeritem1">
+                @*<tbody>*@
+                <thead class="tab002tit">
+                    <tr class="tab002tit">
+                        <td class="t100">詳細表示</td>
+
+                        <td class="t100" width="150px">メーカー番号</td>
+                        <td class="t300">商品名</td>
+                        <td class="t100">ブランド</td>
+                        <td class="t100">上代</td>
+                        <td class="t100">下代</td>
+                        <td class="t100">ロット</td>
+                        <td class="t200">摘要</td>
+                    </tr>
+                </thead>
+
+            </table>
 
 
 
+            <div class="inbox-mail ISProductBody1">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td>
+                                <table class="tab002" id="sku1" style="overflow :scroll;"></table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="tab002" id="makeritem2">
+                @*<tbody>*@
+                <thead class="tab002tit">
+                    <tr class="tab002tit">
+                        <td class="t100">詳細表示</td>
+
+                        <td class="t100" width="150px">メーカー番号</td>
+                        <td class="t300">商品名</td>
+                        <td class="t100">ブランド</td>
+                        <td class="t100">上代</td>
+                        <td class="t100">下代</td>
+                        <td class="t100">ロット</td>
+                        <td class="t200">摘要</td>
+                    </tr>
+                </thead>
+
+            </table>
+
+
+
+            <div class="inbox-mail ISProductBody2">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td>
+                                <table class="tab002" id="sku2" style="overflow :scroll;"></table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <table class="tab002" id="makeritem3">
+                @*<tbody>*@
+                <thead class="tab002tit">
+                    <tr class="tab002tit">
+                        <td class="t100">詳細表示</td>
+
+                        <td class="t100" width="150px">メーカー番号</td>
+                        <td class="t300">商品名</td>
+                        <td class="t100">ブランド</td>
+                        <td class="t100">上代</td>
+                        <td class="t100">下代</td>
+                        <td class="t100">ロット</td>
+                        <td class="t200">摘要</td>
+                    </tr>
+                </thead>
+
+            </table>
+
+
+
+            <div class="inbox-mail ISProductBody3">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td>
+                                <table class="tab002" id="sku3" style="overflow :scroll;"></table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="tab002" id="makeritem4">
+                @*<tbody>*@
+                <thead class="tab002tit">
+                    <tr class="tab002tit">
+                        <td class="t100">詳細表示</td>
+
+                        <td class="t100" width="150px">メーカー番号</td>
+                        <td class="t300">商品名</td>
+                        <td class="t100">ブランド</td>
+                        <td class="t100">上代</td>
+                        <td class="t100">下代</td>
+                        <td class="t100">ロット</td>
+                        <td class="t200">摘要</td>
+                    </tr>
+                </thead>
+
+            </table>
+
+
+
+            <div class="inbox-mail ISProductBody4">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td>
+                                <table class="tab002" id="sku4" style="overflow :scroll;"></table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="tab002" id="makeritem5">
+                @*<tbody>*@
+                <thead class="tab002tit">
+                    <tr class="tab002tit">
+                        <td class="t100">詳細表示</td>
+
+                        <td class="t100" width="150px">メーカー番号</td>
+                        <td class="t300">商品名</td>
+                        <td class="t100">ブランド</td>
+                        <td class="t100">上代</td>
+                        <td class="t100">下代</td>
+                        <td class="t100">ロット</td>
+                        <td class="t200">摘要</td>
+                    </tr>
+                </thead>
+
+            </table>
+
+
+
+            <div class="inbox-mail ISProductBody5">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td>
+                                <table class="tab002" id="sku5" style="overflow :scroll;"></table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <table class="tab002" id="makeritem6">
+                @*<tbody>*@
+                <thead class="tab002tit">
+                    <tr class="tab002tit">
+                        <td class="t100">詳細表示</td>
+
+                        <td class="t100" width="150px">メーカー番号</td>
+                        <td class="t300">商品名</td>
+                        <td class="t100">ブランド</td>
+                        <td class="t100">上代</td>
+                        <td class="t100">下代</td>
+                        <td class="t100">ロット</td>
+                        <td class="t200">摘要</td>
+                    </tr>
+                </thead>
+
+            </table>
+
+
+
+            <div class="inbox-mail ISProductBody6">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td>
+                                <table class="tab002" id="sku6" style="overflow :scroll;"></table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="tab002" id="makeritem7">
+                @*<tbody>*@
+                <thead class="tab002tit">
+                    <tr class="tab002tit">
+                        <td class="t100">詳細表示</td>
+
+                        <td class="t100" width="150px">メーカー番号</td>
+                        <td class="t300">商品名</td>
+                        <td class="t100">ブランド</td>
+                        <td class="t100">上代</td>
+                        <td class="t100">下代</td>
+                        <td class="t100">ロット</td>
+                        <td class="t200">摘要</td>
+                    </tr>
+                </thead>
+
+            </table>
+
+            <div class="inbox-mail ISProductBody7">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td>
+                                <table class="tab002" id="sku7" style="overflow :scroll;"></table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <table class="tab002" id="makeritem8">
+                @*<tbody>*@
+                <thead class="tab002tit">
+                    <tr class="tab002tit">
+                        <td class="t100">詳細表示</td>
+
+                        <td class="t100" width="150px">メーカー番号</td>
+                        <td class="t300">商品名</td>
+                        <td class="t100">ブランド</td>
+                        <td class="t100">上代</td>
+                        <td class="t100">下代</td>
+                        <td class="t100">ロット</td>
+                        <td class="t200">摘要</td>
+                    </tr>
+                </thead>
+
+            </table>
+
+
+
+            <div class="inbox-mail ISProductBody8">
+                <table class="">
+                    <tbody>
+                        <tr>
+                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td>
+                                <table class="tab002" id="sku8" style="overflow :scroll;"></table>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!------>
+            <!------>
+            @*<table class="tab002">
+                    <tbody>
+                        <tr class="tab002tit">
+                            <td class="t100">詳細表示</td>
+
+                            <td class="t100">メーカー番号</td>
+                            <td class="t300">商品名</td>
+                            <td class="t100">ブランド</td>
+                            <td class="t100">上代</td>
+                            <td class="t100">下代</td>
+                            <td class="t100">ロット</td>
+                            <td class="t200">摘要</td>
+                        </tr>
+                        <tr>
+                            <td class="saict">
+                                <div class="ISHide"><a href="#clearfix" class="hideLinka">非表示</a></div>
+                            </td>
+
+                            <td class="sailf t100">AAA005</td>
+                            <td class="sailf t300">クエークバスター/（KVI205）</td>
+                            <td class="saict t100">テニック</td>
+                            <td class="sair t100">￥8,400</td>
+                            <td class="sair t100">￥9,400</td>
+                            <td class="saict t100">2</td>
+                            <td class="saict t200"><input class="form-control" type="tel" /></td>
+                        </tr>
+
+
+                    </tbody>
+                </table>*@
+
+            @*<script>
+
+                    $(".hideLinka").on("click", function () {
+                        alert("hideLinka");
+                        if ($(this).text() == "非表示") {
+                            $(this).text("表示");
+                        } else {
+                            $(this).text("非表示");
+                        }
+                        $(".ISProductBodya").toggle();
+
+                        return false;
+                    });
+
+                </script>*@
+            <div class="inbox-mail ISProductBodya">
+
+                <!-- tab content -->
+                <object width="100%" height="350px" type="text/html">
+                    Alternative Content
+                </object>
+
+
+
+            </div>
+
+
+
+        </div>
+    </div>
 </div>
+
+@*<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>*@

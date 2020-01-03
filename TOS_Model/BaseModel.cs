@@ -13,6 +13,5 @@ namespace TOS_Model
         public string UpdateOperator { get; set; }
         public DateTime UpdateDateTime { get; set; }
 
-
     }
 }

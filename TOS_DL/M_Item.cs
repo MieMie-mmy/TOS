@@ -26,7 +26,7 @@ namespace TOS_DL
         public string NormalClassName { get; set; }
         public string AdvenceClassName { get; set; }
         public Nullable<int> Lot { get; set; }
-        public Nullable<int> ImageName { get; set; }
+        public string ImageName { get; set; }
         public Nullable<int> Year { get; set; }
         public string Season { get; set; }
         public string CatelogNo { get; set; }

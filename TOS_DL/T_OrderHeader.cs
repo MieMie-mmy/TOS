@@ -15,8 +15,8 @@ namespace TOS_DL
     public partial class T_OrderHeader
     {
         public string OrderID { get; set; }
-        public int DestinationID { get; set; }
-        public string DestinationName { get; set; }
+        public int ShippingID { get; set; }
+        public string ShippingName { get; set; }
         public string ZipCD1 { get; set; }
         public string ZipCD2 { get; set; }
         public string Address1 { get; set; }
