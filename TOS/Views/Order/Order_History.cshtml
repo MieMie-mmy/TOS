@@ -775,10 +775,9 @@
             success: function (data) {
                 if (data != "")
                 {
-                  
-                    $('.modal-title').text("This MakerItemCD (" + data + ") not exit.");
-
-                    $("#btn_cancle2").click();
+                   
+                        InfomessageMICD('I','1006','Message1',data);
+                   
                 }
                 
                
@@ -786,6 +785,20 @@
 
             }
         });  
+    }
+
+    function InfomessageMICD(t, k, m,d) {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+            dataType: 'json',
+            success: function (data) {
+                $('.modal-title').text("("+d+")"+data);
+
+                $("#btn_cancle2").click();
+
+            }
+        });
     }
 
 </script>
