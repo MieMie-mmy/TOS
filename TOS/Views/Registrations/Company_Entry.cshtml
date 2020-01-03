@@ -11,38 +11,46 @@
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+@RenderPage("~/Views/CommonView/Common_View.cshtml");
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>会社登録</li>
 </ol>
 
 @if (TempData["Imsg"] != null)
 {
-    <div class="row ">
-        <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
-            @*<div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>*@
-            <div class="alert alert-warning alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                @*<h4><i class="icon fa fa-info-circle"></i> Info!</h4>*@
-                <strong><span class="glyphicon glyphicon-ok"></span>Info:</strong>
-                @TempData["Imsg"]
+    <script>
+        Successmessage('I','1002','Message1');
+    </script>
+    @*<div class="row ">
+            <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
+
+                <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+
+                    <strong><span class="glyphicon glyphicon-ok"></span>Info:</strong>
+                    @TempData["Imsg"]
+                </div>
             </div>
-        </div>
-    </div>
+        </div>*@
+
 }
 
 @if (TempData["Emsg"] != null)
 {
-    <div class="row ">
+    <script>
+        Errormessage('E', '1004','Message1');
+    </script>
+
+
+    @*<div class="row ">
         <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
             <div class="alert alert-warning alert-dismissable">
                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                @*<h4><i class="icon fa fa-info-times"></i> Error!</h4>*@
                 <strong><span class="glyphicon glyphicon-warning-sign"></span> ERROR: </strong>
                 @TempData["Emsg"]
             </div>
         </div>
-    </div>
+    </div>*@
 }
 
 
@@ -99,7 +107,7 @@
                                             <label for="ComCD" style="font-size:11px;">会社CD</label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.ComModel.CompanyCD, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px; font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "8"  })
+                                            @Html.TextBoxFor(m => m.ComModel.CompanyCD, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:130px; font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "8" })
                                         </td>
                                         @*</div>*@
                                     </tr>
@@ -241,7 +249,7 @@
                                             <label for="Address2" style=" font-size:11px;">住所2</label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.ComModel.Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1",  @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
+                                            @Html.TextBoxFor(m => m.ComModel.Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
                                         </td>
                                     </tr>
                                     @*</div>*@
@@ -255,7 +263,7 @@
                                             <label for="Phno" style=" font-size:11px;">電話番号</label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.ComModel.TelephoneNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1",  @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px; font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                            @Html.TextBoxFor(m => m.ComModel.TelephoneNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px; font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
                                         </td>
                                     </tr>
                                     @*</div>*@
@@ -540,7 +548,7 @@
                             <tbody>
 
                                 <tr class="form-group_entry">
-                                        <label for="Ship1" style="font-size:12px;">発送先情報登録1</label>
+                                    <label for="Ship1" style="font-size:12px;">発送先情報登録1</label>
                                 </tr>
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
@@ -629,7 +637,7 @@
 
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
-                                        <label for="Ship2" style="font-size :12px;">発送先情報登録2</label>
+                                    <label for="Ship2" style="font-size :12px;">発送先情報登録2</label>
                                 </tr>
 
                                 @*</div>*@
@@ -935,6 +943,12 @@
     <script type="text/javascript">
 
         $(document).ready(function () {
+
+            //$("#btnSubmit").click(function () {
+
+            //});
+
+
             var max_fields = 1000;
             var wrapper = $(".container2");
             var add_button = $(".add_form_field");

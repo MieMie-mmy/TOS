@@ -148,7 +148,8 @@
                         },
                         {
                             "data": "", "render": function (data, type, row) {
-                                return '<button type="button" id="btnDelete" class="btn btn-outline-danger" ><a class="delete" href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
+                                //return '<button type="button" id="btnDelete" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal"><a class="delete" href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
+                                return '<button type="button" id="btnDelete" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal">削除</button>';
                             }
                         },
                     ],
@@ -163,13 +164,15 @@
                 url: '../../NewsEditor/News_Editor_Edit/' + id,
                 dataType: 'json',
                 success: function (result) {
+                    $('#btnsave').text('✔ Update');
+
                     if (result[0].DestinationFlg == 1) {
                         $('#rdbcompanywide').prop('checked', true);
                         $("#ddlCompanyname").val(null);
                         $("#ddlGroupname").val(null);
                         $('#txtdisplay_designation').val('全社');
                     }
-                        
+
 
                     if (result[0].DestinationFlg == 2) {
                         $('#rdocompanydesignation').prop('checked', true);
@@ -188,7 +191,7 @@
                         $("#ddlCompanyname").attr("disabled", "disabled");
                         $("#ddlCompanyname").val(null);
                     }
-                        
+
                     if (result[0].EffectFlg == 1)
                         $('#chkeffect').prop('checked', true);
                     else
@@ -278,18 +281,9 @@
 
 @if (TempData["Imsg"] != null)
 {
-    <div class="row ">
-        <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
-            @*<div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>*@
-            <div class="alert alert-warning alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                @*<h4><i class="icon fa fa-info-circle"></i> Info!</h4>*@
-                <strong><span class="glyphicon glyphicon-ok"></span>Info:</strong>
-                @TempData["Imsg"]
-            </div>
-        </div>
-    </div>
+    <script>
+        Successmessage('Q', '1001', 'Message2');
+    </script>
 }
 
 @if (TempData["Emsg"] != null)
@@ -441,12 +435,12 @@
                                         <div class="box">
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_startdate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date" ,@id="txtStartDate" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date", @id = "txtStartDate" })
 
                                             </label>～
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_enddate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date" ,@id="txtEndDate"})
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date", @id = "txtEndDate" })
                                             </label>
                                         </div>
                                     </div>
@@ -454,7 +448,7 @@
                                         <div class="box">
                                             <div class="form-check">
                                                 @*<input type="checkbox" id="exampleCheck1">*@
-                                                @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag,new { @id="chkeffect"})
+                                                @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag, new { @id = "chkeffect" })
                                                 <label style="font-weight:unset;">有効</label>
                                             </div>
                                         </div>
@@ -470,14 +464,14 @@
                                         <div class="boxb sair boxpd tab002tit">日付</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.Date, new { @class = "form-control", @type = "date" , @id ="txtDate" })
+                                            @Html.TextBoxFor(m => m.TinfoModel.Date, new { @class = "form-control", @type = "date", @id = "txtDate" })
                                         </div>
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">課題名</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170", @id="txttitlename"})
+                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170", @id = "txttitlename" })
                                         </div>
 
                                     </div>
@@ -587,6 +581,27 @@
 
     </div>
 }
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                @*<h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>*@
+                <img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
+                <button type="button" class="btn btn-default" onclick="_CancleRow()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+
+            </div>
+        </div>
+
+    </div>
+</div>
 
 <!-- script-for sticky-nav -->
 <script>
