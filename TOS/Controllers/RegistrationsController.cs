@@ -161,12 +161,12 @@ namespace TOS.Controllers
                     //    TempData["Emsg"] = dtMsg.Rows[0]["Message1"].ToString();
                     //}
 
-                    DataTable dtIMsg = cbl.Message_Select("1002", "I");
-                    string message = string.Empty;
-                    if (dtIMsg.Rows.Count > 0)
-                    {
-                        TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                    }
+                    //DataTable dtIMsg = cbl.Message_Select("1002", "I");
+                    //string message = string.Empty;
+                    //if (dtIMsg.Rows.Count > 0)
+                    //{
+                        TempData["Emsg"] = "success";
+                   // }
 
 
                 }
@@ -177,27 +177,27 @@ namespace TOS.Controllers
             {
                 string st = ex.ToString();
                 
-                if (st.Contains("M_CompanyShipping_Insert"))
-                {
+                //if (st.Contains("M_CompanyShipping_Insert"))
+                //{
 
-                    TempData["Emsg"] = "SQL Query Error !! please,check in  M_CompanyShipping_Insert  Store Procedure";
-                }
-                else if (st.Contains("M_Company_Insert"))
-                    {
-                        TempData["Emsg"] = "SQL Query Error !! please,check in  M_Company_Insert  Store Procedure";
-                }
-                else if (st.Contains("M_CompanyTag_Insert"))
-                {
-                    TempData["Emsg"] = "SQL Query Error !! please,check in   M_CompanyTag_Insert  Store Procedure";
-                }
-                else if (st.Contains("M_CompanyBrand_Insert"))
-                {
-                    TempData["Emsg"] = "SQL Query Error !! please,check in  M_CompanyBrand_Insert  Store Procedure";
-                }
-                else
-                {
-                    TempData["Emsg"] = st;
-                }
+                //    TempData["Emsg"] = "SQL Query Error !! please,check in  M_CompanyShipping_Insert  Store Procedure";
+                //}
+                //else if (st.Contains("M_Company_Insert"))
+                //    {
+                //        TempData["Emsg"] = "SQL Query Error !! please,check in  M_Company_Insert  Store Procedure";
+                //}
+                //else if (st.Contains("M_CompanyTag_Insert"))
+                //{
+                //    TempData["Emsg"] = "SQL Query Error !! please,check in   M_CompanyTag_Insert  Store Procedure";
+                //}
+                //else if (st.Contains("M_CompanyBrand_Insert"))
+                //{
+                //    TempData["Emsg"] = "SQL Query Error !! please,check in  M_CompanyBrand_Insert  Store Procedure";
+                //}
+                //else
+                //{
+                    TempData["Imsg"] = "Unsuccess";
+               // }
                 return RedirectToAction("Company_Entry");
 
             }
