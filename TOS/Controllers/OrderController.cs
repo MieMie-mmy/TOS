@@ -286,17 +286,9 @@ namespace TOS.Controllers
         [HttpGet]
         public JsonResult GetMessage()
         {
-            // some service call to get data
-            string output = string.Empty;
-            Group_EntryBL gebl = new Group_EntryBL();
-            DataTable dtIMsg = gebl.M_Message_Select("1001", "I");
-            string message = string.Empty;
-            if (dtIMsg.Rows.Count > 0)
-            {
-                TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                output= dtIMsg.Rows[0]["Message1"].ToString();
-            }
-            return Json(output, JsonRequestBehavior.AllowGet);
+            string msg = "NoData";
+            TempData["Nmsg"] = "NoData";
+            return Json(msg, JsonRequestBehavior.AllowGet);
         }
 
     }
