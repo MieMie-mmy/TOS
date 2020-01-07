@@ -95,15 +95,15 @@ namespace Information_BL
                 else
                     prms[2] = new SqlParameter("@groupID", SqlDbType.VarChar) { Value = DBNull.Value };
 
-                if(model.TinfoModel.DisplayStartDate!=null)
+                if(model.TinfoModel.DisplayStartDate!=DateTime.MinValue)
                     prms[3] = new SqlParameter("@startdate", SqlDbType.VarChar) { Value = model.TinfoModel.DisplayStartDate };
                 else
-                    prms[3] = new SqlParameter("@startdate", SqlDbType.VarChar) { Value = DBNull.Value };
+                    prms[3] = new SqlParameter("@startdate", SqlDbType.VarChar) { Value = DateTime.MinValue };
 
-                if (model.TinfoModel.DisplayEndDate != null)
+                if (model.TinfoModel.DisplayEndDate != DateTime.MinValue)
                     prms[4] = new SqlParameter("@enddate", SqlDbType.VarChar) { Value = model.TinfoModel.DisplayEndDate };
                 else
-                    prms[4] = new SqlParameter("@enddate", SqlDbType.VarChar) { Value = DBNull.Value };
+                    prms[4] = new SqlParameter("@enddate", SqlDbType.VarChar) { Value = DateTime.MinValue };
 
                 prms[5] = new SqlParameter("@infotype", SqlDbType.VarChar) { Value = model.TinfoModel.InformationType };
 
@@ -112,10 +112,10 @@ namespace Information_BL
                 else
                     prms[6] = new SqlParameter("@effectflag", SqlDbType.Int) { Value = 0 };
 
-                if (model.TinfoModel.Date != null)
+                if (model.TinfoModel.Date != DateTime.MinValue)
                     prms[7] = new SqlParameter("@date", SqlDbType.VarChar) { Value = model.TinfoModel.Date };
                 else
-                    prms[7] = new SqlParameter("@date", SqlDbType.VarChar) { Value = DBNull.Value };
+                    prms[7] = new SqlParameter("@date", SqlDbType.VarChar) { Value = DateTime.MinValue };
 
 
                 prms[8] = new SqlParameter("@titlename", SqlDbType.VarChar) { Value = model.TinfoModel.TitleName };

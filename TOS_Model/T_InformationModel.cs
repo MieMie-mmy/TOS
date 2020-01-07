@@ -10,7 +10,7 @@ namespace TOS_Model
     {
         public int ID { get; set; }
         public int InformationID { get; set; }
-        public string Date { get; set; }
+        public DateTime Date { get; set; }
 
         public string TitleName { get; set; }
 
