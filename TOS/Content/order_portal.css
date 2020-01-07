@@ -167,7 +167,7 @@
 /* saisin.com */
 .saisin {
     display: table;
-    width: 100%;
+    /*width: 100%;*/
 }
 
 .saisinRow {
@@ -216,6 +216,8 @@
     border: 1px solid #999999;
     background-color: #003492;
     color: white;
+    padding: 3px 10px;
+    text-align: center;
 }
 
 .titcolor h6 {
