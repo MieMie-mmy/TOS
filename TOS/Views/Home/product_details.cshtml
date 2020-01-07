@@ -16,7 +16,13 @@
 <!--heder end here-->
 <ol class="breadcrumb">
     @*<li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ情報<i class="fa fa-angle-right"></i>ハンドポールイージーオーダーシステム商品詳細16について</li>*@
-    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ情報<i class="fa fa-angle-right"></i>@ViewData["InfoTitle"]</li>
+    <li class="breadcrumb-item">
+        @*<a href="../Home/Index">ホーム</a>*@
+        <a href='@Url.Action("Index")'>ホーム</a>
+        <i class="fa fa-angle-right"></i>
+        <a href='@Url.Action("Index")'>お知らせ情報</a>
+        <i class="fa fa-angle-right"></i>@ViewData["InfoTitle"]
+    </li>
 </ol>
 <div class="inbox-mail">
     <!-- tab content -->
