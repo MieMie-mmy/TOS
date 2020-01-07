@@ -153,7 +153,10 @@ namespace TOS.Controllers
                     }
                 }
             }
-            Img_Name = Img_Name.Remove(Img_Name.Length - 1);
+            if (!string.IsNullOrWhiteSpace(Img_Name) && Img_Name.Contains(","))
+            {
+                Img_Name = Img_Name.Remove(Img_Name.Length - 1);
+            }
             ViewBag.ImageName = Img_Name;
             Session["MakerItem"] = id;
             ViewBag.count = dsnew.Tables.Count;
