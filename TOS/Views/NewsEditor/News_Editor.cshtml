@@ -216,18 +216,8 @@
                         $('#txtDate').val(result[0].Date);
 
 
-                    if (result[0].DisplayStartDate == "0001-01-01")
-                        $('#txtStartDate').val('');
-
-                    else
-                        $('#txtStartDate').val(result[0].DisplayStartDate);
-
-
-                    if (result[0].DisplayEndDate == "0001-01-01")
-                        $('#txtEndDate').val('');
-
-                    else
-                        $('#txtEndDate').val(result[0].DisplayEndDate);
+                    $('#txtStartDate').val(result[0].DisplayStartDate);
+                    $('#txtEndDate').val(result[0].DisplayEndDate);
                  
                     $('#txttitlename').val(result[0].TitleName);
                     $('#txtarea').val(result[0].DetailInformation);
@@ -541,12 +531,12 @@
                                         <div class="box">
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_startdate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date", @id = "txtStartDate", @style="font-size:17px;" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date", @id = "txtStartDate", @style="font-size:17px;", required = "required" })
 
                                             </label>～
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_enddate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date", @id = "txtEndDate", @style = "font-size:17px;" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date", @id = "txtEndDate", @style = "font-size:17px;", required = "required" })
                                             </label>
                                         </div>
                                     </div>
