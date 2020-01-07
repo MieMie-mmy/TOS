@@ -183,26 +183,28 @@
                             </div>
                         </div>*@
                     </div>
-                    <div class="saisin">
-                        <table id="tblOrderPortal" style="width:100%;border: 1px solid #999999;">
-                            <thead>
-                                <tr class="saisinRow" style="width:100%">
-                                    <th class="titcolor" style="border: 1px solid #999999;">NO</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">発注番号</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">商品番号</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">商品名</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">サイズ</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">カラー</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">発注数</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">引当数</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">下代</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">合計</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">発注日</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">発注時刻</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;">出荷日</th>
-                                </tr>
-                            </thead>
-                        </table>
+                    <div class="saisin" >
+                        <div style="overflow-x:scroll;max-width:900px;min-width:900px;">
+                            <table id="tblOrderPortal" style="border: 1px solid #999999;width:1500px;">
+                                <thead>
+                                    <tr class="saisinRow">
+                                        <th class="titcolor" style="  border: 1px solid #999999;">NO</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">発注番号</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">商品番号</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">商品名</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">サイズ</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">カラー</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">発注数</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">引当数</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">下代</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">合計</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">発注日</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">発注時刻</th>
+                                        <th class="titcolor" style="  border: 1px solid #999999;">出荷日</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>                    
                     </div>
                 </div>
             </div>
@@ -234,19 +236,19 @@
                         "dataSrc": ""
                     },
                     "columns": [
-                        { "data": "No", orderable: false, "width": "1%" },
-                        { "data": "OrderID", orderable: false, "width": "12%" },
-                        { "data": "MakerItemCD", orderable: false, "width": "15%" },
-                        { "data": "ItemName", orderable: false, "width": "16%" },
-                        { "data": "SizeName", orderable: false, "width": "5%" },
-                        { "data": "ColorName", orderable: false, "width": "15%" },
-                        { "data": "OrderItem", orderable: false, "width": "5%" },
-                        { "data": "StockItem", orderable: false, "width": "5%" },
-                        { "data": "SalePrice", orderable: false, "width": "5%" },
-                        { "data": "TotalAmount", orderable: false, "width": "5%" },
-                        { "data": "OrderDate", orderable: false, "width": "5%" },
-                        { "data": "OrderTime", orderable: false, "width": "6%" },
-                        { "data": "ShippingDate", orderable: false, "width": "6%" },
+                        { "data": "No", orderable: false },
+                        { "data": "OrderID", orderable: false },
+                        { "data": "MakerItemCD", orderable: false },
+                        { "data": "ItemName", orderable: false },
+                        { "data": "SizeName", orderable: false },
+                        { "data": "ColorName", orderable: false },
+                        { "data": "OrderItem", orderable: false },
+                        { "data": "StockItem", orderable: false },
+                        { "data": "SalePrice", orderable: false },
+                        { "data": "TotalAmount", orderable: false },
+                        { "data": "OrderDate", orderable: false },
+                        { "data": "OrderTime", orderable: false },
+                        { "data": "ShippingDate", orderable: false },
                     ],
                 }
             );
