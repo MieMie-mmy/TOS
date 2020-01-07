@@ -9,6 +9,8 @@ namespace TOS_Model
     public class BaseModel
     {
         public string InsertOperator { get; set; }
+
+        public string AccessPC { get; set; }
         public DateTime InsertDateTime { get; set; }
         public string UpdateOperator { get; set; }
         public DateTime UpdateDateTime { get; set; }
