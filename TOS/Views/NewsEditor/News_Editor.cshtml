@@ -30,10 +30,8 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-
-
 }
 
 @section Scripts{
@@ -173,7 +171,9 @@
                 url: '../../NewsEditor/News_Editor_Edit/' + id,
                 dataType: 'json',
                 success: function (result) {
-                    $('#btnsave').text('✔ Update');
+                    $('#btnsave').text('✔' + '\xa0\xa0\xa0' + '更新');
+
+                    document.getElementById("hfinfoid").value = id;
 
                     if (result[0].DestinationFlg == 1) {
                         $('#rdbcompanywide').prop('checked', true);
@@ -322,23 +322,20 @@
 
 }
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
+    <li class="breadcrumb-item"><a href="../../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
 </ol>
 
 
 @RenderPage("~/Views/CommonView/Common_View.cshtml")
-@if (TempData["Imsg"] != null)
-{
-    <script>
-        Successmessage('Q', '1001', 'Message2');
-    </script>
-}
+
 @if (TempData["Save"] != null)
 {
+
     <script>
         Successmessage('I', '1002', 'Message1');
     </script>
 }
+
 @if (TempData["Nosave"] != null)
 {
     <script>
@@ -346,10 +343,29 @@
     </script>
 }
 
+@if (TempData["Imsg"] != null)
+{
+    <script>
+        Successmessage('Q', '1001', 'Message2');
+    </script>
+}
+
 @if (TempData["Emsg"] != null)
 {
     <script>
         Errormessage('Q', '1001', 'Message2');
+    </script>
+}
+@if (TempData["update"] != null)
+{
+    <script>
+        Successmessage('I', '1003', 'Message1');
+    </script>
+}
+@if (TempData["noupdate"] != null)
+{
+    <script>
+        Errormessage('E', '1004', 'Message1');
     </script>
 }
 
@@ -384,22 +400,23 @@
                 border-bottom: unset;
             }
 
-        .edit {
-            color: #f8f9fa;
-        }
-
-        .delete {
-            color: #dc3545;
+        .save {
+            width: 105px;
+            border-radius: 0px;
+            font-size: 0.8em;
+            background-color: #28a745;
+            font-weight: 700;
+            color: #fff;
+            padding: 8px 15px;
+            border:none;
         }
 
         .btn-outline-light {
             border-style: none;
         }
 
-        .edit:hover {
-            color: #212529;
-            background-color: #f8f9fa;
-            border-color: #f8f9fa;
+        .save:hover {
+            background-color: #218838;
         }
 
         .delete:hover {
@@ -411,9 +428,18 @@
         .btn-outline-danger {
             border-style: none;
         }
+        .btn-outline-danger:hover {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
 
         .btn {
-            border-radius: 0px;
+            border-radius:0px;
+            font-size: 0.8em;
+            font-weight: 700;
+            padding: 8px 15px;
+            letter-spacing: 0.02em;
         }
     </style>
 
@@ -433,7 +459,7 @@
                                         <div class="box">
                                             <div class="custom-control">
                                                 @*<input type="radio" class="custom-control-input" id="rdocompanywide" name="rdocompanywide" value="1">*@
-                                                @Html.HiddenFor(m => m.TinfoModel.ID)
+                                                @Html.HiddenFor(m => m.TinfoModel.InformationID, new { @id = "hfinfoid" })
                                                 @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "1", new { @checked = "true", @id = "rdbcompanywide" })
                                                 <label style="font-weight:unset;">全社</label>
                                             </div>
@@ -489,12 +515,12 @@
                                         <div class="box">
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_startdate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date", @id = "txtStartDate" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date", @id = "txtStartDate", @style="font-size:17px;" })
 
                                             </label>～
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_enddate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date", @id = "txtEndDate" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date", @id = "txtEndDate", @style = "font-size:17px;" })
                                             </label>
                                         </div>
                                     </div>
@@ -508,7 +534,7 @@
                                         </div>
                                         <div class="box">
                                             <div class="sair">
-                                                <button type="submit" id="btnsave" class="btn btn-success btn-lg">✔　登録</button>
+                                                <button type="submit" id="btnsave" class="save">✔　登録</button>
                                             </div>
                                         </div>
                                     </div>
@@ -518,14 +544,14 @@
                                         <div class="boxb sair boxpd tab002tit">日付</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.Date, new { @class = "form-control", @type = "date", @id = "txtDate" })
+                                            @Html.TextBoxFor(m => m.TinfoModel.Date, new { @class = "form-control", @type = "date", @id = "txtDate", @style = "font-size:17px;" })
                                         </div>
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">課題名</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170", @id = "txttitlename" })
+                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170", @id = "txttitlename",required="required" })
                                         </div>
 
                                     </div>
@@ -603,23 +629,15 @@
                                     expandTextarea('txtarea');</script>
                             </div>
                             <div class="newr col-md-7">
-                                <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6></div><div class="float-right">
-
-
-                                    <div class="btn-group">
-                                        <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
-                                        <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
-                                    </div>
-
-
+                                <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div><div class="float-right">
                                 </div>
                                 <table class="tab002" id="tbinformation">
                                     <thead>
                                         <tr class="tab002tit">
-                                            <th class="tab002tit" style="border: 1px solid #999999;">No</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;">課題名</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;">&nbsp;</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;">&nbsp;</th>
+                                            <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;">No</th>
+                                            <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;">課題名</th>
+                                            <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
+                                            <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -642,13 +660,9 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-
                 <h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
                 @*<img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>*@
             </div>
-            <div class="modal-body">
-            </div>
-
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
                 <button type="button" class="btn btn-default" id="btnconfirm" onclick="deleteConfirm()" data-dismiss="modal" style="color:white;background-color:red">はい</button>

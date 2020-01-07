@@ -79,7 +79,10 @@ namespace Information_BL
             {
                 BaseDL bdl = new BaseDL();
                 DataTable dtinfo = new DataTable();
-                SqlParameter[] prms = new SqlParameter[16];
+                SqlParameter[] prms = new SqlParameter[17];
+
+                
+
                 prms[0] = new SqlParameter("@destinationflag", SqlDbType.Int) { Value = model.TinfoModel.DestinationFlag };
 
                 if (model.ComModel != null)
@@ -137,9 +140,21 @@ namespace Information_BL
                 else
                     prms[12] = new SqlParameter("@file4", SqlDbType.VarChar) { Value = DBNull.Value };
 
-                prms[13] = new SqlParameter("@detail", SqlDbType.VarChar) { Value = model.TinfoModel.DetailInformation };
+                if(model.TinfoModel.DetailInformation!=null)
+                    prms[13] = new SqlParameter("@detail", SqlDbType.VarChar) { Value = model.TinfoModel.DetailInformation };
+                else
+                    prms[13] = new SqlParameter("@detail", SqlDbType.VarChar) { Value = DBNull.Value };
+
                 prms[14] = new SqlParameter("@insertoperator", SqlDbType.VarChar) { Value = model.TinfoModel.InsertOperator };
                 prms[15] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = PcName };
+
+
+                if (model.TinfoModel.InformationID != 0)
+                    prms[16] = new SqlParameter("@InformationID", SqlDbType.Int) { Value = model.TinfoModel.InformationID };
+                else
+                    prms[16] = new SqlParameter("@InformationID", SqlDbType.Int) { Value = 0};
+
+
 
                 bdl.InsertUpdateDeleteData("News_Editor_Insert", prms);
                 return true;
