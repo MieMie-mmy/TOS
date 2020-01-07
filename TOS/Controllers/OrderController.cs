@@ -128,6 +128,7 @@ namespace TOS.Controllers
             //  string ItemCD = "cps-test,cd";
             dst = obl.Order_Input_M_Item_Data(id);
             DataSet dsnew = new DataSet();
+            String Img_Name = "";
             if (dst.Tables.Count > 0)
             {
                 int tabcount = 0;
@@ -143,12 +144,17 @@ namespace TOS.Controllers
                     else
                     {
                         DataTable dtnew = dst.Tables[i];
+                        Img_Name = dtnew.Rows[0]["ImageName"].ToString() +",";
+                        dtnew.Columns.Remove("ImageName");
                         dtnew.TableName = "Table" + tabcount;
                         tabcount++;
-                        dsnew.Tables.Add(dst.Tables[i].Copy());
+                        //dsnew.Tables.Add(dst.Tables[i].Copy());
+                        dsnew.Tables.Add(dtnew.Copy());
                     }
                 }
             }
+            Img_Name = Img_Name.Remove(Img_Name.Length - 1);
+            ViewBag.ImageName = Img_Name;
             Session["MakerItem"] = id;
             ViewBag.count = dsnew.Tables.Count;
             Session["dtsmitem"] = dsnew;

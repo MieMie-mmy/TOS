@@ -53,24 +53,31 @@
 }
 @section Scripts{
     <script type="text/javascript">
-        $(document).ready(function () {
-
-                var todaydate = new Date();
-                var day = todaydate.getDate() + 3;
-                var month = todaydate.getMonth()+1;
-                var year = todaydate.getFullYear();
-                var datestring = day + "/" + month + "/" + year;
-            $("#shipDate").val(datestring);
-
+        $(document).ready(function () {             
             var count = '@ViewBag.count'
-
             for (var k = 1; k <= 8; k++)
-            {
+            {                                              
                 if (k > count) {
                     $("#makeritem" + k).hide();
                     $(".ISProductBody" + k).hide();
                 }
 
+            }
+            var todaydate = new Date();
+            var day = todaydate.getDate() + 3;
+            var month = todaydate.getMonth() + 1;
+            var year = todaydate.getFullYear();
+            var datestring = day + "/" + month + "/" + year;
+            $("#shipDate").val(datestring);
+            var ImageName = '@ViewBag.ImageName'
+            if (ImageName != null) {
+                var Img = ImageName.split(",");
+
+                for (var l = 1; l <= count; l++) {
+                    if (Img.length <= count) {
+                        $('#Timg' + l).attr("src", "http://localhost:27945/images/" + Img[l - 1]);
+                    }
+                }
             }
 
             $.ajax({
@@ -862,8 +869,14 @@
              $("#phno").val("");
              $("#shipname").val("");
              $("#add1").val("");
-             $("#add2").val("");
-             $("#shipDate").val("");
+            $("#add2").val("");
+            var todaydate = new Date();
+            var day = todaydate.getDate() + 3;
+            var month = todaydate.getMonth() + 1;
+            var year = todaydate.getFullYear();
+            var datest = day + "/" + month + "/" + year;
+            var inputF = document.getElementById("shipDate");
+            inputF.setAttribute('value', datest); 
              $("#txtsummary").val("");
             $("#totalamt").val("");
             var c = '@ViewBag.count'
@@ -877,6 +890,7 @@
                     $(this).val("");
                 });
             }
+   
            // $('.tab001').find('input: Text').val('');
         });
 
@@ -1320,7 +1334,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="t100 textri">出荷可能日</td>
-                                            <td><input id="shipDate" class="form-control t350" value=getDate() type="text" disabled /></td>
+                                            <td><input id="shipDate" class="form-control t350" type="text" readonly /></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1407,10 +1421,10 @@
 
 
             <div class="inbox-mail ISProductBody1">
-                <table id="Timg1">
+                <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id ="Timg1" src="" alt="Smiley face" height="30%" width="auto"></td>
                             <td>
                                 <table class="tab002" id="sku1" style="overflow :scroll;"></table>
 
@@ -1441,10 +1455,10 @@
 
 
             <div class="inbox-mail ISProductBody2">
-                <table id="Timg2">
+                <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg2" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
                             <td id="sku2">
                                 @*<table class="tab002" id="sku2" style="overflow :scroll;"></table>*@
 
@@ -1474,10 +1488,10 @@
 
 
             <div class="inbox-mail ISProductBody3">
-                <table id="Timg3">
+                <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg3"src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
                             <td id="sku3">
                                 @*<table class="tab002" id="sku3" style="overflow :scroll;"></table>*@
 
@@ -1508,10 +1522,10 @@
 
 
             <div class="inbox-mail ISProductBody4">
-                <table id="Timg4">
+                <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg4" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
                             <td id="sku4">
                                 @*<table class="tab002" id="sku4" style="overflow :scroll;"></table>*@
 
@@ -1542,10 +1556,10 @@
 
 
             <div class="inbox-mail ISProductBody5">
-                <table id="Timg5">
+                <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg5" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
                             <td id="sku5">
                                 @*<table class="tab002" id="sku5" style="overflow :scroll;"></table>*@
 
@@ -1575,10 +1589,10 @@
 
 
             <div class="inbox-mail ISProductBody6">
-                <table cid="Timg6">
+                <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg6" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
                             <td id="sku6">
                                 @*<table class="tab002" id="sku6" style="overflow :scroll;"></table>*@
 
@@ -1607,10 +1621,10 @@
             </table>
 
             <div class="inbox-mail ISProductBody7">
-                <table id="Timg7">
+                <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg7" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
                             <td id="sku7">
                                 @*<table class="tab002" id="sku7" style="overflow :scroll;"></table>*@
 
@@ -1641,10 +1655,10 @@
 
 
             <div class="inbox-mail ISProductBody8">
-                <table id="Timg8">
+                <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg8" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
                             <td id="sku">
                                 @*<table class="tab002" id="sku8" style="overflow :scroll;"></table>*@
 
