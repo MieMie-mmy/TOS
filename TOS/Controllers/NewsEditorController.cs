@@ -89,8 +89,7 @@ namespace TOS.Controllers
             InformationBL ibl = new InformationBL();
             model.TinfoModel.InsertOperator = Session["CompanyCD"].ToString();
             string PcName = System.Environment.MachineName;
-            int ID = model.TinfoModel.ID;
-            if(ID == 0)
+            if (model.TinfoModel.InformationID == 0)
             {
                 insertflag = ibl.News_Editor_Save(model, PcName);
                 if (insertflag)
@@ -100,6 +99,18 @@ namespace TOS.Controllers
                 else
                 {
                     TempData["Nosave"] = "Save Failed";
+                }
+            }
+            else
+            {
+                insertflag = ibl.News_Editor_Save(model, PcName);
+                if (insertflag)
+                {
+                    TempData["update"] = "Updated Successfully";
+                }
+                else
+                {
+                    TempData["noupdate"] = "Update Failed";
                 }
             }
             return RedirectToAction("News_Editor");
