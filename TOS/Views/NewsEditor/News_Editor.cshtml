@@ -38,7 +38,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
-                url: '/NewsEditor/M_Companay_Select', // get companay
+                url: '../NewsEditor/M_Companay_Select', // get companay
                 type: "GET",
                 dataType: "JSON",
                 dataSrc: '',
@@ -59,7 +59,7 @@
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
-                url: '/NewsEditor/M_Group_Select', // get group
+                url: '../NewsEditor/M_Group_Select', // get group
                 type: "GET",
                 dataType: "JSON",
                 dataSrc: '',
@@ -138,7 +138,7 @@
                     "bLengthChange": false,
                     "aLengthMenu": [20],
                     "ajax": {
-                        "url": "../../NewsEditor/T_Information_Select",
+                        "url":"../NewsEditor/T_Information_Select",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -168,7 +168,7 @@
             var id = id;
             $.ajax({
                 type: 'GET',
-                url: '../../NewsEditor/News_Editor_Edit/' + id,
+                url: '../NewsEditor/News_Editor_Edit/' + id,
                 dataType: 'json',
                 success: function (result) {
                     $('#btnsave').text('✔' + '\xa0\xa0\xa0' + '更新');
@@ -292,7 +292,7 @@
         function deleteConfirm() {
 
             $.ajax({
-                url: '../../NewsEditor/T_Information_Delete/' + DeleteID,
+                url: '../NewsEditor/T_Information_Delete/' + DeleteID,
                 type: 'POST',
                 dataType: 'JSON',
 
