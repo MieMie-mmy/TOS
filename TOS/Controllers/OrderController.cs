@@ -13,6 +13,7 @@ using Order_History_BL;
 using System.IO;
 using Group_Entry_BL;
 using Base_BL;
+using FastMember;
 
 namespace TOS.Controllers
 {
@@ -184,22 +185,7 @@ namespace TOS.Controllers
         public string Order_Input_M_Item_Select(string id)
         {
             DataSet ds = new DataSet();
-            //ds =ViewBag.dtsmitem as DataSet;
             ds = Session["dtsmitem"] as DataSet;
-            //Order_InputBL oib = new Order_InputBL();
-
-            //string ItemCD = "cps-test,BAQ005";
-            //DataSet dst = new DataSet();
-            //dst = oib.Order_Input_M_Item_Data(ItemCD);
-            //if (id == null)
-            //{
-            //    string jsonresult;
-            //    jsonresult = JsonConvert.SerializeObject(ds.Tables[0]);
-            //    return jsonresult;
-
-            //}
-            //else
-            //{
             if (ds.Tables.Count > Convert.ToInt32(id))
             {
                 string jsonresult;
@@ -249,6 +235,66 @@ namespace TOS.Controllers
 
         }
 
+        public string Order_Input_M_Item_Image_Select()
+        {
+            //DataSet dsk = new DataSet();
+            //dsk = Session["dtsmitem"] as DataSet;
+            //Order_InputBL oib = new Order_InputBL();
+            //DataTable dt = new DataTable();
+            ////string[] itemcd = MakerItem.Split(',');
+            //if (dsk.Tables.Count > 0)
+            //{
+            //    DataTable dttemp = dsk.Tables["Table" + id].Copy();
+            //    string mcd = dttemp.Rows[0]["MakerItemCD"].ToString(); //itemcd[i].ToString();
+            //    dt = oib.Order_Input_M_SKU(mcd);
+            //    if (dt.Rows.Count > 0)
+            //    {
+            //        string jsonresult;
+            //        jsonresult = JsonConvert.SerializeObject(dt);
+            //        return jsonresult;
+            //    }
+
+            //}
+            //return null;
+            string st = "";
+            return st;
+        }
+
+        [HttpPost]
+        public ActionResult InserOrder(T_OrderHeaderModel T_Orderheader, List<T_OrderDetailModel> T_OrderDetail)
+        {
+
+            Order_InputBL oib = new Order_InputBL();
+            DataTable dtorderdetail = new DataTable();
+            using (var reader = ObjectReader.Create(T_OrderDetail, "OrderID", "AdminCD", "OrderItem", "StockItem", "SalePrice", "TotalAmount", "Memo", "AvailableShippingDate"))
+            {
+                dtorderdetail.Load(reader);
+            }
+            if (dtorderdetail.Rows.Count > 0)
+            {
+                if (Session["CompanyCD"] != null)
+                {
+                    string CompanyCD = Session["CompanyCD"].ToString();
+                    T_Orderheader.UpdateOperator = CompanyCD;
+                }
+                T_Orderheader.AccessPC = System.Environment.MachineName;
+
+                if (oib.Order_Input_Insert(T_Orderheader, dtorderdetail))
+                {
+                    return RedirectToAction("Order", "Order_History", new { id = T_Orderheader.OrderID });
+                }
+                else
+                {
+                    return RedirectToAction("Order", "Order_History", new { id = T_Orderheader.OrderID });
+                }
+            }
+            else
+            {
+                return RedirectToAction("Order", "Order_History", new { id = T_Orderheader.OrderID });
+            }
+
+        }
+
 
         public ActionResult Order_Portal()
         {
@@ -286,17 +332,9 @@ namespace TOS.Controllers
         [HttpGet]
         public JsonResult GetMessage()
         {
-            // some service call to get data
-            string output = string.Empty;
-            Group_EntryBL gebl = new Group_EntryBL();
-            DataTable dtIMsg = gebl.M_Message_Select("1001", "I");
-            string message = string.Empty;
-            if (dtIMsg.Rows.Count > 0)
-            {
-                TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                output= dtIMsg.Rows[0]["Message1"].ToString();
-            }
-            return Json(output, JsonRequestBehavior.AllowGet);
+            string msg = "NoData";
+            TempData["Nmsg"] = "NoData";
+            return Json(msg, JsonRequestBehavior.AllowGet);
         }
 
     }

@@ -95,23 +95,11 @@ namespace TOS.Controllers
                 insertflag = ibl.News_Editor_Save(model, PcName);
                 if (insertflag)
                 {
-                    Group_EntryBL gebl = new Group_EntryBL();
-                    DataTable dtEMsg = gebl.M_Message_Select("1002", "I");
-                    string message = string.Empty;
-                    if (dtEMsg.Rows.Count > 0)
-                    {
-                        TempData["Imsg"] = dtEMsg.Rows[0]["Message1"].ToString();
-                    }
+                    TempData["Save"] = "Save Successfully";
                 }
                 else
                 {
-                    Group_EntryBL gebl = new Group_EntryBL();
-                    DataTable dtEMsg = gebl.M_Message_Select("1001", "E");
-                    string message = string.Empty;
-                    if (dtEMsg.Rows.Count > 0)
-                    {
-                        TempData["Emsg"] = dtEMsg.Rows[0]["Message1"].ToString();
-                    }
+                    TempData["Nosave"] = "Save Failed";
                 }
             }
             return RedirectToAction("News_Editor");
@@ -149,37 +137,21 @@ namespace TOS.Controllers
             return JSONString;
         }
 
-        public ActionResult T_Information_Delete(string id)
+        [HttpPost]
+        public string T_Information_Delete(string id)
         {
-           
-            Boolean deleteflag = true;
+            var message = string.Empty;
+            if(id==null)
+            {
+                message = "NOK";
+            }
             InformationBL ibl = new InformationBL();
             string InsertOperator = Session["CompanyCD"].ToString();
             string PcName = System.Environment.MachineName;
-            deleteflag = ibl.News_Editor_Delete(id, PcName, InsertOperator);
+            message = ibl.News_Editor_Delete(id, PcName, InsertOperator);
 
-            if (deleteflag)
-            {
-                Group_EntryBL gebl = new Group_EntryBL();
-                DataTable dtEMsg = gebl.M_Message_Select("1001", "Q");
-                string message = string.Empty;
-                if (dtEMsg.Rows.Count > 0)
-                {
-                    TempData["Imsg"] = dtEMsg.Rows[0]["Message2"].ToString();
-                }
-            }
-            else
-            {
-                Group_EntryBL gebl = new Group_EntryBL();
-                DataTable dtEMsg = gebl.M_Message_Select("1001", "E");
-                string message = string.Empty;
-                if (dtEMsg.Rows.Count > 0)
-                {
-                    TempData["Emsg"] = dtEMsg.Rows[0]["Message1"].ToString();
-                }
-            }
 
-            return RedirectToAction("News_Editor");
+            return JsonConvert.SerializeObject(message);
         }
 
     }

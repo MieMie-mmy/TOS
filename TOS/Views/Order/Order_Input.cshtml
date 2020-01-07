@@ -1,4 +1,4 @@
-﻿
+﻿@model TOS_Model.OrderInputViewModel
 @{
     /**/
     ViewBag.Title = "Order_Input";
@@ -55,13 +55,17 @@
     <script type="text/javascript">
         $(document).ready(function () {
 
+                var todaydate = new Date();
+                var day = todaydate.getDate() + 3;
+                var month = todaydate.getMonth()+1;
+                var year = todaydate.getFullYear();
+                var datestring = day + "/" + month + "/" + year;
+            $("#shipDate").val(datestring);
+
             var count = '@ViewBag.count'
-           
-            //var count = st.match(/,/igm).length
-            
+
             for (var k = 1; k <= 8; k++)
             {
-                //var count = st.match(/,/igm).length;
                 if (k > count) {
                     $("#makeritem" + k).hide();
                     $(".ISProductBody" + k).hide();
@@ -119,7 +123,7 @@
                         "url": "../../Order/Order_Input_M_Item_Select/0",
                         "type": "GET",
                         "datatype": "json",
-                        "dataSrc": "",               
+                        "dataSrc": "",
                     },
                     "columns": [
                         {
@@ -695,7 +699,7 @@
 
 
         $.makeTable = function (mydata) {
-            var table = $('<table class="tab002">');
+            var table = $('<table class="tt">');
             var tblHeader = "<tr class ='odrinfo'>";
             tblHeader += "<td class='t300 saict tab002tit'>摘要</td>";
             for (var k in mydata[0]) tblHeader += "<td class='t300 tab002tit saict'>" + k + "</td>";
@@ -704,10 +708,21 @@
             $.each(mydata, function (index, value) {
 
                 var TableRow = "<tr class='saisinHeading odrinfo'>";
-                TableRow += "<td width='20%'><input class='form-control' type='text' value='Aさんの分' /></td>"
+                TableRow += "<td width='20%'><input class='form-control' type='text' placeholder='Aさんの分' /></td>"
 
                 $.each(value, function (key, val) {
-                    TableRow += "<td class='saict'>" + val + "</td>";
+                    if (val.indexOf(',') > -1) {
+                        var tmp = val.split(",");
+                        //TableRow += "<td class='saict'>" + tmp[0] + "<label class='admincd' style='visibility: hidden'>" + tmp[1] + "</label></td>";
+                        TableRow += "<td class='saict'> <label class='InventoryCount'> " + tmp[0] + "</label> <label class='admincd' style='visibility: hidden'>" + tmp[1] + "</label></td>";
+                    }
+                    else
+                    {
+                        TableRow += "<td class='saict'>" + val + "</td>";
+
+                    }
+                    //var tmp = val.split(",");
+                    //TableRow += "<td class='saict'>" + tmp[0] + "<label class='admincd'>"+ tmp[1]+ "</label></td>";
                 });
                 TableRow += "</tr>";
                 $(table).append(TableRow);
@@ -718,17 +733,14 @@
                 var count = Object.keys(mydata[0]).length;
                 //alert(count);
                 for (var i = 1; i < count; i++) {
-                    Tablefixfrow += " <td class='odr6'><input class='form-control sair' type='text' value='0'/></td>";
+                    Tablefixfrow += " <td class='odr6'><input class='form-control sair' type='text' placeholder='0'/></td>";
                 };
                 Tablefixfrow += "</tr > ";
                 $(table).append(Tablefixfrow);
             });
             return ($(table));
         };
-        //$("#btnreset").click(function () {
-        //    alert("reset");
-        //    $('.tab001').find('input: Text').val('');
-        //});
+
         jQuery('#makeritem1').on('click', 'tr:gt(0)>td>a.hideLink', function () {
             if ($(this).text() == "非表示") {
                 $(this).text("表示");
@@ -844,13 +856,193 @@
             $("#txt8").val("");
         })
 
+        $("#btnreset").click(function () {
+            $("select#ddlShippingName")[0].selectedIndex = 0;
+             $("#postalcode").val("");
+             $("#phno").val("");
+             $("#shipname").val("");
+             $("#add1").val("");
+             $("#add2").val("");
+             $("#shipDate").val("");
+             $("#txtsummary").val("");
+            $("#totalamt").val("");
+            var c = '@ViewBag.count'
+            for (var j = 1; j <= c; j++) {
+                $('#makeritem' + j).find('input[type=text]').each(function () {
+                   // console.log(this.value)
+                    $(this).val("");
+                });
+                $('#sku' + j).find('input[type=text]').each(function () {
+                    // console.log(this.value)
+                    $(this).val("");
+                });
+            }
+           // $('.tab001').find('input: Text').val('');
+        });
+
         $("#btntotal").click(function () {
-            var count = '@ViewBag.count'
+            var c = '@ViewBag.count';
+            var totalamount = 0;
+
+            for (var k = 1; k <= c; k++) {
+                var price = $('#makeritem' + k).find("tr:eq(1)").find("td:eq(5)").html();
+                $('#sku' + k + ' tr').each(function () {
+                    var count = 0;
+                    $(this).find('.odr6 > input[type=text]').each(function () {
+                        count = +count + +this.value;
+                    });
+                    if (count>0) {
+                        totalamount = +totalamount + (+count * +price);
+                    }
+                });
+
+            }
+            $("#totalamt").val(totalamount);
+        });
+
+        function isEven(n) {
+            return n % 2 == 0;
+        }
+
+        function isOdd(n) {
+            return Math.abs(n % 2) == 1;
+        }
+
+        $("#btnSaveOrder").click(function () {
+            var c = '@ViewBag.count';
+            var totalamount = 0;
+
+            for (var h = 1; h <= c; h++) {
+                var price = $('#makeritem' + h).find("tr:eq(1)").find("td:eq(5)").html();
+
+                $('#sku' + h + ' tr').each(function () {
+                    var count = 0;
+                    $(this).find('.odr6 > input[type=text]').each(function () {
+                        count = +count + +this.value;
+                    });
+                    if (count>0) {
+                        totalamount = +totalamount + (+count * +price);
+                    }
+                });
+
+            }
+            var todaydate = new Date();
+            var day = todaydate.getDate();
+            var month = todaydate.getMonth() + 1;
+            var year = todaydate.getFullYear().toString().substr(-2);
+            var orderid = 'J' + year + month + day + todaydate.getHours() + todaydate.getMinutes() + todaydate.getSeconds();
+            alert(orderid);
+            var shipid = $("select#ddlShippingName").val();
+            if (shipid == null || shipid == "") { shipid = 0; }
+            if (shipid == null ||shipid == "") {
+                var postalcode = $("#postalcode").val();
+                var T_OrderHeader = {};
+                T_OrderHeader.OrderID = orderid;
+                T_OrderHeader.ShippingID = 0;
+                if (postalcode.indexOf('-') > -1) {
+                    var tmp = postalcode.split("-");
+                    T_OrderHeader.ZipCD1 = tmp[0];
+                    T_OrderHeader.ZipCD2 = tmp[1];
+                }
+                else {
+                    T_OrderHeader.ZipCD1 = "";
+                    T_OrderHeader.ZipCD2 = "";
+                }
+             
+                
+                T_OrderHeader.TelephoneNO = $("#phno").val();
+                T_OrderHeader.ShippingName = $("#shipname").val();
+                T_OrderHeader.Address1 = $("#add1").val();
+                T_OrderHeader.Address2 = $("#add2").val();
+                T_OrderHeader.TotalAmount = totalamount;
+                T_OrderHeader.Memo = $("#txtsummary").val();
+
+            }
+            else
+            {
+                T_OrderHeader.OrderID = orderid;
+                T_OrderHeader.ShippingID = shipid;
+                T_OrderHeader.ZipCD1 = "";
+                T_OrderHeader.ZipCD2 = "";
+                T_OrderHeader.TelephoneNo = "";
+                T_OrderHeader.ShippingName = "";
+                T_OrderHeader.Address1 = "";
+                T_OrderHeader.Address2 = "";
+                T_OrderHeader.TotalAmount = totalamount;
+                T_OrderHeader.Memo = $("#txtsummary").val();
+            }        
+            var order = new Array();
+            for (var k = 1; k <= c; k++)
+            {       
+              
+                var price = $('#makeritem' + k).find("tr:eq(1)").find("td:eq(5)").html();
+                var ItemMemo = $('#makeritem' + k).find("tr:eq(1)").find("td:eq(7)").find('input[type=text]').html();
+                alert(price);
+                var table = document.getElementById("sku"+k).getElementsByClassName("tt")[0];
+                var text = "";
+                for (var i = 1, row; row = table.rows[i]; i++) {
+                  
+                    for (var j = 0, col; col = row.cells[j]; j++) {
+                       
+                            if (j == 0) {
+                                var skumemo = table.rows[i].cells[0].getElementsByClassName("form-control")[0].value;
+                                j = j + 1;
+                            }
+                            else
+                            {
+                                var ordercount = table.rows[i + 1].cells[j].getElementsByClassName("form-control sair")[0].value;
+                               
+                                if (ordercount != null && ordercount > 0)
+                                {
+                                    alert(ordercount);
+                                    var inventorycount = table.rows[i].cells[j].getElementsByClassName("InventoryCount")[0].textContent;
+                                    var adminCD = table.rows[i].cells[j].getElementsByClassName("admincd")[0].textContent;
+                                    var T_OrderDetail = {}
+                                    T_OrderDetail.OrderID = orderid;
+                                    T_OrderDetail.AdminCD = adminCD;
+                                    T_OrderDetail.OrderItem = ordercount;
+                                    T_OrderDetail.StockItem = inventorycount;
+                                    T_OrderDetail.SalePrice = price;
+                                    T_OrderDetail.Memo = ItemMemo;
+                                    T_OrderDetail.TotalAmount = ordercount * price;
+ 
+                                    if (skumemo == null || skumemo == "") {
+                                        T_OrderDetail.Memo = ItemMemo;
+                                    }
+                                    else {
+                                        T_OrderDetail.Memo = skumemo;
+                                    }
+                                    T_OrderDetail.AvailableShippingDate = $("#shipDate").val().toString();
+                                    order.push(T_OrderDetail);
+                                }
+                            }
+
+                    }
+                    i = i + 1;
+                  
+                }
+
+            }
+            $.ajax({
+                url: "../../Order/InserOrder",
+                type: 'post',
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({ T_OrderHeader: T_OrderHeader, T_OrderDetail: order }),
+                cache: false,
+                success: function (result) {
+                    alert(result);
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    alert(thrownError);
+                }
+            });
            
-            var mytable = document.getElementById('makeritem');
-            var tex = $('#sku1').find("tr:eq(1)").find("td:eq(1)").html();
-            alert("10");
-        })
+
+        });
+
+
+
 
     </script>
 
@@ -859,7 +1051,7 @@
 
 <!--heder end here-->
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注入力</li>
+    <li class="breadcrumb-item"><a href="../../Home/Index">ホーム</a><a class="fa fa-angle-right" href="../../Order/order_portal">発注ポータル</a><i class="fa fa-angle-right"></i>発注入力</li>
 </ol>
 <div class="inbox-mail">
 
@@ -1027,7 +1219,6 @@
 </script>
 
 
-
 <div class="tab-content tab-content-in w3 orderlist">
     <div class="tab-pane text-style active" id="tab1">
         <div class="inbox-right">
@@ -1036,160 +1227,165 @@
             @*<object data="order_input_table.html" width="100%" height="1200px" type="text/html">
                     Alternative Content
                 </object>*@
+            @Html.AntiForgeryToken()
+            @using (Html.BeginForm("InsertOrderHeader", "Order", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            {
+                <table class="tab001">
+                    <tbody>
+                        <tr>
+                            <td class="t20p">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="t100">出荷先名</td>
+                                            <td>
+                                                <div class="btn-group t200">
+                                                    @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle t200" data-toggle="dropdown" type="button">ラケット</button>*@
+                                                    @*<div class="dropdown-menu t200">*@
+                                                    @*@Html.DropDownList("ddlShippingName", new SelectList(Enumerable.Empty<SelectListItem>()), "")*@
+                                                    @*@Html.DropDownListFor(m =>m.,
+                                        new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
+                                        new {@id= "ddlCompanyName",@name= "ddlCompanyName", @class = "form-control input-sm", @style = "width :210px" })*@
+                                                    @Html.DropDownList("ddlShippingName",
+                                  new SelectList(Enumerable.Empty<SelectListItem>()), "",
+                                  new { @class = "btn btn-primary dropdown-toggle t200 form-control input-sm ", height = "150px" })
 
-            <table class="tab001">
-                <tbody>
-                    <tr>
-                        <td class="t20p">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="t100">出荷先名</td>
-                                        <td>
-                                            <div class="btn-group t200">
-                                            @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-primary dropdown-toggle t200" data-toggle="dropdown" type="button">ラケット</button>*@
-                                            @*<div class="dropdown-menu t200">*@
-                                            @*@Html.DropDownList("ddlShippingName", new SelectList(Enumerable.Empty<SelectListItem>()), "")*@
-                                            @Html.DropDownList("ddlShippingName",
-                          new SelectList(Enumerable.Empty<SelectListItem>()), "",
-                          new { @class = "btn btn-primary dropdown-toggle t200 form-control input-sm ", height = "150px" })
+                                                    @*</div>*@
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="t70 textri">郵便番号</td>
+                                            <td class="t100"><input id="postalcode" class="form-control" type="text" /></td>
+                                            <td class="t30"></td>
+                                            <td class="t70 textri">電話番号</td>
+                                            <td class="t200"><input id="phno" class="form-control" type="text" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td>&nbsp;</td>
+                            <td>
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="t150 textri"></td>
+                                            <td class="t70 textri">
+                                                <div class="textri"><button type="button" id="btntotal" class="btn btn-success btnod">✚&nbsp;金額計算</button></div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="t20p">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="t70">発送先名</td>
+                                            <td>
+                                                <div class="btn-group t200">
+                                                    @*<input class="form-control" type="add" />*@
+                                                    <input id="shipname" class="form-control" type="text" />
+                                                    @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-info dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>
+                                                        <div class="dropdown-menu t200">
+                                                            <a class="dropdown-item" href="#">キャピタル</a> <a class="dropdown-item" href="#">BCT</a> <a class="dropdown-item" href="#">ACT</a>
 
-                                            @*</div>*@
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="t70 textri">郵便番号</td>
-                                        <td class="t100"><input class="form-control" type="text" /></td>
-                                        <td class="t30"></td>
-                                        <td class="t70 textri">電話番号</td>
-                                        <td class="t200"><input class="form-control" type="text" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td>&nbsp;</td>
-                        <td>
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="t150 textri"></td>
-                                        <td class="t70 textri">
-                                            <div class="textri"><button type="button" id ="btntotal"class="btn btn-success btnod">✚&nbsp;金額計算</button></div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="t20p">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="t70">発送先名</td>
-                                        <td>
-                                            <div class="btn-group t200">
-                                                @*<input class="form-control" type="add" />*@
-                                                <input class="form-control" type="text" />
-                                                @*<button aria-expanded="false" aria-haspopup="true" class="btn btn-info dropdown-toggle t200" data-toggle="dropdown" type="button">キャピタル</button>
-                                                    <div class="dropdown-menu t200">
-                                                        <a class="dropdown-item" href="#">キャピタル</a> <a class="dropdown-item" href="#">BCT</a> <a class="dropdown-item" href="#">ACT</a>
+                                                        </div>*@
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="t30p">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="t70 textri">住所1</td>
+                                            <td class="t400"><input id="add1" class="form-control" type="text" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="t20p">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="t100 textri">出荷可能日</td>
+                                            <td><input id="shipDate" class="form-control t350" value=getDate() type="text" disabled /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="t20p">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="t150 textri"><button ID="btnreset" type="reset" class="btn btn-warning btnod">↺&nbsp;リセット</button></td>
+                                            <td class="t100 textri"><button id="btnSaveOrder" type="button" class="btn btn-danger btnod">▶&nbsp;発注</button></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="t20p">&nbsp;</td>
+                            <td class="t30p">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="t70 textri">住所2</td>
+                                            <td class="t400"><input id="add2" class="form-control" type="text" /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="t20p">
+                                <table id="tbtotal">
+                                    <tbody>
+                                        <tr>
+                                            <td class="t100 textri">発注合計金額</td>
+                                            <td><input id="totalamt" class="form-control" type="text" disabled /></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td class="t20p">
+                                <table>
+                                    <tbody>
+                                        <tr>
+                                            <td class="t20p textri">摘要</td>
+                                            <td class="t230"> <textarea class="form-control" id="txtsummary" rows="1"></textarea></td>
+                                            @*<script>
 
-                                                    </div>*@
-                                            </div>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td class="t30p">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="t70 textri">住所1</td>
-                                        <td class="t400"><input class="form-control" type="text" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td class="t20p">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="t100 textri">出荷可能日</td>
-                                        <td><input class="form-control t350" type="text" disabled /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td class="t20p">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="t150 textri"><button ID="btnreset" type="reset" class="btn btn-warning btnod">↺&nbsp;リセット</button></td>
-                                        <td class="t100 textri"><button type="button" class="btn btn-danger btnod">▶&nbsp;発注</button></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td class="t20p">&nbsp;</td>
-                        <td class="t30p">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="t70 textri">住所2</td>
-                                        <td class="t400"><input class="form-control" type="text" /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td class="t20p">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="t100 textri">発注合計金額</td>
-                                        <td><input class="form-control" type="text" disabled /></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                        <td class="t20p">
-                            <table>
-                                <tbody>
-                                    <tr>
-                                        <td class="t20p textri">摘要</td>
-                                        <td class="t230"> <textarea class="form-control" id="txtarea" rows="1"></textarea></td>
-                                        @*<script>
+                                                    function expandTextarea(id) {
+                                                        document.getElementById(id).addEventListener('keyup', function () {
+                                                            this.style.overflow = 'hidden';
+                                                            this.style.height = 0;
+                                                            this.style.height = this.scrollHeight + 'px';
+                                                        }, false);
+                                                    }
 
-                                                function expandTextarea(id) {
-                                                    document.getElementById(id).addEventListener('keyup', function () {
-                                                        this.style.overflow = 'hidden';
-                                                        this.style.height = 0;
-                                                        this.style.height = this.scrollHeight + 'px';
-                                                    }, false);
-                                                }
-
-                                                expandTextarea('txtarea');
-                                            </script>*@
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-            <br>
-            <!------>
-
+                                                    expandTextarea('txtarea');
+                                                </script>*@
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <br>
+                <!------>
+            }
             <table class="tab002" id="makeritem1">
                 @*<tbody>*@
                 <thead class="tab002tit">
@@ -1211,7 +1407,7 @@
 
 
             <div class="inbox-mail ISProductBody1">
-                <table class="">
+                <table id="Timg1">
                     <tbody>
                         <tr>
                             <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
@@ -1245,12 +1441,12 @@
 
 
             <div class="inbox-mail ISProductBody2">
-                <table class="">
+                <table id="Timg2">
                     <tbody>
                         <tr>
                             <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
-                            <td>
-                                <table class="tab002" id="sku2" style="overflow :scroll;"></table>
+                            <td id="sku2">
+                                @*<table class="tab002" id="sku2" style="overflow :scroll;"></table>*@
 
                             </td>
                         </tr>
@@ -1278,12 +1474,12 @@
 
 
             <div class="inbox-mail ISProductBody3">
-                <table class="">
+                <table id="Timg3">
                     <tbody>
                         <tr>
                             <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
-                            <td>
-                                <table class="tab002" id="sku3" style="overflow :scroll;"></table>
+                            <td id="sku3">
+                                @*<table class="tab002" id="sku3" style="overflow :scroll;"></table>*@
 
                             </td>
                         </tr>
@@ -1312,12 +1508,12 @@
 
 
             <div class="inbox-mail ISProductBody4">
-                <table class="">
+                <table id="Timg4">
                     <tbody>
                         <tr>
                             <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
-                            <td>
-                                <table class="tab002" id="sku4" style="overflow :scroll;"></table>
+                            <td id="sku4">
+                                @*<table class="tab002" id="sku4" style="overflow :scroll;"></table>*@
 
                             </td>
                         </tr>
@@ -1346,12 +1542,12 @@
 
 
             <div class="inbox-mail ISProductBody5">
-                <table class="">
+                <table id="Timg5">
                     <tbody>
                         <tr>
                             <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
-                            <td>
-                                <table class="tab002" id="sku5" style="overflow :scroll;"></table>
+                            <td id="sku5">
+                                @*<table class="tab002" id="sku5" style="overflow :scroll;"></table>*@
 
                             </td>
                         </tr>
@@ -1379,12 +1575,12 @@
 
 
             <div class="inbox-mail ISProductBody6">
-                <table class="">
+                <table cid="Timg6">
                     <tbody>
                         <tr>
                             <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
-                            <td>
-                                <table class="tab002" id="sku6" style="overflow :scroll;"></table>
+                            <td id="sku6">
+                                @*<table class="tab002" id="sku6" style="overflow :scroll;"></table>*@
 
                             </td>
                         </tr>
@@ -1411,12 +1607,12 @@
             </table>
 
             <div class="inbox-mail ISProductBody7">
-                <table class="">
+                <table id="Timg7">
                     <tbody>
                         <tr>
                             <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
-                            <td>
-                                <table class="tab002" id="sku7" style="overflow :scroll;"></table>
+                            <td id="sku7">
+                                @*<table class="tab002" id="sku7" style="overflow :scroll;"></table>*@
 
                             </td>
                         </tr>
@@ -1445,12 +1641,12 @@
 
 
             <div class="inbox-mail ISProductBody8">
-                <table class="">
+                <table id="Timg8">
                     <tbody>
                         <tr>
                             <td class="saitop"><img src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
-                            <td>
-                                <table class="tab002" id="sku8" style="overflow :scroll;"></table>
+                            <td id="sku">
+                                @*<table class="tab002" id="sku8" style="overflow :scroll;"></table>*@
 
                             </td>
                         </tr>

@@ -24,28 +24,15 @@
         }
     </script>
 }
-@*<style>
-    .tblOrderPortal tr:nth-child(even) {
-        background-color: #CCDDFF;
-    }
-</style>*@
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注ポータル</li>
+    <li class="breadcrumb-item"><a href="../../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>発注ポータル</li>
 </ol>
-@if (TempData["Imsg"] != null)
+@RenderPage("~/Views/CommonView/Common_View.cshtml")
+@if (TempData["Nmsg"] != null)
 {
-    <div class="row ">
-        <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
-            @*<div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>*@
-            <div class="alert alert-warning alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                @*<h4><i class="icon fa fa-info-circle"></i> Info!</h4>*@
-                <strong><span class="glyphicon glyphicon-ok"></span>Info:</strong>
-                @TempData["Imsg"]
-            </div>
-        </div>
-    </div>
+    <script>
+        Infomessage('I', '1006', 'Message1');
+    </script>
 }
 <div class="inbox-mail">
 
@@ -104,7 +91,7 @@
                                         <td class="orderpcomCell">
                                             <div class="orderpcomCell">
                                                 <div class="orderpcomCell">
-                                                    <button type="button" id="btnSearch" class="odsec btn btn-success"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button>
+                                                    <button type="button" id="btnSearch" class="odsec btn btn-success"><i class="fa fa-search" aria-hidden="true" style="color:white;"></i>&nbsp;検索</button>
                                                 </div>
                                                 <div class="orderpcomCell">
                                                     <button type="button" id="btnClear" class="odsec btn btn-warning">↺&nbsp;リセット</button>
@@ -186,17 +173,18 @@
                         <div class="float-left">
                             <div class="odtitle">
                                 <h4>最新の発注状況(最大20件まで表示)</h4>
+                                <br />
                             </div>
                         </div>
-                        <div class="float-right">
+                        @*<div class="float-right">
                             <div class="btn-group">
                                 <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
                                 <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
                     <div class="saisin">
-                        <table id="tblOrderPortal" class="saisinBody" style="width:100%">
+                        <table id="tblOrderPortal" style="width:100%;border: 1px solid #999999;">
                             <thead>
                                 <tr class="saisinRow" style="width:100%">
                                     <th class="titcolor" style="border: 1px solid #999999;">NO</th>
@@ -265,66 +253,7 @@
         });
 
 
-    </script>
-    @*<script type="text/javascript">
-            $(document).ready(function () {
-                var table = $('#tblOrderPortal').DataTable(
-                    {
-                        "language": {
-                            "info": "Display START to END of TOTAL records",
-                        },
-                        "oLanguage": {
-                            "sLengthMenu": "Display MENU records",
-                        },
-                        "ajax": {
-                            "url": "../Order/Get_Order_Portal_List",
-                            "type": "GET",
-                            "datatype": "json",
-                            "dataSrc": ""
-                        },
-                        "columns": [
-                            {
-                                "className": 'saisinCell sailf',
-                                "orderable": false,
-                                "data": null,
-                                "defaultContent": '',
-                                "width": "3%"
-                            },
-                            { "data": "No", orderable: false, "width": "13%" },
-                            { "data": "OrderID", orderable: false, "width": "13%" },
-                            { "data": "MakerItemCD", orderable: false, "width": "13%" },
-                            { "data": "ItemName", orderable: false, "width": "3%" },
-                            { "data": "SizeName", orderable: false, "width": "10%" },
-                            { "data": "ColorName", orderable: false, "width": "10%" },
-                            { "data": "OrderItem", orderable: false, "width": "13%" },
-                            { "data": "StockItem", orderable: false, "width": "10%" },
-                            { "data": "SalePrice", orderable: false, "width": "4%" },
-                            { "data": "TotalAmount", orderable: false, "width": "4%" },
-                            { "data": "OrderDate", orderable: false, "width": "4%" },
-                            { "data": "OrderTime", orderable: false, "width": "4%" },
-                            { "data": "ShippingDate", orderable: false, "width": "7%" },
-                        ],
-                    }
-                );
-
-                $('#tblOrderPortal tbody').on('click', 'td.details-control', function () {
-                    var tr = $(this).closest('tr');
-                    var row = table.row(tr);
-
-                    if (row.child.isShown()) {
-                        // This row is already open - close it
-                        row.child.hide();
-                        tr.removeClass('shown');
-                    }
-                    else {
-                        // Open this row
-                        row.child(format(row.data())).show();
-                        tr.addClass('shown');
-                    }
-                });
-            });
-
-        </script>*@
+    </script>  
 
     <script type="text/javascript">
         $("#btnClear").click(function () {
