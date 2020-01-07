@@ -41,7 +41,7 @@ namespace TOS.Controllers
                     tinfo.InformationType = Convert.ToInt32(dtinfo.Rows[0]["InformationType"].ToString());
                     tinfo.DisplayStartDate= Convert.ToDateTime(dtinfo.Rows[0]["DisplayStartDate"].ToString());
                     tinfo.DisplayEndDate = Convert.ToDateTime(dtinfo.Rows[0]["DisplayEndDate"].ToString());
-                    tinfo.Date = dtinfo.Rows[0]["Date"].ToString();
+                    tinfo.Date = Convert.ToDateTime(dtinfo.Rows[0]["Date"].ToString());
                     tinfo.TitleName = dtinfo.Rows[0]["TitleName"].ToString();
                     tinfo.DetailInformation = dtinfo.Rows[0]["DetailInformation"].ToString();
 

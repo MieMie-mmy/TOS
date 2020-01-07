@@ -207,9 +207,28 @@
                         $('#chkeffect').prop('checked', false);
 
                     $("#ddlInfoType").val(result[0].InformationType);
-                    $('#txtDate').val(result[0].Date)
-                    $('#txtStartDate').val(result[0].DisplayStartDate);
-                    $('#txtEndDate').val(result[0].DisplayEndDate);
+
+                   
+                    if (result[0].Date == "0001-01-01")
+                        $('#txtDate').val('');
+                   
+                    else
+                        $('#txtDate').val(result[0].Date);
+
+
+                    if (result[0].DisplayStartDate == "0001-01-01")
+                        $('#txtStartDate').val('');
+
+                    else
+                        $('#txtStartDate').val(result[0].DisplayStartDate);
+
+
+                    if (result[0].DisplayEndDate == "0001-01-01")
+                        $('#txtEndDate').val('');
+
+                    else
+                        $('#txtEndDate').val(result[0].DisplayEndDate);
+                 
                     $('#txttitlename').val(result[0].TitleName);
                     $('#txtarea').val(result[0].DetailInformation);
                 }
@@ -377,6 +396,14 @@
 
     <style>
 
+        .form-control {
+            height: 2em;
+            border-radius:0px;
+        }
+        .modal-header {
+            display:block;
+           
+        }
         .mother-grid-inner {
             display: block !important;
             background-color: #edecec !important;
@@ -629,8 +656,7 @@
                                     expandTextarea('txtarea');</script>
                             </div>
                             <div class="newr col-md-7">
-                                <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div><div class="float-right">
-                                </div>
+                                <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div>
                                 <table class="tab002" id="tbinformation">
                                     <thead>
                                         <tr class="tab002tit">
