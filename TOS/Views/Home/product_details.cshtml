@@ -20,6 +20,7 @@
         width: 1212px;
         height: 640px;
         border: white;
+        resize: none;
         
     }
 </style>
@@ -59,7 +60,7 @@
                         <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">値段一覧.pdf&nbsp;&nbsp;▼</button>
                     </p>
                     <hr />
-                    @Html.TextArea("name", (string)@ViewData["DetailInfo"], new { @readonly = "readonly" })
+                    @Html.TextArea("name", (string)@ViewData["DetailInfo"], new { @readonly = "readonly"})
 
                     @*<textarea cols="20" id="Name" name="Name" rows="15" style="color:red">@ViewData["DetailInfo"]</textarea>*@
 
