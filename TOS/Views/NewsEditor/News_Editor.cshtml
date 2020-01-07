@@ -30,6 +30,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    @*<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">*@
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
+
 }
 
 @section Scripts{
@@ -112,6 +116,10 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            InformationTable();
+        });
+
+        function InformationTable() {
             var table = $('#tbinformation').DataTable(
                 {
                     columnDefs: [{
@@ -127,6 +135,7 @@
                         className: 'tab002tit'
                     }
                     ],
+                    "destroy": true,
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "aLengthMenu": [20],
@@ -149,13 +158,13 @@
                         {
                             "data": "", "render": function (data, type, row) {
                                 //return '<button type="button" id="btnDelete" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal"><a class="delete" href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
-                                return '<button type="button" id="btnDelete" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal">削除</button>';
+                                return '<button type="button"  class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal" data-id="' + row.InformationID + '" )">削除</button>';
                             }
-                        },
+                        }
                     ],
                 }
             );
-        });
+        }
 
         function edit(id) {
             var id = id;
@@ -206,7 +215,10 @@
                 }
             });
         }
+
     </script>
+
+
 
     <script type="text/javascript">
         $(document).ready(function () {
@@ -252,7 +264,6 @@
         });
     </script>
 
-
     @*<script type="text/javascript">
             $(document).ready(function () {
                 $('#btndelete').click(function () {
@@ -272,6 +283,41 @@
         </script>*@
 
 
+    <script>
+        var DeleteID = "";
+        $(document).on("click", ".btn-outline-danger", function () {
+            var deleteid = $(this).data('id');
+            DeleteID = deleteid;
+        });
+        function deleteConfirm() {
+
+            $.ajax({
+                url: '../../NewsEditor/T_Information_Delete/' + DeleteID,
+                type: 'POST',
+                dataType: 'JSON',
+
+                success: function (data) {
+                    if (data == "OK") {
+                        var Q = "Q";
+                        var K = "1001";
+                        var M = "Message2";
+                        Successmessage(Q, K, M);
+                        DeleteID = null;
+                        InformationTable();
+                    }
+                    else {
+                        var Q = "Q";
+                        var K = "1001";
+                        var M = "Message2";
+                        Errormessage(Q, K, M);
+                        DeleteID = null;
+                        InformationTable();
+                    }
+                }
+            });
+        }
+    </script>
+
 
 
 }
@@ -279,24 +325,32 @@
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
 </ol>
 
+
+@RenderPage("~/Views/CommonView/Common_View.cshtml")
 @if (TempData["Imsg"] != null)
 {
     <script>
         Successmessage('Q', '1001', 'Message2');
     </script>
 }
+@if (TempData["Save"] != null)
+{
+    <script>
+        Successmessage('I', '1002', 'Message1');
+    </script>
+}
+@if (TempData["Nosave"] != null)
+{
+    <script>
+        Errormessage('E', '1004', 'Message1');
+    </script>
+}
 
 @if (TempData["Emsg"] != null)
 {
-    <div class="row ">
-        <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
-            <div class="alert alert-warning alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <strong><span class="glyphicon glyphicon-warning-sign"></span> ERROR: </strong>
-                @TempData["Emsg"]
-            </div>
-        </div>
-    </div>
+    <script>
+        Errormessage('Q', '1001', 'Message2');
+    </script>
 }
 
 @using (Html.BeginForm("T_Information_SaveEdit", "NewsEditor", FormMethod.Post, new { enctype = "multipart/form-data", @id = "MyForm" }))
@@ -549,7 +603,7 @@
                                     expandTextarea('txtarea');</script>
                             </div>
                             <div class="newr col-md-7">
-                                <div class="float-left"><h6>お知らせ一覧</h6></div><div class="float-right">
+                                <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6></div><div class="float-right">
 
 
                                     <div class="btn-group">
@@ -589,22 +643,26 @@
         <div class="modal-content">
             <div class="modal-header">
 
-                @*<h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>*@
-                <img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>
+                <h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
+                @*<img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>*@
+            </div>
+            <div class="modal-body">
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
-                <button type="button" class="btn btn-default" onclick="_CancleRow()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
-
+                <button type="button" class="btn btn-default" id="btnconfirm" onclick="deleteConfirm()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
             </div>
         </div>
 
     </div>
 </div>
 
+
+
 <!-- script-for sticky-nav -->
 <script>
+
     // define variables
     var nativePicker = document.querySelector('.nativeDatePicker');
     var fallbackPicker = document.querySelector('.fallbackDatePicker');

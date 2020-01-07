@@ -92,9 +92,16 @@ namespace Information_BL
                 else
                     prms[2] = new SqlParameter("@groupID", SqlDbType.VarChar) { Value = DBNull.Value };
 
+                if(model.TinfoModel.DisplayStartDate!=null)
+                    prms[3] = new SqlParameter("@startdate", SqlDbType.VarChar) { Value = model.TinfoModel.DisplayStartDate };
+                else
+                    prms[3] = new SqlParameter("@startdate", SqlDbType.VarChar) { Value = DBNull.Value };
 
-                prms[3] = new SqlParameter("@startdate", SqlDbType.VarChar) { Value = model.TinfoModel.DisplayStartDate };
-                prms[4] = new SqlParameter("@enddate", SqlDbType.VarChar) { Value = model.TinfoModel.DisplayEndDate };
+                if (model.TinfoModel.DisplayEndDate != null)
+                    prms[4] = new SqlParameter("@enddate", SqlDbType.VarChar) { Value = model.TinfoModel.DisplayEndDate };
+                else
+                    prms[4] = new SqlParameter("@enddate", SqlDbType.VarChar) { Value = DBNull.Value };
+
                 prms[5] = new SqlParameter("@infotype", SqlDbType.VarChar) { Value = model.TinfoModel.InformationType };
 
                 if (model.TinfoModel.EffectFlag == true)
@@ -102,7 +109,12 @@ namespace Information_BL
                 else
                     prms[6] = new SqlParameter("@effectflag", SqlDbType.Int) { Value = 0 };
 
-                prms[7] = new SqlParameter("@date", SqlDbType.VarChar) { Value = model.TinfoModel.Date };
+                if (model.TinfoModel.Date != null)
+                    prms[7] = new SqlParameter("@date", SqlDbType.VarChar) { Value = model.TinfoModel.Date };
+                else
+                    prms[7] = new SqlParameter("@date", SqlDbType.VarChar) { Value = DBNull.Value };
+
+
                 prms[8] = new SqlParameter("@titlename", SqlDbType.VarChar) { Value = model.TinfoModel.TitleName };
 
                 if (model.TinfoModel.AttachedFile1 != null)
@@ -139,24 +151,18 @@ namespace Information_BL
         }
 
 
-        public Boolean News_Editor_Delete(string id,string PcName,string InsertOperator)
+        public string News_Editor_Delete(string id,string PcName,string InsertOperator)
         {
-            try
-            {
-                BaseDL bdl = new BaseDL();
-                DataTable dtinfo = new DataTable();
-                SqlParameter[] prms = new SqlParameter[3];
-                prms[0] = new SqlParameter("@id", SqlDbType.Int) { Value = id };
-                prms[1] = new SqlParameter("@InsertOperator", SqlDbType.VarChar) { Value = InsertOperator };
-                prms[2] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = PcName };
-                bdl.InsertUpdateDeleteData("News_Editor_Delete", prms);
-                return true;
-            }
-            catch(Exception ex)
-            {
-                return false;
-            }
-           
+            var message = string.Empty;
+            BaseDL bdl = new BaseDL();
+            DataTable dtinfo = new DataTable();
+            SqlParameter[] prms = new SqlParameter[3];
+            prms[0] = new SqlParameter("@id", SqlDbType.Int) { Value = id };
+            prms[1] = new SqlParameter("@InsertOperator", SqlDbType.VarChar) { Value = InsertOperator };
+            prms[2] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = PcName };
+            bdl.InsertUpdateDeleteData("News_Editor_Delete", prms);
+            message = "OK";
+            return message;
         }
     }
 }

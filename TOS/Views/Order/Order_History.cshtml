@@ -202,27 +202,27 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td class="mekabantit t30">1</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit t30">2</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit">3</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit">4</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit">5</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit">6</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit" class="tab002tit">7</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit">8</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder="" onkeypress="return ValidateUsernameOnly(event);"></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -299,6 +299,7 @@
 
     </div>
 </div>
+
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
@@ -493,7 +494,6 @@
 
     }
 
-
     function BindSecondTable(data)
     {
         $("#order_detail").find("tbody tr").empty();
@@ -581,9 +581,6 @@
         );
 
     }
-
-    
-
 
 </script>
 <!--button's function script-->
@@ -718,8 +715,10 @@
             var T = "E";
             var K = "1003";
             var M = "Message1";
-            Infomessage(T,K,M);
-
+            Errormessage(T,K,M);
+            document.getElementById('orderdate_from').value = "";
+            document.getElementById('orderdate_to').value = "";
+          
           
         }
        
@@ -733,7 +732,10 @@
             var T = "E";
             var K = "1003";
             var M = "Message1";
-            Infomessage(T, K, M);
+            Errormessage(T, K, M);
+          
+            document.getElementById('shipdate_from').value = "";
+            document.getElementById('shipdate_to').value = "";
         }
        
     }
@@ -776,7 +778,7 @@
                 if (data != "")
                 {
                    
-                        InfomessageMICD('I','1006','Message1',data);
+                    ErrormessageMICD('I','1006','Message1',data);
                    
                 }
                 
@@ -787,7 +789,7 @@
         });  
     }
 
-    function InfomessageMICD(t, k, m,d) {
+    function ErrormessageMICD(t, k, m,d) {
         $.ajax({
             type: 'POST',
             url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
@@ -795,11 +797,10 @@
             success: function (data) {
                 $('.modal-title').text("("+d+")"+data);
 
-                $("#btn_cancle2").click();
+                $("#btn_cancle3").click();
 
             }
         });
     }
 
 </script>
-
