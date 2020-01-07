@@ -259,28 +259,28 @@
                                 <div style="overflow:scroll">
                                     <!---->
                                     <table class="tab002" id="order_detail">
-                                        <thead>
-                                            <tr class="tab002tit">
-                                                <td class="t30" id="ID">No</td>
-                                                <td class="checkAll">&nbsp;</td>
-                                                <td class="t100">発注番号</td>
-                                                <td class="t100">商品番号</td>
-                                                <td class="t250">商品名</td>
-                                                <td class="t70">サイズ</td>
-                                                <td class="t100">カラー</td>
-                                                <td class="t70">発注数</td>
-                                                <td class="t70">引当数</td>
-                                                <td class="t100">下代</td>
-                                                <td class="t100">合計</td>
-                                                <td class="t150">発注日</td>
-                                                <td class="t150">発注時刻</td>
-                                                <td class="t150">出荷日</td>
-                                                <td class="t300">摘要</td>
+                                        <thead >
+                                            <tr class="tab002tit" >
+                                                <td class="t30" id="ID" style="text-align:center;">No</td>
+                                                <td class="checkAll" style="text-align:center;">&nbsp;</td>
+                                                <td class="t100" style="text-align:center;">発注番号</td>
+                                                <td class="t100" style="text-align:center;">商品番号</td>
+                                                <td class="t250" style="text-align:center;">商品名</td>
+                                                <td class="t70" style="text-align:center;">サイズ</td>
+                                                <td class="t100" style="text-align:center;">カラー</td>
+                                                <td class="t70" style="text-align:center;">発注数</td>
+                                                <td class="t70" style="text-align:center;">引当数</td>
+                                                <td class="t100" style="text-align:center;">下代</td>
+                                                <td class="t100" style="text-align:center;">合計</td>
+                                                <td class="t150" style="text-align:center;">発注日</td>
+                                                <td class="t150" style="text-align:center;">発注時刻</td>
+                                                <td class="t150" style="text-align:center;">出荷日</td>
+                                                <td class="t300" style="text-align:center;">摘要</td>
                                                 <td class="t300" hidden>AdminCD</td>
                                                 <td class="t150" hidden>OrderStatus</td>
                                             </tr>
                                         </thead>
-                                        <tbody id="order_detail_body"></tbody>
+                                        <tbody id="order_detail_body" ></tbody>
                                     </table>
                                 </div>
                                 <!---->
@@ -362,6 +362,22 @@
     .left-content {
         background-color: #edecec !important;
     }
+    table.dataTable {
+        border-collapse: unset !important;
+        text-align: center !important;
+              
+       
+    }
+    
+    .tab002 {
+        font-size: 15px !important;
+    }
+    table.dataTable.no-footer {
+        border-bottom: none;
+    }
+    .histoptab {
+       font-size:0.9em !important ;
+    }
 </style>
 
 <script>
