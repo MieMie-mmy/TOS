@@ -7,16 +7,20 @@
 <!-- Style link-->
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
 <link href="~/Content/Site.css" rel="stylesheet" />
-   
+
 <link href="~/Content/monthly.css" rel="stylesheet" />
 <link href="~/Content/morris.css" rel="stylesheet" />
 <link href="~/Content/news.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
+
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
-
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <!--Order History page link-->
 <link href="~/Content/order_history.css" rel="stylesheet" />
 
@@ -40,11 +44,11 @@
                             <td class="tda t150">発注日</td>
                             <td class="tda t150">出荷可能日</td>
                             <td class="tda t100">受付時間</td>
-                           
+
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200"></td>
                             <td class="histoptabno t200">
-                                <button type="button" onclick="location.href='@Url.Action("ExportReport","Order")'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
+                                <button type="button" id="PrintDoc" onclick="location.href='@Url.Action("ExportReport","Order")'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
                             </td>
                             <td class="histoptabno t200"></td>
                         </tr>
@@ -74,7 +78,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>発注番号</td>
-                                                    <td> <input type="text" id="txt_orderId" class="form-control" placeholder=""></td>
+                                                    <td> <input type="text" id="txt_orderId" onkeypress="return ValidateSpecialOnly(event);" class="form-control" placeholder=""></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -87,11 +91,11 @@
                                                     <td>
 
                                                         <label class="nativeDatePicker">
-                                                            <input type="date" name="bday" id="orderdate_from" class="form-control">
+                                                            <input type="date" name="bday" id="orderdate_from" onchange="check_orderdate()" class="form-control">
 
                                                         </label>～
                                                         <label class="nativeDatePicker">
-                                                            <input type="date" name="bday" id="orderdate_to" class="form-control">
+                                                            <input type="date" name="bday" id="orderdate_to" onchange="check_orderdate()" class="form-control">
 
                                                         </label>
                                                         <fieldset class="fallbackDatePicker" hidden>
@@ -145,11 +149,11 @@
                                                     <td>出荷日</td>
                                                     <td>
                                                         <label class="nativeDatePicker">
-                                                            <input type="date" name="bday" id="shipdate_from" class="form-control">
+                                                            <input type="date" name="bday" id="shipdate_from" onchange="check_shipdate()" class="form-control">
 
                                                         </label>～
                                                         <label class="nativeDatePicker">
-                                                            <input type="date" name="bday" id="shipdate_to" class="form-control">
+                                                            <input type="date" name="bday" id="shipdate_to" onchange="check_shipdate()" class="form-control">
 
                                                         </label>
                                                         <fieldset class="fallbackDatePicker" hidden>
@@ -198,27 +202,27 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td class="mekabantit t30">1</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit t30">2</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit">3</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit">4</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit">5</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit">6</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit" class="tab002tit">7</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit">8</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -228,27 +232,24 @@
                                         </table>
                                     </td>
                                     <td>&nbsp;</td>
-                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg"id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
+                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg" id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
                                     <td>
                                         <br><br><br><br><br><br>
-                                        <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
-                                    </td>
-                                    @*<td class="t70 sair">
-                                            <br><br><br><br><br><br><div class="btn-group">
-                                                <button aria-expanded="false" aria-haspopup="true" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" type="button">10</button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#">10</a>
-                                                    <a class="dropdown-item" href="#">30</a><a class="dropdown-item" href="#">50</a> <a class="dropdown-item" href="#">100</a>
+                                        <button type="button" id="btn_cancle0" data-toggle="modal" data-target="#myModal" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                        @*<button type="button" id="btn_cancle1" data-toggle="modal" data-target="#myModalSuccess" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                        <button type="button" id="btn_cancle2" data-toggle="modal" data-target="#myModalInfo" class="btn btn-dark">✖&nbsp;発注キャンセル</button>*@
 
-                                                </div>
-                                            </div>
-                                        </td>*@
+                                        <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+
+                                    </td>
+
                                 </tr>
                             </tbody>
                         </table>
 
 
                     </div>
+                    <!--modal-->
                     <!--Add second table-->
                     <div class="tab-content tab-content-in w3 orderlist">
                         <div class="tab-pane text-style active" id="tab1">
@@ -290,21 +291,41 @@
                         </div>
                     </div>
                     <!--end second table-->
-                   
+
 
                 </div>
             </div>
         </div>
 
     </div>
-
-
 </div>
 
-@*</div>*@
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                @*<h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>*@
+                <img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
+                <button type="button" class="btn btn-default" onclick="_CancleRow()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@RenderPage("~/Views/CommonView/Common_View.cshtml");
+
 <!-- 2'nd table script-->
 
 <style>
+  
 
     table.dataTable thead td {
         padding: 8px 10px;
@@ -316,34 +337,38 @@
         border-bottom: 1px solid #111;
         border-bottom-color: white;
     }
-    .OrderStatus_5{
-        color:red;
+
+    .OrderStatus_5 {
+        color: red;
     }
-    .ffss
-    {
-        color:white;
+
+    .ffss {
+        color: white;
     }
+
     .tab002 {
         width: 1500px !important;
     }
+
     .histoptab {
         width: 100% !important;
     }
+
     .mother-grid-inner {
         display: block !important;
-        background-color: #edecec
-        !important;
+        background-color: #edecec !important;
     }
+
     .left-content {
         background-color: #edecec !important;
     }
-   
-
 </style>
 
 <script>
     $(document).ready(function () {
-
+        //$("#btn_cancle1").hide();
+        //$("#btn_cancle2").hide();
+        $("#btn_cancle0").hide();
         FillGrid_1();
         FillGrid_2();
 
@@ -374,9 +399,9 @@
         $.ajax({
             type: 'POST',
             url: "../Order/OH_GetSecondTable/"+"101",
-           
+
             dataType: 'json',
-           
+
             success: function (data) {
                 BindSecondTable(data);
 
@@ -425,14 +450,19 @@
                 "destroy": true,
                 //responsive: false,
                 "scrollX": true,
-                //"scrollY": true,
+                //"scrollY": true
+                "paging": false,
+                "info": false,
                 "dom": 'lrtip',
                 "bLengthChange": false,
                 "data": data,
+                "language": {
+                    "emptyTable": "検索結果がありません。"
+                },
                 "columns": [
                     { "data": "OrderID", orderable: false },
                     { "data": "TotalAmount", orderable: false },
-                    { "data": "DestinationName", orderable: false },
+                    { "data": "ShippingName", orderable: false },
                     { "data": "OrderDateTime_h", orderable: false },
                     { "data": "AvailableShippingDate", orderable: false },
                     { "data": "OrderDateTime_d", orderable: false },
@@ -451,7 +481,7 @@
                     {
                         targets: [6,7,8,9],
                         className: 'histoptabno sair ffss',
-                       
+
                     },
 
                     ],
@@ -464,7 +494,6 @@
 
     }
 
-
     function BindSecondTable(data)
     {
         $("#order_detail").find("tbody tr").empty();
@@ -473,11 +502,14 @@
             {
                 "destroy": true,
                 //responsive: false,
-                "scrollX": true,
+                "scroll": false,
                 "dom": 'lrtip',
                 "bLengthChange": false,
 
                 "data": data,
+                "language": {
+                    "emptyTable": "検索結果がありません。"
+                },
                 "createdRow": function (row, data, dataIndex) {
                     $(row).addClass("odr1");
                 },
@@ -502,7 +534,7 @@
 
 
                 ],
-               
+
                 "columnDefs": [
                     {
                         "targets": 1,
@@ -532,26 +564,23 @@
                         visible: false
 
                     },
-                    
+
                 ],
                 "fnRowCallback": function (nRow, aData, iDisplayIndex, iDisplayIndexFull) {
                     if (aData.OrderStatus == 5) {
-                       
+
                         $('td', nRow).css('color', 'red');
                     }
                     else if (aData.OrderStatus == "5") {
                         $('td', nRow).css('color', 'red');
                     }
-                   
+
                 }
-            
+
             }
         );
 
     }
-
-
-
 
 </script>
 <!--button's function script-->
@@ -572,15 +601,14 @@
         document.getElementById('MakerItemCD_6').value = "";
         document.getElementById('MakerItemCD_7').value = "";
         document.getElementById('MakerItemCD_8').value = "";
-        RefreshFirstTable();
-
+        
+        $("#Order_First").hide();
 
         RefreshSecondTable();
 
 
     }
-    function RefreshFirstTable()
-    {
+    function RefreshFirstTable() {
         $.ajax({
             type: 'POST',
             url: "../Order/OH_GetFirstTable",
@@ -591,8 +619,7 @@
             }
         });
     }
-    function RefreshSecondTable()
-    {
+    function RefreshSecondTable() {
         $.ajax({
             type: 'POST',
             url: "../Order/OH_GetSecondTable",
@@ -608,11 +635,32 @@
     function _CancleTableRow() {
 
         var checked = jQuery('input:checkbox:checked').map(function () {
+
             return this.value + '_' + this.name;
 
         }).get();
+   
+        if (checked == "") {
+            var E = "E";
+            var T = "1001";
+            var M = "Message1";
+            Infomessage(E,T,M);
+          
+        }
+        else {
+            var Q = "Q";
+            var K = "1001";
+            var M = "Message1";
+            Confrimmessage(Q,K,M);
+        }
 
-        jQuery('input:checkbox:checked').parents("tr").remove();
+    }
+    
+    function _CancleRow() {
+        var checked = jQuery('input:checkbox:checked').map(function () {
+            return this.value + '_' + this.name;
+
+        }).get();
 
         $.ajax({
             url: "/Order/Delete_OderHistoryDetailRow/" + checked,
@@ -621,12 +669,75 @@
             dataType: 'JSON',
 
             success: function (data) {
-                RefreshSecondTable();
+                if (data == "OK") {
+                    var Q = "Q";
+                    var K = "1001";
+                    var M = "Message2";
+                    Successmessage(Q, K, M);
+                    
+                    jQuery('input:checkbox:checked').parents("tr").remove();
+                  
+                    RefreshSecondTable();
+                   
+
+                }
+
             }
 
 
         });
 
+    }
+    
+  
+    function Confrimmessage(t,k,m) {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+            dataType: 'json',
+            success: function (data) {
+                $('.modal-title').text(data);
+
+                $("#btn_cancle0").click();
+
+            }
+        });         
+
+    }
+    function check_orderdate()
+    {
+        
+        var fromDate = document.getElementById("orderdate_from").value;
+        var toDate = document.getElementById("orderdate_to").value;
+        if ((fromDate != "" && toDate != "") && (Date.parse(fromDate) > Date.parse(toDate))) {
+             //alert("To date should be greater than From date.");
+           
+            var T = "E";
+            var K = "1003";
+            var M = "Message1";
+            Errormessage(T,K,M);
+            document.getElementById('orderdate_from').value = "";
+            document.getElementById('orderdate_to').value = "";
+          
+          
+        }
+       
+    }
+    function check_shipdate()
+    {
+        var fromDate = document.getElementById("shipdate_from").value;
+        var toDate = document.getElementById("shipdate_to").value;
+        if ((fromDate != "" && toDate != "") && (Date.parse(fromDate) > Date.parse(toDate))) {
+            //alert("To date should be greater than From date.");
+            var T = "E";
+            var K = "1003";
+            var M = "Message1";
+            Errormessage(T, K, M);
+          
+            document.getElementById('shipdate_from').value = "";
+            document.getElementById('shipdate_to').value = "";
+        }
+       
     }
     function _SearchData() {
 
@@ -643,11 +754,53 @@
         var MakerItemCD_6 = document.getElementById('MakerItemCD_6').value;
         var MakerItemCD_7 = document.getElementById('MakerItemCD_7').value;
         var MakerItemCD_8 = document.getElementById('MakerItemCD_8').value;
+        check_makeritemcd(MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
         FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
+    function check_makeritemcd(m1,m2,m3,m4,m5,m6,m7,m8)
+    {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/Check_MakerItemCD",
+            data: {
+                m1: m1,
+                m2: m2,
+                m3: m3,
+                m4: m4,
+                m5: m5,
+                m6: m6,
+                m7: m7,
+                m8: m8
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data != "")
+                {
+                   
+                    ErrormessageMICD('I','1006','Message1',data);
+                   
+                }
+                
+               
+               
 
+            }
+        });  
+    }
 
+    function ErrormessageMICD(t, k, m,d) {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+            dataType: 'json',
+            success: function (data) {
+                $('.modal-title').text("("+d+")"+data);
+
+                $("#btn_cancle3").click();
+
+            }
+        });
+    }
 
 </script>
-

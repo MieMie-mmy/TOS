@@ -9,8 +9,6 @@ using Newtonsoft.Json;
 using System.Data.SqlClient;
 using Inventories_BL;
 
-
-
 namespace TOS.Controllers
 {
     public class InventoriesController : Controller
@@ -20,16 +18,12 @@ namespace TOS.Controllers
         InventoriesBL bl = new InventoriesBL();
         public ActionResult Index()
         {
-           
-         
             return View();
         }
         
         public ActionResult inventories()
         {
-           
             return View();
-
         }
 
         [HttpGet]
@@ -41,7 +35,6 @@ namespace TOS.Controllers
             string jsonresult;
             InventoriesBL bl = new InventoriesBL();
             dt = bl.BrandName_Select();
-
             jsonresult = JsonConvert.SerializeObject(dt);
             return jsonresult;
         }
@@ -50,13 +43,9 @@ namespace TOS.Controllers
 
         {
             dt = bl.Inventory_Search(id);
-
             string jsonresult = JsonConvert.SerializeObject(dt);
             return jsonresult;
         }
-        
-
-
 
     }
 }

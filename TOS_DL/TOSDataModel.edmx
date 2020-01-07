@@ -317,21 +317,26 @@ warning 6002: The table/view 'TOS.dbo.T_OrderDetail' does not have a primary key
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="varchar" MaxLength="13" Nullable="false" />
-          <Property Name="ShippingID" Type="int" />
+          <Property Name="ShippingID" Type="int" Nullable="false" />
           <Property Name="ShippingName" Type="varchar" MaxLength="50" />
           <Property Name="ZipCD1" Type="varchar" MaxLength="3" />
           <Property Name="ZipCD2" Type="varchar" MaxLength="4" />
           <Property Name="Address1" Type="varchar" MaxLength="100" />
           <Property Name="Address2" Type="varchar" MaxLength="100" />
           <Property Name="TelephoneNO" Type="varchar" MaxLength="15" />
-          <Property Name="TotalAmount" Type="money" />
-          <Property Name="ConsumptionTax" Type="money" />
+          <Property Name="TotalAmount" Type="money" Nullable="false" />
+          <Property Name="ConsumptionTax" Type="money" Nullable="false" />
           <Property Name="Memo" Type="varchar" MaxLength="500" />
           <Property Name="CustomerCD" Type="varchar" MaxLength="8" />
           <Property Name="OrderDateTime" Type="datetime" />
           <Property Name="UpdateOperator" Type="varchar" MaxLength="8" />
           <Property Name="UpdateDateTime" Type="datetime" />
         </EntityType>
+        <!--Errors Found During Generation:
+warning 6013: The table/view 'TOS.dbo.test1' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="test1">
+          <Property Name="test" Type="varchar" MaxLength="10" />
+        </EntityType>-->
         <EntityContainer Name="TOSModelStoreContainer">
           <EntitySet Name="L_Log" EntityType="Self.L_Log" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="M_Brand" EntityType="Self.M_Brand" Schema="dbo" store:Type="Tables" />
@@ -466,7 +471,7 @@ warning 6002: The table/view 'TOS.dbo.T_OrderDetail' does not have a primary key
           <EntitySet Name="Messages" EntityType="TOSModel.Message" />
           <EntitySet Name="T_InformationDestination" EntityType="TOSModel.T_InformationDestination" />
           <EntitySet Name="T_OrderDetail" EntityType="TOSModel.T_OrderDetail" />
-        </EntityContainer>
+          </EntityContainer>
         <EntityType Name="L_Log">
           <Key>
             <PropertyRef Name="SEQ" />
@@ -633,15 +638,15 @@ warning 6002: The table/view 'TOS.dbo.T_OrderDetail' does not have a primary key
             <PropertyRef Name="OrderID" />
           </Key>
           <Property Name="OrderID" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
-          <Property Name="ShippingID" Type="Int32" />
+          <Property Name="ShippingID" Type="Int32" Nullable="false" />
           <Property Name="ShippingName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="ZipCD1" Type="String" MaxLength="3" FixedLength="false" Unicode="false" />
           <Property Name="ZipCD2" Type="String" MaxLength="4" FixedLength="false" Unicode="false" />
           <Property Name="Address1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Address2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="TelephoneNO" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="TotalAmount" Type="Decimal" Precision="19" Scale="4" />
-          <Property Name="ConsumptionTax" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="TotalAmount" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
+          <Property Name="ConsumptionTax" Type="Decimal" Nullable="false" Precision="19" Scale="4" />
           <Property Name="Memo" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
           <Property Name="CustomerCD" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="OrderDateTime" Type="DateTime" Precision="3" />
@@ -762,7 +767,7 @@ warning 6002: The table/view 'TOS.dbo.T_OrderDetail' does not have a primary key
           <Property Name="UpdateOperator" Type="String" MaxLength="8" FixedLength="false" Unicode="false" />
           <Property Name="UpdateDateTime" Type="DateTime" Precision="3" />
         </EntityType>
-      </Schema>
+        </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
@@ -1071,7 +1076,7 @@ warning 6002: The table/view 'TOS.dbo.T_OrderDetail' does not have a primary key
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-        </EntityContainerMapping>
+          </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
   </edmx:Runtime>

@@ -11,7 +11,8 @@ using Newtonsoft.Json;
 using Order_Portal_BL;
 using Order_History_BL;
 using System.IO;
-using FastMember;
+using Group_Entry_BL;
+using Base_BL;
 
 namespace TOS.Controllers
 {
@@ -21,9 +22,10 @@ namespace TOS.Controllers
     {
         Order_HistoryBL bl = new Order_HistoryBL();
         DataTable dt = new DataTable();
+        BaseBL bbl = new BaseBL();
 
         // GET: Order_History
-        public ActionResult Order_History(string id)
+        public ActionResult Order_History()
         {
             return View();
         }
@@ -48,31 +50,37 @@ namespace TOS.Controllers
         }
 
         [HttpPost]
-        public ActionResult Delete_OderHistoryDetailRow(string id)
+        public string Delete_OderHistoryDetailRow(string id)
         {
-            var company = Session["CompanyCD"].ToString();
-            string[] del_arr;
-            var del_arr_o = "";
-            var del_arr_a = "";
+            var message = string.Empty;
             if(id==null)
             {
-
+                message = "NOK";
             }
-          else
+            else
             {
+                var company = Session["CompanyCD"].ToString();
+                string[] del_arr;
+                var del_arr_o = "";
+                var del_arr_a = "";
+                
                 del_arr = id.Split(',');
 
-                for (var i = 0; i < del_arr.Length; i++)
-                {
-                    del_arr_o += (del_arr[i].Split('_'))[0] + ',';
-                    del_arr_a += (del_arr[i].Split('_'))[1] + ',';
-                }
-            }
-           
-            
-            var message = bl._DeleteCheckedRow(company, del_arr_a.TrimEnd(','), del_arr_o.TrimEnd(','));
+                    for (var i = 0; i < del_arr.Length; i++)
+                    {
+                        del_arr_o += (del_arr[i].Split('_'))[0] + ',';
+                        del_arr_a += (del_arr[i].Split('_'))[1] + ',';
+                    }
+                
+               
+               
+                var AccessPC = System.Environment.MachineName;
 
-            return RedirectToAction("Order_History");
+                message = bl._DeleteCheckedRow(company, del_arr_a.TrimEnd(','), del_arr_o.TrimEnd(','), AccessPC);
+
+            }
+
+            return JsonConvert.SerializeObject( message);
         }
 
 
@@ -94,6 +102,21 @@ namespace TOS.Controllers
             return File(str, "application/pdf", savedFileName);
             
 
+        }
+
+        [HttpPost]
+       public string Check_MakerItemCD(T_OrderHistorySearch model)
+        {
+            string result = bl._CheckMakerItemCD(model);
+            return JsonConvert.SerializeObject(result);
+        }
+
+        [HttpPost]
+        public string  OrderHistoryMessage(string id)
+        {                    
+            var msg=bbl._MessageDialog(id);
+                    
+            return JsonConvert.SerializeObject(msg);
         }
 
         public ActionResult Order_Input(string id)
@@ -161,7 +184,22 @@ namespace TOS.Controllers
         public string Order_Input_M_Item_Select(string id)
         {
             DataSet ds = new DataSet();
+            //ds =ViewBag.dtsmitem as DataSet;
             ds = Session["dtsmitem"] as DataSet;
+            //Order_InputBL oib = new Order_InputBL();
+
+            //string ItemCD = "cps-test,BAQ005";
+            //DataSet dst = new DataSet();
+            //dst = oib.Order_Input_M_Item_Data(ItemCD);
+            //if (id == null)
+            //{
+            //    string jsonresult;
+            //    jsonresult = JsonConvert.SerializeObject(ds.Tables[0]);
+            //    return jsonresult;
+
+            //}
+            //else
+            //{
             if (ds.Tables.Count > Convert.ToInt32(id))
             {
                 string jsonresult;
@@ -211,66 +249,6 @@ namespace TOS.Controllers
 
         }
 
-        public string Order_Input_M_Item_Image_Select()
-        {
-            //DataSet dsk = new DataSet();
-            //dsk = Session["dtsmitem"] as DataSet;
-            //Order_InputBL oib = new Order_InputBL();
-            //DataTable dt = new DataTable();
-            ////string[] itemcd = MakerItem.Split(',');
-            //if (dsk.Tables.Count > 0)
-            //{
-            //    DataTable dttemp = dsk.Tables["Table" + id].Copy();
-            //    string mcd = dttemp.Rows[0]["MakerItemCD"].ToString(); //itemcd[i].ToString();
-            //    dt = oib.Order_Input_M_SKU(mcd);
-            //    if (dt.Rows.Count > 0)
-            //    {
-            //        string jsonresult;
-            //        jsonresult = JsonConvert.SerializeObject(dt);
-            //        return jsonresult;
-            //    }
-
-            //}
-            //return null;
-            string st = "";
-            return st;
-        }
-
-        [HttpPost]
-        public ActionResult InserOrder(T_OrderHeaderModel T_Orderheader , List<T_OrderDetailModel> T_OrderDetail)
-        {
-
-            Order_InputBL oib = new Order_InputBL();
-            DataTable dtorderdetail = new DataTable();
-            using (var reader = ObjectReader.Create(T_OrderDetail,"OrderID","AdminCD","OrderItem","StockItem","SalePrice","TotalAmount","Memo", "AvailableShippingDate"))
-            {
-                dtorderdetail.Load(reader);
-            }
-            if (dtorderdetail.Rows.Count > 0)
-            {
-                if (Session["CompanyCD"] != null)
-                {
-                    string CompanyCD = Session["CompanyCD"].ToString();
-                    T_Orderheader.UpdateOperator = CompanyCD;
-                }
-                T_Orderheader.AccessPC = System.Environment.MachineName;
-
-                if (oib.Order_Input_Insert(T_Orderheader, dtorderdetail))
-                {
-                    return RedirectToAction("Order", "Order_History", new { id = T_Orderheader.OrderID });
-                }
-                else
-                {
-                    return RedirectToAction("Order", "Order_History", new { id = T_Orderheader.OrderID });
-                }
-            }
-            else
-            {
-                return RedirectToAction("Order", "Order_History", new { id = T_Orderheader.OrderID });
-            }
-
-        }
-
 
         public ActionResult Order_Portal()
         {
@@ -303,6 +281,14 @@ namespace TOS.Controllers
             string JSONString = string.Empty;
             JSONString = JsonConvert.SerializeObject(table);
             return JSONString;
+        }
+
+        [HttpGet]
+        public JsonResult GetMessage()
+        {
+            string msg = "NoData";
+            TempData["Nmsg"] = "NoData";
+            return Json(msg, JsonRequestBehavior.AllowGet);
         }
 
     }

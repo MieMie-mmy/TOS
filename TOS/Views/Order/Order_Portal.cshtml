@@ -5,11 +5,14 @@
     TOS_Model.M_JobTimeableModel mj = ViewData["JobTime"] as TOS_Model.M_JobTimeableModel;
 }
 @section Styles {
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
     <!-- jQuery -->
     <script src="js/jquery-2.1.4.min.js"></script>
 
     <link rel="stylesheet" href="~/Content/order_portal.css" type='text/css' />
-    <link rel="stylesheet" href="~/Content/order_input.css" type='text/css' />
+    @*<link rel="stylesheet" href="~/Content/order_input.css" type='text/css' />*@
 
     <script type="application/x-javascript">
         addEventListener("load", function() {
@@ -24,6 +27,13 @@
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注ポータル</li>
 </ol>
+@RenderPage("~/Views/CommonView/Common_View.cshtml")
+@if (TempData["Nmsg"] != null)
+{
+    <script>
+        Infomessage('I', '1006', 'Message1');
+    </script>
+}
 <div class="inbox-mail">
 
     <!-- tab content -->
@@ -176,19 +186,19 @@
                         <table id="tblOrderPortal" class="saisinBody" style="width:100%">
                             <thead>
                                 <tr class="saisinRow" style="width:100%">
-                                    <th class="titcolor">NO</th>
-                                    <th class="titcolor">発注番号</th>
-                                    <th class="titcolor">商品番号</th>
-                                    <th class="titcolor">商品名</th>
-                                    <th class="titcolor">サイズ</th>
-                                    <th class="titcolor">カラー</th>
-                                    <th class="titcolor">発注数</th>
-                                    <th class="titcolor">引当数</th>
-                                    <th class="titcolor">下代</th>
-                                    <th class="titcolor">合計</th>
-                                    <th class="titcolor">発注日</th>
-                                    <th class="titcolor">発注時刻</th>
-                                    <th class="titcolor">出荷日</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">NO</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">発注番号</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">商品番号</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">商品名</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">サイズ</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">カラー</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">発注数</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">引当数</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">下代</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">合計</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">発注日</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">発注時刻</th>
+                                    <th class="titcolor" style="border: 1px solid #999999;">出荷日</th>
                                 </tr>
                             </thead>
                         </table>
@@ -215,6 +225,7 @@
                     }],
                     "dom": 'lrtip',
                     "bLengthChange": false,
+                    "aLengthMenu": 20,
                     "ajax": {
                         "url": "../Order/Get_Order_Portal_List",
                         "type": "GET",
@@ -222,10 +233,10 @@
                         "dataSrc": ""
                     },
                     "columns": [
-                        { "data": "No", orderable: false, "width": "2%" },
-                        { "data": "OrderID", orderable: false, "width": "10%" },
+                        { "data": "No", orderable: false, "width": "1%" },
+                        { "data": "OrderID", orderable: false, "width": "12%" },
                         { "data": "MakerItemCD", orderable: false, "width": "15%" },
-                        { "data": "ItemName", orderable: false, "width": "18%" },
+                        { "data": "ItemName", orderable: false, "width": "16%" },
                         { "data": "SizeName", orderable: false, "width": "5%" },
                         { "data": "ColorName", orderable: false, "width": "15%" },
                         { "data": "OrderItem", orderable: false, "width": "5%" },
@@ -233,115 +244,68 @@
                         { "data": "SalePrice", orderable: false, "width": "5%" },
                         { "data": "TotalAmount", orderable: false, "width": "5%" },
                         { "data": "OrderDate", orderable: false, "width": "5%" },
-                        { "data": "OrderTime", orderable: false, "width": "5%" },
-                        { "data": "ShippingDate", orderable: false, "width": "5%" },
+                        { "data": "OrderTime", orderable: false, "width": "6%" },
+                        { "data": "ShippingDate", orderable: false, "width": "6%" },
                     ],
                 }
             );
         });
 
 
-    </script>
-
-    @*<script type="text/javascript">
-            $(document).ready(function () {
-                var table = $('#tblOrderPortal').DataTable(
-                    {
-                        "language": {
-                            "info": "Display START to END of TOTAL records",
-                        },
-                        "oLanguage": {
-                            "sLengthMenu": "Display MENU records",
-                        },
-                        "ajax": {
-                            "url": "../Order/Get_Order_Portal_List",
-                            "type": "GET",
-                            "datatype": "json",
-                            "dataSrc": ""
-                        },
-                        "columns": [
-                            {
-                                "className": 'saisinCell sailf',
-                                "orderable": false,
-                                "data": null,
-                                "defaultContent": '',
-                                "width": "3%"
-                            },
-                            { "data": "No", orderable: false, "width": "13%" },
-                            { "data": "OrderID", orderable: false, "width": "13%" },
-                            { "data": "MakerItemCD", orderable: false, "width": "13%" },
-                            { "data": "ItemName", orderable: false, "width": "3%" },
-                            { "data": "SizeName", orderable: false, "width": "10%" },
-                            { "data": "ColorName", orderable: false, "width": "10%" },
-                            { "data": "OrderItem", orderable: false, "width": "13%" },
-                            { "data": "StockItem", orderable: false, "width": "10%" },
-                            { "data": "SalePrice", orderable: false, "width": "4%" },
-                            { "data": "TotalAmount", orderable: false, "width": "4%" },
-                            { "data": "OrderDate", orderable: false, "width": "4%" },
-                            { "data": "OrderTime", orderable: false, "width": "4%" },
-                            { "data": "ShippingDate", orderable: false, "width": "7%" },
-                        ],
-                    }
-                );
-
-                $('#tblOrderPortal tbody').on('click', 'td.details-control', function () {
-                    var tr = $(this).closest('tr');
-                    var row = table.row(tr);
-
-                    if (row.child.isShown()) {
-                        // This row is already open - close it
-                        row.child.hide();
-                        tr.removeClass('shown');
-                    }
-                    else {
-                        // Open this row
-                        row.child(format(row.data())).show();
-                        tr.addClass('shown');
-                    }
-                });
-            });
-
-        </script>*@
+    </script>  
 
     <script type="text/javascript">
-            $("#btnClear").click(function () {
-                $("#txt1").val("");
-                $("#txt2").val("");
-                $("#txt3").val("");
-                $("#txt4").val("");
-                $("#txt5").val("");
-                $("#txt6").val("");
-                $("#txt7").val("");
-                $("#txt8").val("");
-            })
-            $("#btnSearch").click(function () {
-                var MakerItemCD = "";
-                if ($("#txt1").val() != '')
-                    MakerItemCD += $("#txt1").val() + ',';
-                if ($("#txt2").val() != '')
-                    MakerItemCD += $("#txt2").val() + ',';
-                if ($("#txt3").val() != '')
-                    MakerItemCD += $("#txt3").val() + ',';
-                if ($("#txt4").val() != '')
-                    MakerItemCD += $("#txt4").val() + ',';
-                if ($("#txt5").val() != '')
-                    MakerItemCD += $("#txt5").val() + ',';
-                if ($("#txt6").val() != '')
-                    MakerItemCD += $("#txt6").val() + ',';
-                if ($("#txt7").val() != '')
-                    MakerItemCD += $("#txt7").val() + ',';
-                if ($("#txt8").val() != '')
-                    MakerItemCD += $("#txt8").val() + ',';
-                if (MakerItemCD.indexOf(',') > 0)
-                    MakerItemCD = MakerItemCD.slice(0, -1);
-                if ($('#txt1').val() == '' && $('#txt2').val() == '' && $('#txt3').val() == '' && $('#txt4').val() == '' && $('#txt5').val() == '' && $('#txt6').val() == '' && $('#txt7').val() == '' && $('#txt8').val() == '') {
-                    alert('Please First Fill Maker_ItemCD!');
-                    window.location.href = '../Order/Order_Portal';
-                }
-                else {
-                    window.location.href = '../Order/Order_Input/' + MakerItemCD;
-                }
-            })
+        $("#btnClear").click(function () {
+            $("#txt1").val("");
+            $("#txt2").val("");
+            $("#txt3").val("");
+            $("#txt4").val("");
+            $("#txt5").val("");
+            $("#txt6").val("");
+            $("#txt7").val("");
+            $("#txt8").val("");
+        })
+        $("#btnSearch").click(function () {
+            var MakerItemCD = "";
+            if ($("#txt1").val() != '')
+                MakerItemCD += $("#txt1").val() + ',';
+            if ($("#txt2").val() != '')
+                MakerItemCD += $("#txt2").val() + ',';
+            if ($("#txt3").val() != '')
+                MakerItemCD += $("#txt3").val() + ',';
+            if ($("#txt4").val() != '')
+                MakerItemCD += $("#txt4").val() + ',';
+            if ($("#txt5").val() != '')
+                MakerItemCD += $("#txt5").val() + ',';
+            if ($("#txt6").val() != '')
+                MakerItemCD += $("#txt6").val() + ',';
+            if ($("#txt7").val() != '')
+                MakerItemCD += $("#txt7").val() + ',';
+            if ($("#txt8").val() != '')
+                MakerItemCD += $("#txt8").val() + ',';
+            if (MakerItemCD.indexOf(',') > 0)
+                MakerItemCD = MakerItemCD.slice(0, -1);
+            if ($('#txt1').val() == '' && $('#txt2').val() == '' && $('#txt3').val() == '' && $('#txt4').val() == '' && $('#txt5').val() == '' && $('#txt6').val() == '' && $('#txt7').val() == '' && $('#txt8').val() == '') {
+                //alert('Please First Fill Maker_ItemCD!');
+                var output = "";
+                $.ajax({
+                    url: "/Order/GetMessage",
+                    type: 'Get',
+                    dataType: "json",
+
+                    success: function (result) {
+                        output = result;
+                    },
+                    error: function failCallBk(XMLHttpRequest, textStatus, errorThrown) {
+                        alert("An error occurred while processing your request. Please try again.");
+                    }
+                });
+                window.location.href = '../Order/Order_Portal';
+            }
+            else {
+                window.location.href = '../Order/Order_Input/' + MakerItemCD;
+            }
+        })
     </script>
 }
 

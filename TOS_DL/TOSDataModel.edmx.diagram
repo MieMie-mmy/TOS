@@ -5,24 +5,25 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="ca577c2e14334858ba54001db4d4812b" Name="Diagram1">
-        <EntityTypeShape EntityType="TOSModel.L_Log" Width="1.5" PointX="0.75" PointY="0.75" />
-        <EntityTypeShape EntityType="TOSModel.M_Brand" Width="1.5" PointX="2.75" PointY="0.75" />
-        <EntityTypeShape EntityType="TOSModel.M_Company" Width="1.5" PointX="2.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TOSModel.M_CompanyBrand" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TOSModel.M_CompanyTag" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TOSModel.M_JobTimeable" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="TOSModel.M_Brand" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TOSModel.M_Company" Width="1.5" PointX="2.75" PointY="0.75" />
         <EntityTypeShape EntityType="TOSModel.M_Group" Width="1.5" PointX="4.75" PointY="0.75" />
         <EntityTypeShape EntityType="TOSModel.M_Item" Width="1.5" PointX="4.75" PointY="4.75" />
-        <EntityTypeShape EntityType="TOSModel.M_JobTimeable" Width="1.5" PointX="6.75" PointY="0.75" />
-        <EntityTypeShape EntityType="TOSModel.M_Price" Width="1.5" PointX="6.75" PointY="4.75" />
-        <EntityTypeShape EntityType="TOSModel.M_SKU" Width="1.5" PointX="8.75" PointY="0.75" />
-        <EntityTypeShape EntityType="TOSModel.T_Information" Width="1.5" PointX="8.75" PointY="4.75" />
-        <EntityTypeShape EntityType="TOSModel.T_Inventory" Width="1.5" PointX="0.75" PointY="9.75" />
-        <EntityTypeShape EntityType="TOSModel.T_OrderHeader" Width="1.5" PointX="10.75" PointY="0.75" />
-        <EntityTypeShape EntityType="TOSModel.M_CompanyShipping" Width="1.5" PointX="2.75" PointY="10.75" />
-        <EntityTypeShape EntityType="TOSModel.M_GroupList" Width="1.5" PointX="4.75" PointY="10.75" />
-        <EntityTypeShape EntityType="TOSModel.M_MultiPorpose" Width="1.5" PointX="10.75" PointY="5.75" />
-        <EntityTypeShape EntityType="TOSModel.Message" Width="1.5" PointX="6.75" PointY="10.75" />
-        <EntityTypeShape EntityType="TOSModel.T_InformationDestination" Width="1.5" PointX="8.75" PointY="11.75" />
-        <EntityTypeShape EntityType="TOSModel.T_OrderDetail" Width="1.5" PointX="10.75" PointY="11.75" />
-      </Diagram>
+        <EntityTypeShape EntityType="TOSModel.M_Price" Width="1.5" PointX="6.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TOSModel.M_SKU" Width="1.5" PointX="0.75" PointY="6.75" />
+        <EntityTypeShape EntityType="TOSModel.T_Information" Width="1.5" PointX="6.75" PointY="4.75" />
+        <EntityTypeShape EntityType="TOSModel.T_Inventory" Width="1.5" PointX="8.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TOSModel.T_OrderHeader" Width="1.5" PointX="8.75" PointY="4.75" />
+        <EntityTypeShape EntityType="TOSModel.M_CompanyShipping" Width="1.5" PointX="8.75" PointY="9.75" />
+        <EntityTypeShape EntityType="TOSModel.M_GroupList" Width="1.5" PointX="10.75" PointY="0.75" />
+        <EntityTypeShape EntityType="TOSModel.M_MultiPorpose" Width="1.5" PointX="0.75" PointY="10.75" />
+        <EntityTypeShape EntityType="TOSModel.Message" Width="1.5" PointX="2.75" PointY="10.75" />
+        <EntityTypeShape EntityType="TOSModel.T_InformationDestination" Width="1.5" PointX="10.75" PointY="3.75" />
+        <EntityTypeShape EntityType="TOSModel.T_OrderDetail" Width="1.5" PointX="4.75" PointY="10.75" />
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

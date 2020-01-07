@@ -143,6 +143,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\DetailInformationController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InventoriesController.cs" />
     <Compile Include="Controllers\NewsEditorController.cs" />
@@ -172,6 +173,10 @@
     <Content Include="bin\TOS.dll" />
     <Content Include="bin\TOS.pdb" />
     <Content Include="Content\basictable.css" />
+    <Content Include="Content\bootstrap-grid.css" />
+    <Content Include="Content\bootstrap-grid.min.css" />
+    <Content Include="Content\bootstrap-reboot.css" />
+    <Content Include="Content\bootstrap-reboot.min.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -212,6 +217,11 @@
     <Content Include="Report\Order_History_Dataset.xsc">
       <DependentUpon>Order_History_Dataset.xsd</DependentUpon>
     </Content>
+    <Content Include="Content\bootstrap-grid.css.map" />
+    <Content Include="Content\bootstrap-grid.min.css.map" />
+    <Content Include="Content\bootstrap-reboot.css.map" />
+    <Content Include="Content\bootstrap-reboot.min.css.map" />
+    <Content Include="FileFolder\OrderHistory_2019-12-20 %282%29.pdf" />
     <None Include="Report\Order_History_Dataset.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -268,6 +278,7 @@
     <Content Include="Views\Inventory\Inventories_list.cshtml" />
     <Content Include="Views\NewsEditor\News_Editor.cshtml" />
     <Content Include="Views\Registrations\Group_Entry.cshtml" />
+    <Content Include="Views\CommonView\Common_View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -288,6 +299,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base_BL\Base_BL.csproj">
+      <Project>{b4230b73-8322-49e1-8876-e3e86e0d031f}</Project>
+      <Name>Base_BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Company_BL\Company_BL.csproj">
       <Project>{6bf2ae23-3800-41fe-81de-3ace2aeb06fa}</Project>
       <Name>Company_BL</Name>
@@ -319,6 +334,10 @@
     <ProjectReference Include="..\Order_Portal_BL\Order_Portal_BL.csproj">
       <Project>{9599829a-9c8c-4c02-8e4d-31f248128660}</Project>
       <Name>Order_Portal_BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\TOS_DL\TOS_DL.csproj">
+      <Project>{6AD8A80E-1DB7-457F-8FBD-37E8AD8655EA}</Project>
+      <Name>TOS_DL</Name>
     </ProjectReference>
     <ProjectReference Include="..\TOS_Model\TOS_Model.csproj">
       <Project>{47957d3c-e254-435f-9004-8e2fd2249e2f}</Project>
