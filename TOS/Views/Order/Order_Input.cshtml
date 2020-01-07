@@ -945,7 +945,7 @@
             var month = todaydate.getMonth() + 1;
             var year = todaydate.getFullYear().toString().substr(-2);
             var orderid = 'J' + year + month + day + todaydate.getHours() + todaydate.getMinutes() + todaydate.getSeconds();
-            alert(orderid);
+          
             var shipid = $("select#ddlShippingName").val();
             if (shipid == null || shipid == "") { shipid = 0; }
             if (shipid == null ||shipid == "") {
@@ -991,7 +991,7 @@
               
                 var price = $('#makeritem' + k).find("tr:eq(1)").find("td:eq(5)").html();
                 var ItemMemo = $('#makeritem' + k).find("tr:eq(1)").find("td:eq(7)").find('input[type=text]').html();
-                alert(price);
+                //alert(price);
                 var table = document.getElementById("sku"+k).getElementsByClassName("tt")[0];
                 var text = "";
                 for (var i = 1, row; row = table.rows[i]; i++) {
@@ -1008,7 +1008,7 @@
                                
                                 if (ordercount != null && ordercount > 0)
                                 {
-                                    alert(ordercount);
+                                    //alert(ordercount);
                                     var inventorycount = table.rows[i].cells[j].getElementsByClassName("InventoryCount")[0].textContent;
                                     var adminCD = table.rows[i].cells[j].getElementsByClassName("admincd")[0].textContent;
                                     var T_OrderDetail = {}
@@ -1045,7 +1045,7 @@
                 data: JSON.stringify({ T_OrderHeader: T_OrderHeader, T_OrderDetail: order }),
                 cache: false,
                 success: function (result) {
-                    alert(result);
+                    //alert(result);
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     alert(thrownError);
