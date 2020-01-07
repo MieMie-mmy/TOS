@@ -14,6 +14,15 @@
 <link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
 <!-- //lined-icons -->
 <!--heder end here-->
+<style>
+    textarea#name {
+        margin: 0px;
+        width: 1212px;
+        height: 640px;
+        border: white;
+        
+    }
+</style>
 <ol class="breadcrumb">
     @*<li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ情報<i class="fa fa-angle-right"></i>ハンドポールイージーオーダーシステム商品詳細16について</li>*@
     <li class="breadcrumb-item">
@@ -35,11 +44,11 @@
                             <h5>@ViewData["InfoDate"]</h5> <h3>@ViewData["InfoTitle"]@*ハンドポールイージーオーダーシステム商品詳細16について*@</h3>
                         </div>
                         @*<div class="float-right">
-                            <div class="btn-group">
-                                <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
-                                <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>*@
+                <div class="btn-group">
+                    <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
+                    <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>*@
                     </div>
                     @*<table class="table">*@
                     <p>
@@ -49,8 +58,11 @@
                         <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">出荷先一覧.pdf&nbsp;&nbsp;▼</button>
                         <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">値段一覧.pdf&nbsp;&nbsp;▼</button>
                     </p>
-                    </p>
-                    <hr />@ViewData["DetailInfo"]
+                    <hr />
+                    @Html.TextArea("name", (string)@ViewData["DetailInfo"], new { @readonly = "readonly" })
+
+                    @*<textarea cols="20" id="Name" name="Name" rows="15" style="color:red">@ViewData["DetailInfo"]</textarea>*@
+
                 </div>
             </div>
         </div>
