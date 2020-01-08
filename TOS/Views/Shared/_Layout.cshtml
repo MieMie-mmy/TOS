@@ -6,7 +6,7 @@
     var time = Session.Timeout;
     if (Session["CompanyName"] != null)
     {
-
+        
 
     }
 
@@ -14,7 +14,7 @@
     {
         Context.Response.Redirect("~/user/Login");
     }
-    }
+}
 @*<script>
     if (Session["UserRole"] != null) {
         var userrole = Session["UserRole"].ToString();
@@ -27,6 +27,19 @@
         }
     }
 </script>*@
+<script>
+    if ((user.UserRole.Equals("Admin"))
+        {
+        $("#menu-academico_N").hide();
+        $("#menu-academico_C").hide();
+        $("#menu-academico_G").hide();
+
+
+    }
+
+
+
+</script>
 
 <html>
 <head>
@@ -72,10 +85,9 @@
                                     
                                     
                                     <a href="#" style="color:white">@Session["CompanyName"]</a>
-                                    
+
                                 }
-
-
+                                
 
                                 else
                                 {
