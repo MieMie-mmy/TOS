@@ -47,10 +47,6 @@
                         $("#ddlCompanyname").append(
                             $('<option></option>').val(name.CompanyCD).html(name.CompanyName));
                     });
-
-                    if ("@Model.ComModel" != null) {
-                        $("#ddlCompanyname").val(@Model.ComModel.CompanyCD);
-                    }
                 }
             });
         });
@@ -67,10 +63,6 @@
                         $("#ddlGroupname").append(
                             $('<option></option>').val(name.GroupID).html(name.GroupName));
                     });
-
-                      if ("@Model.GroupModel" != null) {
-                          $("#ddlGroupname").val(@Model.GroupModel.GroupID);
-                    }
                 }
             });
         });
