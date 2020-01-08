@@ -221,7 +221,9 @@
 .t80{width: 80px;}
 .t100{width: 100px;}
 .t150{width: 150px;}
-.t200{width: 200px;}
+.t200 {
+    width: 200px !important;
+}
 .t230{width: 230px;}
 .t250{width: 250px;}
 .t300{width: 300px;}
@@ -292,7 +294,9 @@
 .t70{width: 70px;}
 .t100{width: 100px;}
 .t150{width: 100px;}
-.t200{width: 120px;}
+    .t200 {
+        width: 120px !important;
+    }
 .t250{width: 150px;}
 .t300{width: 160px;}
 .t350{width: 170px;}
