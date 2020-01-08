@@ -20,6 +20,11 @@ namespace TOS.Controllers
                 Get_T_Information();
                 return View();
             }
+            //if (Session["UserRole"] != null)
+            //{
+            //    Get_T_Information();
+            //    return View();
+            //}
             else
             {
                 return RedirectToAction("Login", "User");

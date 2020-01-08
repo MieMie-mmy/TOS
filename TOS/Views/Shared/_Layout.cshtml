@@ -6,13 +6,28 @@
     var time = Session.Timeout;
     if (Session["CompanyName"] != null)
     {
-       
+
+
     }
+
     else
     {
         Context.Response.Redirect("~/user/Login");
     }
-}
+    }
+@*<script>
+    if (Session["UserRole"] != null) {
+        var userrole = Session["UserRole"].ToString();
+        if (userrole == 2) {
+            $("#menu-academico_N").hide();
+            $("#menu-academico_C").hide();
+            $("#menu-academico_G").hide();
+
+
+        }
+    }
+</script>*@
+
 <html>
 <head>
     <title>「@ViewBag.Title」TennicOrderSystem | TENNIC</title>
@@ -52,10 +67,16 @@
                     <div class="w3layouts-right">
                         <span>
                             @{
-                                if (Session["CompanyName"] != null)
+                                if (Session["CompanyName"] != null )
                                 {
+                                    
+                                    
                                     <a href="#" style="color:white">@Session["CompanyName"]</a>
+                                    
                                 }
+
+
+
                                 else
                                 {
 
@@ -93,71 +114,73 @@
                 <span>Order System</span>
             </header>
             <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-            <div class="menu">
-                <ul id="menu">
-                    <li>
-                        <a href="@Url.Action("Index", "Home")">
-                            <i class="fa fa-home"></i> <span>ホーム</span>
-                            <div class="clearfix"></div>
-                        </a>
-                    </li>
+            
+                <div class="menu">
+                    <ul id="menu">
+                        <li>
+                            <a href="@Url.Action("Index", "Home")">
+                                <i class="fa fa-home"></i> <span>ホーム</span>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
 
 
-                    <li id="menu-academico">
-                        <a href="@Url.Action("Order_Portal", "Order")">
-                            <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
-                            <div class="clearfix"></div>
-                        </a>
-                    </li>
-                    @*<li>
+                        <li id="menu-academico">
+                            <a href="@Url.Action("Order_Portal", "Order")">
+                                <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
+                        @*<li>
                         <a href="@Url.Action("Order_Input", "Order")">
                             <i class="fa fa-table" aria-hidden="true"></i><span>発注入力</span>
                             <div class="clearfix"></div>
                         </a>
                     </li>*@
-                    <li id="menu-academico">
-                        @*<a href="order_history.html">*@
-                        <a href="@Url.Action("Order_History", "Order")">
-                            <i class="fa fa-history"></i><span>発注履歴</span>
-                            <div class="clearfix"></div>
-                        </a>
-                    </li>
+                        <li id="menu-academico">
+                            @*<a href="order_history.html">*@
+                            <a href="@Url.Action("Order_History", "Order")">
+                                <i class="fa fa-history"></i><span>発注履歴</span>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
 
-                    <li id="menu-academico">
-                        <a href="~/Inventories/inventories">
-                            <i class="fa fa-search" aria-hidden="true"></i><span>在庫照会</span>
-                            <div class="clearfix"></div>
-                        </a>
-                    </li>
-                   
-                    <li id="menu-academico">
-                        <a href="@Url.Action("News_Editor", "NewsEditor")">
+                        <li id="menu-academico">
+                            <a href="~/Inventories/inventories">
+                                <i class="fa fa-search" aria-hidden="true"></i><span>在庫照会</span>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
+
+                        <li id="#menu-academico_N">
+                            <a href="@Url.Action("News_Editor", "NewsEditor")">
                                 <i class="fa fa-plus" aria-hidden="true"></i><span>お知らせ入力</span>
                                 <div class="clearfix"></div>
                             </a>
-                    </li>
+                        </li>
 
-                    <li id="menu-academico">
-                        <a href="@Url.Action("Company_Entry", "Registrations")">
-                            <i class="fa fa-user" aria-hidden="true"></i><span>会社登録</span>
-                            <div class="clearfix"></div>
-                        </a>
-                    </li>
+                        <li id="#menu-academico_C">
+                            <a href="@Url.Action("Company_Entry", "Registrations")">
+                                <i class="fa fa-user" aria-hidden="true"></i><span>会社登録</span>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
 
-                    <li id="menu-academico">
-                        <a href="@Url.Action("Group_Entry", "Registrations")">
-                            <i class="fa fa-group" aria-hidden="true"></i><span>グループ登録</span>
-                            <div class="clearfix"></div>
-                        </a>
-                    </li>
+                        <li id="#menu-academico_G">
+                            <a href="@Url.Action("Group_Entry", "Registrations")">
+                                <i class="fa fa-group" aria-hidden="true"></i><span>グループ登録</span>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
 
 
 
-                </ul>
-            </div>
+                    </ul>
+                </div>
+            
+                
+            <div class="clearfix"></div>
         </div>
-        <div class="clearfix"></div>
-    </div>
 
     <!--js -->
     @*<script src="~/Scripts/jquery.nicescroll.js"></script>
