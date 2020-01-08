@@ -272,7 +272,6 @@
     <Content Include="Views\NewsEditor\News_Editor.cshtml" />
     <Content Include="Views\Registrations\Group_Entry.cshtml" />
     <Content Include="Views\CommonView\Common_View.cshtml" />
-    <Content Include="Views\Filter_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
