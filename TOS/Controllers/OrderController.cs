@@ -307,7 +307,6 @@ namespace TOS.Controllers
 
         public ActionResult Order_Portal()
         {
-            Session["CompanyCD"] = null;
             M_JobTimeableModel Mjob = new M_JobTimeableModel();
             if (Session["CompanyCD"] != null)
             {
