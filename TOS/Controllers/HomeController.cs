@@ -15,6 +15,7 @@ namespace TOS.Controllers
     {
         public ActionResult Index()
         {
+           
             if (Session["CompanyCD"] != null)
             {
                 Get_T_Information();
