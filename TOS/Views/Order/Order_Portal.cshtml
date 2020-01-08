@@ -24,6 +24,12 @@
         }
     </script>
 }
+<style>
+    .tb0010 {
+        border: 1px solid #999999;
+        /*width:1500px !important;*/
+    }
+</style>
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="../../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>発注ポータル</li>
 </ol>
@@ -183,29 +189,29 @@
                             </div>
                         </div>*@
                     </div>
-                    <div class="saisin" >
-                        <div style="overflow-x:scroll;max-width:1235px;min-width:1235px;">
-                            <table id="tblOrderPortal" style="border: 1px solid #999999;width:2000px;">
+                    @*<div class="saisin" >*@
+                        <div style="overflow:scroll;">
+                            <table id="tblOrderPortal" class="tb0010">
                                 <thead>
                                     <tr class="saisinRow">
-                                        <th class="titcolor" style="  border: 1px solid #999999;">NO</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">発注番号</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">商品番号</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">商品名</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">サイズ</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">カラー</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">発注数</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">引当数</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">下代</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">合計</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">発注日</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">発注時刻</th>
-                                        <th class="titcolor" style="  border: 1px solid #999999;">出荷日</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">NO</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">発注番号</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">商品番号</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">商品名</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">サイズ</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">カラー</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">発注数</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">引当数</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">下代</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">合計</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">発注日</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">発注時刻</th>
+                                        <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">出荷日</th>
                                     </tr>
                                 </thead>
                             </table>
                         </div>                    
-                    </div>
+                    @*</div>*@
                 </div>
             </div>
         </div>
@@ -234,6 +240,9 @@
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
+                    },
+                    "language": {
+                        "emptyTable": "検索結果がありません。"
                     },
                     "columns": [
                         { "data": "No", orderable: false },

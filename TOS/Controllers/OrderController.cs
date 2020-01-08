@@ -128,6 +128,7 @@ namespace TOS.Controllers
             //  string ItemCD = "cps-test,cd";
             dst = obl.Order_Input_M_Item_Data(id);
             DataSet dsnew = new DataSet();
+            String Img_Name = "";
             if (dst.Tables.Count > 0)
             {
                 int tabcount = 0;
@@ -143,12 +144,20 @@ namespace TOS.Controllers
                     else
                     {
                         DataTable dtnew = dst.Tables[i];
+                        Img_Name = dtnew.Rows[0]["ImageName"].ToString() +",";
+                        dtnew.Columns.Remove("ImageName");
                         dtnew.TableName = "Table" + tabcount;
                         tabcount++;
-                        dsnew.Tables.Add(dst.Tables[i].Copy());
+                        //dsnew.Tables.Add(dst.Tables[i].Copy());
+                        dsnew.Tables.Add(dtnew.Copy());
                     }
                 }
             }
+            if (!string.IsNullOrWhiteSpace(Img_Name) && Img_Name.Contains(","))
+            {
+                Img_Name = Img_Name.Remove(Img_Name.Length - 1);
+            }
+            ViewBag.ImageName = Img_Name;
             Session["MakerItem"] = id;
             ViewBag.count = dsnew.Tables.Count;
             Session["dtsmitem"] = dsnew;
@@ -298,28 +307,34 @@ namespace TOS.Controllers
 
         public ActionResult Order_Portal()
         {
+            M_JobTimeableModel Mjob = new M_JobTimeableModel();
             if (Session["CompanyCD"] != null)
             {
                 Order_InputBL obl = new Order_InputBL();
-                M_JobTimeableModel Mjob = new M_JobTimeableModel();
                 Mjob.CompanyCD = Session["CompanyCD"].ToString();
                 ViewData["JobTime"] = obl.JobTimeTable_Select(Mjob);
-
-                //Order_PortalBL opbl = new Order_PortalBL();
-                //DataTable dtorderpotal = opbl.Order_Portal_List_Select();
 
                 return View();
             }
             else
             {
+                ViewData["JobTime"] = Mjob;
                 return View();
             }
         }
         [HttpGet]
         public string Get_Order_Portal_List()
         {
-            Order_PortalBL opbl = new Order_PortalBL();
-            return DataTableToJSONWithJSONNet(opbl.Order_Portal_List_Select());
+            DataTable dt = new DataTable();
+            string jsonresult;
+            if (Session["CompanyCD"] != null)
+            {
+                Order_PortalBL opbl = new Order_PortalBL();
+                string companyCD = Session["CompanyCD"].ToString();
+                dt = opbl.Order_Portal_List_Select(companyCD);
+            }
+            jsonresult = DataTableToJSONWithJSONNet(dt);
+            return jsonresult;
         }
 
         public string DataTableToJSONWithJSONNet(DataTable table)
