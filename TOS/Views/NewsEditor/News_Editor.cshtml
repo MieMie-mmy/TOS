@@ -123,11 +123,7 @@
             var table = $('#tbinformation').DataTable(
                 {
                     language: {
-                        //info: '1～20件を表示合計' + 21 + '件',
-                        paginate: {
-                            next: '次へ',
-                            previous: '戻る',
-                        }
+                        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                     },
                     columnDefs: [{
                         targets: [0],
@@ -146,6 +142,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "aLengthMenu": [20],
+                    "pagingType": "full_numbers",
                     "ajax": {
                         "url": "../NewsEditor/T_Information_Select",
                         "type": "GET",
