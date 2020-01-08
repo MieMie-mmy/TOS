@@ -54,10 +54,9 @@
                 }
             });
         });
-    </script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
+
+          $(document).ready(function () {
             $.ajax({
                 url: '../NewsEditor/M_Group_Select', // get group
                 type: "GET",
@@ -78,41 +77,6 @@
     </script>
 
     <script type="text/javascript">
-        $(function () {
-            $("[id='ddlCompanyname']").change(function () {
-                var sel = $("#ddlCompanyname option:selected").text();
-                var text = $('#txtdisplay_designation').val();
-                text = sel;
-                $('#txtdisplay_designation').val(text);
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(function () {
-            $("[id='ddlGroupname']").change(function () {
-                var sel = $("#ddlGroupname option:selected").text();
-                var text = $('#txtdisplay_designation').val();
-                text = sel;
-                $('#txtdisplay_designation').val(text);
-            });
-        });
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#rdbcompanywide').change(function () {
-                var text = $('#txtdisplay_designation').val();
-                text = '全社';
-                $('#txtdisplay_designation').val(text);
-            });
-        });
-
-    </script>
-
-
-
-    <script type="text/javascript">
         
        
         $(document).ready(function () {
@@ -123,11 +87,7 @@
             var table = $('#tbinformation').DataTable(
                 {
                     language: {
-                        //info: '1～20件を表示合計' + 21 + '件',
-                        paginate: {
-                            next: '次へ',
-                            previous: '戻る',
-                        }
+                        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                     },
                     columnDefs: [{
                         targets: [0],
@@ -146,6 +106,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "aLengthMenu": [20],
+                    "pagingType": "full_numbers",
                     "ajax": {
                         "url": "../NewsEditor/T_Information_Select",
                         "type": "GET",
@@ -233,8 +194,18 @@
             });
         }
 
+        function checkdate() {
+            var startdate = $("#txtStartDate").val();
+            var enddate = $("#txtEndDate").val();
+            if (Date.parse(startdate) > Date.parse(enddate)) {
+                var T = "E";
+                var K = "1003";
+                var M = "Message1";
+                Errormessage(T, K, M);
+                $("#txtEndDate").val('');
+            }
+        }
     </script>
-
 
 
     <script type="text/javascript">
@@ -244,9 +215,15 @@
             $("#ddlCompanyname").attr("disabled", "disabled");
             $('#ddlGroupname').attr("disabled", "disabled");
         });
-    </script>
 
-    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#rdbcompanywide').change(function () {
+                var text = $('#txtdisplay_designation').val();
+                text = '全社';
+                $('#txtdisplay_designation').val(text);
+            });
+        });
+
         $('#rdbcompanywide').click(function () {
             $("#ddlCompanyname").attr("disabled", "disabled");
             $('#ddlGroupname').attr("disabled", "disabled");
@@ -264,22 +241,25 @@
             $('#ddlCompanyname').val('');
             $("#ddlGroupname").removeAttr("disabled");
         });
-    </script>
 
-    <script type="text/javascript">
-        function checkdate() {
-            var startdate = $("#txtStartDate").val();
-            var enddate = $("#txtEndDate").val();
-            if (Date.parse(startdate) > Date.parse(enddate)) {
-                var T = "E";
-                var K = "1003";
-                var M = "Message1";
-                Errormessage(T, K, M);
-                $("#txtEndDate").val('');
-            }
-        }
-    </script>
+        $(function () {
+            $("[id='ddlCompanyname']").change(function () {
+                var sel = $("#ddlCompanyname option:selected").text();
+                var text = $('#txtdisplay_designation').val();
+                text = sel;
+                $('#txtdisplay_designation').val(text);
+            });
+        });
 
+        $(function () {
+            $("[id='ddlGroupname']").change(function () {
+                var sel = $("#ddlGroupname option:selected").text();
+                var text = $('#txtdisplay_designation').val();
+                text = sel;
+                $('#txtdisplay_designation').val(text);
+            });
+        });
+    </script>
    
 
     <script>
@@ -316,9 +296,6 @@
             });
         }
     </script>
-
-
-
 }
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
