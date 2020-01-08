@@ -113,6 +113,9 @@
 
 
     <script type="text/javascript">
+
+        var totalcount
+
         $(document).ready(function () {
             InformationTable();
         });
@@ -120,6 +123,13 @@
         function InformationTable() {
             var table = $('#tbinformation').DataTable(
                 {
+                    language: {
+                        //info: '1～20件を表示合計' + table.fnGetData().length + '件',
+                        paginate: {
+                            next: '次へ',
+                            previous: '戻る',
+                        }
+                    },
                     columnDefs: [{
                         targets: [0],
                         className: 'saict newpd'
@@ -138,11 +148,10 @@
                     "bLengthChange": false,
                     "aLengthMenu": [20],
                     "ajax": {
-                        "url":"../NewsEditor/T_Information_Select",
+                        "url": "../NewsEditor/T_Information_Select",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
-
                     },
                     "columns": [
                         { "data": "No", orderable: false },
@@ -208,27 +217,17 @@
 
                     $("#ddlInfoType").val(result[0].InformationType);
 
-                   
+
                     if (result[0].Date == "0001-01-01")
                         $('#txtDate').val('');
-                   
+
                     else
                         $('#txtDate').val(result[0].Date);
 
 
-                    if (result[0].DisplayStartDate == "0001-01-01")
-                        $('#txtStartDate').val('');
+                    $('#txtStartDate').val(result[0].DisplayStartDate);
+                    $('#txtEndDate').val(result[0].DisplayEndDate);
 
-                    else
-                        $('#txtStartDate').val(result[0].DisplayStartDate);
-
-
-                    if (result[0].DisplayEndDate == "0001-01-01")
-                        $('#txtEndDate').val('');
-
-                    else
-                        $('#txtEndDate').val(result[0].DisplayEndDate);
-                 
                     $('#txttitlename').val(result[0].TitleName);
                     $('#txtarea').val(result[0].DetailInformation);
                 }
@@ -241,11 +240,10 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#txtdisplay_designation').val('全社');
             $('#rdbcompanywide').prop('checked', true);
             $("#ddlCompanyname").attr("disabled", "disabled");
             $('#ddlGroupname').attr("disabled", "disabled");
-
-
         });
     </script>
 
@@ -253,54 +251,37 @@
         $('#rdbcompanywide').click(function () {
             $("#ddlCompanyname").attr("disabled", "disabled");
             $('#ddlGroupname').attr("disabled", "disabled");
+            $('#ddlGroupname').val('');
+            $('#ddlCompanyname').val('');
         });
 
         $('#rdocompanydesignation').click(function () {
             $('#ddlGroupname').attr("disabled", "disabled");
-
+            $('#ddlGroupname').val('');
             $("#ddlCompanyname").removeAttr("disabled");
         });
         $('#rdogroupdesignation').click(function () {
             $('#ddlCompanyname').attr("disabled", "disabled");
-
+            $('#ddlCompanyname').val('');
             $("#ddlGroupname").removeAttr("disabled");
         });
     </script>
 
-    <script>
-        $(document).ready(function () {
-            var div = document.getElementById('file');
-            var div1 = document.getElementById('file1');
-            $('input[type="file"]').change(function (e) {
-
-                var fileName = e.target.files[0].name;
-                var text = $('#lblattachfile').val();
-                text = fileName;
-                $('#lblattachfile').text(text);
-                div.style.display = 'block';
-
-            });
-        });
+    <script type="text/javascript">
+        function checkdate() {
+            var startdate = $("#txtStartDate").val();
+            var enddate = $("#txtEndDate").val();
+            if (Date.parse(startdate) > Date.parse(enddate)) {
+                var T = "E";
+                var K = "1003";
+                var M = "Message1";
+                Errormessage(T, K, M);
+                $("#txtEndDate").val('');
+            }
+        }
     </script>
 
-    @*<script type="text/javascript">
-            $(document).ready(function () {
-                $('#btndelete').click(function () {
-                    $(this).parent('div').remove();
-                });
-            });
-        </script>*@
-
-    @*<script type="text/javascript">
-            $(document).ready(function () {
-                if ("@Model.TinfoModel"!= null) {
-                    if ("@Model.TinfoModel.DestinationFlag" == "2") {
-                        document.getElementById("rdocompanydesignation").checked = true;
-                    }
-                }
-            });
-        </script>*@
-
+   
 
     <script>
         var DeleteID = "";
@@ -397,13 +378,13 @@
     <style>
 
         .form-control {
-            height: 2em;
-            border-radius:0px;
+            border-radius: 0px;
         }
+
         .modal-header {
-            display:block;
-           
+            display: block;
         }
+
         .mother-grid-inner {
             display: block !important;
             background-color: #edecec !important;
@@ -435,7 +416,7 @@
             font-weight: 700;
             color: #fff;
             padding: 8px 15px;
-            border:none;
+            border: none;
         }
 
         .btn-outline-light {
@@ -455,14 +436,15 @@
         .btn-outline-danger {
             border-style: none;
         }
-        .btn-outline-danger:hover {
-            color: #fff;
-            background-color: #dc3545;
-            border-color: #dc3545;
-        }
+
+            .btn-outline-danger:hover {
+                color: #fff;
+                background-color: #dc3545;
+                border-color: #dc3545;
+            }
 
         .btn {
-            border-radius:0px;
+            border-radius: 0px;
             font-size: 0.8em;
             font-weight: 700;
             padding: 8px 15px;
@@ -542,12 +524,12 @@
                                         <div class="box">
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_startdate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date", @id = "txtStartDate", @style="font-size:17px;" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date", @id = "txtStartDate", @style = "font-size:17px;", required = "required" })
 
                                             </label>～
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_enddate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date", @id = "txtEndDate", @style = "font-size:17px;" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date", @id = "txtEndDate", @style = "font-size:17px;", required = "required" ,onchange="checkdate()" })
                                             </label>
                                         </div>
                                     </div>
@@ -578,7 +560,7 @@
                                         <div class="boxb sair boxpd tab002tit">課題名</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170", @id = "txttitlename",required="required" })
+                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170", @id = "txttitlename", required = "required" })
                                         </div>
 
                                     </div>
@@ -610,24 +592,12 @@
                                             </div>*@
 
                                         <div class="boxc">
-                                            <div id="file" style="display:none;">
-                                                <label style="width:150px;" id="lblattachfile"></label>
-                                                <button id="btndelete" class="btn btn-outline-secondary">✖</button>
-                                            </div>
-
-                                            <div id="file1" style="display:none;">
-                                                <label style="width:150px;" id="lblattachfile1"></label>
-                                                <button id="btndelete1" class="btn btn-outline-secondary">✖</button>
-                                            </div>
-
-                                            <div id="file2" style="display:none;">
-                                                <label style="width:150px;" id="lblattachfile2"></label>
-                                                <button id="btndelete2" class="btn btn-outline-secondary">✖</button>
-                                            </div>
-
-                                            <div id="file3" style="display:none;">
-                                                <label style="width:150px;" id="lblattachfile3"></label>
-                                                <button id="btndelete3" class="btn btn-outline-secondary">✖</button>
+                                            <div id="BrowseFiles">
+                                                @*<ul id="list" class="horizontal" style="list-style:none"></ul>
+                                                <button id="fileclose1"></button>
+                                                 <button id="fileclose2"></button>
+                                                 <button id="fileclose3"></button>
+                                                 <button id="fileclose4"></button>*@
                                             </div>
                                             <span>最大4ファイル添付可能。</span>
                                         </div>
@@ -697,6 +667,47 @@
 
     </div>
 </div>
+
+<script>
+    var i = 4;
+
+    $('input[type="file"]').change(function (e) {
+        if (i == 0) {
+            alert("only four files are accepted.");
+        }
+        else {
+
+            if (i > 0) {
+
+                var fileName = e.target.files[0].name;
+                var Filediv = document.getElementById("BrowseFiles");
+
+                var fbutton = document.createElement("button");
+                fbutton.innerHTML = fileName;
+                fbutton.setAttribute("id", "file" + i);
+                fbutton.setAttribute("class", "showfile");
+                fbutton.setAttribute("name", "file");
+                Filediv.appendChild(fbutton);
+                var $label = $('#file' + i);
+
+                var $span = "<span onclick='closebtn(" + fbutton.id + ")' >✖</span>";
+                $($label).each(function (index, item) {
+                    $(this).append($span);
+                });
+                i -= 1;
+            }
+        }
+
+    });
+
+    function closebtn(e) {
+        e.remove();
+        //alert(e.innerText);
+        //var filefield = $('#inputGroupFile03');
+        i += 1;
+    }
+
+</script>
 
 
 

@@ -183,14 +183,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CdnDatatable.css" />
     <Content Include="Content\CdnDatatable.min.css" />
-    <Content Include="Content\dataTables.bootstrap.css" />
-    <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\icon-font.min.css" />
     <Content Include="Content\jqcandlestick.css" />
     <Content Include="Content\jquery-ui.css" />
-    <Content Include="Content\jquery.dataTables.css" />
-    <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\lightbox.css" />
     <Content Include="Content\manager-style.css" />
     <Content Include="Content\monthly.css" />
@@ -273,9 +269,6 @@
     <Content Include="Views\Home\product_details.cshtml" />
     <Content Include="Views\Registrations\Company_Entry.cshtml" />
     <Content Include="Views\Inventories\inventories.cshtml" />
-    <Content Include="Views\Registration\Company_Entry.cshtml" />
-    <Content Include="Views\Inventory\Inventories.cshtml" />
-    <Content Include="Views\Inventory\Inventories_list.cshtml" />
     <Content Include="Views\NewsEditor\News_Editor.cshtml" />
     <Content Include="Views\Registrations\Group_Entry.cshtml" />
     <Content Include="Views\CommonView\Common_View.cshtml" />
