@@ -16,54 +16,9 @@ namespace TOS.Controllers
     public class NewsEditorController : Controller
     {
       
-        public ActionResult News_Editor(string id)
+        public ActionResult News_Editor()
         {
-            MultipleModel m = new MultipleModel();
-            T_InformationModel tinfo = new T_InformationModel();
-            M_CompanyModel cmodel = new M_CompanyModel();
-            M_GroupModel mg = new M_GroupModel();
-            InformationBL ibl = new InformationBL();
-            if (id != null)
-            {
-                DataTable dtinfo = new DataTable();
-                dtinfo = ibl.T_Information_Select_For_Edit(id);
-                if (dtinfo.Rows.Count > 0)
-                {
-                    tinfo.DestinationFlag = Convert.ToInt32(dtinfo.Rows[0]["DestinationFlg"].ToString());
-                    if(tinfo.DestinationFlag == 2)
-                    {
-                        cmodel.CompanyCD = dtinfo.Rows[0]["CompanyCD"].ToString();
-                        cmodel.CompanyName = dtinfo.Rows[0]["CompanyName"].ToString();
-                    }
-                    if(tinfo.DestinationFlag == 3)
-                    {
-                        mg.GroupID = dtinfo.Rows[0]["GroupID"].ToString();
-                        mg.GroupName = dtinfo.Rows[0]["GroupName"].ToString();
-                    } 
-                    tinfo.InformationType = Convert.ToInt32(dtinfo.Rows[0]["InformationType"].ToString());
-                    tinfo.DisplayStartDate= Convert.ToDateTime(dtinfo.Rows[0]["DisplayStartDate"].ToString());
-                    tinfo.DisplayEndDate = Convert.ToDateTime(dtinfo.Rows[0]["DisplayEndDate"].ToString());
-                    tinfo.Date = Convert.ToDateTime(dtinfo.Rows[0]["Date"].ToString());
-                    tinfo.TitleName = dtinfo.Rows[0]["TitleName"].ToString();
-                    tinfo.DetailInformation = dtinfo.Rows[0]["DetailInformation"].ToString();
-
-                  
-                    m.TinfoModel = tinfo;
-                    m.ComModel = cmodel;
-                    m.GroupModel = mg;
-                    
-                }
-                return View(m);
-            }
-            else
-            {
-                m.TinfoModel = tinfo;
-                m.ComModel = cmodel;
-                m.GroupModel = mg;
-        
-                return View(m);
-            }
-            
+            return View();
         }
 
         [HttpGet]
