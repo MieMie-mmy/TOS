@@ -26,7 +26,7 @@ namespace TOS.Controllers
         BaseBL bbl = new BaseBL();
 
         // GET: Order_History
-        public ActionResult Order_History()
+        public ActionResult Order_History(string id)
         {
             return View();
         }
@@ -144,7 +144,7 @@ namespace TOS.Controllers
                     else
                     {
                         DataTable dtnew = dst.Tables[i];
-                        Img_Name = dtnew.Rows[0]["ImageName"].ToString() +",";
+                        Img_Name += dtnew.Rows[0]["ImageName"].ToString() +",";
                         dtnew.Columns.Remove("ImageName");
                         dtnew.TableName = "Table" + tabcount;
                         tabcount++;
@@ -290,16 +290,16 @@ namespace TOS.Controllers
 
                 if (oib.Order_Input_Insert(T_Orderheader, dtorderdetail))
                 {
-                    return RedirectToAction("Order", "Order_History", new { id = T_Orderheader.OrderID });
+                    return RedirectToAction("../Order/Order_History/" + T_Orderheader.OrderID);
                 }
                 else
                 {
-                    return RedirectToAction("Order", "Order_History", new { id = T_Orderheader.OrderID });
+                    return RedirectToAction("../Order/Order_History/" + T_Orderheader.OrderID);
                 }
             }
             else
             {
-                return RedirectToAction("Order", "Order_History", new { id = T_Orderheader.OrderID });
+                return RedirectToAction("../Order/Order_History/" + T_Orderheader.OrderID);
             }
 
         }
