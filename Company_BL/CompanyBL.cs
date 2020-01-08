@@ -17,6 +17,7 @@ namespace Company_BL
             else
             {
                 mcmodel.CompanyName = mc.CompanyName;
+                mcmodel.UserRole = mc.UserRole;
                 return mcmodel;
             }
         }

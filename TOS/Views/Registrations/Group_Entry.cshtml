@@ -136,6 +136,18 @@
         }
     </style>
 }
+<style>
+    .save {
+        width: 105px;
+        border-radius: 0px;
+        font-size: 0.8em;
+        background-color: #28a745;
+        font-weight: 700;
+        color: #fff;
+        padding: 8px 15px;
+        border: none;
+    }
+</style>
 <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="../../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>グループ登録</li>
 </ol>
@@ -190,8 +202,8 @@
                                 </div>
 
                                 <div class="col-md-2">
-                                    <div class="form-group">
-                                        <button type="submit" class="btn btn-dark-green" style="background-color:#90b24d;width:100px;">登録</button>
+                                    <div class="form-group" style="padding-left:30px;">
+                                        <button type="submit" class="save">✔　登録</button>
                                     </div>
                                 </div>
                             </div>
@@ -202,7 +214,7 @@
                                             <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">グループID</label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.GroupModel.GroupID, new { @id = "txtGroupID", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "background-color:#c4dfe5d6;width:110px;", @maxlength = "8" })
+                                            @Html.TextBoxFor(m => m.GroupModel.GroupID, new { @id = "txtGroupID", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "width:110px;border-radius: unset;", @maxlength = "8" })
                                         </td>
                                     </tr>
                                     <tr class="form-group_entry">
@@ -210,7 +222,7 @@
                                             <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">グループ名</label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.GroupModel.GroupName, new { @id = "txtGroupName", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "background-color:#c4dfe5d6;width:210px;" })
+                                            @Html.TextBoxFor(m => m.GroupModel.GroupName, new { @id = "txtGroupName", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "width:210px;border-radius: unset;" })
                                         </td>
                                     </tr>
                                     <tr class="form-group_entry">
@@ -224,7 +236,7 @@
                                         <td>
                                             @Html.DropDownListFor(m => m.ComModel.CompanyCD,
                                             new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                                            new {@id= "ddlCompanyName",@name= "ddlCompanyName", @class = "form-control input-sm", @style = "width :210px" })
+                                            new {@id= "ddlCompanyName",@name= "ddlCompanyName", @class = "form-control input-sm", @style = "width :210px;border-radius: unset;" })
                                         </td>
                                         <td>
                                             @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "2", new { @id = "rdbBrand" })
@@ -233,14 +245,14 @@
                                         <td>
                                             @Html.DropDownListFor(m => m.MBrandModel.BrandCD,
                                             new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                                            new {@id="ddlBrandName", @class = "form-control input-sm", @style = "width :210px;" })
+                                            new {@id="ddlBrandName", @class = "form-control input-sm", @style = "width :210px;border-radius: unset;" })
                                         </td>
                                         <td>
                                             @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "3", new { @id = "rdbTag" })
                                             <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ</label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.tModel.Tag, new { @id = "txtTag", @class = "form-control input-sm", @required = "required", @style = "background-color:#c4dfe5d6;width:210px;" })
+                                            @Html.TextBoxFor(m => m.tModel.Tag, new { @id = "txtTag", @class = "form-control input-sm", @required = "required", @style = "width:210px;border-radius: unset;" })
                                         </td>
                                     </tr>
                                     <tr class="form-group_entry">

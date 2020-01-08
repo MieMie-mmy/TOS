@@ -307,28 +307,34 @@ namespace TOS.Controllers
 
         public ActionResult Order_Portal()
         {
+            M_JobTimeableModel Mjob = new M_JobTimeableModel();
             if (Session["CompanyCD"] != null)
             {
                 Order_InputBL obl = new Order_InputBL();
-                M_JobTimeableModel Mjob = new M_JobTimeableModel();
                 Mjob.CompanyCD = Session["CompanyCD"].ToString();
                 ViewData["JobTime"] = obl.JobTimeTable_Select(Mjob);
-
-                //Order_PortalBL opbl = new Order_PortalBL();
-                //DataTable dtorderpotal = opbl.Order_Portal_List_Select();
 
                 return View();
             }
             else
             {
+                ViewData["JobTime"] = Mjob;
                 return View();
             }
         }
         [HttpGet]
         public string Get_Order_Portal_List()
         {
-            Order_PortalBL opbl = new Order_PortalBL();
-            return DataTableToJSONWithJSONNet(opbl.Order_Portal_List_Select());
+            DataTable dt = new DataTable();
+            string jsonresult;
+            if (Session["CompanyCD"] != null)
+            {
+                Order_PortalBL opbl = new Order_PortalBL();
+                string companyCD = Session["CompanyCD"].ToString();
+                dt = opbl.Order_Portal_List_Select(companyCD);
+            }
+            jsonresult = DataTableToJSONWithJSONNet(dt);
+            return jsonresult;
         }
 
         public string DataTableToJSONWithJSONNet(DataTable table)
