@@ -415,7 +415,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "../Order/OH_GetFirstTable/" + inid,
+                url: "../../Order/OH_GetFirstTable/" + inid,
                 dataType: 'json',
                 success: function (data) {
                     BindFirstTable(data);
@@ -429,7 +429,7 @@
     {
         $.ajax({
             type: 'POST',
-            url: "../Order/OH_GetSecondTable/" + inid,
+            url: "../../Order/OH_GetSecondTable/" + inid,
 
             dataType: 'json',
 
