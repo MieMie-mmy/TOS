@@ -1568,6 +1568,23 @@ td.table-text h6 {
     color: #000;
 }
 
+td.table-text1 {
+    width:200px;
+}
+td.table-text1 h6 {
+    font-size: 1.2em;
+    color: #000;
+}
+
+td.table-text2 {
+    width: 700px;
+}
+td.table-text2 h6 {
+    font-size: 1.2em;
+    color: #000;
+    text-wrap:normal;
+}
+
 td.table-text p {
     font-size: 0.9em;
     line-height: 1.5em;
