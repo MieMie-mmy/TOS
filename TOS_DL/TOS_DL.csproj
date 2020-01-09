@@ -52,6 +52,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BaseDL.cs" />
+    <Compile Include="L_Log.cs">
+      <DependentUpon>TOSDataModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Message.cs">
       <DependentUpon>TOSDataModel.tt</DependentUpon>
     </Compile>
@@ -61,13 +64,7 @@
     <Compile Include="M_Company.cs">
       <DependentUpon>TOSDataModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="M_CompanyBrand.cs">
-      <DependentUpon>TOSDataModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="M_CompanyShipping.cs">
-      <DependentUpon>TOSDataModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="M_CompanyTag.cs">
       <DependentUpon>TOSDataModel.tt</DependentUpon>
     </Compile>
     <Compile Include="M_Group.cs">

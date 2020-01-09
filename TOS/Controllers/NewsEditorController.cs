@@ -8,18 +8,22 @@ using Information_BL;
 using Group_Entry_BL;
 using Newtonsoft.Json;
 using System.Data;
+using System.Threading.Tasks;
+using System.IO;
 
 namespace TOS.Controllers
 {
     public class NewsEditorController : Controller
     {
       
-        public ActionResult News_Editor(string id)
+        public ActionResult News_Editor()
         {
-            MultipleModel m = new MultipleModel();
-            T_InformationModel tinfo = new T_InformationModel();
-            M_CompanyModel cmodel = new M_CompanyModel();
-            M_GroupModel mg = new M_GroupModel();
+            return View();
+        }
+
+        [HttpGet]
+        public string News_Editor_Edit(string id)
+        {
             InformationBL ibl = new InformationBL();
             if (id != null)
             {
@@ -27,63 +31,87 @@ namespace TOS.Controllers
                 dtinfo = ibl.T_Information_Select_For_Edit(id);
                 if (dtinfo.Rows.Count > 0)
                 {
-                    tinfo.DestinationFlag = Convert.ToInt32(dtinfo.Rows[0]["DestinationFlg"].ToString());
-                    if(tinfo.DestinationFlag == 2)
-                       cmodel.CompanyCD = dtinfo.Rows[0]["CompanyCD"].ToString();
-                    if(tinfo.DestinationFlag == 3)
-                        mg.GroupID= dtinfo.Rows[0]["GroupID"].ToString();
-                    tinfo.InformationType = Convert.ToInt32(dtinfo.Rows[0]["InformationType"].ToString());
-                    tinfo.DisplayStartDate= Convert.ToDateTime(dtinfo.Rows[0]["DisplayStartDate"].ToString());
-                    tinfo.DisplayEndDate = Convert.ToDateTime(dtinfo.Rows[0]["DisplayEndDate"].ToString());
-                    tinfo.Date = dtinfo.Rows[0]["Date"].ToString();
-                    tinfo.TitleName = dtinfo.Rows[0]["TitleName"].ToString();
-                    tinfo.DetailInformation = dtinfo.Rows[0]["DetailInformation"].ToString();
-                    tinfo.control = "Edit";
-                    m.TinfoModel = tinfo;
-                    m.ComModel = cmodel;
-                    m.GroupModel = mg;
-                    
+                    string jsonresult;
+                    jsonresult = JsonConvert.SerializeObject(dtinfo);
+                    return jsonresult;
                 }
-                return View(m);
             }
-            else
-            {
-                tinfo.control = "New";
-                m.TinfoModel = tinfo;
-                return View(m);
-            }
-            
+            return null;
+           
         }
-      
-        public ActionResult T_Information_SaveEdit(MultipleModel model)
+
+        [HttpPost]
+        public ActionResult T_Information_SaveEdit(MultipleModel model, List<HttpPostedFileBase> files)
         {
+            string SaveFileName = string.Empty;
+            string path = Server.MapPath("~/AttachFiles/");
+            if (files != null)
+            {
+                foreach (HttpPostedFileBase postedFile in files)
+                {
+
+                    if (postedFile != null)
+                    {
+
+                        string fileName = Path.GetFileName(postedFile.FileName);
+                        postedFile.SaveAs(path + fileName);
+                        SaveFileName += fileName + ",";
+
+
+                    }
+                }
+
+            }
+            if (!String.IsNullOrWhiteSpace(SaveFileName))
+            {
+                SaveFileName = SaveFileName.TrimEnd(',');
+                var AttachFiles = SaveFileName.Split(',');
+              
+                for (int i = 0; i < AttachFiles.Length; i++)
+                {
+                    if ((AttachFiles[i] != null) || (AttachFiles[i].Trim().Length != 0))
+                    {
+                        if(i==0)
+                            model.TinfoModel.AttachedFile1 = AttachFiles[i].ToString();
+                        else if(i==1)
+                            model.TinfoModel.AttachedFile2 = AttachFiles[i].ToString();
+                        else if(i==2)
+                            model.TinfoModel.AttachedFile3 = AttachFiles[i].ToString();
+                        else
+                            model.TinfoModel.AttachedFile4 = AttachFiles[i].ToString();
+                    }
+                }
+            }
+
+
+
+           
             Boolean insertflag = true;
             InformationBL ibl = new InformationBL();
             model.TinfoModel.InsertOperator = Session["CompanyCD"].ToString();
             string PcName = System.Environment.MachineName;
-            int ID = model.TinfoModel.ID;
-            if(ID == 0)
+            if (model.TinfoModel.InformationID == 0)
             {
                 insertflag = ibl.News_Editor_Save(model, PcName);
                 if (insertflag)
                 {
-                    Group_EntryBL gebl = new Group_EntryBL();
-                    DataTable dtEMsg = gebl.M_Message_Select("1002", "I");
-                    string message = string.Empty;
-                    if (dtEMsg.Rows.Count > 0)
-                    {
-                        TempData["Imsg"] = dtEMsg.Rows[0]["Message1"].ToString();
-                    }
+                    TempData["Save"] = "Save Successfully";
                 }
                 else
                 {
-                    Group_EntryBL gebl = new Group_EntryBL();
-                    DataTable dtEMsg = gebl.M_Message_Select("1001", "E");
-                    string message = string.Empty;
-                    if (dtEMsg.Rows.Count > 0)
-                    {
-                        TempData["Emsg"] = dtEMsg.Rows[0]["Message1"].ToString();
-                    }
+                    TempData["Nosave"] = "Save Failed";
+                }
+            }
+            else
+            {
+                insertflag = ibl.News_Editor_Save(model, PcName);
+                if (insertflag)
+                {
+                    TempData["update"] = "Updated Successfully";
+                }
+                else
+                {
+                    TempData["noupdate"] = "Update Failed";
                 }
             }
             return RedirectToAction("News_Editor");
@@ -121,37 +149,21 @@ namespace TOS.Controllers
             return JSONString;
         }
 
-        public ActionResult T_Information_Delete(string id)
+        [HttpPost]
+        public string T_Information_Delete(string id)
         {
-            Boolean deleteflag = true;
+            var message = string.Empty;
+            if(id==null)
+            {
+                message = "NOK";
+            }
             InformationBL ibl = new InformationBL();
             string InsertOperator = Session["CompanyCD"].ToString();
             string PcName = System.Environment.MachineName;
-            deleteflag = ibl.News_Editor_Delete(id, PcName, InsertOperator);
+            message = ibl.News_Editor_Delete(id, PcName, InsertOperator);
 
-            if (deleteflag)
-            {
-                Group_EntryBL gebl = new Group_EntryBL();
-                DataTable dtEMsg = gebl.M_Message_Select("1001", "Q");
-                string message = string.Empty;
-                if (dtEMsg.Rows.Count > 0)
-                {
-                    TempData["Imsg"] = dtEMsg.Rows[0]["Message2"].ToString();
-                }
-            }
-            else
-            {
-                Group_EntryBL gebl = new Group_EntryBL();
-                DataTable dtEMsg = gebl.M_Message_Select("1001", "E");
-                string message = string.Empty;
-                if (dtEMsg.Rows.Count > 0)
-                {
-                    TempData["Emsg"] = dtEMsg.Rows[0]["Message1"].ToString();
-                }
-            }
 
-            return RedirectToAction("News_Editor");
+            return JsonConvert.SerializeObject(message);
         }
-
     }
 }

@@ -12,13 +12,15 @@ namespace TOS_DL
     using System;
     using System.Collections.Generic;
     
-    public partial class M_CompanyBrand
+    public partial class L_Log
     {
+        public int SEQ { get; set; }
+        public System.DateTime OperateDate { get; set; }
+        public System.TimeSpan OperateTime { get; set; }
         public string CompanyCD { get; set; }
-        public Nullable<int> BrandCD { get; set; }
-        public string InsertOperator { get; set; }
-        public Nullable<System.DateTime> InsertDateTime { get; set; }
-        public string UpdateOperator { get; set; }
-        public Nullable<System.DateTime> UpdateDateTime { get; set; }
+        public string Processed_Program { get; set; }
+        public string AccessPC { get; set; }
+        public string OperateMode { get; set; }
+        public string KeyItem { get; set; }
     }
 }

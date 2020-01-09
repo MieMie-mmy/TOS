@@ -42,9 +42,23 @@
             //alert('sdfsdf')
             $('input:text').val('');
             $('#txt_mitemCD').val('');
-            $("#ddlBrand")[0].selectedIndex = 0; 
-            return false;
+            $("#ddlBrand")[0].selectedIndex = 0;
+            
         })
+        //$('#btnreset').click(function () {
+        //    var oTable = $('#tbl_inventory').DataTable();
+        //    // to reload
+        //    oTable.ajax.reload();
+        //});
+        $("#btnreset").click(function () {
+            //$('#tbl_inventory').DataTable().clear().draw();
+            document.getElementById("ddlBrand").value = "";
+            document.getElementById("txt_itemname").value = "";
+            document.getElementById("txt_gclassname").value = "";
+            document.getElementById("txt_mitemCD").value = "";
+
+            FillGrid();
+        });
         
         function FillGrid() {
             $.ajax({
@@ -68,8 +82,10 @@
 
                   "data": data,
                   "language": {
-                      "emptyTable": "検索結果がありません。"
+                      "emptyTable": "検索結果がありません。",
+                       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                   },
+                  "pagingType": "full_numbers",
                     "columns": [
                         { "data": "No", orderable: false },
                         { "data": "MakerItemCD", orderable: false },
@@ -101,6 +117,7 @@
 
         }
     </script>
+    
 }
 
 <style>
@@ -134,7 +151,9 @@
     }*/
 </style>
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>在庫照会</li>
+    <li class="breadcrumb-item">
+        <a href='@Url.Action("Index","Home")'>ホーム</a>
+    <i class="fa fa-angle-right"></i>在庫照会</li>
 </ol>
 <div class="inbox-mail">
     <!-- tab content -->
@@ -155,8 +174,7 @@
                                                     <td>
                                                         <div class="btn-group t200">
                                                         @Html.DropDownList("ddlBrand",
-        new SelectList(Enumerable.Empty<SelectListItem>())," ",
-        new { @class = "btn btn-success dropdown-toggle t200 form-control input-sm"})
+        new SelectList(Enumerable.Empty<SelectListItem>())," ",new { @class = "form-control t200" })
                                                             </div>
                                                     </td>
                                                 </tr>
@@ -203,7 +221,7 @@
                                             </tbody>
                                         </table>
                                     </td>
-                                    <td><button type="button" id="btnreset" class="btn btn-warning btn-lg" style="color:#212529;background-color:#ffc107;border-color:#ffc107;font-weight:700;">↺　リセット</button></td>
+                                    <td><button type="button" id="btnreset" class="btn btn-warning btn-lg"  style="color:#212529;background-color:#ffc107;border-color:#ffc107;font-weight:700;">↺　リセット</button></td>
                                     <td class="saict"><button type="button" id="btnsearch" onclick="_Search()" class="btn btn-secondary btn-lg" style="color:#fff;background-color:#6c757d;"><a class="fa fa-search" aria-hidden="true" style="color:#fff;"></a>　検索</button></td>
                                     <td>
                                         <div class="btn-group btn-lg">

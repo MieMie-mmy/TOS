@@ -14,9 +14,25 @@
 <link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
 <!-- //lined-icons -->
 <!--heder end here-->
+<style>
+    textarea#name {
+        margin: 0px;
+        width: 1212px;
+        height: 640px;
+        border: white;
+        resize: none;
+        
+    }
+</style>
 <ol class="breadcrumb">
     @*<li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ情報<i class="fa fa-angle-right"></i>ハンドポールイージーオーダーシステム商品詳細16について</li>*@
-    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ情報<i class="fa fa-angle-right"></i>@ViewData["InfoTitle"]</li>
+    <li class="breadcrumb-item">
+        @*<a href="../Home/Index">ホーム</a>*@
+        <a href='@Url.Action("Index")'>ホーム</a>
+        <i class="fa fa-angle-right"></i>
+        <a href='@Url.Action("Index")'>お知らせ情報</a>
+        <i class="fa fa-angle-right"></i>@ViewData["InfoTitle"]
+    </li>
 </ol>
 <div class="inbox-mail">
     <!-- tab content -->
@@ -28,23 +44,48 @@
                         <div class="float-left">
                             <h5>@ViewData["InfoDate"]</h5> <h3>@ViewData["InfoTitle"]@*ハンドポールイージーオーダーシステム商品詳細16について*@</h3>
                         </div>
-                        <div class="float-right">
-                            <div class="btn-group">
-                                <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
-                                <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
-                            </div>
-                        </div>
+                        @*<div class="float-right">
+                <div class="btn-group">
+                    <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
+                    <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
+                </div>
+            </div>*@
                     </div>
                     @*<table class="table">*@
                     <p>
                         <span>添付ファイル：</span>
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">新規商品一覧.pdf&nbsp;&nbsp;▼</button>
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">ブランド一覧.pdf&nbsp;&nbsp;▼</button>
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">出荷先一覧.pdf&nbsp;&nbsp;▼</button>
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">値段一覧.pdf&nbsp;&nbsp;▼</button>
+                        @*<button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">新規商品一覧.pdf&nbsp;&nbsp;▼</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">ブランド一覧.pdf&nbsp;&nbsp;▼</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">出荷先一覧.pdf&nbsp;&nbsp;▼</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">値段一覧.pdf&nbsp;&nbsp;▼</button>*@
+
+                        @if (ViewData["Attach1"] != null)
+                        {
+                            <button type="button" id="btnatt1" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach1"]</button>
+
+                        }
+                        @if (ViewData["Attach2"] != null)
+                        {
+                            <button type="button" id="btnatt2" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach2"]</button>
+
+                        }
+                        @if (ViewData["Attach3"] !=null)
+                        {
+                            <button type="button" id="btnatt3" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach3"]</button>
+
+                        }
+                        @if (ViewData["Attach4"]!=null)
+                        {
+                            <button type="button" id="btnatt4" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach4"]</button>
+
+                        }
+
                     </p>
-                    </p>
-                    <hr />@ViewData["DetailInfo"]
+                    <hr />
+                    @Html.TextArea("name", (string)@ViewData["DetailInfo"], new { @readonly = "readonly"})
+
+                    @*<textarea cols="20" id="Name" name="Name" rows="15" style="color:red">@ViewData["DetailInfo"]</textarea>*@
+
                 </div>
             </div>
         </div>
@@ -136,6 +177,16 @@
         }
         toggle = !toggle;
     });
+</script>
+<script>
+    jQuery("#myText").change(function () {
+        if (Attach2 === "") {
+            jQuery("#btnatt2").hide();
+        } else {
+            
+        }
+    });
+  
 </script>
 <script type="text/javascript">
     var data = { "firstField": "value1", "secondField": "value2" };

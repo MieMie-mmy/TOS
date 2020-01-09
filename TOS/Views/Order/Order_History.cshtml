@@ -25,40 +25,46 @@
 <link href="~/Content/order_history.css" rel="stylesheet" />
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>発注履歴</li>
+    <li class="breadcrumb-item"><a href="../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>発注履歴</li>
 </ol>
 
+@{
+    var inid = ViewBag.InputOrderID;
+    if (inid != null)
+    {
+        <div class="inbox-mail" id="Order_First">
+            <!-- tab content -->
+            <div class="tab-content tab-content-in w3">
+                <div class="tab-pane text-style active" id="tab1">
+                    <div class="inbox-right">
+                        全商品発注できました。
+                        <table class="histoptab" >
+                            <thead>
+                                <tr class="histoptabtit">
+                                    <td class="tda t150">発注番号</td>
+                                    <td class="tda t150">合計金額</td>
+                                    <td class="tda t200">出荷先名</td>
+                                    <td class="tda t150">発注日</td>
+                                    <td class="tda t150">出荷可能日</td>
+                                    <td class="tda t100">受付時間</td>
 
-<div class="inbox-mail">
-    <!-- tab content -->
-    <div class="tab-content tab-content-in w3">
-        <div class="tab-pane text-style active" id="tab1">
-            <div class="inbox-right" style="overflow:scroll;">
-                全商品発注できました。
-                <table class="histoptab" id="Order_First">
-                    <thead>
-                        <tr class="histoptabtit">
-                            <td class="tda t150">発注番号</td>
-                            <td class="tda t150">合計金額</td>
-                            <td class="tda t200">出荷先名</td>
-                            <td class="tda t150">発注日</td>
-                            <td class="tda t150">出荷可能日</td>
-                            <td class="tda t100">受付時間</td>
-
-                            <td class="histoptabno t200"></td>
-                            <td class="histoptabno t200"></td>
-                            <td class="histoptabno t200">
-                                <button type="button" id="PrintDoc" onclick="location.href='@Url.Action("ExportReport","Order")'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
-                            </td>
-                            <td class="histoptabno t200"></td>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                                    <td class="histoptabno t200"></td>
+                                    <td class="histoptabno t200"></td>
+                                    <td class="histoptabno t200">
+                                        <button type="button" id="PrintDoc" onclick="location.href='@Url.Action("ExportReport","Order")'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
+                                    </td>
+                                    <td class="histoptabno t200"></td>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-</div>
+    }
+}
+
 
 <div class="inbox-mail">
 
@@ -78,7 +84,7 @@
                                             <tbody>
                                                 <tr>
                                                     <td>発注番号</td>
-                                                    <td> <input type="text" id="txt_orderId" class="form-control" placeholder=""></td>
+                                                    <td> <input type="text" id="txt_orderId" onkeypress="return ValidateSpecialOnly(event);" class="form-control" placeholder=""></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -202,27 +208,27 @@
                                                             <tbody>
                                                                 <tr>
                                                                     <td class="mekabantit t30">1</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_1" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit t30">2</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_2" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit">3</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_3" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit">4</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_4" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit">5</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_5" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit">6</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_6" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                                 <tr>
                                                                     <td class="mekabantit" class="tab002tit">7</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_7" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                     <td class="mekabantit">8</td>
-                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder=""></td>
+                                                                    <td><input type="text" class="form-control" id="MakerItemCD_8" placeholder="" onkeypress="return ValidateSpecialOnly(event);"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
@@ -232,12 +238,12 @@
                                         </table>
                                     </td>
                                     <td>&nbsp;</td>
-                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg" id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
+                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg" id="Searchdata" style="background-color: #6c757d;color: white;font-weight: 700;"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
                                     <td>
-                                        <br><br><br><br><br><br>
+                                        @*<br><br><br><br><br><br>*@
                                         <button type="button" id="btn_cancle0" data-toggle="modal" data-target="#myModal" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
-                                        <button type="button" id="btn_cancle1" data-toggle="modal" data-target="#myModalSuccess" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
-                                        <button type="button" id="btn_cancle2" data-toggle="modal" data-target="#myModalInfo" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                        @*<button type="button" id="btn_cancle1" data-toggle="modal" data-target="#myModalSuccess" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
+                                            <button type="button" id="btn_cancle2" data-toggle="modal" data-target="#myModalInfo" class="btn btn-dark">✖&nbsp;発注キャンセル</button>*@
 
                                         <button type="button" id="btn_cancle" onclick="_CancleTableRow()" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
 
@@ -261,21 +267,21 @@
                                     <table class="tab002" id="order_detail">
                                         <thead>
                                             <tr class="tab002tit">
-                                                <td class="t30" id="ID">No</td>
-                                                <td class="checkAll">&nbsp;</td>
-                                                <td class="t100">発注番号</td>
-                                                <td class="t100">商品番号</td>
-                                                <td class="t250">商品名</td>
-                                                <td class="t70">サイズ</td>
-                                                <td class="t100">カラー</td>
-                                                <td class="t70">発注数</td>
-                                                <td class="t70">引当数</td>
-                                                <td class="t100">下代</td>
-                                                <td class="t100">合計</td>
-                                                <td class="t150">発注日</td>
-                                                <td class="t150">発注時刻</td>
-                                                <td class="t150">出荷日</td>
-                                                <td class="t300">摘要</td>
+                                                <td class="t30" id="ID" style="text-align:center;">No</td>
+                                                <td class="checkAll" style="text-align:center;">&nbsp;</td>
+                                                <td class="t100" style="text-align:center;">発注番号</td>
+                                                <td class="t100" style="text-align:center;">商品番号</td>
+                                                <td class="t250" style="text-align:center;">商品名</td>
+                                                <td class="t70" style="text-align:center;">サイズ</td>
+                                                <td class="t100" style="text-align:center;">カラー</td>
+                                                <td class="t70" style="text-align:center;">発注数</td>
+                                                <td class="t70" style="text-align:center;">引当数</td>
+                                                <td class="t100" style="text-align:center;">下代</td>
+                                                <td class="t100" style="text-align:center;">合計</td>
+                                                <td class="t150" style="text-align:center;">発注日</td>
+                                                <td class="t150" style="text-align:center;">発注時刻</td>
+                                                <td class="t150" style="text-align:center;">出荷日</td>
+                                                <td class="t300" style="text-align:center;">摘要</td>
                                                 <td class="t300" hidden>AdminCD</td>
                                                 <td class="t150" hidden>OrderStatus</td>
                                             </tr>
@@ -300,7 +306,6 @@
     </div>
 </div>
 
-<!-- Modal -->
 <div class="modal fade" id="myModal" role="dialog">
     <div class="modal-dialog">
 
@@ -309,7 +314,7 @@
             <div class="modal-header">
 
                 @*<h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>*@
-                <img src="~/images/question.png"style="width:26px;height:26px;" /> <h4 class="modal-title"  style="color:red;"> </h4>
+                <img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>
             </div>
 
             <div class="modal-footer">
@@ -321,51 +326,12 @@
     </div>
 </div>
 
-<div class="modal fade" id="myModalSuccess" role="dialog">
-    <div class="modal-dialog">
+@RenderPage("~/Views/CommonView/Common_View.cshtml");
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-
-                <img src="~/images/SuccessImg.jpg" style="width:26px;height:26px;" />   <h4 class="modal-title" style="color:forestgreen;"> </h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:forestgreen;">閉じる</button>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-<div class="modal fade" id="myModalInfo" role="dialog">
-    <div class="modal-dialog">
-
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-
-                <img src="~/images/info.jpg" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:#003492;"></h4>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:#003492;">閉じる</button>
-
-            </div>
-        </div>
-
-    </div>
-</div>
-
-@*</div>*@
 <!-- 2'nd table script-->
 
 <style>
-    .modal-header img{
-        display:inline-block;
-    }
-    .modal-header h4{
-        display:inline-block
-    }
+
 
     table.dataTable thead td {
         padding: 8px 10px;
@@ -402,15 +368,38 @@
     .left-content {
         background-color: #edecec !important;
     }
+
+    table.dataTable {
+        border-collapse: unset !important;
+        text-align: center !important;
+    }
+
+    .tab002 {
+        font-size: 15px !important;
+    }
+
+    table.dataTable.no-footer {
+        border-bottom: none;
+    }
+
+    .histoptab {
+        font-size: 0.9em !important;
+    }
 </style>
 
 <script>
     $(document).ready(function () {
-        $("#btn_cancle1").hide();
-        $("#btn_cancle2").hide();
+        //$("#btn_cancle1").hide();
+        //$("#btn_cancle2").hide();
         $("#btn_cancle0").hide();
-        FillGrid_1();
-        FillGrid_2();
+        var inid ='@ViewBag.InputOrderID';
+        //alert(inid);
+        if (inid != null)
+        {
+            FillGrid_1(inid);
+        }
+
+        FillGrid_2(inid);
 
         var input1 = document.getElementById("txt_orderId");
         input1.addEventListener("keyup", function (event) {
@@ -420,11 +409,12 @@
             }
         });
     });
-    function FillGrid_1() {
+    function FillGrid_1(inid) {
+
 
             $.ajax({
                 type: 'POST',
-                url: "../Order/OH_GetFirstTable/"+"101",
+                url: "../Order/OH_GetFirstTable/" + inid,
                 dataType: 'json',
                 success: function (data) {
                     BindFirstTable(data);
@@ -434,11 +424,11 @@
 
     }
 
-    function FillGrid_2()
+    function FillGrid_2(inid)
     {
         $.ajax({
             type: 'POST',
-            url: "../Order/OH_GetSecondTable/"+"101",
+            url: "../Order/OH_GetSecondTable/" + inid,
 
             dataType: 'json',
 
@@ -490,7 +480,9 @@
                 "destroy": true,
                 //responsive: false,
                 "scrollX": true,
-                //"scrollY": true,
+                //"scrollY": true
+                "paging": false,
+                "info": false,
                 "dom": 'lrtip',
                 "bLengthChange": false,
                 "data": data,
@@ -532,7 +524,6 @@
 
     }
 
-
     function BindSecondTable(data)
     {
         $("#order_detail").find("tbody tr").empty();
@@ -541,13 +532,15 @@
             {
                 "destroy": true,
                 //responsive: false,
-                "scrollX": true,
+                "scroll": false,
                 "dom": 'lrtip',
                 "bLengthChange": false,
+                "pagingType": "full_numbers",
 
                 "data": data,
                 "language": {
-                    "emptyTable": "検索結果がありません。"
+
+                    url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                 },
                 "createdRow": function (row, data, dataIndex) {
                     $(row).addClass("odr1");
@@ -621,9 +614,6 @@
 
     }
 
-
-
-
 </script>
 <!--button's function script-->
 <script>
@@ -643,8 +633,8 @@
         document.getElementById('MakerItemCD_6').value = "";
         document.getElementById('MakerItemCD_7').value = "";
         document.getElementById('MakerItemCD_8').value = "";
-        RefreshFirstTable();
 
+        $("#Order_First").hide();
 
         RefreshSecondTable();
 
@@ -681,23 +671,23 @@
             return this.value + '_' + this.name;
 
         }).get();
-   
+
         if (checked == "") {
             var E = "E";
             var T = "1001";
             var M = "Message1";
-            Infomessage(E,T,M);
-          
+            Infomessage(E, T, M);
+
         }
         else {
             var Q = "Q";
             var K = "1001";
             var M = "Message1";
-            Confrimmessage(Q,K,M);
+            Confrimmessage(Q, K, M);
         }
 
     }
-    
+
     function _CancleRow() {
         var checked = jQuery('input:checkbox:checked').map(function () {
             return this.value + '_' + this.name;
@@ -715,11 +705,12 @@
                     var Q = "Q";
                     var K = "1001";
                     var M = "Message2";
-                    Successmessage(Q,K,M);
+                    Successmessage(Q, K, M);
+
                     jQuery('input:checkbox:checked').parents("tr").remove();
-                  
+
                     RefreshSecondTable();
-                   
+
 
                 }
 
@@ -729,34 +720,9 @@
         });
 
     }
-    function Successmessage(t,k,m) {
-        $.ajax({
-            type: 'POST',
-            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
-            dataType: 'json',
-            success: function (data) {
-                $('.modal-title').text(data);
 
-                $("#btn_cancle1").click();
 
-            }
-        }); 
-    }
-   
-    function Infomessage(t,k,m) {
-        $.ajax({
-            type: 'POST',
-            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
-            dataType: 'json',
-            success: function (data) {
-                $('.modal-title').text(data);
-
-                $("#btn_cancle2").click();
-
-            }
-        }); 
-    }
-    function Confrimmessage(t,k,m) {
+    function Confrimmessage(t, k, m) {
         $.ajax({
             type: 'POST',
             url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
@@ -767,28 +733,28 @@
                 $("#btn_cancle0").click();
 
             }
-        });         
+        });
 
     }
-    function check_orderdate()
-    {
-        
+    function check_orderdate() {
+
         var fromDate = document.getElementById("orderdate_from").value;
         var toDate = document.getElementById("orderdate_to").value;
         if ((fromDate != "" && toDate != "") && (Date.parse(fromDate) > Date.parse(toDate))) {
-             //alert("To date should be greater than From date.");
-           
+            //alert("To date should be greater than From date.");
+
             var T = "E";
             var K = "1003";
             var M = "Message1";
-            Infomessage(T,K,M);
+            Errormessage(T, K, M);
+            document.getElementById('orderdate_from').value = "";
+            document.getElementById('orderdate_to').value = "";
 
-          
+
         }
-       
+
     }
-    function check_shipdate()
-    {
+    function check_shipdate() {
         var fromDate = document.getElementById("shipdate_from").value;
         var toDate = document.getElementById("shipdate_to").value;
         if ((fromDate != "" && toDate != "") && (Date.parse(fromDate) > Date.parse(toDate))) {
@@ -796,9 +762,12 @@
             var T = "E";
             var K = "1003";
             var M = "Message1";
-            Infomessage(T, K, M);
+            Errormessage(T, K, M);
+
+            document.getElementById('shipdate_from').value = "";
+            document.getElementById('shipdate_to').value = "";
         }
-       
+
     }
     function _SearchData() {
 
@@ -815,34 +784,51 @@
         var MakerItemCD_6 = document.getElementById('MakerItemCD_6').value;
         var MakerItemCD_7 = document.getElementById('MakerItemCD_7').value;
         var MakerItemCD_8 = document.getElementById('MakerItemCD_8').value;
-        //check_makeritemcd(MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
+        check_makeritemcd(MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
         FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
-    //function check_makeritemcd(m1,m2,m3,m4,m5,m6,m7,m8)
-    //{
-    //    $.ajax({
-    //        type: 'POST',
-    //        url: "../Order/Check_MakerItemCD",
-    //        data: {
-    //            m1: m1,
-    //            m2: m2,
-    //            m3: m3,
-    //            m4: m4,
-    //            m5: m5,
-    //            m6: m6,
-    //            m7: m7,
-    //            m8: m8
-    //        },
-    //        dataType: 'json',
-    //        success: function (data) {
-    //            $('.modal-title').text(data);
+    function check_makeritemcd(m1, m2, m3, m4, m5, m6, m7, m8) {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/Check_MakerItemCD",
+            data: {
+                m1: m1,
+                m2: m2,
+                m3: m3,
+                m4: m4,
+                m5: m5,
+                m6: m6,
+                m7: m7,
+                m8: m8
+            },
+            dataType: 'json',
+            success: function (data) {
+                if (data != "") {
 
-    //            $("#btn_cancle0").click();
+                    ErrormessageMICD('I', '1006', 'Message1', data);
 
-    //        }
-    //    });  
-    //}
+                }
+
+
+
+
+            }
+        });
+    }
+
+    function ErrormessageMICD(t, k, m, d) {
+        $.ajax({
+            type: 'POST',
+            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+            dataType: 'json',
+            success: function (data) {
+                $('.modal-title').text("(" + d + ")" + data);
+
+                $("#btn_cancle3").click();
+
+            }
+        });
+    }
 
 </script>
-

@@ -12,8 +12,8 @@ using Order_Portal_BL;
 using Order_History_BL;
 using System.IO;
 using Group_Entry_BL;
-
-
+using Base_BL;
+using FastMember;
 
 namespace TOS.Controllers
 {
@@ -23,10 +23,13 @@ namespace TOS.Controllers
     {
         Order_HistoryBL bl = new Order_HistoryBL();
         DataTable dt = new DataTable();
+        BaseBL bbl = new BaseBL();
 
         // GET: Order_History
-        public ActionResult Order_History()
+        public ActionResult Order_History(string id)
         {
+            ViewBag.InputOrderID = id;
+            //ViewBag.InputOrderID ="101";
             return View();
         }
         [HttpPost]
@@ -104,17 +107,18 @@ namespace TOS.Controllers
 
         }
 
-
-       
+        [HttpPost]
+       public string Check_MakerItemCD(T_OrderHistorySearch model)
+        {
+            string result = bl._CheckMakerItemCD(model);
+            return JsonConvert.SerializeObject(result);
+        }
 
         [HttpPost]
-        public string  OrderHistoryMessage(string id)
+        public string OrderHistoryMessage(string id)
         {
-           
-           
-            var msg=bl.OH_MessageDialog(id);
-          
-            ViewData["SuccessMessage"] = msg;
+            string msg =bbl._MessageDialog(id);
+                    
             return JsonConvert.SerializeObject(msg);
         }
 
@@ -126,6 +130,7 @@ namespace TOS.Controllers
             //  string ItemCD = "cps-test,cd";
             dst = obl.Order_Input_M_Item_Data(id);
             DataSet dsnew = new DataSet();
+            String Img_Name = "";
             if (dst.Tables.Count > 0)
             {
                 int tabcount = 0;
@@ -141,12 +146,20 @@ namespace TOS.Controllers
                     else
                     {
                         DataTable dtnew = dst.Tables[i];
+                        Img_Name += dtnew.Rows[0]["ImageName"].ToString() +",";
+                        dtnew.Columns.Remove("ImageName");
                         dtnew.TableName = "Table" + tabcount;
                         tabcount++;
-                        dsnew.Tables.Add(dst.Tables[i].Copy());
+                        //dsnew.Tables.Add(dst.Tables[i].Copy());
+                        dsnew.Tables.Add(dtnew.Copy());
                     }
                 }
             }
+            if (!string.IsNullOrWhiteSpace(Img_Name) && Img_Name.Contains(","))
+            {
+                Img_Name = Img_Name.Remove(Img_Name.Length - 1);
+            }
+            ViewBag.ImageName = Img_Name;
             Session["MakerItem"] = id;
             ViewBag.count = dsnew.Tables.Count;
             Session["dtsmitem"] = dsnew;
@@ -183,22 +196,7 @@ namespace TOS.Controllers
         public string Order_Input_M_Item_Select(string id)
         {
             DataSet ds = new DataSet();
-            //ds =ViewBag.dtsmitem as DataSet;
             ds = Session["dtsmitem"] as DataSet;
-            //Order_InputBL oib = new Order_InputBL();
-
-            //string ItemCD = "cps-test,BAQ005";
-            //DataSet dst = new DataSet();
-            //dst = oib.Order_Input_M_Item_Data(ItemCD);
-            //if (id == null)
-            //{
-            //    string jsonresult;
-            //    jsonresult = JsonConvert.SerializeObject(ds.Tables[0]);
-            //    return jsonresult;
-
-            //}
-            //else
-            //{
             if (ds.Tables.Count > Convert.ToInt32(id))
             {
                 string jsonresult;
@@ -249,30 +247,75 @@ namespace TOS.Controllers
         }
 
 
+        [HttpPost]
+        public ActionResult InserOrder(T_OrderHeaderModel T_Orderheader, List<T_OrderDetailModel> T_OrderDetail)
+        {
+
+            Order_InputBL oib = new Order_InputBL();
+            DataTable dtorderdetail = new DataTable();
+            using (var reader = ObjectReader.Create(T_OrderDetail, "OrderID", "AdminCD", "OrderItem", "StockItem", "SalePrice", "TotalAmount", "Memo", "AvailableShippingDate"))
+            {
+                dtorderdetail.Load(reader);
+            }
+            if (dtorderdetail.Rows.Count > 0)
+            {
+                if (Session["CompanyCD"] != null)
+                {
+                    string CompanyCD = Session["CompanyCD"].ToString();
+                    T_Orderheader.UpdateOperator = CompanyCD;
+                }
+                T_Orderheader.AccessPC = System.Environment.MachineName;
+
+                if (oib.Order_Input_Insert(T_Orderheader, dtorderdetail))
+                {
+                    Session["Error"] = null;
+                    return RedirectToAction("../Order/Order_History/" + T_Orderheader.OrderID);
+                }
+                else
+                {
+                    Session["Error"] = "Error";
+                    return View();
+                }
+            }
+            else
+            {
+                Session["Error"] = "Error";
+                return View();
+            }
+
+        }
+
+
         public ActionResult Order_Portal()
         {
+            M_JobTimeableModel Mjob = new M_JobTimeableModel();
             if (Session["CompanyCD"] != null)
             {
                 Order_InputBL obl = new Order_InputBL();
-                M_JobTimeableModel Mjob = new M_JobTimeableModel();
                 Mjob.CompanyCD = Session["CompanyCD"].ToString();
                 ViewData["JobTime"] = obl.JobTimeTable_Select(Mjob);
-
-                //Order_PortalBL opbl = new Order_PortalBL();
-                //DataTable dtorderpotal = opbl.Order_Portal_List_Select();
 
                 return View();
             }
             else
             {
+                ViewData["JobTime"] = Mjob;
                 return View();
             }
         }
         [HttpGet]
         public string Get_Order_Portal_List()
         {
-            Order_PortalBL opbl = new Order_PortalBL();
-            return DataTableToJSONWithJSONNet(opbl.Order_Portal_List_Select());
+            DataTable dt = new DataTable();
+            string jsonresult;
+            if (Session["CompanyCD"] != null)
+            {
+                Order_PortalBL opbl = new Order_PortalBL();
+                string companyCD = Session["CompanyCD"].ToString();
+                dt = opbl.Order_Portal_List_Select(companyCD);
+            }
+            jsonresult = DataTableToJSONWithJSONNet(dt);
+            return jsonresult;
         }
 
         public string DataTableToJSONWithJSONNet(DataTable table)
@@ -285,17 +328,9 @@ namespace TOS.Controllers
         [HttpGet]
         public JsonResult GetMessage()
         {
-            // some service call to get data
-            string output = string.Empty;
-            Group_EntryBL gebl = new Group_EntryBL();
-            DataTable dtIMsg = gebl.M_Message_Select("1001", "I");
-            string message = string.Empty;
-            if (dtIMsg.Rows.Count > 0)
-            {
-                TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                output= dtIMsg.Rows[0]["Message1"].ToString();
-            }
-            return Json(output, JsonRequestBehavior.AllowGet);
+            string msg = "NoData";
+            TempData["Nmsg"] = "NoData";
+            return Json(msg, JsonRequestBehavior.AllowGet);
         }
 
     }

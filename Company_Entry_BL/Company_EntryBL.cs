@@ -77,7 +77,7 @@ namespace Company_Entry_BL
                 }
                 else
                 {
-                    prms[12] = new SqlParameter("@RnkFlag", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                    prms[12] = new SqlParameter("@RnkFlag", SqlDbType.VarChar) { Value = 0 };
                 }
                 prms[13] = new SqlParameter("@insertOperator", SqlDbType.VarChar) { Value = mModel.InsertOperator };
                 prms[14] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = PcName };
@@ -144,11 +144,11 @@ namespace Company_Entry_BL
                 }
                 if (!string.IsNullOrWhiteSpace(mModelShip.Address2))
                 { 
-                prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = mModelShip.Address2 };
                 }
                 else
                 {
-                    prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = mModelShip.Address2 };
+                    prmship[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = System.DBNull.Value };
                 }
                 if(!string.IsNullOrWhiteSpace(mModelShip.TelephoneNO) )
                 { 
@@ -206,7 +206,7 @@ namespace Company_Entry_BL
             BaseDL dl = new BaseDL();
             if (mBrand != null)
             {
-                SqlParameter[] prmBrand = new SqlParameter[3];
+                SqlParameter[] prmBrand = new SqlParameter[4];
                 prmBrand[0] = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = mModel.CompanyCD };
                 if (!string.IsNullOrWhiteSpace(mBrand.BrandName))
                 {

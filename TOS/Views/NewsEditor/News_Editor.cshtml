@@ -30,13 +30,15 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 }
 
 @section Scripts{
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
-                url: '/NewsEditor/M_Companay_Select', // get companay
+                url: '../NewsEditor/M_Companay_Select', // get companay
                 type: "GET",
                 dataType: "JSON",
                 dataSrc: '',
@@ -45,19 +47,14 @@
                         $("#ddlCompanyname").append(
                             $('<option></option>').val(name.CompanyCD).html(name.CompanyName));
                     });
-                    @*if ("@Model.TinfoModel.control" == 'New') {
-                        alert("1");
-                        $("#ddlCompanyname").val(@Model.ComModel.CompanyCD);
-                    }*@
                 }
             });
         });
-    </script>
 
-    <script type="text/javascript">
+
         $(document).ready(function () {
             $.ajax({
-                url: '/NewsEditor/M_Group_Select', // get group
+                url: '../NewsEditor/M_Group_Select', // get group
                 type: "GET",
                 dataType: "JSON",
                 dataSrc: '',
@@ -66,52 +63,24 @@
                         $("#ddlGroupname").append(
                             $('<option></option>').val(name.GroupID).html(name.GroupName));
                     });
-                     
-                    @*if ("@Model.TinfoModel.control" == 'Edit') {
-                        $("#ddlGroupname").val('@Model.GroupModel.GroupID');
-                    }*@
                 }
             });
         });
     </script>
 
     <script type="text/javascript">
-        $(function () {
-            $("[id='ddlCompanyname']").change(function () {
-                var sel = $("#ddlCompanyname option:selected").text();
-                var text = $('#txtdisplay_designation').val();
-                text = sel;
-                $('#txtdisplay_designation').val(text);
-            });
-        });
-    </script>
 
-    <script type="text/javascript">
-        $(function () {
-            $("[id='ddlGroupname']").change(function () {
-                var sel = $("#ddlGroupname option:selected").text();
-                var text = $('#txtdisplay_designation').val();
-                text = sel;
-                $('#txtdisplay_designation').val(text);
-            });
-        });
-    </script>
 
-    <script type="text/javascript">
         $(document).ready(function () {
-            $('#rdbcompanywide').change(function () {
-                var text = $('#txtdisplay_designation').val();
-                text = '全社';
-                $('#txtdisplay_designation').val(text);
-            });
+            InformationTable();
         });
 
-    </script>
-
-    <script type="text/javascript">
-        $(document).ready(function () {
+        function InformationTable() {
             var table = $('#tbinformation').DataTable(
                 {
+                    language: {
+                        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json",
+                    },
                     columnDefs: [{
                         targets: [0],
                         className: 'saict newpd'
@@ -125,10 +94,13 @@
                         className: 'tab002tit'
                     }
                     ],
+                    "destroy": true,
                     "dom": 'lrtip',
                     "bLengthChange": false,
+                    "aLengthMenu": [20],
+                    "pagingType": "full_numbers",
                     "ajax": {
-                        "url": "../../NewsEditor/T_Information_Select",
+                        "url": "../NewsEditor/T_Information_Select",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -138,107 +110,338 @@
                         { "data": "TitleName", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
-                                return '<button type="button" class="btn btn-outline-light"><a href="../../NewsEditor/News_Editor/' + row.InformationID + '">編集</a></button>';
+                                //return '<button type="button" id="btnEdit" class="btn btn-outline-light" ><a class="edit" href="../../NewsEditor/News_Editor/' + row.InformationID + '"  >編集</a></button>';
+                                return '<button type="button" id="btnEdit" class="btn btn-outline-light" onclick="edit(\'' + row.InformationID + '\')">編集</button>';
                             }
                         },
                         {
                             "data": "", "render": function (data, type, row) {
-                                return '<button type="button" class="btn btn-outline-danger"><a href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
+                                //return '<button type="button" id="btnDelete" class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal"><a class="delete" href="../../NewsEditor/T_Information_Delete/' + row.InformationID + '">削除</a></button>';
+                                return '<button type="button"  class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal" data-id="' + row.InformationID + '" )">削除</button>';
                             }
-                        },
+                        }
                     ],
                 }
             );
-        });
+        }
+
+        function edit(id) {
+            var id = id;
+            $.ajax({
+                type: 'GET',
+                url: '../NewsEditor/News_Editor_Edit/' + id,
+                dataType: 'json',
+                success: function (result) {
+                    $('#btnsave').text('✔' + '\xa0\xa0\xa0' + '更新');
+
+                    document.getElementById("hfinfoid").value = id;
+
+                    if (result[0].DestinationFlg == 1) {
+                        $('#rdbcompanywide').prop('checked', true);
+                        $("#ddlCompanyname").val(null);
+                        $("#ddlGroupname").val(null);
+                        $('#txtdisplay_designation').val('全社');
+                    }
 
 
+                    if (result[0].DestinationFlg == 2) {
+                        $('#rdocompanydesignation').prop('checked', true);
+                        $("#ddlCompanyname").removeAttr("disabled");
+                        $("#ddlCompanyname").val(result[0].CompanyCD);
+                        $('#txtdisplay_designation').val(result[0].CompanyName);
+                        $("#ddlGroupname").attr("disabled", "disabled");
+                        $("#ddlGroupname").val(null);
+                    }
+
+                    if (result[0].DestinationFlg == 3) {
+                        $('#rdogroupdesignation').prop('checked', true);
+                        $("#ddlGroupname").removeAttr("disabled");
+                        $("#ddlGroupname").val(result[0].GroupID);
+                        $('#txtdisplay_designation').val(result[0].GroupName);
+                        $("#ddlCompanyname").attr("disabled", "disabled");
+                        $("#ddlCompanyname").val(null);
+                    }
+
+                    if (result[0].EffectFlg == 1)
+                        $('#chkeffect').prop('checked', true);
+                    else
+                        $('#chkeffect').prop('checked', false);
+
+                    $("#ddlInfoType").val(result[0].InformationType);
+
+
+                    if (result[0].Date == "0001-01-01")
+                        $('#txtDate').val('');
+
+                    else
+                        $('#txtDate').val(result[0].Date);
+
+
+                    $('#txtStartDate').val(result[0].DisplayStartDate);
+                    $('#txtEndDate').val(result[0].DisplayEndDate);
+
+                    $('#txttitlename').val(result[0].TitleName);
+                    $('#txtarea').val(result[0].DetailInformation);
+
+                    if (result[0].AttachedFile1 != null) {
+
+                        var Filediv = document.getElementById("BrowseFiles");
+                        var fbutton = document.createElement("input");
+                        fbutton.setAttribute("type", "file");
+                        fbutton.innerText = result[0].AttachedFile1;
+                        fbutton.setAttribute("id", "file" + 1);
+                        fbutton.setAttribute("name", "files[1]");
+                        fbutton.setAttribute("multiple", "multiple");
+                        Filediv.appendChild(fbutton);
+
+                        var Filediv2 = document.getElementById("BrowseFiles2");
+                        var Lableshow = document.createElement("label");
+                        Lableshow.setAttribute("id", "filee" + 1);
+                        Lableshow.setAttribute("class", "showfile");
+                        Lableshow.setAttribute("name", "file");
+                        Filediv2.appendChild(Lableshow);
+                        var $label = $('#filee' + 1);
+                        var $span = "<span onclick='closefile(" + Lableshow.id + "," + 1 + ")' >"+result[0].AttachedFile1+"✖</span>";
+
+                        $($label).each(function (index, item) {
+                            $(this).append($span);
+                        });
+                    }
+
+                    if (result[0].AttachedFile2 != null) {
+
+                        var Filediv = document.getElementById("BrowseFiles");
+                        var fbutton = document.createElement("input");
+                        fbutton.setAttribute("type", "file");
+                        fbutton.innerText = result[0].AttachedFile2;
+                        fbutton.setAttribute("id", "file" + 2);
+                        fbutton.setAttribute("name", "files[2]");
+                        fbutton.setAttribute("multiple", "multiple");
+                        Filediv.appendChild(fbutton);
+                        
+                        var Filediv2 = document.getElementById("BrowseFiles2");
+                        var Lableshow = document.createElement("label");
+                        Lableshow.setAttribute("id", "filee" + 2);
+                        Lableshow.setAttribute("class", "showfile");
+                        Lableshow.setAttribute("name", "file");
+                        Filediv2.appendChild(Lableshow);
+                        var $label = $('#filee' + 2);
+                         var $span = "<span onclick='closefile(" + Lableshow.id + "," + 2 + ")' >"+result[0].AttachedFile2+"✖</span>";
+
+                        $($label).each(function (index, item) {
+                            $(this).append($span);
+                         });
+                    }
+
+                    if (result[0].AttachedFile3 != null) {
+
+                        var Filediv = document.getElementById("BrowseFiles");
+                        var fbutton = document.createElement("input");
+                        fbutton.setAttribute("type", "file");
+                        fbutton.innerText = result[0].AttachedFile3;
+                        fbutton.setAttribute("id", "file" + 3);
+                        fbutton.setAttribute("name", "files[3]");
+                        fbutton.setAttribute("multiple", "multiple");
+                        Filediv.appendChild(fbutton);
+
+                        var Filediv2 = document.getElementById("BrowseFiles2");
+                        var Lableshow = document.createElement("label");
+                        Lableshow.setAttribute("id", "filee" + 3);
+                        Lableshow.setAttribute("class", "showfile");
+                        Lableshow.setAttribute("name", "file");
+                        Filediv2.appendChild(Lableshow);
+                        var $label = $('#filee' + 3);
+                        var $span = "<span onclick='closefile(" + Lableshow.id + "," + 3 + ")' >" + result[0].AttachedFile3 + "✖</span>";
+
+                        $($label).each(function (index, item) {
+                            $(this).append($span);
+                        });
+                    }
+
+                    if (result[0].AttachedFile4 != null) {
+
+                        var Filediv = document.getElementById("BrowseFiles");
+                        var fbutton = document.createElement("input");
+                        fbutton.setAttribute("type", "file");
+                        fbutton.innerText = result[0].AttachedFile4;
+                        fbutton.setAttribute("id", "file" + 4);
+                        fbutton.setAttribute("name", "files[4]");
+                        fbutton.setAttribute("multiple", "multiple");
+                        Filediv.appendChild(fbutton);
+
+                        var Filediv2 = document.getElementById("BrowseFiles2");
+                        var Lableshow = document.createElement("label");
+                        Lableshow.setAttribute("id", "filee" + 4);
+                        Lableshow.setAttribute("class", "showfile");
+                        Lableshow.setAttribute("name", "file");
+                        Filediv2.appendChild(Lableshow);
+                        var $label = $('#filee' + 4);
+                        var $span = "<span onclick='closefile(" + Lableshow.id + "," + 4 + ")' >" + result[0].AttachedFile4 + "✖</span>";
+
+                        $($label).each(function (index, item) {
+                            $(this).append($span);
+                        });
+                    }
+                }
+            });
+        }
+
+        function closefile(e, v) {
+            e.remove();
+            $("#file" + v).remove();
+        }
+
+        function checkdate() {
+            var startdate = $("#txtStartDate").val();
+            var enddate = $("#txtEndDate").val();
+            if (Date.parse(startdate) > Date.parse(enddate)) {
+                var T = "E";
+                var K = "1003";
+                var M = "Message1";
+                Errormessage(T, K, M);
+                $("#txtEndDate").val('');
+            }
+        }
+
+       
     </script>
+
 
     <script type="text/javascript">
         $(document).ready(function () {
+            $('#txtdisplay_designation').val('全社');
             $('#rdbcompanywide').prop('checked', true);
             $("#ddlCompanyname").attr("disabled", "disabled");
             $('#ddlGroupname').attr("disabled", "disabled");
-
-
         });
-    </script>
 
-    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#rdbcompanywide').change(function () {
+                var text = $('#txtdisplay_designation').val();
+                text = '全社';
+                $('#txtdisplay_designation').val(text);
+            });
+        });
+
         $('#rdbcompanywide').click(function () {
             $("#ddlCompanyname").attr("disabled", "disabled");
             $('#ddlGroupname').attr("disabled", "disabled");
+            $('#ddlGroupname').val('');
+            $('#ddlCompanyname').val('');
         });
 
         $('#rdocompanydesignation').click(function () {
             $('#ddlGroupname').attr("disabled", "disabled");
-
+            $('#ddlGroupname').val('');
             $("#ddlCompanyname").removeAttr("disabled");
         });
         $('#rdogroupdesignation').click(function () {
             $('#ddlCompanyname').attr("disabled", "disabled");
-
+            $('#ddlCompanyname').val('');
             $("#ddlGroupname").removeAttr("disabled");
         });
+
+        $(function () {
+            $("[id='ddlCompanyname']").change(function () {
+                var sel = $("#ddlCompanyname option:selected").text();
+                var text = $('#txtdisplay_designation').val();
+                text = sel;
+                $('#txtdisplay_designation').val(text);
+            });
+        });
+
+        $(function () {
+            $("[id='ddlGroupname']").change(function () {
+                var sel = $("#ddlGroupname option:selected").text();
+                var text = $('#txtdisplay_designation').val();
+                text = sel;
+                $('#txtdisplay_designation').val(text);
+            });
+        });
     </script>
+
 
     <script>
-        $(document).ready(function () {
-            var div = document.getElementById('file');
-            var div1 = document.getElementById('file1');
-            $('input[type="file"]').change(function (e) {
-
-                var fileName = e.target.files[0].name;
-                var text = $('#lblattachfile').val();
-                text = fileName;
-                $('#lblattachfile').text(text);
-                div.style.display = 'block';
-
-            });
+        var DeleteID = "";
+        $(document).on("click", ".btn-outline-danger", function () {
+            var deleteid = $(this).data('id');
+            DeleteID = deleteid;
         });
-    </script>
+        function deleteConfirm() {
 
+            $.ajax({
+                url: '../NewsEditor/T_Information_Delete/' + DeleteID,
+                type: 'POST',
+                dataType: 'JSON',
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#btndelete').click(function () {
-                $(this).parent('div').remove();
+                success: function (data) {
+                    if (data == "OK") {
+                        var Q = "Q";
+                        var K = "1001";
+                        var M = "Message2";
+                        Successmessage(Q, K, M);
+                        DeleteID = null;
+                        InformationTable();
+                    }
+                    else {
+                        var Q = "Q";
+                        var K = "1001";
+                        var M = "Message2";
+                        Errormessage(Q, K, M);
+                        DeleteID = null;
+                        InformationTable();
+                    }
+                }
             });
-        });
+        }
     </script>
-
 }
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
+    <li class="breadcrumb-item"><a href="../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>お知らせ入力</li>
 </ol>
+
+
+@RenderPage("~/Views/CommonView/Common_View.cshtml")
+
+@if (TempData["Save"] != null)
+{
+
+    <script>
+        Successmessage('I', '1002', 'Message1');
+    </script>
+}
+
+@if (TempData["Nosave"] != null)
+{
+    <script>
+        Errormessage('E', '1004', 'Message1');
+    </script>
+}
 
 @if (TempData["Imsg"] != null)
 {
-    <div class="row ">
-        <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
-            @*<div class="alert alert-success alert-dismissible fade in">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>*@
-            <div class="alert alert-warning alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                @*<h4><i class="icon fa fa-info-circle"></i> Info!</h4>*@
-                <strong><span class="glyphicon glyphicon-ok"></span>Info:</strong>
-                @TempData["Imsg"]
-            </div>
-        </div>
-    </div>
+    <script>
+        Successmessage('Q', '1001', 'Message2');
+    </script>
 }
 
 @if (TempData["Emsg"] != null)
 {
-    <div class="row ">
-        <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
-            <div class="alert alert-warning alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <strong><span class="glyphicon glyphicon-warning-sign"></span> ERROR: </strong>
-                @TempData["Emsg"]
-            </div>
-        </div>
-    </div>
+    <script>
+        Errormessage('Q', '1001', 'Message2');
+    </script>
+}
+@if (TempData["update"] != null)
+{
+    <script>
+        Successmessage('I', '1003', 'Message1');
+    </script>
+}
+@if (TempData["noupdate"] != null)
+{
+    <script>
+        Errormessage('E', '1004', 'Message1');
+    </script>
 }
 
 @using (Html.BeginForm("T_Information_SaveEdit", "NewsEditor", FormMethod.Post, new { enctype = "multipart/form-data", @id = "MyForm" }))
@@ -246,28 +449,81 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary("", new { @class = "text-danger" })
+
     <style>
-       
+
+        .form-control {
+            border-radius: 0px;
+        }
+
+        .modal-header {
+            display: block;
+        }
+
         .mother-grid-inner {
             display: block !important;
             background-color: #edecec !important;
-        }  
+        }
+
         tr.even {
             background-color: #CCDDFF !important;
         }
+
         table.dataTable {
             border-collapse: collapse !important;
             border-spacing: 0;
         }
-        table.dataTable tbody th, table.dataTable tbody td {
-            padding:unset;
+
+            table.dataTable tbody th, table.dataTable tbody td {
+                padding: unset;
+            }
+
+            table.dataTable thead th, table.dataTable thead td {
+                padding: unset;
+                border-bottom: unset;
+            }
+
+        .save {
+            width: 105px;
+            border-radius: 0px;
+            font-size: 0.8em;
+            background-color: #28a745;
+            font-weight: 700;
+            color: #fff;
+            padding: 8px 15px;
+            border: none;
         }
-        table.dataTable thead th, table.dataTable thead td {
-            padding:unset;
-            border-bottom:unset;
+
+        .btn-outline-light {
+            border-style: none;
         }
-        .btn{
-            border-radius:0px;
+
+        .save:hover {
+            background-color: #218838;
+        }
+
+        .delete:hover {
+            color: #fff;
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-outline-danger {
+            border-style: none;
+        }
+
+            .btn-outline-danger:hover {
+                color: #fff;
+                background-color: #dc3545;
+                border-color: #dc3545;
+            }
+
+        .btn {
+            border-radius: 0px;
+            font-size: 0.8em;
+            font-weight: 700;
+            padding: 8px 15px;
+            letter-spacing: 0.02em;
         }
     </style>
 
@@ -287,9 +543,9 @@
                                         <div class="box">
                                             <div class="custom-control">
                                                 @*<input type="radio" class="custom-control-input" id="rdocompanywide" name="rdocompanywide" value="1">*@
-                                                @Html.HiddenFor(m => m.TinfoModel.ID)
+                                                @Html.HiddenFor(m => m.TinfoModel.InformationID, new { @id = "hfinfoid" })
                                                 @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "1", new { @checked = "true", @id = "rdbcompanywide" })
-                                                <label>全社</label>
+                                                <label style="font-weight:unset;">全社</label>
                                             </div>
                                         </div>
                                         <div class="box"></div>
@@ -299,13 +555,13 @@
                                             <div class="custom-control">
                                                 @*<input type="radio" class="custom-control-input" id="rdocompanydesignation" name="rdocompanydesignation" value="2">*@
                                                 @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "2", new { @id = "rdocompanydesignation" })
-                                                <label>会社指定</label>
+                                                <label style="font-weight:unset;">会社指定</label>
                                             </div>
                                         </div>
                                         <div class="box">
 
                                             @Html.DropDownListFor(m => m.ComModel.CompanyCD, new SelectList(Enumerable.Empty<SelectListItem>(), "CompanyCD", "CompanyName"), "--- 選択---",
-         new { @class = "comp", @id = "ddlCompanyname"  })
+         new { @class = "comp", @id = "ddlCompanyname" , @style = "width:70%;" })
 
                                         </div>
                                     </div>
@@ -314,7 +570,7 @@
                                             <div class="custom-control" style="width: 140px;">
                                                 @*<input type="radio" class="custom-control-input" id="rdogroupdesignation" name="rdogroupdesignation" value="3">*@
                                                 @Html.RadioButtonFor(m => m.TinfoModel.DestinationFlag, "3", new { @id = "rdogroupdesignation" })
-                                                <label>グループ指定</label>
+                                                <label style="font-weight:unset;">グループ指定</label>
                                             </div>
                                         </div>
                                         <div class="box">
@@ -343,12 +599,12 @@
                                         <div class="box">
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_startdate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date", @id = "txtStartDate", @style = "font-size:17px;", required = "required" })
 
                                             </label>～
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_enddate">*@
-                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date" })
+                                                @Html.TextBoxFor(m => m.TinfoModel.DisplayEndDate, new { @class = "form-control", @type = "date", @id = "txtEndDate", @style = "font-size:17px;", required = "required", onchange = "checkdate()" })
                                             </label>
                                         </div>
                                     </div>
@@ -356,11 +612,15 @@
                                         <div class="box">
                                             <div class="form-check">
                                                 @*<input type="checkbox" id="exampleCheck1">*@
-                                                @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag, true)
-                                                <label>有効</label>
+                                                @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag, new { @id = "chkeffect" })
+                                                <label style="font-weight:unset;">有効</label>
                                             </div>
                                         </div>
-                                        <div class="box"><div class="sair"><button type="submit" class="btn btn-success btn-lg">✔　登録</button></div></div>
+                                        <div class="box">
+                                            <div class="sair">
+                                                <button type="submit" id="btnsave" class="save">✔　登録</button>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="boxberb">
@@ -368,14 +628,14 @@
                                         <div class="boxb sair boxpd tab002tit">日付</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.Date, new { @class = "form-control", @type = "date" })
+                                            @Html.TextBoxFor(m => m.TinfoModel.Date, new { @class = "form-control", @type = "date", @id = "txtDate", @style = "font-size:17px;" })
                                         </div>
                                     </div>
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">課題名</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170" })
+                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", @maxlength = "150", @id = "txttitlename", required = "required" })
                                         </div>
 
                                     </div>
@@ -407,24 +667,15 @@
                                             </div>*@
 
                                         <div class="boxc">
-                                            <div id="file" style="display:none;">
-                                                <label style="width:150px;" id="lblattachfile"></label>
-                                                <button id="btndelete" class="btn btn-outline-secondary">✖</button>
+                                            <div id="BrowseFiles" hidden>
+                                                @*<ul id="list" class="horizontal" style="list-style:none"></ul>
+                                                    <button id="fileclose1"></button>
+                                                     <button id="fileclose2"></button>
+                                                     <button id="fileclose3"></button>
+                                                     <button id="fileclose4"></button>*@
                                             </div>
+                                            <div id="BrowseFiles2">
 
-                                            <div id="file1" style="display:none;">
-                                                <label style="width:150px;" id="lblattachfile1"></label>
-                                                <button id="btndelete1" class="btn btn-outline-secondary">✖</button>
-                                            </div>
-
-                                            <div id="file2" style="display:none;">
-                                                <label style="width:150px;" id="lblattachfile2"></label>
-                                                <button id="btndelete2" class="btn btn-outline-secondary">✖</button>
-                                            </div>
-
-                                            <div id="file3" style="display:none;">
-                                                <label style="width:150px;" id="lblattachfile3"></label>
-                                                <button id="btndelete3" class="btn btn-outline-secondary">✖</button>
                                             </div>
                                             <span>最大4ファイル添付可能。</span>
                                         </div>
@@ -453,28 +704,21 @@
                                     expandTextarea('txtarea');</script>
                             </div>
                             <div class="newr col-md-7">
-                                <div class="float-left"><h6>お知らせ一覧</h6></div><div class="float-right">
-
-
-                                    <div class="btn-group">
-                                        <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
-                                        <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
-                                    </div>
-
-
+                              
+                                    <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div>
+                                    <table class="tab002" id="tbinformation">
+                                        <thead>
+                                            <tr class="tab002tit">
+                                                <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:40px;">No</th>
+                                                <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:500px;">課題名</th>
+                                                <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
+                                                <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                   
                                 </div>
-                                <table class="tab002" id="tbinformation">
-                                    <thead>
-                                        <tr>
-                                            <th class="tab002tit">No</th>
-                                            <th class="tab002tit">課題名</th>
-                                            <th class="tab002tit">&nbsp;</th>
-                                            <th class="tab002tit">&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                </table>
                             </div>
-                        </div>
                     </div>
 
                 </div>
@@ -486,8 +730,96 @@
     </div>
 }
 
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
+                @*<img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
+                <button type="button" class="btn btn-default" id="btnconfirm" onclick="deleteConfirm()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@*KhinSandar Script*@
+<script>
+    var i = 4;
+
+    $('input[type="file"]').change(function (e) {
+        if (i == 0) {
+            alert("only four files are accepted.");
+        }
+        else {
+
+            if (i > 0 && e.target.files != null) {
+
+
+
+                var Filediv = document.getElementById("BrowseFiles");
+
+                var fbutton = document.createElement("input");
+                fbutton.setAttribute("type", "file");
+                fbutton.files = e.target.files;
+                fbutton.setAttribute("id", "file" + i);
+                if (i == 4) {
+                    fbutton.setAttribute("name", "files[0]");
+                }
+                else if (i == 3) { fbutton.setAttribute("name", "files[1]"); }
+                else if (i == 2) { fbutton.setAttribute("name", "files[2]"); }
+                else if (i == 1) { fbutton.setAttribute("name", "files[3]"); }
+
+                fbutton.setAttribute("multiple", "multiple");
+
+                Filediv.appendChild(fbutton);
+                var FName = e.target.files[0].name;
+
+                var Filediv2 = document.getElementById("BrowseFiles2");
+                var Lableshow = document.createElement("label");
+                Lableshow.innerHTML = FName;
+                Lableshow.setAttribute("id", "filee" + i);
+                Lableshow.setAttribute("class", "showfile");
+                Lableshow.setAttribute("name", "file");
+                Filediv2.appendChild(Lableshow);
+                var $label = $('#filee' + i);
+
+                var $span = "<span onclick='closebtn(" + Lableshow.id + "," + i + ")' >✖</span>";
+
+                $($label).each(function (index, item) {
+                    $(this).append($span);
+                });
+
+
+                i -= 1;
+
+            }
+        }
+
+    });
+
+    function closebtn(e, v) {
+
+        e.remove();
+
+        $("#file" + v).remove();
+
+
+        i += 1;
+    }
+
+</script>
+
+
+
 <!-- script-for sticky-nav -->
 <script>
+
     // define variables
     var nativePicker = document.querySelector('.nativeDatePicker');
     var fallbackPicker = document.querySelector('.fallbackDatePicker');
@@ -622,61 +954,7 @@
 </script>
 
 
-<div class="sidebar-menu">
-    <header class="logo1">
-        <a href="#" class="sidebar-icon"> <img src="images/tennic.png" alt=""></a>
-        <span>Order System</span>
-    </header>
-    <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-    <div class="menu">
-        <ul id="menu">
-            <li>
-                <a href="index.html">
-                    <i class="fa fa-home"></i> <span>ホーム</span>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
 
-
-            <li id="menu-academico">
-                <a href="order_portal.html">
-                    <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li>
-                <a href="order_input.html">
-                    <i class="fa fa-table" aria-hidden="true"></i><span>発注入力</span>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li id="menu-academico">
-                <a href="order_history.html">
-                    <i class="fa fa-history"></i><span>発注履歴</span>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-
-            <li id="menu-academico">
-                <a href="inventories.html">
-                    <i class="fa fa-search" aria-hidden="true"></i><span>在庫照会</span>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li id="menu-academico">
-                <a href="news_editor.html">
-                    <i class="fa fa-plus" aria-hidden="true"></i><span>お知らせ入力</span>
-                    <div class="clearfix"></div>
-                </a>
-
-            </li>
-
-
-
-        </ul>
-    </div>
-</div>
-<div class="clearfix"></div>
 
 <script>
     var toggle = true;

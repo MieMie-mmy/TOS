@@ -64,6 +64,9 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="FastMember, Version=1.5.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FastMember.1.5.0\lib\net461\FastMember.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -180,14 +183,10 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\CdnDatatable.css" />
     <Content Include="Content\CdnDatatable.min.css" />
-    <Content Include="Content\dataTables.bootstrap.css" />
-    <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\icon-font.min.css" />
     <Content Include="Content\jqcandlestick.css" />
     <Content Include="Content\jquery-ui.css" />
-    <Content Include="Content\jquery.dataTables.css" />
-    <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\lightbox.css" />
     <Content Include="Content\manager-style.css" />
     <Content Include="Content\monthly.css" />
@@ -270,14 +269,13 @@
     <Content Include="Views\Home\product_details.cshtml" />
     <Content Include="Views\Registrations\Company_Entry.cshtml" />
     <Content Include="Views\Inventories\inventories.cshtml" />
-    <Content Include="Views\Registration\Company_Entry.cshtml" />
-    <Content Include="Views\Inventory\Inventories.cshtml" />
-    <Content Include="Views\Inventory\Inventories_list.cshtml" />
     <Content Include="Views\NewsEditor\News_Editor.cshtml" />
     <Content Include="Views\Registrations\Group_Entry.cshtml" />
+    <Content Include="Views\CommonView\Common_View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="AttachFiles\" />
     <Folder Include="images\" />
     <Folder Include="Models\" />
   </ItemGroup>
@@ -295,6 +293,10 @@
     <Content Include="Scripts\jquery-3.3.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Base_BL\Base_BL.csproj">
+      <Project>{b4230b73-8322-49e1-8876-e3e86e0d031f}</Project>
+      <Name>Base_BL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Company_BL\Company_BL.csproj">
       <Project>{6bf2ae23-3800-41fe-81de-3ace2aeb06fa}</Project>
       <Name>Company_BL</Name>

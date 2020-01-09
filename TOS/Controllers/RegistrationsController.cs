@@ -13,7 +13,7 @@ using Newtonsoft.Json;
 using System.EnterpriseServices;
 
 namespace TOS.Controllers
-{
+{   
     public class RegistrationsController : Controller
     {
        
@@ -37,14 +37,7 @@ namespace TOS.Controllers
             try
             {
 
-                var option = new TransactionOptions
-                {
-                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
-                    Timeout = TimeSpan.MaxValue
-                };
-                TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, option);
-                using (scope)
-                {
+               
                     Company_EntryBL cbl = new Company_EntryBL();
                     DataTable Checkdt = cbl.Check_Duplicate_CompanyCD(model.ComModel);
                     if (Checkdt.Rows.Count > 0)
@@ -54,10 +47,18 @@ namespace TOS.Controllers
                         if (dtIMsg.Rows.Count > 0)
                         {
                             // TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                            TempData["Imsg"] = "Duplicate CompanyCD is "+ model.ComModel.CompanyCD;
+                            TempData["Emsg"] = "Duplicate CompanyCD is "+ model.ComModel.CompanyCD;
                         }
                     }
                     else
+                    {
+                    var option = new TransactionOptions
+                    {
+                        IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
+                        Timeout = TimeSpan.MaxValue
+                    };
+                    TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, option);
+                    using (scope)
                     {
                         string PcName = System.Environment.MachineName;
 
@@ -120,7 +121,7 @@ namespace TOS.Controllers
                         }
 
                         //Insert  Company  Brand
-                        if (!string.IsNullOrWhiteSpace(model.MBrandModel.BrandName))
+                        if (model.MBrandModel.BrandName != null)
                          {
                         string[] Brandstr = model.MBrandModel.BrandName.Split(',');
                             model.MBrandModel.InsertOperator = Session["CompanyCD"].ToString();
@@ -129,20 +130,17 @@ namespace TOS.Controllers
                                 for (int i = 0; i < Brandstr.Length; i++)
                                 {
                                     string BrandName = Brandstr[i].ToString();
+                                    if(!String.IsNullOrWhiteSpace(BrandName))
+                                    { 
                                     model.MBrandModel.BrandName = BrandName;
                                     DataTable dtBrand = cbl.InsertCompanyBrand(model.MBrandModel, model.ComModel, PcName);
+                                    }
                                 }
                             }
                         }
                         scope.Complete();
-                        DataTable dtIMsg = cbl.Message_Select("1002", "I");
-                        string message = string.Empty;
-                        if (dtIMsg.Rows.Count > 0)
-                        {
-                            TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                        }
                     }
-                    
+
 
                     //if (ModelState.IsValid)
                     //{
@@ -163,6 +161,13 @@ namespace TOS.Controllers
                     //    TempData["Emsg"] = dtMsg.Rows[0]["Message1"].ToString();
                     //}
 
+                    //DataTable dtIMsg = cbl.Message_Select("1002", "I");
+                    //string message = string.Empty;
+                    //if (dtIMsg.Rows.Count > 0)
+                    //{
+                        TempData["Imsg"] = "success";
+                   // }
+
 
                 }
                 return RedirectToAction("Company_Entry");
@@ -172,27 +177,27 @@ namespace TOS.Controllers
             {
                 string st = ex.ToString();
                 
-                if (st.Contains("M_CompanyShipping_Insert"))
-                {
+                //if (st.Contains("M_CompanyShipping_Insert"))
+                //{
 
-                    TempData["Emsg"] = "SQL Query Error !! please,check in "+"<html><body><h4 color= 'red'> M_CompanyShipping_Insert </h4></body></htmL>" + " Store Procedure";
-                }
-                else if (st.Contains("M_Company_Insert"))
-                    {
-                        TempData["Emsg"] = "SQL Query Error !! please,check in " + "<html><body><h4 color= 'red'> M_Company_Insert </h4></body></htmL>" + " Store Procedure";
-                }
-                else if (st.Contains("M_CompanyTag_Insert"))
-                {
-                    TempData["Emsg"] = "SQL Query Error !! please,check in " + "<html><body><h4 color= 'red'>  M_CompanyTag_Insert </h4></body></htmL>" + " Store Procedure";
-                }
-                else if (st.Contains("M_CompanyBrand_Insert"))
-                {
-                    TempData["Emsg"] = "SQL Query Error !! please,check in " + "<html><body><h4 color= 'red'> M_CompanyBrand_Insert </h4></body></htmL>" + " Store Procedure";
-                }
-                else
-                {
-                    TempData["Emsg"] = st;
-                }
+                //    TempData["Emsg"] = "SQL Query Error !! please,check in  M_CompanyShipping_Insert  Store Procedure";
+                //}
+                //else if (st.Contains("M_Company_Insert"))
+                //    {
+                //        TempData["Emsg"] = "SQL Query Error !! please,check in  M_Company_Insert  Store Procedure";
+                //}
+                //else if (st.Contains("M_CompanyTag_Insert"))
+                //{
+                //    TempData["Emsg"] = "SQL Query Error !! please,check in   M_CompanyTag_Insert  Store Procedure";
+                //}
+                //else if (st.Contains("M_CompanyBrand_Insert"))
+                //{
+                //    TempData["Emsg"] = "SQL Query Error !! please,check in  M_CompanyBrand_Insert  Store Procedure";
+                //}
+                //else
+                //{
+                    TempData["Imsg"] = "Unsuccess";
+               // }
                 return RedirectToAction("Company_Entry");
 
             }
@@ -223,45 +228,30 @@ namespace TOS.Controllers
         [HttpPost]
         public ActionResult InsertGroupEntry(MultipleModel model)
         {
-
-            //System.Web.UI.ScriptManager script_manager = new System.Web.UI.ScriptManager();
-            Group_EntryBL gebl = new Group_EntryBL();
-            model.GroupModel.InsertOperator = Session["CompanyCD"].ToString();
-            Boolean insertFlag = false;
-            DataTable dt = new DataTable();
-            dt = gebl.Check_Duplicate_GroupEntry(model);
-            if (dt.Rows.Count > 0)
+            try
             {
-                DataTable dtIMsg = gebl.M_Message_Select("1002", "I");
-                string message = string.Empty;
-                if (dtIMsg.Rows.Count > 0)
+                Group_EntryBL gebl = new Group_EntryBL();
+                model.GroupModel.InsertOperator = Session["CompanyCD"].ToString();
+                Boolean insertFlag = false;
+                DataTable dt = new DataTable();
+                dt = gebl.Check_Duplicate_GroupEntry(model);
+                if (dt.Rows.Count > 0)
                 {
-                    TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                }
-            }
-            else
-            {
-                string PcName = System.Environment.MachineName;
-                insertFlag = gebl.InsertGroupEntry(model,PcName);
-                if(insertFlag)
-                {
-                    DataTable dtIMsg = gebl.M_Message_Select("1001", "I");
-                    string message = string.Empty;
-                    if (dtIMsg.Rows.Count > 0)
-                    {
-                        TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                    }
+                    TempData["Imsg"] = "Duplicate";
                 }
                 else
                 {
-                    DataTable dtEMsg = gebl.M_Message_Select("1001", "E");
-                    string message = string.Empty;
-                    if (dtEMsg.Rows.Count > 0)
+                    string PcName = System.Environment.MachineName;
+                    insertFlag = gebl.InsertGroupEntry(model,PcName);
+                    if (insertFlag)
                     {
-                        TempData["Emsg"] = dtEMsg.Rows[0]["Message1"].ToString();
+                        TempData["Smsg"] = "success";
+                    }
+                    else
+                    {
+                        TempData["Emsg"] = "Unsuccess";
                     }
                 }
-            }
             //if (ModelState.IsValid)
             //{
                 return RedirectToAction("Group_Entry");
@@ -271,28 +261,11 @@ namespace TOS.Controllers
             //    return View("Group_Entry");
             //}
         }
-
-        //public string ShowMessage(string MessageID,string msgType)
-        //{
-        //    Group_EntryBL gbl = new Group_EntryBL();
-        //    DataTable dtMsg = gbl.M_Message_Select(MessageID,msgType);
-        //    string message = string.Empty;
-        //    if (dtMsg.Rows.Count > 0)
-        //    {
-        //        message = dtMsg.Rows[0]["Message1"].ToString();
-        //        message += !string.IsNullOrWhiteSpace(dtMsg.Rows[0]["Message2"].ToString()) ? "\n\n" + dtMsg.Rows[0]["Message2"].ToString() : string.Empty;
-        //        message += !string.IsNullOrWhiteSpace(dtMsg.Rows[0]["Message3"].ToString()) ? "\n\n" + dtMsg.Rows[0]["Message3"].ToString() : string.Empty;
-        //        message += !string.IsNullOrWhiteSpace(dtMsg.Rows[0]["Message4"].ToString()) ? "\n\n" + dtMsg.Rows[0]["Message4"].ToString() : string.Empty;
-        //        message += !string.IsNullOrWhiteSpace(dtMsg.Rows[0]["Message5"].ToString()) ? "\n\n" + dtMsg.Rows[0]["Message5"].ToString() : string.Empty;
-
-
-        //        return message;
-        //    }
-        //    else
-        //    {
-        //        return  null;
-        //    }
-
-        //}
+            catch(Exception ex)
+            {
+                string st = ex.ToString();
+                return RedirectToAction("Group_Entry");
+            }
+        }
     }
 }

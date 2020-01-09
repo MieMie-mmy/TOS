@@ -29,6 +29,9 @@ namespace TOS.Controllers
                 ViewBag.ErrorMessage = en.Messages.Where(s => s.ID.Equals(IDs) && s.KEY.Equals(Key)).Select(s => s.Message1).FirstOrDefault();
 
             }
+
+            
+
             else
             {
                 ViewBag.ErrorMessage = "";
@@ -49,6 +52,15 @@ namespace TOS.Controllers
             {
                 Session["CompanyName"] = mc.CompanyName.ToString();
                 Session["CompanyCD"] = mc.CompanyCD.ToString();
+               
+                if(mc.UserRole ==2)
+                {
+                    Session["UserRole"] = null;
+                }
+                else
+                {
+                    Session["UserRole"] = mc.UserRole.ToString();
+                }
                 return RedirectToAction("Index", "Home");
             }
         }

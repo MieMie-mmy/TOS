@@ -14,7 +14,7 @@ namespace TOS_DL
     
     public partial class M_Brand
     {
-        public int BrandCD { get; set; }
+        public string BrandCD { get; set; }
         public string BrandName { get; set; }
         public string InsertOperator { get; set; }
         public Nullable<System.DateTime> InsertDateTime { get; set; }

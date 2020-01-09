@@ -45,9 +45,10 @@ namespace Order_Input_BL
         {
             DataSet ds = new DataSet();
             BaseDL dl = new BaseDL();
-            string[] itemcd = MakerItemCD.Split(',');
+            
             if (!string.IsNullOrWhiteSpace(MakerItemCD))
             {
+                string[] itemcd = MakerItemCD.Split(',');
                 SqlParameter[] prms = new SqlParameter[9];
                 for (int i = 0; i < itemcd.Count(); i++)
                 {
@@ -77,6 +78,91 @@ namespace Order_Input_BL
                 dt = dl.SelectData("OrderInput_M_SKU_Select", prms);
             }
             return dt;
+        }
+
+        public Boolean Order_Input_Insert(T_OrderHeaderModel toh, DataTable dtorder)
+        {
+
+            try
+            {
+                BaseDL dl = new BaseDL();
+                SqlParameter[] prms = new SqlParameter[13];
+
+                prms[0] = new SqlParameter("@OrderID", SqlDbType.VarChar) { Value = toh.OrderID };
+                prms[1] = new SqlParameter("@ShippingID", SqlDbType.VarChar) { Value = toh.ShippingID };
+
+                if (toh.ShippingName == null)
+                {
+                    prms[2] = new SqlParameter("@ShippingName", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
+                else
+                {
+                    prms[2] = new SqlParameter("@ShippingName", SqlDbType.VarChar) { Value = toh.ShippingName };
+                }
+                if (toh.ZipCD1 == null)
+                {
+                    prms[3] = new SqlParameter("@ZipCD1", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
+                else
+                {
+                    prms[3] = new SqlParameter("@ZipCD1", SqlDbType.VarChar) { Value = toh.ZipCD1 };
+                }
+                if (toh.ZipCD2 == null)
+                {
+                    prms[4] = new SqlParameter("@ZipCD2", SqlDbType.VarChar) { Value = DBNull.Value};
+                }
+                else
+                {
+                    prms[4] = new SqlParameter("@ZipCD2", SqlDbType.VarChar) { Value = toh.ZipCD2 };
+                }
+                if (toh.Address1 == null)
+                {
+                    prms[5] = new SqlParameter("@Address1", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
+                else
+                {
+                    prms[5] = new SqlParameter("@Address1", SqlDbType.VarChar) { Value = toh.Address1 };
+                }
+                if (toh.Address2 == null)
+                {
+                    prms[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
+                else
+                {
+                    prms[6] = new SqlParameter("@Address2", SqlDbType.VarChar) { Value = toh.Address2 };
+                }
+                if(toh.TelephoneNO == null)
+                {
+                    prms[7] = new SqlParameter("@PhoneNo", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
+                else
+                {
+                    prms[7] = new SqlParameter("@PhoneNo", SqlDbType.VarChar) { Value = toh.TelephoneNO };
+                }
+
+                    prms[8] = new SqlParameter("@TotalAmount", SqlDbType.VarChar) { Value = toh.TotalAmount };
+                if (toh.Memo == null)
+                {
+                    prms[9] = new SqlParameter("@Memo", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
+                else
+                {
+                    prms[9] = new SqlParameter("@Memo", SqlDbType.VarChar) { Value = toh.Memo };
+                }
+                prms[10] = new SqlParameter("@UpdateOperator", SqlDbType.VarChar) { Value = toh.UpdateOperator };
+                prms[11] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = toh.AccessPC };
+                dtorder.TableName = "order";
+                System.IO.StringWriter writer = new System.IO.StringWriter();
+                dtorder.WriteXml(writer, XmlWriteMode.WriteSchema, false);
+                string result = writer.ToString();
+                prms[12] = new SqlParameter("@xml", SqlDbType.Xml) { Value = result };
+                dl.InsertUpdateDeleteData("Order_Input_Insert", prms);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
         }
 
 

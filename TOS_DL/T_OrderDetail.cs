@@ -22,12 +22,12 @@ namespace TOS_DL
         public decimal SalePrice { get; set; }
         public decimal TotalAmount { get; set; }
         public byte OrderStatus { get; set; }
-        public byte DeliveryFlg { get; set; }
-        public decimal Shippingfee { get; set; }
+        public Nullable<byte> DeliveryFlg { get; set; }
+        public Nullable<decimal> Shippingfee { get; set; }
         public string DeliveryCompanyCD { get; set; }
         public string Memo { get; set; }
         public System.DateTime AvailableShippingDate { get; set; }
-        public System.DateTime ShippingDate { get; set; }
+        public Nullable<System.DateTime> ShippingDate { get; set; }
         public string CustomerCD { get; set; }
         public Nullable<System.DateTime> OrderDateTime { get; set; }
         public string UpdateOperator { get; set; }

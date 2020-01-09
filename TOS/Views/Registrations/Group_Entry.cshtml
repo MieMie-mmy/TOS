@@ -72,7 +72,7 @@
                 if (text.length > 0) {
                     if (text.includes(sel)) { }
                     else if (sel != "選択") {
-                        text += "  ," + sel;
+                        text += "," + sel;
                     }
                 }
                 else
@@ -103,6 +103,9 @@
             $("#ddlBrandName").attr("disabled", "disabled");
             $('#txtarea2').attr("disabled", "disabled");
             $('#txtTag').attr("disabled", "disabled");
+            $('#ddlBrandName').val('');
+            $('#txtarea2').val('');
+            $('#txtTag').val('');
 
             $('#ddlCompanyName').removeAttr("disabled");
             $('#txtarea1').removeAttr("disabled");
@@ -112,6 +115,9 @@
             $('#ddlCompanyName').attr("disabled", "disabled");
             $('#txtarea1').attr("disabled", "disabled");
             $('#txtTag').attr("disabled", "disabled");
+            $('#ddlCompanyName').val('');
+            $('#txtarea1').val('');
+            $('#txtTag').val('');
 
             $('#ddlBrandName').removeAttr("disabled");
             $('#txtarea2').removeAttr("disabled");
@@ -121,6 +127,10 @@
             $('#txtarea2').attr("disabled", "disabled");
             $('#ddlCompanyName').attr("disabled", "disabled");
             $('#txtarea1').attr("disabled", "disabled");
+            $('#ddlBrandName').val('');
+            $('#txtarea2').val('');
+            $('#ddlCompanyName').val('');
+            $('#txtarea1').val('');
 
             $('#txtTag').removeAttr("disabled");
         });
@@ -135,151 +145,146 @@
             background-color: #edecec !important;
         }
     </style>
+}
+<style>
+    .save {
+        width: 105px;
+        border-radius: 0px;
+        font-size: 0.8em;
+        background-color: #28a745;
+        font-weight: 700;
+        color: #fff;
+        padding: 8px 15px;
+        border: none;
     }
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="index.html">ホーム</a><i class="fa fa-angle-right"></i>会社登録</li>
-    </ol>
-    @if (TempData["Imsg"] != null)
-    {
-        <div class="row ">
-            <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
-                @*<div class="alert alert-success alert-dismissible fade in">
-                  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>*@
-                <div class="alert alert-warning alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    @*<h4><i class="icon fa fa-info-circle"></i> Info!</h4>*@
-                    <strong><span class="glyphicon glyphicon-ok"></span>Info:</strong>
-                    @TempData["Imsg"]
-                </div>
-            </div>
-        </div>
-    }
-    @if (TempData["Emsg"] != null)
-    {
-        <div class="row ">
-            <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
-                <div class="alert alert-warning alert-dismissable">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    @*<h4><i class="icon fa fa-info-times"></i> Error!</h4>*@
-                    <strong><span class="glyphicon glyphicon-warning-sign"></span> ERROR: </strong>
-                    @TempData["Emsg"]
-                </div>
-            </div>
-        </div>
-    }
-    @Html.AntiForgeryToken()
-    @using (Html.BeginForm("InsertGroupEntry", "Registrations", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-    {
-        <div class="inbox-mail">
-            <div class="tab-content tab-content-in w3">
-                <div class="tab-pane text-style active" id="tab1">
-                    <div class="inbox-right">
-                        <div class="mailbox-content" id="mailbox-content">
-                            <div class="mail-toolbar clearfix">
-                                <div class="row">
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-2">
-                                        <div class="form-group">
-                                            <button type="submit" class="btn btn-dark-green" style="background-color:#90b24d;">登録</button>
-                                        </div>
+</style>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="../../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>グループ登録</li>
+</ol>
+@RenderPage("~/Views/CommonView/Common_View.cshtml")
+@if (TempData["Smsg"] != null)
+{
+    <script>
+        Successmessage('I', '1002', 'Message1');
+    </script>
+}
+@if (TempData["Emsg"] != null)
+{
+    <script>
+        Errormessage('E', '1004', 'Message1');
+    </script>
+}
+@if (TempData["Imsg"] != null)
+{
+    <script>
+        Infomessage('I', '1004', 'Message1');
+    </script>
+}
+@Html.AntiForgeryToken()
+@using (Html.BeginForm("InsertGroupEntry", "Registrations", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="inbox-mail">
+        <div class="tab-content tab-content-in w3">
+            <div class="tab-pane text-style active" id="tab1">
+                <div class="inbox-right">
+                    <div class="mailbox-content" id="mailbox-content">
+                        <div class="mail-toolbar clearfix">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <div class="form-group">
                                     </div>
                                 </div>
-                                <table>
-                                    <tbody>
-                                        <tr class="form-group_entry">
-                                            <td>
-                                                <label style=" font-size:11px;">グループID</label>
-                                            </td>
-                                            <td>
-                                                @*<input type="text" class="form-control input-sm" id="txtGroupID" style="background-color:#c4dfe5d6; width:110px;" />*@
-                                                @Html.TextBoxFor(m => m.GroupModel.GroupID, new { @id = "txtGroupID", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "background-color:#c4dfe5d6;width:110px;", @onkeypress = "return isNumberKey(event)", @maxlength = "8" })
-                                            </td>
-                                        </tr>
-                                        <tr class="form-group_entry">
-                                            <td>
-                                                <label style=" font-size:11px;">グループ名</label>
-                                            </td>
-                                            <td>
-                                                @*<input type="text" class="form-control input-sm" id="txtGroupName" style="background-color:#c4dfe5d6;width:210px;" />*@
-                                                @Html.TextBoxFor(m => m.GroupModel.GroupName, new { @id = "txtGroupName", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "background-color:#c4dfe5d6;width:210px;" })
-                                            </td>
-                                        </tr>
-                                        <tr class="form-group_entry">
-                                            <td><b>グループ指定情報</b></td>
-                                        </tr>
-                                        <tr class="form-group_entry">
-                                            <td>
-                                                @*<input type="radio" id="rdbCompany" name="defaultExampleRadios" class="custom-control-input">*@
-                                                @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "1", new { @id = "rdbCompany" })
-                                                <label style=" font-size:11px;">会社指定</label>
-                                            </td>
-                                            <td>
-                                                @Html.DropDownListFor(m => m.ComModel.CompanyCD,
-                                                new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                                                new {@id= "ddlCompanyName",@name= "ddlCompanyName", @class = "form-control input-sm", @style = "width :210px" })
-                                            </td>
-                                            <td>
-                                                @*<input type="radio" id="rdbBrand" name="defaultExampleRadios" class="custom-control-input">*@
-                                                @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "2", new { @id = "rdbBrand" })
-                                                <label style=" font-size:11px;">ブランド</label>
-                                            </td>
-                                            <td>
-                                                @Html.DropDownListFor(m => m.MBrandModel.BrandCD,
-                                                new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                                                new {@id="ddlBrandName", @class = "form-control input-sm", @style = "width :210px;" })
-                                            </td>
-                                            <td>
-                                                @*<input type="radio" id="rdbTag" name="defaultExampleRadios" class="custom-control-input">*@
-                                                @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "3", new { @id = "rdbTag" })
-                                                <label style=" font-size:11px;">タグ</label>
-                                            </td>
-                                            <td>
-                                                @*<input type="text" class="form-control input-sm" id="txtTag" style="background-color:#c4dfe5d6;width:210px;" />*@
-                                                @Html.TextBoxFor(m => m.tModel.Tag, new { @id = "txtTag", @class = "form-control input-sm", @required = "required", @style = "background-color:#c4dfe5d6;width:210px;" })
-                                            </td>
-                                        </tr>
-                                        <tr class="form-group_entry">
-                                            <td></td>
-                                            <td>
-                                                @*<textarea class="form-control input-sm" id="txtarea1" style="background-color:#E5E7E9;height:85px;"></textarea>*@
-                                                @Html.TextAreaFor(m => m.ComModel.CompanyName, new { @id = "txtarea1", @class = "form-control input-sm", @required = "required", @style = "background-color:#E5E7E9;height:85px;" })
-                                            </td>
-                                            <td></td>
-                                            <td>
-                                                @*<textarea class="form-control input-sm" id="txtarea2" style="background-color:#E5E7E9;height:85px;"></textarea>*@
-                                                @Html.TextAreaFor(m => m.MBrandModel.BrandName, new { @id = "txtarea2", @class = "form-control input-sm", @required = "required", @style = "background-color:#E5E7E9;height:85px;" })
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="form-group">
+                                    </div>
+                                </div>
+
+                                <div class="col-md-2">
+                                    <div class="form-group" style="padding-left:30px;">
+                                        <button type="submit" class="save">✔　登録</button>
+                                    </div>
+                                </div>
                             </div>
+                            <table style="width:100%">
+                                <tbody>
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">グループID</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.GroupModel.GroupID, new { @id = "txtGroupID", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "width:110px;border-radius: unset;", @maxlength = "8" })
+                                        </td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">グループ名</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.GroupModel.GroupName, new { @id = "txtGroupName", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "width:210px;border-radius: unset;" })
+                                        </td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td style="font-size:100%;font-family: 'Roboto', sans-serif;"><b>グループ指定情報</b></td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td>
+                                            @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "1", new { @id = "rdbCompany" })
+                                            <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">会社指定</label>
+                                        </td>
+                                        <td>
+                                            @Html.DropDownListFor(m => m.ComModel.CompanyCD,
+                                            new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
+                                            new {@id= "ddlCompanyName",@name= "ddlCompanyName", @class = "form-control input-sm", @style = "width :210px;border-radius: unset;" })
+                                        </td>
+                                        <td>
+                                            @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "2", new { @id = "rdbBrand" })
+                                            <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">ブランド</label>
+                                        </td>
+                                        <td>
+                                            @Html.DropDownListFor(m => m.MBrandModel.BrandCD,
+                                            new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
+                                            new {@id="ddlBrandName", @class = "form-control input-sm", @style = "width :210px;border-radius: unset;" })
+                                        </td>
+                                        <td>
+                                            @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "3", new { @id = "rdbTag" })
+                                            <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ</label>
+                                        </td>
+                                        <td>
+                                            @Html.TextBoxFor(m => m.tModel.Tag, new { @id = "txtTag", @class = "form-control input-sm", @required = "required", @style = "width:210px;border-radius: unset;" })
+                                        </td>
+                                    </tr>
+                                    <tr class="form-group_entry">
+                                        <td></td>
+                                        <td>
+                                            @Html.TextAreaFor(m => m.ComModel.CompanyName, new { @id = "txtarea1", @class = "form-control input-sm", @required = "required", @style = "height:85px;" })
+                                        </td>
+                                        <td></td>
+                                        <td>
+                                            @Html.TextAreaFor(m => m.MBrandModel.BrandName, new { @id = "txtarea2", @class = "form-control input-sm", @required = "required", @style = "height:85px;" })
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <div class="clearfix"> </div>
         </div>
-    }
+
+        <div class="clearfix"> </div>
+    </div>
+}
 
 
