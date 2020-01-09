@@ -1016,6 +1016,7 @@
                     }
 
                 }
+               
                 $.ajax({
                     url: "../../Order/InserOrder",
                     type: 'post',
@@ -1024,10 +1025,13 @@
                     data: JSON.stringify({ T_OrderHeader: T_OrderHeader, T_OrderDetail: order }),
                     cache: false,
                     success: function (result) {
+                        alert(result.orderid);
                         //alert(result);
+                        window.location.href = '../../Order/Order_History/' + result.orderid;
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        alert(thrownError);
+                        Errormessage('E', '1006', 'Message1');
+                    
                     }
                 });
 
@@ -1040,7 +1044,7 @@
     </script>
 
 }
-@RenderPage("~/Views/CommonView/Common_View.cshtml");
+@RenderPage("~/Views/CommonView/Common_View.cshtml")
 
 <!--heder end here-->
 <ol class="breadcrumb">
