@@ -1030,12 +1030,14 @@
 
         function CheckPostalFormat(evt) {
             var postalval = $('#txtCPostal').val();
-            if (/(^\d{3}$)|(^\d{3}-\d{4}$)/.test(postalval)) { }
-            else {
-                var T = "E";
-                var K = "1005";
-                var M = "Message1";
-                Errormessage(T, K, M);
+            if (postalval != '') {
+                if (/(^\d{3}$)|(^\d{3}-\d{4}$)/.test(postalval)) { }
+                else {
+                    var T = "E";
+                    var K = "1005";
+                    var M = "Message1";
+                    Errormessage(T, K, M);
+                }
             }
         }
 
