@@ -56,10 +56,47 @@ namespace TOS.Controllers
                 ViewData["InfoTitle"] = titlename;
                 ViewData["InfoDate"] = infodate;
                 ViewData["DetailInfo"] = detailinfo;
-                ViewData["Attach1"] = attachfile1;
-                ViewData["Attach2"] = attachfile2;
-                ViewData["Attach3"] = attachfile3;
-                ViewData["Attach4"] = attachfile4;
+                if (!string.IsNullOrWhiteSpace(attachfile1))
+                {
+                    ViewData["Attach1"] = attachfile1 + "  ▼";
+                }
+                else
+                {
+
+                    ViewData["Attach1"] = "";
+                }
+
+                if (!string.IsNullOrWhiteSpace(attachfile2))
+                {
+                    ViewData["Attach2"] = attachfile2 + "  ▼";
+                }
+                else
+                {
+                    ViewData["Attach2"] = "";
+                }
+
+                if (!string.IsNullOrWhiteSpace(attachfile3))
+                {
+                    ViewData["Attach3"] = attachfile3 + "  ▼";
+                }
+                else
+                {
+                    ViewData["Attach3"] = "";
+                }
+
+                if (!string.IsNullOrWhiteSpace(attachfile4))
+                {
+                    ViewData["Attach4"] = attachfile4 + "  ▼";
+                }
+                else
+                {
+                    ViewData["Attach4"] = "";
+                }
+
+
+                //ViewData["Attach2"] = attachfile2;
+                //ViewData["Attach3"] = attachfile3;
+                //ViewData["Attach4"] = attachfile4;
 
 
 
