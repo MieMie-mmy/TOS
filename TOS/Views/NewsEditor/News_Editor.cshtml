@@ -125,166 +125,7 @@
             );
         }
 
-        function edit(id) {
-            var id = id;
-            $.ajax({
-                type: 'GET',
-                url: '../NewsEditor/News_Editor_Edit/' + id,
-                dataType: 'json',
-                success: function (result) {
-                    $('#btnsave').text('✔' + '\xa0\xa0\xa0' + '更新');
-
-                    document.getElementById("hfinfoid").value = id;
-
-                    if (result[0].DestinationFlg == 1) {
-                        $('#rdbcompanywide').prop('checked', true);
-                        $("#ddlCompanyname").val(null);
-                        $("#ddlGroupname").val(null);
-                        $('#txtdisplay_designation').val('全社');
-                    }
-
-
-                    if (result[0].DestinationFlg == 2) {
-                        $('#rdocompanydesignation').prop('checked', true);
-                        $("#ddlCompanyname").removeAttr("disabled");
-                        $("#ddlCompanyname").val(result[0].CompanyCD);
-                        $('#txtdisplay_designation').val(result[0].CompanyName);
-                        $("#ddlGroupname").attr("disabled", "disabled");
-                        $("#ddlGroupname").val(null);
-                    }
-
-                    if (result[0].DestinationFlg == 3) {
-                        $('#rdogroupdesignation').prop('checked', true);
-                        $("#ddlGroupname").removeAttr("disabled");
-                        $("#ddlGroupname").val(result[0].GroupID);
-                        $('#txtdisplay_designation').val(result[0].GroupName);
-                        $("#ddlCompanyname").attr("disabled", "disabled");
-                        $("#ddlCompanyname").val(null);
-                    }
-
-                    if (result[0].EffectFlg == 1)
-                        $('#chkeffect').prop('checked', true);
-                    else
-                        $('#chkeffect').prop('checked', false);
-
-                    $("#ddlInfoType").val(result[0].InformationType);
-
-
-                    if (result[0].Date == "0001-01-01")
-                        $('#txtDate').val('');
-
-                    else
-                        $('#txtDate').val(result[0].Date);
-
-
-                    $('#txtStartDate').val(result[0].DisplayStartDate);
-                    $('#txtEndDate').val(result[0].DisplayEndDate);
-
-                    $('#txttitlename').val(result[0].TitleName);
-                    $('#txtarea').val(result[0].DetailInformation);
-
-                    if (result[0].AttachedFile1 != null) {
-
-                        var Filediv = document.getElementById("BrowseFiles");
-                        var fbutton = document.createElement("input");
-                        fbutton.setAttribute("type", "file");
-                        fbutton.innerText = result[0].AttachedFile1;
-                        fbutton.setAttribute("id", "file" + 1);
-                        fbutton.setAttribute("name", "files[1]");
-                        fbutton.setAttribute("multiple", "multiple");
-                        Filediv.appendChild(fbutton);
-
-                        var Filediv2 = document.getElementById("BrowseFiles2");
-                        var Lableshow = document.createElement("label");
-                        Lableshow.setAttribute("id", "filee" + 1);
-                        Lableshow.setAttribute("class", "showfile");
-                        Lableshow.setAttribute("name", "file");
-                        Filediv2.appendChild(Lableshow);
-                        var $label = $('#filee' + 1);
-                        var $span = "<span onclick='closefile(" + Lableshow.id + "," + 1 + ")' >"+result[0].AttachedFile1+"✖</span>";
-
-                        $($label).each(function (index, item) {
-                            $(this).append($span);
-                        });
-                    }
-
-                    if (result[0].AttachedFile2 != null) {
-
-                        var Filediv = document.getElementById("BrowseFiles");
-                        var fbutton = document.createElement("input");
-                        fbutton.setAttribute("type", "file");
-                        fbutton.innerText = result[0].AttachedFile2;
-                        fbutton.setAttribute("id", "file" + 2);
-                        fbutton.setAttribute("name", "files[2]");
-                        fbutton.setAttribute("multiple", "multiple");
-                        Filediv.appendChild(fbutton);
-                        
-                        var Filediv2 = document.getElementById("BrowseFiles2");
-                        var Lableshow = document.createElement("label");
-                        Lableshow.setAttribute("id", "filee" + 2);
-                        Lableshow.setAttribute("class", "showfile");
-                        Lableshow.setAttribute("name", "file");
-                        Filediv2.appendChild(Lableshow);
-                        var $label = $('#filee' + 2);
-                         var $span = "<span onclick='closefile(" + Lableshow.id + "," + 2 + ")' >"+result[0].AttachedFile2+"✖</span>";
-
-                        $($label).each(function (index, item) {
-                            $(this).append($span);
-                         });
-                    }
-
-                    if (result[0].AttachedFile3 != null) {
-
-                        var Filediv = document.getElementById("BrowseFiles");
-                        var fbutton = document.createElement("input");
-                        fbutton.setAttribute("type", "file");
-                        fbutton.innerText = result[0].AttachedFile3;
-                        fbutton.setAttribute("id", "file" + 3);
-                        fbutton.setAttribute("name", "files[3]");
-                        fbutton.setAttribute("multiple", "multiple");
-                        Filediv.appendChild(fbutton);
-
-                        var Filediv2 = document.getElementById("BrowseFiles2");
-                        var Lableshow = document.createElement("label");
-                        Lableshow.setAttribute("id", "filee" + 3);
-                        Lableshow.setAttribute("class", "showfile");
-                        Lableshow.setAttribute("name", "file");
-                        Filediv2.appendChild(Lableshow);
-                        var $label = $('#filee' + 3);
-                        var $span = "<span onclick='closefile(" + Lableshow.id + "," + 3 + ")' >" + result[0].AttachedFile3 + "✖</span>";
-
-                        $($label).each(function (index, item) {
-                            $(this).append($span);
-                        });
-                    }
-
-                    if (result[0].AttachedFile4 != null) {
-
-                        var Filediv = document.getElementById("BrowseFiles");
-                        var fbutton = document.createElement("input");
-                        fbutton.setAttribute("type", "file");
-                        fbutton.innerText = result[0].AttachedFile4;
-                        fbutton.setAttribute("id", "file" + 4);
-                        fbutton.setAttribute("name", "files[4]");
-                        fbutton.setAttribute("multiple", "multiple");
-                        Filediv.appendChild(fbutton);
-
-                        var Filediv2 = document.getElementById("BrowseFiles2");
-                        var Lableshow = document.createElement("label");
-                        Lableshow.setAttribute("id", "filee" + 4);
-                        Lableshow.setAttribute("class", "showfile");
-                        Lableshow.setAttribute("name", "file");
-                        Filediv2.appendChild(Lableshow);
-                        var $label = $('#filee' + 4);
-                        var $span = "<span onclick='closefile(" + Lableshow.id + "," + 4 + ")' >" + result[0].AttachedFile4 + "✖</span>";
-
-                        $($label).each(function (index, item) {
-                            $(this).append($span);
-                        });
-                    }
-                }
-            });
-        }
+     
 
         function closefile(e, v) {
             e.remove();
@@ -303,7 +144,7 @@
             }
         }
 
-       
+
     </script>
 
 
@@ -658,21 +499,25 @@
                                         </div>
                                     </div>
                                 </div>
+                                <input type="text" id="CancleFile" name="CancleFile" hidden/>
+                                <input type="text" id="SendEditFile" name="SendEditFile" hidden />
                                 <div class="boxcerc">
+
                                     <div class="boxc-rowc">
                                         @*<div class="boxc">
-                                            <button type="button" class="btn btn-outline-secondary">新規商品一覧.pdf&nbsp;&nbsp;✖</button>
-                                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <span>最大4ファイル添付可能。</span>
-                                            </div>*@
+                <button type="button" class="btn btn-outline-secondary">新規商品一覧.pdf&nbsp;&nbsp;✖</button>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                <span>最大4ファイル添付可能。</span>
+                </div>*@
 
                                         <div class="boxc">
+
                                             <div id="BrowseFiles" hidden>
                                                 @*<ul id="list" class="horizontal" style="list-style:none"></ul>
-                                                    <button id="fileclose1"></button>
-                                                     <button id="fileclose2"></button>
-                                                     <button id="fileclose3"></button>
-                                                     <button id="fileclose4"></button>*@
+                        <button id="fileclose1"></button>
+                         <button id="fileclose2"></button>
+                         <button id="fileclose3"></button>
+                         <button id="fileclose4"></button>*@
                                             </div>
                                             <div id="BrowseFiles2">
 
@@ -704,21 +549,21 @@
                                     expandTextarea('txtarea');</script>
                             </div>
                             <div class="newr col-md-7">
-                              
-                                    <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div>
-                                    <table class="tab002" id="tbinformation">
-                                        <thead>
-                                            <tr class="tab002tit">
-                                                <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:40px;">No</th>
-                                                <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:500px;">課題名</th>
-                                                <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
-                                                <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
-                                            </tr>
-                                        </thead>
-                                    </table>
-                                   
-                                </div>
+
+                                <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div>
+                                <table class="tab002" id="tbinformation">
+                                    <thead>
+                                        <tr class="tab002tit">
+                                            <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:40px;">No</th>
+                                            <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:500px;word-wrap:break-word;">課題名</th>
+                                            <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
+                                            <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                </table>
+
                             </div>
+                        </div>
                     </div>
 
                 </div>
@@ -751,6 +596,7 @@
 @*KhinSandar Script*@
 <script>
     var i = 4;
+    var EditFileName = "";
 
     $('input[type="file"]').change(function (e) {
         if (i == 0) {
@@ -759,8 +605,6 @@
         else {
 
             if (i > 0 && e.target.files != null) {
-
-
 
                 var Filediv = document.getElementById("BrowseFiles");
 
@@ -813,11 +657,200 @@
         i += 1;
     }
 
+
+
+    function edit(id) {
+    
+
+        var id = id;
+      
+      
+       
+        $.ajax({
+            type: 'GET',
+            url: '../NewsEditor/News_Editor_Edit/' + id,
+            dataType: 'json',
+            success: function (result) {
+                $('#btnsave').text('✔' + '\xa0\xa0\xa0' + '更新');
+
+                document.getElementById("hfinfoid").value = id;
+
+                if (result[0].DestinationFlg == 1) {
+                    $('#rdbcompanywide').prop('checked', true);
+                    $("#ddlCompanyname").val(null);
+                    $("#ddlGroupname").val(null);
+                    $('#txtdisplay_designation').val('全社');
+                }
+
+
+                if (result[0].DestinationFlg == 2) {
+                    $('#rdocompanydesignation').prop('checked', true);
+                    $("#ddlCompanyname").removeAttr("disabled");
+                    $("#ddlCompanyname").val(result[0].CompanyCD);
+                    $('#txtdisplay_designation').val(result[0].CompanyName);
+                    $("#ddlGroupname").attr("disabled", "disabled");
+                    $("#ddlGroupname").val(null);
+                }
+
+                if (result[0].DestinationFlg == 3) {
+                    $('#rdogroupdesignation').prop('checked', true);
+                    $("#ddlGroupname").removeAttr("disabled");
+                    $("#ddlGroupname").val(result[0].GroupID);
+                    $('#txtdisplay_designation').val(result[0].GroupName);
+                    $("#ddlCompanyname").attr("disabled", "disabled");
+                    $("#ddlCompanyname").val(null);
+                }
+
+                if (result[0].EffectFlg == 1)
+                    $('#chkeffect').prop('checked', true);
+                else
+                    $('#chkeffect').prop('checked', false);
+
+                $("#ddlInfoType").val(result[0].InformationType);
+
+
+                if (result[0].Date == "0001-01-01")
+                    $('#txtDate').val('');
+
+                else
+                    $('#txtDate').val(result[0].Date);
+
+
+                $('#txtStartDate').val(result[0].DisplayStartDate);
+                $('#txtEndDate').val(result[0].DisplayEndDate);
+
+                $('#txttitlename').val(result[0].TitleName);
+                $('#txtarea').val(result[0].DetailInformation);
+
+                if (result[0].AttachedFile1 != null) {
+                    EditFileName += result[0].AttachedFile1 + ",";
+                    //var Filediv = document.getElementById("BrowseFiles");
+                    //var fbutton = document.createElement("input");
+                    //fbutton.setAttribute("type", "file");
+                    //fbutton.innerText = result[0].AttachedFile1;
+                    //fbutton.setAttribute("id", "file" + 1);
+                    //fbutton.setAttribute("name", "files[1]");
+                    //fbutton.setAttribute("multiple", "multiple");
+                    //Filediv.appendChild(fbutton);
+
+                    var Filediv2 = document.getElementById("BrowseFiles2");
+                    var Lableshow = document.createElement("label");
+                    Lableshow.setAttribute("id", "filee" + 1);
+                    Lableshow.setAttribute("class", "showfile");
+                    Lableshow.setAttribute("name", "file");
+                    Filediv2.appendChild(Lableshow);
+                    var $label = $('#filee' + 1);
+
+                    var $span = "<span id='f" + 1 + "' onclick='closeEditfile(" + Lableshow.id + "," + 1 + ",this.id)' value='" + result[0].AttachedFile1 + "' >" + result[0].AttachedFile1 + "✖</span>";
+
+                    $($label).each(function (index, item) {
+                        $(this).append($span);
+                    });
+                }
+
+                if (result[0].AttachedFile2 != null) {
+                    EditFileName += result[0].AttachedFile2 + ",";
+                    //var Filediv = document.getElementById("BrowseFiles");
+                    //var fbutton = document.createElement("input");
+                    //fbutton.setAttribute("type", "file");
+                    //fbutton.innerText = result[0].AttachedFile2;
+                    //fbutton.setAttribute("id", "file" + 2);
+                    //fbutton.setAttribute("name", "files[2]");
+                    //fbutton.setAttribute("multiple", "multiple");
+                    //Filediv.appendChild(fbutton);
+
+                    var Filediv2 = document.getElementById("BrowseFiles2");
+                    var Lableshow = document.createElement("label");
+                    Lableshow.setAttribute("id", "filee" + 2);
+                    Lableshow.setAttribute("class", "showfile");
+                    Lableshow.setAttribute("name", "file");
+                    Filediv2.appendChild(Lableshow);
+                    var $label = $('#filee' + 2);
+
+                    var $span = "<span id='f" + 2 + "' onclick='closeEditfile(" + Lableshow.id + "," + 2 + ",this.id)' value='" + result[0].AttachedFile2 + "' >" + result[0].AttachedFile2 + "✖</span>";
+
+                    $($label).each(function (index, item) {
+                        $(this).append($span);
+                    });
+                }
+
+                if (result[0].AttachedFile3 != null) {
+                    EditFileName += result[0].AttachedFile3 + ",";
+                    //var Filediv = document.getElementById("BrowseFiles");
+                    //var fbutton = document.createElement("input");
+                    //fbutton.setAttribute("type", "file");
+                    //fbutton.innerText = result[0].AttachedFile3;
+                    //fbutton.setAttribute("id", "file" + 3);
+                    //fbutton.setAttribute("name", "files[3]");
+                    //fbutton.setAttribute("multiple", "multiple");
+                    //Filediv.appendChild(fbutton);
+
+                    var Filediv2 = document.getElementById("BrowseFiles2");
+                    var Lableshow = document.createElement("label");
+                    Lableshow.setAttribute("id", "filee" + 3);
+                    Lableshow.setAttribute("class", "showfile");
+                    Lableshow.setAttribute("name", "file");
+                    Filediv2.appendChild(Lableshow);
+                    var $label = $('#filee' + 3);
+
+                    var $span = "<span id='f" + 3 + "' onclick='closeEditfile(" + Lableshow.id + "," + 3 + ",this.id)' value='" + result[0].AttachedFile3 + "'>" + result[0].AttachedFile3 + "✖</span>";
+
+                    $($label).each(function (index, item) {
+                        $(this).append($span);
+                    });
+                }
+
+                if (result[0].AttachedFile4 != null) {
+                    EditFileName += result[0].AttachedFile4 + ",";
+                    //var Filediv = document.getElementById("BrowseFiles");
+                    //var fbutton = document.createElement("input");
+                    //fbutton.setAttribute("type", "file");
+                    //fbutton.innerText = result[0].AttachedFile4;
+                    //fbutton.setAttribute("id", "file" + 4);
+                    //fbutton.setAttribute("name", "files[4]");
+                    //fbutton.setAttribute("multiple", "multiple");
+                    //Filediv.appendChild(fbutton);
+
+                    var Filediv2 = document.getElementById("BrowseFiles2");
+                    var Lableshow = document.createElement("label");
+                    Lableshow.setAttribute("id", "filee" + 4);
+                    Lableshow.setAttribute("class", "showfile");
+                    Lableshow.setAttribute("name", "file");
+                    Filediv2.appendChild(Lableshow);
+                    var $label = $('#filee' + 4);
+
+                    var $span = "<span id='f" + 4 + "' onclick='closeEditfile(" + Lableshow.id + "," + 4 + ",this.id)' value='" + result[0].AttachedFile4 + "' >" + result[0].AttachedFile4 + "✖</span>";
+
+                    $($label).each(function (index, item) {
+                        $(this).append($span);
+                    });
+                }
+
+             
+                document.getElementById("SendEditFile").value = EditFileName;
+            }
+        });
+      
+    }
+
+    function closeEditfile(e, v, id) {
+
+        var cFile = "";
+        cFile += (document.getElementById(id).innerText).split('✖')[0] + ',';
+       // alert(cFile);
+        document.getElementById("CancleFile").value = cFile;
+        e.remove();
+
+        $("#file" + v).remove();
+
+        i += 1;
+    }
+
 </script>
 
 
 
-<!-- script-for sticky-nav -->
+< !--script -for sticky - nav-- >
 <script>
 
     // define variables

@@ -1579,11 +1579,12 @@ td.table-text1 h6 {
 td.table-text2 {
     width: 700px;
 }
-td.table-text2 h6 {
-    font-size: 1.2em;
-    color: #000;
-    text-wrap:normal;
-}
+    td.table-text2 h6 {
+        font-size: 1.2em;
+        color: #000;
+        /*text-wrap:normal;*/
+        word-break: break-all;
+    }
 
 td.table-text p {
     font-size: 0.9em;
