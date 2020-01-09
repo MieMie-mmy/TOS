@@ -45,8 +45,8 @@ namespace TOS.Controllers
         [HttpPost]
         public string OH_GetSecondTable(T_OrderHistorySearch data)
         {
-
-            dt = bl._SelectOrderDetail(data);
+            var companyCD = Session["CompanyCD"].ToString();
+            dt = bl._SelectOrderDetail(data, companyCD);
             var Jsondata = JsonConvert.SerializeObject(dt);
             return Jsondata;
            
