@@ -54,10 +54,32 @@
                     @*<table class="table">*@
                     <p>
                         <span>添付ファイル：</span>
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">新規商品一覧.pdf&nbsp;&nbsp;▼</button>
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">ブランド一覧.pdf&nbsp;&nbsp;▼</button>
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">出荷先一覧.pdf&nbsp;&nbsp;▼</button>
-                        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">値段一覧.pdf&nbsp;&nbsp;▼</button>
+                        @*<button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">新規商品一覧.pdf&nbsp;&nbsp;▼</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">ブランド一覧.pdf&nbsp;&nbsp;▼</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">出荷先一覧.pdf&nbsp;&nbsp;▼</button>
+        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">値段一覧.pdf&nbsp;&nbsp;▼</button>*@
+
+                        @if (ViewData["Attach1"] != null)
+                        {
+                            <button type="button" id="btnatt1" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach1"]</button>
+
+                        }
+                        @if (ViewData["Attach2"] != null)
+                        {
+                            <button type="button" id="btnatt2" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach2"]</button>
+
+                        }
+                        @if (ViewData["Attach3"] !=null)
+                        {
+                            <button type="button" id="btnatt3" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach3"]</button>
+
+                        }
+                        @if (ViewData["Attach4"]!=null)
+                        {
+                            <button type="button" id="btnatt4" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach4"]</button>
+
+                        }
+
                     </p>
                     <hr />
                     @Html.TextArea("name", (string)@ViewData["DetailInfo"], new { @readonly = "readonly"})
@@ -155,6 +177,16 @@
         }
         toggle = !toggle;
     });
+</script>
+<script>
+    jQuery("#myText").change(function () {
+        if (Attach2 === "") {
+            jQuery("#btnatt2").hide();
+        } else {
+            
+        }
+    });
+  
 </script>
 <script type="text/javascript">
     var data = { "firstField": "value1", "secondField": "value2" };

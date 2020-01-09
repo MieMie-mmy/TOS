@@ -62,13 +62,18 @@
                     "createdRow": function (row, data, dataIndex) {
                         $(row).addClass("table-row");
                     },
-                    language: {
-                        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                    "language": {
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                     },
+                   
                     columnDefs: [
                         {
-                            targets: [0, 1],
-                            className: 'table-text',
+                            targets: [0],
+                            className: 'table-text1',
+                        },
+                        {
+                        targets: [1],
+                        className: 'table-text2',
                         }],
                     "dom": 'lrtip',
                     "bLengthChange": false,
@@ -109,8 +114,6 @@
                 }
             );
         });
-
-
     </script>
 }
 

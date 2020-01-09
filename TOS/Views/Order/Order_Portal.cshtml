@@ -179,7 +179,6 @@
                         <div class="float-left">
                             <div class="odtitle">
                                 <h4>最新の発注状況(最大20件まで表示)</h4>
-                                <br />
                             </div>
                         </div>
                         @*<div class="float-right">
@@ -234,7 +233,7 @@
                     }],
                     "dom": 'lrtip',
                     "bLengthChange": false,
-                    "aLengthMenu": 20,
+                    "aLengthMenu": [20],
                     "pagingType": "full_numbers",
                     "ajax": {
                         "url": "../Order/Get_Order_Portal_List",
