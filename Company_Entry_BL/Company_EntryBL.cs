@@ -77,7 +77,7 @@ namespace Company_Entry_BL
                 }
                 else
                 {
-                    prms[12] = new SqlParameter("@RnkFlag", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                    prms[12] = new SqlParameter("@RnkFlag", SqlDbType.VarChar) { Value = 0 };
                 }
                 prms[13] = new SqlParameter("@insertOperator", SqlDbType.VarChar) { Value = mModel.InsertOperator };
                 prms[14] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = PcName };

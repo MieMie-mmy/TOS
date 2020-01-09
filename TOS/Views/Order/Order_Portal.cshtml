@@ -27,7 +27,7 @@
 <style>
     .tb0010 {
         border: 1px solid #999999;
-        width:1500px !important;
+        width:2000px !important;
     }
 </style>
 <ol class="breadcrumb">
@@ -54,30 +54,30 @@
                                     <tr class="orderpcomRow">
                                         <td class="orderpcomCellm">メーカー品番</td>
                                         <td class="orderpcomCelln">1</td>
-                                        <td class="orderpcomCellc"> <input type="text" id="txt1" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt1" class="form-control" placeholder="品番入力" maxlength="60"></td>
                                         <td class="orderpcomCelln">2</td>
-                                        <td class="orderpcomCellc"> <input type="text" id="txt2" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt2" class="form-control" placeholder="品番入力" maxlength="60"></td>
                                     </tr>
                                     <tr class="orderpcomRow">
                                         <td class="orderpcomCellm"></td>
                                         <td class="orderpcomCelln">3</td>
-                                        <td class="orderpcomCellc"> <input type="text" id="txt3" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt3" class="form-control" placeholder="品番入力" maxlength="60"></td>
                                         <td class="orderpcomCelln">4</td>
-                                        <td class="orderpcomCellc"> <input type="text" id="txt4" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt4" class="form-control" placeholder="品番入力" maxlength="60"></td>
                                     </tr>
                                     <tr class="orderpcomRow">
                                         <td class="orderpcomCellm"></td>
                                         <td class="orderpcomCelln">5</td>
-                                        <td class="orderpcomCellc"> <input type="text" id="txt5" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt5" class="form-control" placeholder="品番入力" maxlength="60"></td>
                                         <td class="orderpcomCelln">6</td>
-                                        <td class="orderpcomCellc"> <input type="text" id="txt6" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt6" class="form-control" placeholder="品番入力" maxlength="60"></td>
                                     </tr>
                                     <tr class="orderpcomRow">
                                         <td class="orderpcomCellm"></td>
                                         <td class="orderpcomCelln">7</td>
-                                        <td class="orderpcomCellc"> <input type="text" id="txt7" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt7" class="form-control" placeholder="品番入力" maxlength="60"></td>
                                         <td class="orderpcomCelln">8</td>
-                                        <td class="orderpcomCellc"> <input type="text" id="txt8" class="form-control" placeholder="品番入力"></td>
+                                        <td class="orderpcomCellc"> <input type="text" id="txt8" class="form-control" placeholder="品番入力" maxlength="60"></td>
 
                                     </tr>
                                     <tr class="orderpcomRow">
@@ -235,6 +235,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "aLengthMenu": 20,
+                    "pagingType": "full_numbers",
                     "ajax": {
                         "url": "../Order/Get_Order_Portal_List",
                         "type": "GET",
@@ -242,7 +243,8 @@
                         "dataSrc": ""
                     },
                     "language": {
-                        "emptyTable": "検索結果がありません。"
+                        "emptyTable": "検索結果がありません。",
+                         "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                     },
                     "columns": [
                         { "data": "No", orderable: false },
