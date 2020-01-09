@@ -39,9 +39,53 @@ namespace TOS.Controllers
             return null;
            
         }
-      
-        public ActionResult T_Information_SaveEdit(MultipleModel model)
+
+        [HttpPost]
+        public ActionResult T_Information_SaveEdit(MultipleModel model, List<HttpPostedFileBase> files)
         {
+            string SaveFileName = string.Empty;
+            string path = Server.MapPath("~/AttachFiles/");
+            if (files != null)
+            {
+                foreach (HttpPostedFileBase postedFile in files)
+                {
+
+                    if (postedFile != null)
+                    {
+
+                        string fileName = Path.GetFileName(postedFile.FileName);
+                        postedFile.SaveAs(path + fileName);
+                        SaveFileName += fileName + ",";
+
+
+                    }
+                }
+
+            }
+            if (!String.IsNullOrWhiteSpace(SaveFileName))
+            {
+                SaveFileName = SaveFileName.TrimEnd(',');
+                var AttachFiles = SaveFileName.Split(',');
+              
+                for (int i = 0; i < AttachFiles.Length; i++)
+                {
+                    if ((AttachFiles[i] != null) || (AttachFiles[i].Trim().Length != 0))
+                    {
+                        if(i==0)
+                            model.TinfoModel.AttachedFile1 = AttachFiles[i].ToString();
+                        else if(i==1)
+                            model.TinfoModel.AttachedFile2 = AttachFiles[i].ToString();
+                        else if(i==2)
+                            model.TinfoModel.AttachedFile3 = AttachFiles[i].ToString();
+                        else
+                            model.TinfoModel.AttachedFile4 = AttachFiles[i].ToString();
+                    }
+                }
+            }
+
+
+
+           
             Boolean insertflag = true;
             InformationBL ibl = new InformationBL();
             model.TinfoModel.InsertOperator = Session["CompanyCD"].ToString();
