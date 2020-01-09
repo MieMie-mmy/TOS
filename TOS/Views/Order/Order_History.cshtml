@@ -25,20 +25,20 @@
 <link href="~/Content/order_history.css" rel="stylesheet" />
 
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>発注履歴</li>
+    <li class="breadcrumb-item"><a href="@Url.Action("Index","Home")">ホーム</a><i class="fa fa-angle-right"></i>発注履歴</li>
 </ol>
 
 @{
     var inid = ViewBag.InputOrderID;
     if (inid != null)
     {
-        <div class="inbox-mail" id="Order_First">
+        <div class="inbox-mail" id="Order_First11">
             <!-- tab content -->
             <div class="tab-content tab-content-in w3">
                 <div class="tab-pane text-style active" id="tab1">
                     <div class="inbox-right">
                         全商品発注できました。
-                        <table class="histoptab" >
+                        <table class="histoptab" id="Order_First" >
                             <thead>
                                 <tr class="histoptabtit">
                                     <td class="tda t150">発注番号</td>
@@ -51,7 +51,7 @@
                                     <td class="histoptabno t200"></td>
                                     <td class="histoptabno t200"></td>
                                     <td class="histoptabno t200">
-                                        <button type="button" id="PrintDoc" onclick="location.href='@Url.Action("ExportReport","Order")'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
+                                        <button type="button" id="PrintDoc" onclick="location.href='@Url.Action("ExportReport","Order")?id='+ '@ViewBag.InputOrderID'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
                                     </td>
                                     <td class="histoptabno t200"></td>
                                 </tr>
@@ -353,7 +353,8 @@
     }
 
     .tab002 {
-        width: 1500px !important;
+        width: 2000px !important;
+        padding: 10px 18px;
     }
 
     .histoptab {
@@ -414,7 +415,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "../Order/OH_GetFirstTable/" + inid,
+                url: "../../Order/OH_GetFirstTable/" + inid,
                 dataType: 'json',
                 success: function (data) {
                     BindFirstTable(data);
@@ -428,7 +429,7 @@
     {
         $.ajax({
             type: 'POST',
-            url: "../Order/OH_GetSecondTable/" + inid,
+            url: "../../Order/OH_GetSecondTable/" + inid,
 
             dataType: 'json',
 
@@ -485,6 +486,7 @@
                 "info": false,
                 "dom": 'lrtip',
                 "bLengthChange": false,
+               
                 "data": data,
                 "language": {
                     "emptyTable": "検索結果がありません。"
@@ -535,8 +537,7 @@
                 "scroll": false,
                 "dom": 'lrtip',
                 "bLengthChange": false,
-                "pagingType": "full_numbers",
-
+                "aLengthMenu":[20],
                 "data": data,
                 "language": {
 
@@ -634,7 +635,7 @@
         document.getElementById('MakerItemCD_7').value = "";
         document.getElementById('MakerItemCD_8').value = "";
 
-        $("#Order_First").hide();
+        $("#Order_First11").hide();
 
         RefreshSecondTable();
 

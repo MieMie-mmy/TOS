@@ -19,7 +19,7 @@
 @if (TempData["Imsg"] != null)
 {
     <script>
-        Successmessage('I','1002','Message1');
+        Successmessage('I', '1002', 'Message1');
     </script>
     @*<div class="row ">
             <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
@@ -38,21 +38,26 @@
 @if (TempData["Emsg"] != null)
 {
     <script>
-        Errormessage('E', '1004','Message1');
+        Errormessage('E', '1004', 'Message1');
     </script>
 
 
     @*<div class="row ">
-        <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
-            <div class="alert alert-warning alert-dismissable">
-                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                <strong><span class="glyphicon glyphicon-warning-sign"></span> ERROR: </strong>
-                @TempData["Emsg"]
+            <div class="col-md-4 col-md-offset-8 pull-right" style="opacity:0.8;">
+                <div class="alert alert-warning alert-dismissable">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                    <strong><span class="glyphicon glyphicon-warning-sign"></span> ERROR: </strong>
+                    @TempData["Emsg"]
+                </div>
             </div>
-        </div>
-    </div>*@
+        </div>*@
 }
-
+@if (TempData["Dmsg"] != null)
+{
+    <script>
+        Infomessage('I', '1008', 'Message1');
+    </script>
+}
 
 @Html.AntiForgeryToken()
 @using (Html.BeginForm("InsertCompany", "Registrations", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
@@ -87,7 +92,7 @@
 
                         <div class="col-md-2">
                             <div class="form-group" style="padding-left:67px;">
-                             <button type="submit" class="save">✔　登録</button>
+                                <button type="submit" class="save">✔　登録</button>
                             </div>
                         </div>
                     </div>
@@ -227,7 +232,7 @@
                                             <label for="PostCode" style=" font-size:11px;">郵便番号</label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.ComModel.ZipCD1, new { @id ="txtCPostal", @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:150px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat()" })
+                                            @Html.TextBoxFor(m => m.ComModel.ZipCD1, new { @id = "txtCPostal", @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:150px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat()" })
                                         </td>
                                     </tr>
                                     @*</div>*@
@@ -1024,7 +1029,7 @@
             var charCode = (evt.which) ? evt.which : event.keyCode
             if (charCode > 31 && charCode != 45 && (charCode < 48 || charCode > 57))
                 return false;
-            else 
+            else
                 return true;
         }
 
@@ -1116,6 +1121,7 @@
     .left-content {
         background-color: #edecec !important;
     }
+
     .save {
         width: 105px;
         border-radius: 0px;

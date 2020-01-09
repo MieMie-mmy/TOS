@@ -29,7 +29,8 @@
         background-color: #edecec !important;
     }
 </style>
-@RenderPage("~/Views/CommonView/Common_View.cshtml");
+
+
 @if (Session["Error"] != null)
 {
     <script>
@@ -54,6 +55,7 @@
     @*<link rel="stylesheet" href="~/Content/order_portal.css" type='text/css' />*@
     <link rel="stylesheet" href="~/Content/order_input.css" type='text/css' />
     @*<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">*@
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -915,8 +917,8 @@
 
             }
             if (totalamount == 0) {
-                var E = "E";
-                var T = "1001";
+                var E = "I";
+                var T = "1007";
                 var M = "Message1";
                 Infomessage(E, T, M);
             }
@@ -1014,6 +1016,7 @@
                     }
 
                 }
+               
                 $.ajax({
                     url: "../../Order/InserOrder",
                     type: 'post',
@@ -1022,10 +1025,13 @@
                     data: JSON.stringify({ T_OrderHeader: T_OrderHeader, T_OrderDetail: order }),
                     cache: false,
                     success: function (result) {
+                        alert(result.orderid);
                         //alert(result);
+                        window.location.href = '../../Order/Order_History/' + result.orderid;
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        alert(thrownError);
+                        Errormessage('E', '1006', 'Message1');
+                    
                     }
                 });
 
@@ -1038,7 +1044,7 @@
     </script>
 
 }
-
+@RenderPage("~/Views/CommonView/Common_View.cshtml")
 
 <!--heder end here-->
 <ol class="breadcrumb">

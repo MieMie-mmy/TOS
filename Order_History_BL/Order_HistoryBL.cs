@@ -34,11 +34,11 @@ namespace Order_History_BL
 
             return dt;
         }
-        public DataTable _SelectOrderDetail(T_OrderHistorySearch data)
+        public DataTable _SelectOrderDetail(T_OrderHistorySearch data,string companyCD)
         {
             SqlParameter[] prms = new SqlParameter[14];
 
-            prms[0] = new SqlParameter("@company", SqlDbType.VarChar) { Value = DBNull.Value };
+            prms[0] = new SqlParameter("@company", SqlDbType.VarChar) { Value = companyCD };
 
             if (data.id == null)
             {
