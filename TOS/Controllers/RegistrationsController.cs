@@ -47,7 +47,7 @@ namespace TOS.Controllers
                         if (dtIMsg.Rows.Count > 0)
                         {
                             // TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                            TempData["Emsg"] = "Duplicate CompanyCD is "+ model.ComModel.CompanyCD;
+                            TempData["Dmsg"] = "Duplicate CompanyCD is "+ model.ComModel.CompanyCD;
                         }
                     }
                     else
@@ -196,7 +196,7 @@ namespace TOS.Controllers
                 //}
                 //else
                 //{
-                    TempData["Imsg"] = "Unsuccess";
+                    TempData["Emsg"] = "Unsuccess";
                // }
                 return RedirectToAction("Company_Entry");
 
