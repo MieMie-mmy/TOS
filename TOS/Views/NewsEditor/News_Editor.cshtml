@@ -126,7 +126,6 @@
         }
 
         function edit(id) {
-            var i = 4;
             var id = id;
             $.ajax({
                 type: 'GET',
@@ -186,23 +185,14 @@
 
                     if (result[0].AttachedFile1 != null) {
 
-                        //var Filediv = document.getElementById("BrowseFiles");
-                        //var fbutton = document.createElement("input");
-                        //fbutton.setAttribute("type", "file");
-                        //fbutton.innerText = result[0].AttachedFile1;
-                        //fbutton.setAttribute("id", "file" + i);
-                        //if (i == 4) {
-                        //    fbutton.setAttribute("name", "files[0]");
-                        //}
-                        //else if (i == 3) { fbutton.setAttribute("name", "files[1]"); }
-                        //else if (i == 2) { fbutton.setAttribute("name", "files[2]"); }
-                        //else if (i == 1) { fbutton.setAttribute("name", "files[3]"); }
-
-                        //fbutton.setAttribute("multiple", "multiple");
-
-                        //Filediv.appendChild(fbutton);
-
-
+                        var Filediv = document.getElementById("BrowseFiles");
+                        var fbutton = document.createElement("input");
+                        fbutton.setAttribute("type", "file");
+                        fbutton.innerText = result[0].AttachedFile1;
+                        fbutton.setAttribute("id", "file" + 1);
+                        fbutton.setAttribute("name", "files[1]");
+                        fbutton.setAttribute("multiple", "multiple");
+                        Filediv.appendChild(fbutton);
 
                         var Filediv2 = document.getElementById("BrowseFiles2");
                         var Lableshow = document.createElement("label");
@@ -216,10 +206,18 @@
                         $($label).each(function (index, item) {
                             $(this).append($span);
                         });
-                        i -= 1;
                     }
 
-                     if (result[0].AttachedFile2 != null) {
+                    if (result[0].AttachedFile2 != null) {
+
+                        var Filediv = document.getElementById("BrowseFiles");
+                        var fbutton = document.createElement("input");
+                        fbutton.setAttribute("type", "file");
+                        fbutton.innerText = result[0].AttachedFile2;
+                        fbutton.setAttribute("id", "file" + 2);
+                        fbutton.setAttribute("name", "files[2]");
+                        fbutton.setAttribute("multiple", "multiple");
+                        Filediv.appendChild(fbutton);
                         
                         var Filediv2 = document.getElementById("BrowseFiles2");
                         var Lableshow = document.createElement("label");
@@ -233,10 +231,18 @@
                         $($label).each(function (index, item) {
                             $(this).append($span);
                          });
-                         i -= 1;
                     }
 
                     if (result[0].AttachedFile3 != null) {
+
+                        var Filediv = document.getElementById("BrowseFiles");
+                        var fbutton = document.createElement("input");
+                        fbutton.setAttribute("type", "file");
+                        fbutton.innerText = result[0].AttachedFile3;
+                        fbutton.setAttribute("id", "file" + 3);
+                        fbutton.setAttribute("name", "files[3]");
+                        fbutton.setAttribute("multiple", "multiple");
+                        Filediv.appendChild(fbutton);
 
                         var Filediv2 = document.getElementById("BrowseFiles2");
                         var Lableshow = document.createElement("label");
@@ -250,10 +256,18 @@
                         $($label).each(function (index, item) {
                             $(this).append($span);
                         });
-                        i -= 1;
                     }
 
                     if (result[0].AttachedFile4 != null) {
+
+                        var Filediv = document.getElementById("BrowseFiles");
+                        var fbutton = document.createElement("input");
+                        fbutton.setAttribute("type", "file");
+                        fbutton.innerText = result[0].AttachedFile4;
+                        fbutton.setAttribute("id", "file" + 4);
+                        fbutton.setAttribute("name", "files[4]");
+                        fbutton.setAttribute("multiple", "multiple");
+                        Filediv.appendChild(fbutton);
 
                         var Filediv2 = document.getElementById("BrowseFiles2");
                         var Lableshow = document.createElement("label");
@@ -267,17 +281,14 @@
                         $($label).each(function (index, item) {
                             $(this).append($span);
                         });
-                        i -= 1;
                     }
                 }
             });
         }
 
         function closefile(e, v) {
-            alert(v);
             e.remove();
             $("#file" + v).remove();
-            i += 1;
         }
 
         function checkdate() {
