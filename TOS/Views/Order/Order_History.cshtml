@@ -33,7 +33,7 @@
     <!-- tab content -->
     <div class="tab-content tab-content-in w3">
         <div class="tab-pane text-style active" id="tab1">
-            <div class="inbox-right" style="overflow:scroll;">
+            <div class="inbox-right" >
                 全商品発注できました。
                 <table class="histoptab" id="Order_First">
                     <thead>
@@ -232,9 +232,9 @@
                                         </table>
                                     </td>
                                     <td>&nbsp;</td>
-                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg" id="Searchdata"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
+                                    <td class="saict"><button type="button" onclick="_SearchData()" class="btn btn-secondary btn-lg" id="Searchdata" style="background-color: #6c757d;color: white;font-weight: 700;"><i class="fa fa-search" aria-hidden="true"></i>&nbsp;検索</button></td>
                                     <td>
-                                        <br><br><br><br><br><br>
+                                        @*<br><br><br><br><br><br>*@
                                         <button type="button" id="btn_cancle0" data-toggle="modal" data-target="#myModal" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
                                         @*<button type="button" id="btn_cancle1" data-toggle="modal" data-target="#myModalSuccess" class="btn btn-dark">✖&nbsp;発注キャンセル</button>
                                         <button type="button" id="btn_cancle2" data-toggle="modal" data-target="#myModalInfo" class="btn btn-dark">✖&nbsp;発注キャンセル</button>*@
@@ -524,7 +524,8 @@
 
                 "data": data,
                 "language": {
-                    "emptyTable": "検索結果がありません。"
+                    
+                    url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                 },
                 "createdRow": function (row, data, dataIndex) {
                     $(row).addClass("odr1");

@@ -68,7 +68,8 @@
 
                   "data": data,
                   "language": {
-                      "emptyTable": "検索結果がありません。"
+                      "emptyTable": "検索結果がありません。",
+                       url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                   },
                     "columns": [
                         { "data": "No", orderable: false },
@@ -157,8 +158,7 @@
                                                     <td>
                                                         <div class="btn-group t200">
                                                         @Html.DropDownList("ddlBrand",
-        new SelectList(Enumerable.Empty<SelectListItem>())," ",
-        new { @class = "btn dropdown-toggle t200 form-control input-sm"})
+        new SelectList(Enumerable.Empty<SelectListItem>())," ",new { @class = "form-control t200" })
                                                             </div>
                                                     </td>
                                                 </tr>
