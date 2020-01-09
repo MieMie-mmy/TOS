@@ -29,7 +29,7 @@ namespace TOS.Controllers
         public ActionResult Order_History(string id)
         {
             ViewBag.InputOrderID = id;
-            //ViewBag.InputOrderID ="101";
+           // ViewBag.InputOrderID = "J201912228";
             return View();
         }
         [HttpPost]
@@ -87,12 +87,12 @@ namespace TOS.Controllers
         }
 
 
-        public ActionResult ExportReport()
+        public ActionResult ExportReport(string id)
         {
             DataSet ds = new DataSet();
 
             string savedFileName = "OrderHistory_" + (DateTime.Now).ToShortDateString() + ".pdf";
-            var OrderID = "100";
+            var OrderID = id;
             ds = bl._GetReportData(OrderID);
             Report.Order_History_Report ohrpt = new Report.Order_History_Report();
             ohrpt.Database.Tables["OH_Body"].SetDataSource(ds.Tables[1]);
