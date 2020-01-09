@@ -62,6 +62,9 @@
                     "createdRow": function (row, data, dataIndex) {
                         $(row).addClass("table-row");
                     },
+                    language: {
+                        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                    },
                     columnDefs: [
                         {
                             targets: [0, 1],
@@ -70,6 +73,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "aLengthMenu": [20],
+                    "pagingType": "full_numbers",
                     "ajax": {
                         "url": "../Home/Get_T_Information",
                         "type": "GET",

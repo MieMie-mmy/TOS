@@ -28,6 +28,8 @@ namespace TOS.Controllers
         // GET: Order_History
         public ActionResult Order_History(string id)
         {
+            ViewBag.InputOrderID = id;
+            //ViewBag.InputOrderID ="101";
             return View();
         }
         [HttpPost]
