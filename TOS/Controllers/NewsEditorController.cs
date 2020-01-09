@@ -8,8 +8,11 @@ using Information_BL;
 using Group_Entry_BL;
 using Newtonsoft.Json;
 using System.Data;
+using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.IO;
+using Newtonsoft.Json;
+using FastMember;
 
 namespace TOS.Controllers
 {
@@ -41,10 +44,56 @@ namespace TOS.Controllers
         }
 
         [HttpPost]
-        public ActionResult T_Information_SaveEdit(MultipleModel model, List<HttpPostedFileBase> files)
+        public ActionResult T_Information_SaveEdit(MultipleModel model, List<HttpPostedFileBase> files, string SendEditFile, string CancleFile)
         {
             string SaveFileName = string.Empty;
             string path = Server.MapPath("~/AttachFiles/");
+            var getExitFiles = Directory.GetFiles(path);
+            string MatchFiles = "";
+
+            //if (!string.IsNullOrWhiteSpace(CancleFile) )
+            //{
+               
+            //}
+            //else 
+            if(!string.IsNullOrWhiteSpace(SendEditFile) || !string.IsNullOrWhiteSpace(CancleFile) )
+            {
+                MatchFiles = MatchEditFies(CancleFile, SendEditFile);
+            }
+
+            if (!String.IsNullOrWhiteSpace(MatchFiles.Replace(',',' ')))
+       
+            {
+                var EditFiles = MatchFiles.TrimEnd(',').Split(',');
+
+                //var EditFiles = SendEditFile.TrimEnd(',').Split(',');
+
+
+                var k = EditFiles.Count();
+                if ( EditFiles.Count() > 0)
+                {
+                    while (k > 0)
+                    {
+                        foreach (var exfile in getExitFiles)
+                        {
+                            var exitFile = (exfile.Split('\\'))[6].Split('.')[0];
+                            if (exitFile == EditFiles[k - 1].Split('.')[0])
+                            {
+                                SaveFileName += exitFile + ",";
+                            }
+
+
+
+                        }
+                        k = k - 1;
+                    }
+
+                }
+
+            }
+           
+          
+
             if (files != null)
             {
                 foreach (HttpPostedFileBase postedFile in files)
@@ -115,6 +164,62 @@ namespace TOS.Controllers
                 }
             }
             return RedirectToAction("News_Editor");
+        }
+
+        public string MatchEditFies(string c, string e)
+        {
+
+            string MatchFile = "";
+            string[] CF = new string[4];
+            CF = c.TrimEnd(',').Split(',');
+            string[] EF = new string[4];
+            EF = (e.TrimEnd(',')).TrimStart(',').Split(',');
+
+            var j = 0;
+            if(string.IsNullOrWhiteSpace(c))
+            {
+                MatchFile = e;
+            }
+            else
+            {
+                if (EF.Count() > CF.Count())
+                {
+                    j = EF.Count();
+                    for (int i = 0; i < j; i++)
+                    {
+                       
+                        for(int jj=0;jj<CF.Count();jj++)
+                        {
+                            if(CF[jj].ToString() != EF[i].ToString() )
+                            {
+                                MatchFile += EF[i].ToString() + ",";
+                            }
+                        }
+                        //MatchFile += CF.Where(f => !(f.Contains(EF[i]))).Select(s => s).FirstOrDefault() + ",";
+                    }
+
+                }
+                else if (CF.Count() > EF.Count())
+                {
+                    j = CF.Count();
+                    for (int i = 0; i < j; i++)
+                    {
+                        MatchFile += EF.Where(f =>!f.Contains( CF[i])).Select(s => s).FirstOrDefault() + ",";
+                    }
+                }
+                else
+                {
+                    j = EF.Count();
+                    for (int i = 0; i < j; i++)
+                    {
+                        MatchFile += CF.Where(f => !f.Contains(EF[i])).Select(s => s).FirstOrDefault() + ",";
+                    }
+
+
+                }
+            }
+           
+            return MatchFile;
         }
 
 
