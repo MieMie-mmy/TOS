@@ -79,7 +79,7 @@
             var table = $('#tbinformation').DataTable(
                 {
                     language: {
-                        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json",
                     },
                     columnDefs: [{
                         targets: [0],
@@ -635,7 +635,7 @@
                                         <div class="boxb sair boxpd tab002tit">課題名</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170", @id = "txttitlename", required = "required" })
+                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", @maxlength = "150", @id = "txttitlename", required = "required" })
                                         </div>
 
                                     </div>
@@ -704,19 +704,21 @@
                                     expandTextarea('txtarea');</script>
                             </div>
                             <div class="newr col-md-7">
-                                <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div>
-                                <table class="tab002" id="tbinformation">
-                                    <thead>
-                                        <tr class="tab002tit">
-                                            <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;">No</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;">課題名</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                              
+                                    <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div>
+                                    <table class="tab002" id="tbinformation">
+                                        <thead>
+                                            <tr class="tab002tit">
+                                                <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:40px;">No</th>
+                                                <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:500px;">課題名</th>
+                                                <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
+                                                <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                   
+                                </div>
                             </div>
-                        </div>
                     </div>
 
                 </div>
