@@ -28,6 +28,7 @@ namespace TOS.Controllers
         // GET: Order_History
         public ActionResult Order_History(string id)
         {
+
             ViewBag.InputOrderID = id;
            // ViewBag.InputOrderID = "J201912228";
             return View();
@@ -269,18 +270,18 @@ namespace TOS.Controllers
                 if (oib.Order_Input_Insert(T_Orderheader, dtorderdetail))
                 {
                     Session["Error"] = null;
-                    return RedirectToAction("../Order/Order_History/" + T_Orderheader.OrderID);
+                    return Json(new {orderid = T_Orderheader.OrderID},JsonRequestBehavior.AllowGet);                   //return View();//RedirectToAction("../Order/Order_History/" + T_Orderheader.OrderID);
                 }
                 else
                 {
                     Session["Error"] = "Error";
-                    return View();
+                    return Json(new { msg = "Error" });
                 }
             }
             else
             {
                 Session["Error"] = "Error";
-                return View();
+                return Json(new { msg = "Error" });
             }
 
         }
