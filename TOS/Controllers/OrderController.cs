@@ -113,9 +113,9 @@ namespace TOS.Controllers
         }
 
         [HttpPost]
-        public string  OrderHistoryMessage(string id)
-        {                    
-            var msg=bbl._MessageDialog(id);
+        public string OrderHistoryMessage(string id)
+        {
+            string msg =bbl._MessageDialog(id);
                     
             return JsonConvert.SerializeObject(msg);
         }
@@ -244,30 +244,6 @@ namespace TOS.Controllers
 
         }
 
-        public string Order_Input_M_Item_Image_Select()
-        {
-            //DataSet dsk = new DataSet();
-            //dsk = Session["dtsmitem"] as DataSet;
-            //Order_InputBL oib = new Order_InputBL();
-            //DataTable dt = new DataTable();
-            ////string[] itemcd = MakerItem.Split(',');
-            //if (dsk.Tables.Count > 0)
-            //{
-            //    DataTable dttemp = dsk.Tables["Table" + id].Copy();
-            //    string mcd = dttemp.Rows[0]["MakerItemCD"].ToString(); //itemcd[i].ToString();
-            //    dt = oib.Order_Input_M_SKU(mcd);
-            //    if (dt.Rows.Count > 0)
-            //    {
-            //        string jsonresult;
-            //        jsonresult = JsonConvert.SerializeObject(dt);
-            //        return jsonresult;
-            //    }
-
-            //}
-            //return null;
-            string st = "";
-            return st;
-        }
 
         [HttpPost]
         public ActionResult InserOrder(T_OrderHeaderModel T_Orderheader, List<T_OrderDetailModel> T_OrderDetail)
@@ -290,16 +266,19 @@ namespace TOS.Controllers
 
                 if (oib.Order_Input_Insert(T_Orderheader, dtorderdetail))
                 {
+                    Session["Error"] = null;
                     return RedirectToAction("../Order/Order_History/" + T_Orderheader.OrderID);
                 }
                 else
                 {
-                    return RedirectToAction("../Order/Order_History/" + T_Orderheader.OrderID);
+                    Session["Error"] = "Error";
+                    return View();
                 }
             }
             else
             {
-                return RedirectToAction("../Order/Order_History/" + T_Orderheader.OrderID);
+                Session["Error"] = "Error";
+                return View();
             }
 
         }
