@@ -79,7 +79,7 @@
             var table = $('#tbinformation').DataTable(
                 {
                     language: {
-                        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                        url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json",
                     },
                     columnDefs: [{
                         targets: [0],
@@ -635,7 +635,7 @@
                                         <div class="boxb sair boxpd tab002tit">課題名</div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
-                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", maxlength = "170", @id = "txttitlename", required = "required" })
+                                            @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", @maxlength = "150", @id = "txttitlename", required = "required" })
                                         </div>
 
                                     </div>
@@ -704,19 +704,21 @@
                                     expandTextarea('txtarea');</script>
                             </div>
                             <div class="newr col-md-7">
-                                <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div>
-                                <table class="tab002" id="tbinformation">
-                                    <thead>
-                                        <tr class="tab002tit">
-                                            <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;">No</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;">課題名</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                </table>
+                              
+                                    <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div>
+                                    <table class="tab002" id="tbinformation">
+                                        <thead>
+                                            <tr class="tab002tit">
+                                                <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:40px;">No</th>
+                                                <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:500px;">課題名</th>
+                                                <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
+                                                <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
+                                            </tr>
+                                        </thead>
+                                    </table>
+                                   
+                                </div>
                             </div>
-                        </div>
                     </div>
 
                 </div>
@@ -952,61 +954,7 @@
 </script>
 
 
-<div class="sidebar-menu">
-    <header class="logo1">
-        <a href="#" class="sidebar-icon"> <img src="images/tennic.png" alt=""></a>
-        <span>Order System</span>
-    </header>
-    <div style="border-top:1px ridge rgba(255, 255, 255, 0.15)"></div>
-    <div class="menu">
-        <ul id="menu">
-            <li>
-                <a href="index.html">
-                    <i class="fa fa-home"></i> <span>ホーム</span>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
 
-
-            <li id="menu-academico">
-                <a href="order_portal.html">
-                    <i class="fa fa-shopping-cart nav_icon"></i><span>発注ポータル</span>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li>
-                <a href="order_input.html">
-                    <i class="fa fa-table" aria-hidden="true"></i><span>発注入力</span>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li id="menu-academico">
-                <a href="order_history.html">
-                    <i class="fa fa-history"></i><span>発注履歴</span>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-
-            <li id="menu-academico">
-                <a href="inventories.html">
-                    <i class="fa fa-search" aria-hidden="true"></i><span>在庫照会</span>
-                    <div class="clearfix"></div>
-                </a>
-            </li>
-            <li id="menu-academico">
-                <a href="news_editor.html">
-                    <i class="fa fa-plus" aria-hidden="true"></i><span>お知らせ入力</span>
-                    <div class="clearfix"></div>
-                </a>
-
-            </li>
-
-
-
-        </ul>
-    </div>
-</div>
-<div class="clearfix"></div>
 
 <script>
     var toggle = true;
