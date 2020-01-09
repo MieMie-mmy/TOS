@@ -63,7 +63,7 @@ namespace TOS.Controllers
                 else
                 {
 
-                    ViewData["Attach1"] = "";
+                    ViewData["Attach1"] = null;
                 }
 
                 if (!string.IsNullOrWhiteSpace(attachfile2))
@@ -72,7 +72,7 @@ namespace TOS.Controllers
                 }
                 else
                 {
-                    ViewData["Attach2"] = "";
+                    ViewData["Attach2"] = null;
                 }
 
                 if (!string.IsNullOrWhiteSpace(attachfile3))
@@ -81,7 +81,7 @@ namespace TOS.Controllers
                 }
                 else
                 {
-                    ViewData["Attach3"] = "";
+                    ViewData["Attach3"] = null;
                 }
 
                 if (!string.IsNullOrWhiteSpace(attachfile4))
@@ -90,7 +90,7 @@ namespace TOS.Controllers
                 }
                 else
                 {
-                    ViewData["Attach4"] = "";
+                    ViewData["Attach4"] = null;
                 }
 
 
