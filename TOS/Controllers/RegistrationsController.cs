@@ -47,7 +47,7 @@ namespace TOS.Controllers
                         if (dtIMsg.Rows.Count > 0)
                         {
                             // TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                            TempData["Imsg"] = "Duplicate CompanyCD is "+ model.ComModel.CompanyCD;
+                            TempData["Emsg"] = "Duplicate CompanyCD is "+ model.ComModel.CompanyCD;
                         }
                     }
                     else
@@ -165,7 +165,7 @@ namespace TOS.Controllers
                     //string message = string.Empty;
                     //if (dtIMsg.Rows.Count > 0)
                     //{
-                        TempData["Emsg"] = "success";
+                        TempData["Imsg"] = "success";
                    // }
 
 
