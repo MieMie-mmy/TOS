@@ -30,7 +30,7 @@ namespace TOS.Controllers
         {
 
             ViewBag.InputOrderID = id;
-           // ViewBag.InputOrderID = "J201912228";
+            //ViewBag.InputOrderID = "J200110103754";
             return View();
         }
         [HttpPost]

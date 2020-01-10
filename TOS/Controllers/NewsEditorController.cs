@@ -44,14 +44,14 @@ namespace TOS.Controllers
         }
 
         [HttpPost]
-        public ActionResult T_Information_SaveEdit(MultipleModel model, List<HttpPostedFileBase> files, string SendEditFile, string CancleFile)
+        public ActionResult T_Information_SaveEdit(MultipleModel model, List<HttpPostedFileBase> Insertfile, string SendEditFile, string CancleFile)
         {
             string SaveFileName = string.Empty;
             string path = Server.MapPath("~/AttachFiles/");
             var getExitFiles = Directory.GetFiles(path);
             string MatchFiles = "";
-
             //if (!string.IsNullOrWhiteSpace(CancleFile) )
+
             //{
                
             //}
@@ -94,9 +94,9 @@ namespace TOS.Controllers
            
           
 
-            if (files != null)
+            if (Insertfile != null)
             {
-                foreach (HttpPostedFileBase postedFile in files)
+                foreach (HttpPostedFileBase postedFile in Insertfile)
                 {
 
                     if (postedFile != null)
