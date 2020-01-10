@@ -164,7 +164,7 @@ namespace Order_History_BL
 
             dl.SelectData("Order_History_Delete", prms);
 
-            var message = "OK";
+            var message = del_arr_o;
             return message;
         }
 

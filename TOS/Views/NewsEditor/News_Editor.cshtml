@@ -402,7 +402,7 @@
                                         <div class="box">
 
                                             @Html.DropDownListFor(m => m.ComModel.CompanyCD, new SelectList(Enumerable.Empty<SelectListItem>(), "CompanyCD", "CompanyName"), "--- 選択---",
-         new { @class = "comp", @id = "ddlCompanyname" , @style = "width:70%;" })
+         new { @class = "comp", @id = "ddlCompanyname" , @style = "width:250px;min-width:unset;" })
 
                                         </div>
                                     </div>
@@ -417,7 +417,7 @@
                                         <div class="box">
 
                                             @Html.DropDownListFor(m => m.GroupModel.GroupID, new SelectList(Enumerable.Empty<SelectListItem>(), "GroupID", "GroupName"), "--- 選択---",
-        new { @class = "comp", @id = "ddlGroupname" })
+        new { @class = "comp", @id = "ddlGroupname", @style = "width:250px;min-width:unset;" })
                                         </div>
                                     </div>
                                     <div class="box-row">
@@ -432,7 +432,7 @@
                                             new SelectListItem{ Text="新規発売", Value = "3" },
                                             new SelectListItem{ Text="商品情報", Value = "4" },
                                             new SelectListItem{ Text="その他", Value = "5" }
-                                            }, new { @class = "comp", @id = "ddlInfoType" })
+                                            }, new { @class = "comp", @id = "ddlInfoType", @style = "width:250px;min-width:unset;" })
                                         </div>
                                     </div>
                                     <div class="box-row">

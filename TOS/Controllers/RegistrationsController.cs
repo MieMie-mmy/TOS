@@ -65,8 +65,12 @@ namespace TOS.Controllers
                         //Insert Company
                         if (model.ComModel.ZipCD1 != null)
                         {
-                            string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
-                            string zip2 = model.ComModel.ZipCD1.Substring(3);
+                            //string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
+                            //string zip2 = model.ComModel.ZipCD1.Substring(3);
+                            string[] zips = model.ComModel.ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                            string zip1 = zips[0].ToString();
+                            string zip2 = zips[1].ToString();
+
                             model.ComModel.ZipCD1 = zip1;
                             model.ComModel.ZipCD2 = zip2;
 
@@ -89,8 +93,11 @@ namespace TOS.Controllers
 
                                     if (model.ShippingModel[i].ZipCD1 != null)
                                     {
-                                        string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
-                                        string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
+                                        //string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
+                                        //string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
+                                        string[] zipships = model.ShippingModel[i].ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                                        string zipShip1 = zipships[0].ToString();
+                                        string zipShip2 = zipships[1].ToString();
                                         model.ShippingModel[i].ZipCD1 = zipShip1;
                                         model.ShippingModel[i].ZipCD2 = zipShip2;
                                     }
