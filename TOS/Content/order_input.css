@@ -1,10 +1,14 @@
 .form-control {
-    height: 1.9em;
+    height: 1.9em !important;
 }
 /* orderpcom.com */
 .orderpcom {
     display: table;
     width: 100%;
+}
+
+td, th {
+    padding: 0 !important;
 }
 
 .orderpcomRow {
