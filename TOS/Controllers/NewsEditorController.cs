@@ -49,6 +49,7 @@ namespace TOS.Controllers
             string SaveFileName = string.Empty;
             //string path = Server.MapPath("~/AttachFiles/");
             var getExitFiles = Directory.GetFiles(InformationFiles);
+           
             string MatchFiles = "";
             //if (!string.IsNullOrWhiteSpace(CancleFile) )
 
@@ -76,14 +77,13 @@ namespace TOS.Controllers
                     {
                         foreach (var exfile in getExitFiles)
                         {
-                            var exitFile = (exfile.Split('\\'))[6].Split('.')[0];
-                            if (exitFile == EditFiles[k - 1].Split('.')[0])
+                            //var exitFile = (exfile.Split('\\'))[6].Split('.')[0]; 
+                            var exitFile = exfile.Split('\\');
+                            string filename = exitFile[exitFile.Length - 1];
+                            if (filename == EditFiles[k - 1].Split('.')[0])
                             {
-                                SaveFileName += exitFile + ",";
+                                SaveFileName += filename + ",";
                             }
-
-
-
                         }
                         k = k - 1;
                     }
