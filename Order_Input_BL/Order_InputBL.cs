@@ -9,6 +9,7 @@ using TOS_Model;
 using System.Data.SqlClient;
 using System.Collections;
 using Newtonsoft.Json;
+using System.Transactions;
 
 
 namespace Order_Input_BL
@@ -156,8 +157,17 @@ namespace Order_Input_BL
                 dtorder.WriteXml(writer, XmlWriteMode.WriteSchema, false);
                 string result = writer.ToString();
                 prms[12] = new SqlParameter("@xml", SqlDbType.Xml) { Value = result };
-                dl.InsertUpdateDeleteData("Order_Input_Insert", prms);
-                return true;
+                var option = new TransactionOptions
+                {
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
+                    Timeout = TimeSpan.MaxValue
+                };
+                using (TransactionScope scopt = new TransactionScope(TransactionScopeOption.Required, option))
+                {
+                    dl.InsertUpdateDeleteData("Order_Input_Insert", prms);               
+                    scopt.Complete();
+                    return true;
+                }
             }
             catch (Exception ex)
             {

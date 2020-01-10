@@ -709,7 +709,7 @@
                 var count = Object.keys(mydata[0]).length;
                 //alert(count);
                 for (var i = 1; i < count; i++) {
-                    Tablefixfrow += " <td class='odr6'><input class='form-control sair' type='text' /></td>";
+                    Tablefixfrow += " <td class='odr6'><input class='form-control sair' type='text' onkeypress = 'return isNumberKey(event)' /></td>";
                 };
                 Tablefixfrow += "</tr > ";
                 $(table).append(Tablefixfrow);
@@ -924,16 +924,17 @@
             }
             else {
                 var todaydate = new Date();
-                var day = todaydate.getDate();
-                var month = todaydate.getMonth() + 1;
+                var day = fixDigit(todaydate.getDate());
+                var month = fixDigit(todaydate.getMonth() + 1);
                 var year = todaydate.getFullYear().toString().substr(-2);
-                var orderid = 'J' + year + month + day + todaydate.getHours() + todaydate.getMinutes() + todaydate.getSeconds();
+                var orderid = 'J' + year + month + day + fixDigit(todaydate.getHours()) + fixDigit(todaydate.getMinutes()) + fixDigit(todaydate.getSeconds());
 
                 var shipid = $("select#ddlShippingName").val();
+                var T_OrderHeader = {};
                 if (shipid == null || shipid == "") { shipid = 0; }
                 if (shipid == null || shipid == "") {
                     var postalcode = $("#postalcode").val();
-                    var T_OrderHeader = {};
+                  
                     T_OrderHeader.OrderID = orderid;
                     T_OrderHeader.ShippingID = 0;
                     if (postalcode.indexOf('-') > -1) {
@@ -1025,7 +1026,7 @@
                     data: JSON.stringify({ T_OrderHeader: T_OrderHeader, T_OrderDetail: order }),
                     cache: false,
                     success: function (result) {
-                        alert(result.orderid);
+                       
                         //alert(result);
                         window.location.href = '../../Order/Order_History/' + result.orderid;
                     },
@@ -1038,8 +1039,16 @@
             }
         });
 
-
-
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
+                return false;
+            else
+                return true;
+        }
+        function fixDigit(val) {
+            return val.toString().length === 1 ? "0" + val : val;
+        }
 
     </script>
 

@@ -34,11 +34,11 @@ namespace TOS_Model
 
         public String CustomerCD { get; set; }
 
-        public DateTime? AvailableShippingDate { get; set; }
+        public String AvailableShippingDate { get; set; }
 
-        public DateTime? ShippingDate { get; set; }
+        public DateTime ShippingDate { get; set; }
 
-        public DateTime? OrderDateTime { get; set; }
+        public DateTime OrderDateTime { get; set; }
 
      
     }

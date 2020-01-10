@@ -221,7 +221,7 @@
                                 <tbody>
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">グループID</label>
+                                            <label style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">グループID</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.GroupModel.GroupID, new { @id = "txtGroupID", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "width:110px;border-radius: unset;", @maxlength = "8" })
@@ -229,7 +229,7 @@
                                     </tr>
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">グループ名</label>
+                                            <label style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">グループ名</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.GroupModel.GroupName, new { @id = "txtGroupName", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "width:210px;border-radius: unset;" })
@@ -241,7 +241,7 @@
                                     <tr class="form-group_entry">
                                         <td>
                                             @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "1", new { @id = "rdbCompany" })
-                                            <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">会社指定</label>
+                                            <label style=" font-size:100%;font-weight400;font-family: 'Roboto', sans-serif;">会社指定</label>
                                         </td>
                                         <td>
                                             @Html.DropDownListFor(m => m.ComModel.CompanyCD,
@@ -250,7 +250,7 @@
                                         </td>
                                         <td>
                                             @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "2", new { @id = "rdbBrand" })
-                                            <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">ブランド</label>
+                                            <label style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">ブランド</label>
                                         </td>
                                         <td>
                                             @Html.DropDownListFor(m => m.MBrandModel.BrandCD,
@@ -259,7 +259,7 @@
                                         </td>
                                         <td>
                                             @Html.RadioButtonFor(m => m.GroupModel.GroupInfoFlg, "3", new { @id = "rdbTag" })
-                                            <label style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ</label>
+                                            <label style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">タグ</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.tModel.Tag, new { @id = "txtTag", @class = "form-control input-sm", @required = "required", @style = "width:210px;border-radius: unset;" })
