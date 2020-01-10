@@ -232,7 +232,7 @@
                                             <label for="PostCode" style=" font-size:11px;">郵便番号</label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.ComModel.ZipCD1, new { @id = "txtCPostal", @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:150px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat()" })
+                                            @Html.TextBoxFor(m => m.ComModel.ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:150px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat(event)" })
                                         </td>
                                     </tr>
                                     @*</div>*@
@@ -268,7 +268,7 @@
                                             <label for="Phno" style=" font-size:11px;">電話番号</label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.ComModel.TelephoneNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                            @Html.TextBoxFor(m => m.ComModel.TelephoneNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @maxlength = "15" })
                                         </td>
                                     </tr>
                                     @*</div>*@
@@ -585,7 +585,7 @@
                                         <label for="PostCode1" style=" font-size:11px;">郵便番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[0].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat()" })
+                                        @Html.TextBoxFor(m => m.ShippingModel[0].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat(event)" })
                                     </td>
                                 </tr>
 
@@ -618,7 +618,7 @@
                                         <label for="Phno1" style=" font-size:11px;">電話番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[0].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                        @Html.TextBoxFor(m => m.ShippingModel[0].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
                                     </td>
                                 </tr>
                                 @*</div>*@
@@ -676,7 +676,7 @@
                                         <label for="PostCode2" style=" font-size:11px;">郵便番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[1].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat()" })
+                                        @Html.TextBoxFor(m => m.ShippingModel[1].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat(event)" })
                                     </td>
                                 </tr>
                                 @*</div>*@
@@ -709,7 +709,7 @@
                                         <label for="Phno2" style=" font-size:11px;">電話番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[1].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                        @Html.TextBoxFor(m => m.ShippingModel[1].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
                                     </td>
                                 </tr>
                                 @*</div>*@
@@ -770,7 +770,7 @@
                                         <label for="PostCode3" style=" font-size:11px;">郵便番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[2].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat()" })
+                                        @Html.TextBoxFor(m => m.ShippingModel[2].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat(event)" })
                                     </td>
                                 </tr>
                                 @*</div>*@
@@ -804,7 +804,7 @@
                                         <label for="Phno3" style=" font-size:11px;">電話番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[2].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                        @Html.TextBoxFor(m => m.ShippingModel[2].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
                                     </td>
                                 </tr>
                                 @* </div> *@
@@ -906,7 +906,7 @@
                                         <label for="Phno4" style=" font-size:11px;">電話番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[3].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @onkeypress = "return isNumberKey(event)", @maxlength = "15" })
+                                        @Html.TextBoxFor(m => m.ShippingModel[3].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
                                     </td>
                                 </tr>
                                 @*</div>*@
@@ -975,13 +975,13 @@
 
                 var ShipName = '<input align="center" autofocus="autofocus" class="form-control" data-val="true" data-val-number="The field ShippingName must be a number." data-val-required="The ShippingName field is required." id="ShippingModel_' + (x - 1) + '__ShippingName" maxlength="50" name="ShippingModel[' + (x - 1) +'].ShippingName" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
 
-                var Zip1 = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__ZipCD1" maxlength="8" name="ShippingModel[' + (x - 1) +'].ZipCD1"  onchange = "CheckPostalFormat()" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
+                var Zip1 = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__ZipCD1" maxlength="8" name="ShippingModel[' + (x - 1) +'].ZipCD1"  onchange = "CheckPostalFormat(event)" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
 
                 var add1 = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__Address1" maxlength="100" name="ShippingModel[' + (x - 1) +'].Address1" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
 
                 var add2 = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__Address2" maxlength="100" name="ShippingModel[' + (x - 1) +'].Address2" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
 
-                var phno = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__TelephoneNO" maxlength="15" name="ShippingModel[' + (x - 1) +'].TelephoneNO" onkeypress="return isNumberKey(event)" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
+                var phno = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__TelephoneNO" maxlength="15" name="ShippingModel[' + (x - 1) +'].TelephoneNO" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
 
                 var faxno = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__FaxNO" maxlength="15" name="ShippingModel[' + (x - 1) +'].FaxNO" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
 
@@ -1027,14 +1027,15 @@
 
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode
-            if (charCode > 31 && charCode != 45 && (charCode < 48 || charCode > 57))
+            if (charCode > 31 && (charCode < 48 || charCode > 57))
                 return false;
             else
                 return true;
         }
 
-        function CheckPostalFormat(evt) {
-            var postalval = $('#txtCPostal').val();
+        function CheckPostalFormat(event) {
+            //var postalval = $('#txtCPostal').val();
+            var postalval = event.target.value;
             if (postalval != '') {
                 if (/(^\d{3}$)|(^\d{3}-\d{4}$)/.test(postalval)) { }
                 else {
