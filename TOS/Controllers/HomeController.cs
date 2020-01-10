@@ -43,15 +43,10 @@ namespace TOS.Controllers
                 var infodate = dt.Rows[i]["Column1"].ToString();
                 var detailinfo = dt.Rows[i]["DetailInformation"].ToString();
 
-
-
-
-
                 var attachfile1 = dt.Rows[i]["AttachedFile1"].ToString();
                 var attachfile2 = dt.Rows[i]["AttachedFile2"].ToString();
                 var attachfile3 = dt.Rows[i]["AttachedFile3"].ToString();
                 var attachfile4 = dt.Rows[i]["AttachedFile4"].ToString();
-
 
                 ViewData["InfoTitle"] = titlename;
                 ViewData["InfoDate"] = infodate;
@@ -93,13 +88,6 @@ namespace TOS.Controllers
                     ViewData["Attach4"] = null;
                 }
 
-
-                //ViewData["Attach2"] = attachfile2;
-                //ViewData["Attach3"] = attachfile3;
-                //ViewData["Attach4"] = attachfile4;
-
-
-
             }
 
             return View();
@@ -125,17 +113,13 @@ namespace TOS.Controllers
         public ActionResult MyPdfAction()
 
         {
-                            string path = Server.MapPath("~/FileFolder");
-                string fileName = "OrderHistory_2019-12-20 (2).pdf";
+                            string path = Server.MapPath("~/AttachFiles");
+                string fileName = "NewsEditor_お知らせ登録.xlsx";
 
                 byte[] fileBytes = System.IO.File.ReadAllBytes(path + @"\" + fileName);
                 return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
 
-           
-
         }
-
-
 
     }
 }
