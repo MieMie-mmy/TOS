@@ -326,9 +326,10 @@
     </div>
 </div>
 
-@RenderPage("~/Views/CommonView/Common_View.cshtml");
+@RenderPage("~/Views/CommonView/Common_View.cshtml"); 
 
-<!-- 2'nd table script-->
+
+
 
 <style>
 
@@ -398,8 +399,9 @@
         if (inid != null)
         {
             FillGrid_1(inid);
+           
         }
-
+       
         FillGrid_2(inid);
 
         var input1 = document.getElementById("txt_orderId");
@@ -415,7 +417,8 @@
 
             $.ajax({
                 type: 'POST',
-                url: "../../Order/OH_GetFirstTable/" + inid,
+               
+                url: '@Url.Action("OH_GetFirstTable", "Order")?id=' + inid,
                 dataType: 'json',
                 success: function (data) {
                     BindFirstTable(data);
@@ -429,7 +432,8 @@
     {
         $.ajax({
             type: 'POST',
-            url: "../../Order/OH_GetSecondTable/" + inid,
+           
+            url: '@Url.Action("OH_GetSecondTable", "Order")?id=' + inid,
 
             dataType: 'json',
 
@@ -616,6 +620,8 @@
     }
 
 </script>
+
+
 <!--button's function script-->
 <script>
 
@@ -644,7 +650,8 @@
     function RefreshFirstTable() {
         $.ajax({
             type: 'POST',
-            url: "../Order/OH_GetFirstTable",
+           
+            url: '@Url.Action("OH_GetFirstTable", "Order")',
             dataType: 'json',
             success: function (data) {
                 BindFirstTable(data);
@@ -652,10 +659,12 @@
             }
         });
     }
+
     function RefreshSecondTable() {
         $.ajax({
             type: 'POST',
-            url: "../Order/OH_GetSecondTable",
+       
+            url: '@Url.Action("OH_GetSecondTable", "Order")',
 
             dataType: 'json',
 
@@ -694,9 +703,9 @@
             return this.value + '_' + this.name;
 
         }).get();
-
+       
         $.ajax({
-            url: "/Order/Delete_OderHistoryDetailRow/" + checked,
+            url: '@Url.Action("Delete_OderHistoryDetailRow", "Order")?id=' + checked,
 
             type: 'POST',
             dataType: 'JSON',
@@ -726,7 +735,8 @@
     function Confrimmessage(t, k, m) {
         $.ajax({
             type: 'POST',
-            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+         
+            url: '@Url.Action("OrderHistoryMessage", "Order")?id=' + t + '_' + k + '_' + m,
             dataType: 'json',
             success: function (data) {
                 $('.modal-title').text(data);
@@ -792,7 +802,8 @@
     function check_makeritemcd(m1, m2, m3, m4, m5, m6, m7, m8) {
         $.ajax({
             type: 'POST',
-            url: "../Order/Check_MakerItemCD",
+            
+            url: '@Url.Action("Check_MakerItemCD", "Order")',
             data: {
                 m1: m1,
                 m2: m2,
@@ -821,7 +832,8 @@
     function ErrormessageMICD(t, k, m, d) {
         $.ajax({
             type: 'POST',
-            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+   
+            url: '@Url.Action("OrderHistoryMessage", "Order")?id=' + t + '_' + k + '_' + m,
             dataType: 'json',
             success: function (data) {
                 $('.modal-title').text("(" + d + ")" + data);
