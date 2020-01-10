@@ -11,14 +11,14 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Threading.Tasks;
 using System.IO;
-using Newtonsoft.Json;
 using FastMember;
+using System.Configuration;
 
 namespace TOS.Controllers
 {
     public class NewsEditorController : Controller
     {
-      
+        string InformationFiles = ConfigurationManager.AppSettings["InformationFiles"].ToString();
         public ActionResult News_Editor()
         {
             return View();
@@ -47,8 +47,9 @@ namespace TOS.Controllers
         public ActionResult T_Information_SaveEdit(MultipleModel model, List<HttpPostedFileBase> Insertfile, string SendEditFile, string CancleFile)
         {
             string SaveFileName = string.Empty;
-            string path = Server.MapPath("~/AttachFiles/");
-            var getExitFiles = Directory.GetFiles(path);
+            //string path = Server.MapPath("~/AttachFiles/");
+            var getExitFiles = Directory.GetFiles(InformationFiles);
+           
             string MatchFiles = "";
             //if (!string.IsNullOrWhiteSpace(CancleFile) )
 
@@ -76,14 +77,13 @@ namespace TOS.Controllers
                     {
                         foreach (var exfile in getExitFiles)
                         {
-                            var exitFile = (exfile.Split('\\'))[6].Split('.')[0];
-                            if (exitFile == EditFiles[k - 1].Split('.')[0])
+                            //var exitFile = (exfile.Split('\\'))[6].Split('.')[0]; 
+                            var exitFile = exfile.Split('\\');
+                            string filename = exitFile[exitFile.Length - 1];
+                            if (filename == EditFiles[k - 1].Split('.')[0])
                             {
-                                SaveFileName += exitFile + ",";
+                                SaveFileName += filename + ",";
                             }
-
-
-
                         }
                         k = k - 1;
                     }
@@ -103,7 +103,7 @@ namespace TOS.Controllers
                     {
 
                         string fileName = Path.GetFileName(postedFile.FileName);
-                        postedFile.SaveAs(path + fileName);
+                        postedFile.SaveAs(InformationFiles + fileName);
                         SaveFileName += fileName + ",";
 
 
