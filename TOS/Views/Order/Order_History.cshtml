@@ -642,9 +642,9 @@
         document.getElementById('MakerItemCD_8').value = "";
 
         $("#Order_First11").hide();
-
-        RefreshSecondTable();
-
+       
+       RefreshSecondTable_Refresh();
+       
 
     }
     function RefreshFirstTable() {
@@ -660,10 +660,24 @@
         });
     }
 
-    function RefreshSecondTable() {
+    function RefreshSecondTable(id) {
         $.ajax({
             type: 'POST',
-       
+
+            url: '@Url.Action("OH_GetSecondTable", "Order")?id=' + id,
+
+            dataType: 'json',
+
+            success: function (data) {
+                BindSecondTable(data);
+
+            }
+        });
+    }
+      function RefreshSecondTable_Refresh() {
+        $.ajax({
+            type: 'POST',
+
             url: '@Url.Action("OH_GetSecondTable", "Order")',
 
             dataType: 'json',
@@ -711,7 +725,8 @@
             dataType: 'JSON',
 
             success: function (data) {
-                if (data == "OK") {
+                //alert(data);
+                if (data != null) {
                     var Q = "Q";
                     var K = "1001";
                     var M = "Message2";
@@ -719,7 +734,7 @@
 
                     jQuery('input:checkbox:checked').parents("tr").remove();
 
-                    RefreshSecondTable();
+                    RefreshSecondTable(data);
 
 
                 }
@@ -796,6 +811,8 @@
         var MakerItemCD_7 = document.getElementById('MakerItemCD_7').value;
         var MakerItemCD_8 = document.getElementById('MakerItemCD_8').value;
         check_makeritemcd(MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
+
+       
         FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
