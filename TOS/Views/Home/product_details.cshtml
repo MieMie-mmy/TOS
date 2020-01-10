@@ -61,7 +61,7 @@
 
                         @if (ViewData["Attach1"] != null)
                         {
-                            <button type="button" id="btnatt1" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach1"]</button>
+                            <button type="button" id="btnatt1" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home", new {name=ViewData["Attach1"]})'">@ViewData["Attach1"]</button>
 
                         }
                         @if (ViewData["Attach2"] != null)

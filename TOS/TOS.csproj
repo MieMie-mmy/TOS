@@ -218,6 +218,7 @@
     <Content Include="Content\bootstrap-reboot.css.map" />
     <Content Include="Content\bootstrap-reboot.min.css.map" />
     <Content Include="FileFolder\OrderHistory_2019-12-20 %282%29.pdf" />
+    <Content Include="AttachFiles\test.pdf" />
     <None Include="Report\Order_History_Dataset.xsd">
       <SubType>Designer</SubType>
       <Generator>MSDataSetGenerator</Generator>
@@ -275,7 +276,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="AttachFiles\" />
     <Folder Include="images\" />
     <Folder Include="Models\" />
   </ItemGroup>
