@@ -7,9 +7,9 @@
     width: 100%;
 }
 
-td, th {
+/*td, th {
     padding: 0 !important;
-}
+}*/
 
 .orderpcomRow {
     display: table-row;

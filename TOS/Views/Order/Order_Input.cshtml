@@ -31,6 +31,12 @@
 </style>
 
 
+@if (Session["Error"] != null)
+{
+    <script>
+        Infomessage('I', '1006', 'Message1');
+    </script>
+}
 @section Styles {
     <!-- Bootstrap Core CSS -->
     <link href="~/Content/bootstrap.min.css" rel='stylesheet' type='text/css' />
@@ -131,7 +137,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/0",
+                        "url": "/Order/Order_Input_M_Item_Select/0",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": "",
@@ -159,7 +165,7 @@
                 }
             );
 
-                    $.getJSON("../Order/Order_Input_M_SKU_Select/0",
+                    $.getJSON("/Order/Order_Input_M_SKU_Select/0",
                         function (json) {
 
                             var table = $.makeTable(json)
@@ -201,7 +207,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/1",
+                        "url": "/Order/Order_Input_M_Item_Select/1",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -233,7 +239,7 @@
             //var mytable = document.getElementById('makeritem');
             //var tex = $('#makeritem2').find("tr:eq(0)").find("td:eq(1)").html();
             //alert(tex);
-            $.getJSON("../Order/Order_Input_M_SKU_Select/1",
+            $.getJSON("/Order/Order_Input_M_SKU_Select/1",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -274,7 +280,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/2",
+                        "url": "/Order/Order_Input_M_Item_Select/2",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -304,7 +310,7 @@
 
 
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/2",
+            $.getJSON("/Order/Order_Input_M_SKU_Select/2",
                 function (json) {
                     //if (json != null) {
                         var table = $.makeTable(json)
@@ -345,7 +351,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/3",
+                        "url": "/Order/Order_Input_M_Item_Select/3",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -373,7 +379,7 @@
                 }
             );
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/3",
+            $.getJSON("/Order/Order_Input_M_SKU_Select/3",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -414,7 +420,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/4",
+                        "url": "/Order/Order_Input_M_Item_Select/4",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -442,7 +448,7 @@
                 }
             );
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/4",
+            $.getJSON("/Order/Order_Input_M_SKU_Select/4",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -483,7 +489,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/5",
+                        "url": "/Order/Order_Input_M_Item_Select/5",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -511,7 +517,7 @@
                 }
             );
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/5",
+            $.getJSON("/Order/Order_Input_M_SKU_Select/5",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -552,7 +558,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/6",
+                        "url": "/Order/Order_Input_M_Item_Select/6",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -580,7 +586,7 @@
                 }
             );
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/6",
+            $.getJSON("/Order/Order_Input_M_SKU_Select/6",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -621,7 +627,7 @@
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "ajax": {
-                        "url": "../Order/Order_Input_M_Item_Select/7",
+                        "url": "/Order/Order_Input_M_Item_Select/7",
                         "type": "GET",
                         "datatype": "json",
                         "dataSrc": ""
@@ -649,7 +655,7 @@
                 }
             );
 
-            $.getJSON("../Order/Order_Input_M_SKU_Select/7",
+            $.getJSON("/Order/Order_Input_M_SKU_Select/7",
                 function (json) {
 
                     var table = $.makeTable(json)
@@ -814,11 +820,11 @@
                 MakerItemCD = MakerItemCD.slice(0, -1);
             if (MakerItemCD == null || MakerItemCD == "")
             {
-                Infomessage1('I', '1006', 'Message1');
+                Infomessage('I', '1006', 'Message1');
             }
             else
             {
-                window.location.href = '../Order/Order_Input/' + MakerItemCD;
+                window.location.href = '/Order/Order_Input/' + MakerItemCD;
             }
         })
 
@@ -914,7 +920,7 @@
                 var E = "I";
                 var T = "1007";
                 var M = "Message1";
-                Infomessage1(E, T, M);
+                Infomessage(E, T, M);
             }
             else {
                 var todaydate = new Date();
@@ -928,7 +934,7 @@
                 if (shipid == null || shipid == "") { shipid = 0; }
                 if (shipid == null || shipid == "") {
                     var postalcode = $("#postalcode").val();
-                  
+
                     T_OrderHeader.OrderID = orderid;
                     T_OrderHeader.ShippingID = 0;
                     if (postalcode.indexOf('-') > -1) {
@@ -1011,23 +1017,22 @@
                     }
 
                 }
-               
+
                 $.ajax({
-                    url: "../Order/InserOrder",
+                    url: "/Order/InserOrder",
                     type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
                     data: JSON.stringify({ T_OrderHeader: T_OrderHeader, T_OrderDetail: order }),
                     cache: false,
                     success: function (result) {
-                       
+
                         //alert(result);
-                        window.location.href ='@Url.Action("Order_History","Order")?id='+ result.orderid
-                       // window.location.href = '../Order/Order_History/' + result.orderid;
+                        window.location.href = '/Order/Order_History/' + result.orderid;
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         Errormessage('E', '1006', 'Message1');
-                    
+
                     }
                 });
 
@@ -1052,7 +1057,7 @@
 
 <!--heder end here-->
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="../Home/Index">ホーム</a> <i class="fa fa-angle-right"></i> <a href="../Order/order_portal">発注ポータル</a><i class="fa fa-angle-right"></i>発注入力</li>
+    <li class="breadcrumb-item"><a href="/Home/Index">ホーム</a> <i class="fa fa-angle-right"></i> <a href="/Order/order_portal">発注ポータル</a><i class="fa fa-angle-right"></i>発注入力</li>
 </ol>
 <div class="inbox-mail">
 
