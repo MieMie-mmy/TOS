@@ -31,12 +31,6 @@
 </style>
 
 
-@if (Session["Error"] != null)
-{
-    <script>
-        Infomessage('I', '1006', 'Message1');
-    </script>
-}
 @section Styles {
     <!-- Bootstrap Core CSS -->
     <link href="~/Content/bootstrap.min.css" rel='stylesheet' type='text/css' />
@@ -820,7 +814,7 @@
                 MakerItemCD = MakerItemCD.slice(0, -1);
             if (MakerItemCD == null || MakerItemCD == "")
             {
-                Infomessage('I', '1006', 'Message1');
+                Infomessage1('I', '1006', 'Message1');
             }
             else
             {
@@ -920,7 +914,7 @@
                 var E = "I";
                 var T = "1007";
                 var M = "Message1";
-                Infomessage(E, T, M);
+                Infomessage1(E, T, M);
             }
             else {
                 var todaydate = new Date();
