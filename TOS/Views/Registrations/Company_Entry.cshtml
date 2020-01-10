@@ -91,7 +91,7 @@
                         </div>
 
                         <div class="col-md-2">
-                            <div class="form-group" style="padding-left:67px;">
+                            <div class="form-group" style="padding-left:63px;">
                                 <button type="submit" class="save">✔　登録</button>
                             </div>
                         </div>
@@ -109,7 +109,7 @@
 
                                         @*<label for="ComCD" style=" font-size:11px;">会社CD</label>*@
                                         <td>
-                                            <label for="ComCD" style="font-size:11px;">会社CD</label>
+                                            <label for="ComCD" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">会社CD</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.ComModel.CompanyCD, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "border-radius: unset;height:23px; width:130px; font-size:13px;", @maxlength = "8" })
@@ -120,7 +120,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="ComName" style=" font-size:11px;">会社名</label>
+                                            <label for="ComName" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">会社名</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.ComModel.CompanyName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -131,7 +131,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="ComAbbre1" style=" font-size:11px;">会社略名</label>
+                                            <label for="ComAbbre1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">会社略名</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.ComModel.ShortName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @maxlength = "30" })
@@ -141,7 +141,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="ComPassw" style=" font-size:11px;">Password</label>
+                                            <label for="ComPassw" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">Password</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.ComModel.Password, new { @class = "form-control", @type = "password", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @maxlength = "20" })
@@ -152,7 +152,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="RepreName" style=" font-size:11px;">代表者名</label>
+                                            <label for="RepreName" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">代表者名</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.ComModel.PresidentName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @maxlength = "16" })
@@ -164,7 +164,7 @@
 
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="RnkFlag" style=" font-size:11px;">ランクフラグ</label>
+                                            <label for="RnkFlag" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">ランクフラグ</label>
                                         </td>
                                         <td>
                                             <div class="dropdown">
@@ -188,15 +188,15 @@
 
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="Authority" style=" font-size:11px;">権限</label>
+                                            <label for="Authority" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">権限</label>
                                         </td>
                                         <td>
                                             <div class="custom-control custom-radio">
                                                 @Html.RadioButtonFor(m => m.ComModel.UserRole, "1")
-                                                <label class="custom-control-label" style="font-size :11px;">管理者</label>
+                                                <label class="custom-control-label" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">管理者</label>
                                                 @Html.RadioButtonFor(m => m.ComModel.UserRole, "2", new { @checked = "true" })
 
-                                                <label class="custom-control-label" style="font-size :11px;">一般者</label>
+                                                <label class="custom-control-label" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">一般者</label>
                                             </div>
                                         </td>
                                     </tr>
@@ -205,7 +205,8 @@
                                     <tr class="form-group_entry">
                                         <td>
                                             @*<div class="form-group">*@
-                                            <label for="RnkFlag" style=" font-size:11px;">ブランド</label>
+                                            <label for="RnkFlag" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">ブランド</label>
+                                            <br /><br /><br /><br /><br />
                                         </td>
                                         <td>
                                             <div class="dropdown">
@@ -229,7 +230,7 @@
                                     <tr class="form-group_entry">
                                         <td>
                                             @*<div class="form-group">*@
-                                            <label for="PostCode" style=" font-size:11px;">郵便番号</label>
+                                            <label for="PostCode" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">郵便番号</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.ComModel.ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:150px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat(event)" })
@@ -240,7 +241,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="Address1" style=" font-size:11px;">住所1</label>
+                                            <label for="Address1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">住所1</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.ComModel.Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
@@ -251,7 +252,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="Address2" style=" font-size:11px;">住所2</label>
+                                            <label for="Address2" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">住所2</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.ComModel.Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
@@ -265,7 +266,7 @@
 
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="Phno" style=" font-size:11px;">電話番号</label>
+                                            <label for="Phno" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">電話番号</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.ComModel.TelephoneNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @maxlength = "15" })
@@ -275,7 +276,7 @@
                                     <tr class="form-group_entry">
                                         <td>
                                             @*<div class="form-group">*@
-                                            <label for="Faxno" style=" font-size:11px;"> FAX番号</label>
+                                            <label for="Faxno" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;"> FAX番号</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.ComModel.FaxNo, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
@@ -288,7 +289,7 @@
                                     <tr class="form-group_entry">
                                         <td>
                                             @*<div class="form-group">*@
-                                            <label for="tag1" style=" font-size:11px;">タグ1</label>
+                                            <label for="tag1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ1</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[0].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @maxlength = "50" })
@@ -301,7 +302,7 @@
                                     <tr class="form-group_entry">
                                         <td>
                                             @*<div class="form-group">*@
-                                            <label for="tag2" style=" font-size:11px;">タグ2</label>
+                                            <label for="tag2" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ2</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[1].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @maxlength = "50" })
@@ -311,7 +312,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag3" style=" font-size:11px;">タグ3</label>
+                                            <label for="tag3" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ3</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[2].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @maxlength = "50" })
@@ -332,7 +333,7 @@
                                     <tr class="form-group_entry">
                                         <td>
                                             @*<div class=" form-group">*@
-                                            <label for="tag4" style=" font-size:11px;">タグ4</label>
+                                            <label for="tag4" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ4</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[3].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -343,7 +344,7 @@
                                     <tr class="form-group_entry">
                                         <td>
                                             @*<div class="form-group">*@
-                                            <label for="tag5" style=" font-size:11px;">タグ5</label>
+                                            <label for="tag5" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ5</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[4].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -353,7 +354,7 @@
                                     <tr class="form-group_entry">
                                         <td>
                                             @*<div class="form-group">*@
-                                            <label for="tag6" style=" font-size:11px;">タグ6</label>
+                                            <label for="tag6" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ6</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[5].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -364,7 +365,7 @@
 
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag7" style=" font-size:11px;">タグ7</label>
+                                            <label for="tag7" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ7</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[6].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -374,7 +375,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag8" style=" font-size:11px;">タグ8</label>
+                                            <label for="tag8" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ8</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[7].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -383,7 +384,7 @@
                                         @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag9" style=" font-size:11px;">タグ9</label>
+                                            <label for="tag9" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ9</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[8].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -394,7 +395,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag10" style=" font-size:11px;">タグ10</label>
+                                            <label for="tag10" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ10</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[9].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -406,7 +407,7 @@
 
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag11" style=" font-size:11px;">タグ11</label>
+                                            <label for="tag11" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ11</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[10].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -416,7 +417,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag12" style=" font-size:11px;">タグ12</label>
+                                            <label for="tag12" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ12</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[11].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -435,7 +436,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag13" style=" font-size:11px;">タグ13</label>
+                                            <label for="tag13" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ13</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[12].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -445,7 +446,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag14" style=" font-size:11px;">タグ14</label>
+                                            <label for="tag14" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ14</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[13].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -457,7 +458,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag15" style=" font-size:11px;">タグ15</label>
+                                            <label for="tag15" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ15</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[14].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -469,7 +470,7 @@
 
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag16" style=" font-size:11px;">タグ16</label>
+                                            <label for="tag16" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ16</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[15].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -480,7 +481,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag17" style=" font-size:11px;">タグ17</label>
+                                            <label for="tag17" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ17</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[16].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -492,7 +493,7 @@
 
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag18" style=" font-size:11px;">タグ18</label>
+                                            <label for="tag18" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ18</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[17].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -504,7 +505,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag19" style=" font-size:11px;">タグ19</label>
+                                            <label for="tag19" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ19</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[18].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -514,7 +515,7 @@
                                     @*<div class="form-group">*@
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label for="tag20" style=" font-size:11px;">タグ20</label>
+                                            <label for="tag20" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">タグ20</label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.TagModel[19].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -553,12 +554,12 @@
                             <tbody>
 
                                 <tr class="form-group_entry">
-                                    <label for="Ship1" style="font-size:12px;">発送先情報登録1</label>
+                                    <label for="Ship1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;"><b>発送先情報登録1</b></label>
                                 </tr>
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="shipID1" style=" font-size:11px;">発送先ID</label>
+                                        <label for="shipID1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">発送先ID</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[0].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:130px;font-size:13px;" })
@@ -570,7 +571,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="shipName1" style=" font-size:11px;">発送先名</label>
+                                        <label for="shipName1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">発送先名</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[0].ShippingName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -582,7 +583,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="PostCode1" style=" font-size:11px;">郵便番号</label>
+                                        <label for="PostCode1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">郵便番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[0].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat(event)" })
@@ -593,7 +594,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Add1" style=" font-size:11px;">住所1</label>
+                                        <label for="Add1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">住所1</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[0].Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
@@ -603,7 +604,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Address1" style=" font-size:11px;">住所2</label>
+                                        <label for="Address1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">住所2</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[0].Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
@@ -615,7 +616,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Phno1" style=" font-size:11px;">電話番号</label>
+                                        <label for="Phno1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">電話番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[0].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
@@ -625,7 +626,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="TaxNo1" style=" font-size:11px;">FAX番号</label>
+                                        <label for="TaxNo1" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">FAX番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[0].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
@@ -642,7 +643,7 @@
 
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
-                                    <label for="Ship2" style="font-size :12px;">発送先情報登録2</label>
+                                    <label for="Ship2" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;"><b>発送先情報登録2</b></label>
                                 </tr>
 
                                 @*</div>*@
@@ -650,7 +651,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="shipID2" style=" font-size:11px;">発送先ID</label>
+                                        <label for="shipID2" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">発送先ID</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[1].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:130px;font-size:13px;" })
@@ -661,7 +662,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="shipName2" style=" font-size:11px;">発送先名</label>
+                                        <label for="shipName2" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">発送先名</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[1].ShippingName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -673,7 +674,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="PostCode2" style=" font-size:11px;">郵便番号</label>
+                                        <label for="PostCode2" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">郵便番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[1].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat(event)" })
@@ -684,7 +685,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Add2" style=" font-size:11px;">住所1</label>
+                                        <label for="Add2" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">住所1</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[1].Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
@@ -695,7 +696,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Address2" style=" font-size:11px;">住所2</label>
+                                        <label for="Address2" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">住所2</label>
                                     </td>
                                     <td>
 
@@ -706,7 +707,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Phno2" style=" font-size:11px;">電話番号</label>
+                                        <label for="Phno2" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">電話番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[1].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
@@ -717,7 +718,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="TaxNo2" style=" font-size:11px;">FAX番号</label>
+                                        <label for="TaxNo2" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">FAX番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[1].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
@@ -736,7 +737,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
 
-                                    <label for="Ship3" style="font-size :12px;">発送先情報登録3</label>
+                                    <label for="Ship3" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;"><b>発送先情報登録3</b></label>
 
                                 </tr>
                                 @*</div>*@
@@ -745,7 +746,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="shipID3" style=" font-size:11px;">発送先ID</label>
+                                        <label for="shipID3" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">発送先ID</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[2].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:130px;font-size:13px;" })
@@ -756,7 +757,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="shipName3" style=" font-size:11px;">発送先名</label>
+                                        <label for="shipName3" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">発送先名</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[2].ShippingName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -767,7 +768,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="PostCode3" style=" font-size:11px;">郵便番号</label>
+                                        <label for="PostCode3" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">郵便番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[2].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onchange = "CheckPostalFormat(event)" })
@@ -778,7 +779,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Add3" style=" font-size:11px;">住所1</label>
+                                        <label for="Add3" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">住所1</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[2].Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
@@ -790,7 +791,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Address3" style=" font-size:11px;">住所2</label>
+                                        <label for="Address3" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">住所2</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[2].Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
@@ -801,7 +802,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Phno3" style=" font-size:11px;">電話番号</label>
+                                        <label for="Phno3" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">電話番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[2].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
@@ -812,7 +813,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="TaxNo3" style=" font-size:11px;">FAX番号</label>
+                                        <label for="TaxNo3" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">FAX番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[2].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
@@ -836,9 +837,9 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
 
-                                    <label for="Ship4" style="font-size :12px;">発送先情報登録4</label>
+                                    <label for="Ship4" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;"><b>発送先情報登録4</b></label>
 
-                                    <button type="button" class="add_form_field" style="background-color:rgb(244, 176,132 );margin-left:50px;">発送情報追加</button>
+                                    <button type="button" class="add_form_field" >発送情報追加</button>
                                     @*</div>*@
 
                                 </tr>
@@ -848,7 +849,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="shipID4" style=" font-size:11px;">発送先ID</label>
+                                        <label for="shipID4" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">発送先ID</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[3].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:130px;font-size:13px;" })
@@ -859,7 +860,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="shipName4" style=" font-size:11px;">発送先名</label>
+                                        <label for="shipName4" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">発送先名</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[3].ShippingName, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "50" })
@@ -870,7 +871,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="PostCode4" style=" font-size:11px;">郵便番号</label>
+                                        <label for="PostCode4" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">郵便番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[3].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8" })
@@ -881,7 +882,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Add4" style=" font-size:11px;">住所1</label>
+                                        <label for="Add4" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">住所1</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[3].Address1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
@@ -892,7 +893,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Address4" style=" font-size:11px;">住所2</label>
+                                        <label for="Address4" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">住所2</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[3].Address2, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "100" })
@@ -903,7 +904,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="Phno4" style=" font-size:11px;">電話番号</label>
+                                        <label for="Phno4" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">電話番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[3].TelephoneNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
@@ -913,7 +914,7 @@
                                 @*<div class="form-group">*@
                                 <tr class="form-group_entry">
                                     <td>
-                                        <label for="TaxNo4" style=" font-size:11px;">FAX番号</label>
+                                        <label for="TaxNo4" style=" font-size:100%;font-weight:100;font-family: 'Roboto', sans-serif;">FAX番号</label>
                                     </td>
                                     <td>
                                         @Html.TextBoxFor(m => m.ShippingModel[3].FaxNO, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "15" })
@@ -994,21 +995,21 @@
                     @*$(wrapper).append('<div class="col-md-3"><div class="form-group"><label for="Ship1" style="font-size :12px;">発送先情報登録' + x + '</label> <div class="form-group"><label for="shipID1"style=" font-size:11px;"> 発送先ID </label>' +@Html.TextBoxFor(m => m.ShippingModel[5].ShippingID, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "background-color:#c4dfe5d6;height:23px; width:200px;", @maxlength = "15" })+'</div><div class ="form-group"><label for="shipName1"style=" font-size:11px;"> 発送先名 </label><input type="text" class="form-control" id="txtshipName1" name="txtshipName1" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div><div class="form-group"> <label for="PostCode" style=" font-size:11px;">郵便番号 </label><input type="text" class="form-control" id="txtPostCode" name="txtPostCode1" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div><div class="form-group"><label for="Add" style=" font-size:11px;">住所1</label> <input type="text" class="form-control" id="txtAdd1" name="txtAdd1" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div><div class="form-group"> <label for="Address1"style=" font-size:11px;">住所2</label> <input type="text" class="form-control" id="txtAddress1" name="txtAddress1" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div><div class="form-group"><label for="Phno"style=" font-size:11px;">電話番号 </label><input type="text" class="form-control" id="txtPhno" name="txtPhno" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div><div class="form-group"><label for="TaxNo"style=" font-size:11px;">FAX番号 </label> <input type="text" class="form-control" id="txtTaxNo" name="txtTaxNo" style="background-color:#c4dfe5d6;height:23px; width:200px;" /></div></div>'); //add input box*@
 
                     $(wrapper).append('<div class="col-md-3"><table><tbody><tr class="form-group_entry">'+
-                        '<label for= "Ship" style = "font-size :12px;" > 発送先情報登録' + x + '</label ></tr >'+
+                        '<label for= "Ship" style=" font-size:100%;font-weight:100;font-family: Roboto, sans-serif;" ><b> 発送先情報登録' + x + '</b></label ></tr >'+
                         '<tr class="form-group_entry">' +
-                        '<td><label for="shipID" style=" font-size:11px;"> 発送先ID </label></td><td>' + ShipID + '</td></tr>'+
+                        '<td><label for="shipID" style=" font-size:100%;font-weight:100;font-family: Roboto, sans-serif;"> 発送先ID </label></td><td>' + ShipID + '</td></tr>'+
                         '<tr class="form-group_entry">'+
-                        '<td><label for="shipName" style=" font-size:11px;"> 発送先名 </label></td><td>' + ShipName + '</td></tr>' +
+                        '<td><label for="shipName" style=" font-size:100%;font-weight:100;font-family: Roboto, sans-serif;"> 発送先名 </label></td><td>' + ShipName + '</td></tr>' +
                         '<tr class="form-group_entry"><td>'+
-                        '<label for="PostCode" style=" font-size:11px;">郵便番号 </label></td><td>' + Zip1 + '</td></tr>' +
+                        '<label for="PostCode" style=" font-size:100%;font-weight:100;font-family: Roboto, sans-serif;">郵便番号 </label></td><td>' + Zip1 + '</td></tr>' +
                         '<tr class="form-group_entry"><td>'+
-                        '<label for="Add" style=" font-size:11px;">住所1</label></td><td>' + add1 + '</td></tr>' +
+                        '<label for="Add" style=" font-size:100%;font-weight:100;font-family: Roboto, sans-serif;">住所1</label></td><td>' + add1 + '</td></tr>' +
                         '<tr class="form-group_entry"><td>'+
-                        '<label for="Address1" style=" font-size:11px;">住所2</label></td><td>' + add2 + '</td></tr>' +
+                        '<label for="Address1"style=" font-size:100%;font-weight:100;font-family: Roboto, sans-serif;">住所2</label></td><td>' + add2 + '</td></tr>' +
                         '<tr class="form-group_entry"><td>'+
-                        '<label for="Phno" style=" font-size:11px;">電話番号 </label></td><td>' + phno + '</td></tr>' +
+                        '<label for="Phno" style=" font-size:100%;font-weight:100;font-family: Roboto, sans-serif;">電話番号 </label></td><td>' + phno + '</td></tr>' +
                         '<tr class="form-group_entry"><td>'+
-                        '<label for="TaxNo" style=" font-size:11px;">FAX番号 </label></td><td>' + faxno + '</td></tr></tbody></table><br>' +
+                        '<label for="TaxNo" style=" font-size:100%;font-weight:100;font-family: Roboto, sans-serif;">FAX番号 </label></td><td>' + faxno + '</td></tr></tbody></table><br>' +
                         '</div>');
                     x++;
 
@@ -1132,6 +1133,17 @@
         color: #fff;
         padding: 8px 15px;
         border: none;
+    }
+    .add_form_field {
+        width: 116px;
+        border-radius: 0px;
+        font-size: 0.8em;
+        background-color: darkorange;
+        font-weight: 700;
+        color: #fff;
+        padding: 8px 15px;
+        border: none;
+        margin-left: 50px
     }
 </style>
 
