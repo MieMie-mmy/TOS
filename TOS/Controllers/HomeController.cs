@@ -35,6 +35,7 @@ namespace TOS.Controllers
 
         public ActionResult product_details(string id)
         {
+            Session["ProductDetailsID"] = id.ToString();
             InformationBL bl = new InformationBL();
             DataTable dt = bl.Get_InformationTitleName(id);
 
@@ -113,10 +114,11 @@ namespace TOS.Controllers
       
         public ActionResult MyPdfAction(string name)
         {
+            //name = "OrderHistory_1_3_2020.pdf";
             var Path = ConfigurationManager.AppSettings["InformationFiles"];
 
-            //    var FileName = "OrderHistory_1_3_2020.pdf";
-            var FileName = name;
+            //var FileName = "OrderHistory_1_3_2020.pdf";
+            var FileName = name.Split('▼')[0].Trim() ;
             var get_allFiles = Directory.GetFiles(Path);
             bool Check_Files=false;
             if (get_allFiles.Length > 0)
@@ -126,7 +128,7 @@ namespace TOS.Controllers
                     var fil = get_allFiles[i].Split('\\');
                     var k = (fil.Length) - 1;
                     var FileN = fil[k];
-                    if(FileN.ToString() == FileName)
+                    if(FileN.ToString().Trim() == FileName)
                     {
                         Check_Files = true;
                     }
@@ -138,9 +140,14 @@ namespace TOS.Controllers
             if (Check_Files)
             {
                 byte[] fileBytes = System.IO.File.ReadAllBytes(Path + FileName);
-                return File(fileBytes, "application/pdf", FileName);
+               
+              return  File(fileBytes,"application/pdf",FileName);
             }
-            return RedirectToAction("Index") ;
+            //  return Json(JsonConvert.SerializeObject("NOK"));
+            var Pid = Session["ProductDetailsID"];
+
+
+            return RedirectToAction("product_details","Home",new {@id= Pid});
         }
 
     }

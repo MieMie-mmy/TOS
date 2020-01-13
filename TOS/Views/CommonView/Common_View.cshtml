@@ -74,7 +74,8 @@
         //var result = "";
         $.ajax({
             type: 'POST',
-            url: "../Order/OrderHistoryMessage/" + t + '_' + k + '_' + m,
+        
+            url:'@Url.Action("OrderHistoryMessage", "Order")?id=' + t + '_' + k + '_' + m,
             dataType: 'json',
             success: function (data) {
 
