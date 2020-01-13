@@ -7,12 +7,13 @@ using Newtonsoft.Json;
 using System.IO;
 using System.Xml.Linq;
 using System.Runtime.InteropServices.ComTypes;
-
+using System.Configuration;
 
 namespace TOS.Controllers
 {
     public class HomeController : Controller
     {
+        string InformationFiles = ConfigurationManager.AppSettings["InformationFiles"].ToString();
         public ActionResult Index()
         {
            
@@ -34,6 +35,7 @@ namespace TOS.Controllers
 
         public ActionResult product_details(string id)
         {
+            Session["ProductDetailsID"] = id.ToString();
             InformationBL bl = new InformationBL();
             DataTable dt = bl.Get_InformationTitleName(id);
 
@@ -109,16 +111,43 @@ namespace TOS.Controllers
             return JSONString;
         }
 
-        [HttpGet]
-        public ActionResult MyPdfAction()
-
+      
+        public ActionResult MyPdfAction(string name)
         {
-                            string path = Server.MapPath("~/AttachFiles");
-                string fileName = "NewsEditor_お知らせ登録.xlsx";
+            //name = "OrderHistory_1_3_2020.pdf";
+            var Path = ConfigurationManager.AppSettings["InformationFiles"];
 
-                byte[] fileBytes = System.IO.File.ReadAllBytes(path + @"\" + fileName);
-                return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+            //var FileName = "OrderHistory_1_3_2020.pdf";
+            var FileName = name.Split('▼')[0].Trim() ;
+            var get_allFiles = Directory.GetFiles(Path);
+            bool Check_Files=false;
+            if (get_allFiles.Length > 0)
+            {
+                for(var i=0;i<get_allFiles.Length;i++)
+                {
+                    var fil = get_allFiles[i].Split('\\');
+                    var k = (fil.Length) - 1;
+                    var FileN = fil[k];
+                    if(FileN.ToString().Trim() == FileName)
+                    {
+                        Check_Files = true;
+                    }
+                    
+                }
 
+            }
+
+            if (Check_Files)
+            {
+                byte[] fileBytes = System.IO.File.ReadAllBytes(Path + FileName);
+               
+              return  File(fileBytes,"application/pdf",FileName);
+            }
+            //  return Json(JsonConvert.SerializeObject("NOK"));
+            var Pid = Session["ProductDetailsID"];
+
+
+            return RedirectToAction("product_details","Home",new {@id= Pid});
         }
 
     }

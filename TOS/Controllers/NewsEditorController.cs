@@ -48,6 +48,12 @@ namespace TOS.Controllers
         {
             string SaveFileName = string.Empty;
             //string path = Server.MapPath("~/AttachFiles/");
+
+            if (!Directory.Exists(InformationFiles))
+            {
+                Directory.CreateDirectory(InformationFiles);
+            }
+
             var getExitFiles = Directory.GetFiles(InformationFiles);
            
             string MatchFiles = "";
