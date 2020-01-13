@@ -13,7 +13,11 @@
 <!-- lined-icons -->
 <link rel="stylesheet" href="css/icon-font.min.css" type='text/css' />
 <!-- //lined-icons -->
-<!--heder end here-->
+<!-- for Render Page-->
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
     textarea#name {
         margin: 0px;
@@ -21,7 +25,6 @@
         height: 640px;
         border: white;
         resize: none;
-        
     }
 </style>
 <ol class="breadcrumb">
@@ -45,44 +48,48 @@
                             <h5>@ViewData["InfoDate"]</h5> <h3>@ViewData["InfoTitle"]@*ハンドポールイージーオーダーシステム商品詳細16について*@</h3>
                         </div>
                         @*<div class="float-right">
-                <div class="btn-group">
-                    <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
-                    <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
-                </div>
-            </div>*@
+                                <div class="btn-group">
+                                    <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
+                                    <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
+                                </div>
+                            </div>*@
                     </div>
                     @*<table class="table">*@
                     <p>
                         <span>添付ファイル：</span>
                         @*<button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">新規商品一覧.pdf&nbsp;&nbsp;▼</button>
-        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">ブランド一覧.pdf&nbsp;&nbsp;▼</button>
-        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">出荷先一覧.pdf&nbsp;&nbsp;▼</button>
-        <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">値段一覧.pdf&nbsp;&nbsp;▼</button>*@
+                            <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">ブランド一覧.pdf&nbsp;&nbsp;▼</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">出荷先一覧.pdf&nbsp;&nbsp;▼</button>
+                            <button type="button" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">値段一覧.pdf&nbsp;&nbsp;▼</button>*@
 
                         @if (ViewData["Attach1"] != null)
                         {
-                            <button type="button" id="btnatt1" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach1"]</button>
+                            //var FileName = ViewData["Attach1"];
+                            <button type="button" id="btnatt1" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home", new {name=ViewData["Attach1"]})'">@ViewData["Attach1"]</button>
 
                         }
                         @if (ViewData["Attach2"] != null)
                         {
-                            <button type="button" id="btnatt2" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach2"]</button>
+                            //var FileName = ViewData["Attach2"];
+                            <button type="button" id="btnatt2" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home", new {name=ViewData["Attach2"]})'">@ViewData["Attach2"]</button>
 
                         }
-                        @if (ViewData["Attach3"] !=null)
+                        @if (ViewData["Attach3"] != null)
                         {
-                            <button type="button" id="btnatt3" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach3"]</button>
+                            // var FileName = ViewData["Attach3"];
+                            <button type="button" id="btnatt3" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home", new {name=ViewData["Attach3"]})'">@ViewData["Attach3"]</button>
 
                         }
-                        @if (ViewData["Attach4"]!=null)
+                        @if (ViewData["Attach4"] != null)
                         {
-                            <button type="button" id="btnatt4" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home")'">@ViewData["Attach4"]</button>
+                            // var FileName = ViewData["Attach4"];
+                            <button type="button" id="btnatt4" class="btn btn-outline-secondary" onclick="location.href='@Url.Action("MyPdfAction", "Home", new {name=ViewData["Attach4"]})'">@ViewData["Attach4"]</button>
 
                         }
 
                     </p>
                     <hr />
-                    @Html.TextArea("name", (string)@ViewData["DetailInfo"], new { @readonly = "readonly"})
+                    @Html.TextArea("name", (string)@ViewData["DetailInfo"], new { @readonly = "readonly" })
 
                     @*<textarea cols="20" id="Name" name="Name" rows="15" style="color:red">@ViewData["DetailInfo"]</textarea>*@
 
@@ -159,6 +166,7 @@
 </div>
 <div class="clearfix"></div>
     </div>
+@RenderPage("~/Views/CommonView/Common_View.cshtml");
 <script>
     var toggle = true;
     $(".sidebar-icon").click(function () {
@@ -183,10 +191,10 @@
         if (Attach2 === "") {
             jQuery("#btnatt2").hide();
         } else {
-            
+
         }
     });
-  
+
 </script>
 <script type="text/javascript">
     var data = { "firstField": "value1", "secondField": "value2" };
@@ -231,3 +239,26 @@
         var v = this.value();
     }
 </script>
+<!--DownLoad PDF Script-->
+@*<script>
+    function DownloadPDF(e)
+    {
+        alert("Ha ha");
+        var rr = e.id;
+        var FileName = document.getElementById(rr).innerText;
+        alert(FileName);
+        $.ajax({
+            url: '@Url.Action("MyPdfAction", "Home")?id=' + FileName,
+            type: 'POST',
+            dataType: 'JSON',
+            success: function (result) {
+                alert("success");
+                Errormessage('E', '1007','Message1');
+            }
+            //error: function () {
+            //    alert("Crying");
+            //}
+        });
+
+    }
+</script>*@
