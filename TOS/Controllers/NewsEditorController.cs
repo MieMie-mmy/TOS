@@ -21,6 +21,7 @@ namespace TOS.Controllers
         string InformationFiles = ConfigurationManager.AppSettings["InformationFiles"].ToString();
         public ActionResult News_Editor()
         {
+
             return View();
         }
 

@@ -94,6 +94,7 @@
                         className: 'tab002tit'
                     }
                     ],
+                   
                     "destroy": true,
                     "dom": 'lrtip',
                     "bLengthChange": false,
@@ -121,12 +122,12 @@
                             }
                         }
                     ],
+                   
                 }
             );
         }
 
-
-
+       
         //function closefile(e, v) {
         //    e.remove();
         //    $("#file" + v).remove();
@@ -209,13 +210,13 @@
             DeleteID = deleteid;
         });
         function deleteConfirm() {
-
             $.ajax({
                 url: '../NewsEditor/T_Information_Delete/' + DeleteID,
                 type: 'POST',
                 dataType: 'JSON',
 
                 success: function (data) {
+                  
                     if (data == "OK") {
                         var Q = "Q";
                         var K = "1001";
@@ -223,6 +224,8 @@
                         Successmessage(Q, K, M);
                         DeleteID = null;
                         InformationTable();
+                     
+                       
                     }
                     else {
                         var Q = "Q";
@@ -232,9 +235,15 @@
                         DeleteID = null;
                         InformationTable();
                     }
+                    //$('#myModal').on('hidden', function () {
+                    //    $(this).remove();
+                    //});
                 }
+                  
             });
+           
         }
+       
     </script>
 }
 <ol class="breadcrumb">
@@ -256,20 +265,6 @@
 {
     <script>
         Errormessage('E', '1004', 'Message1');
-    </script>
-}
-
-@if (TempData["Imsg"] != null)
-{
-    <script>
-        Successmessage('Q', '1001', 'Message2');
-    </script>
-}
-
-@if (TempData["Emsg"] != null)
-{
-    <script>
-        Errormessage('Q', '1001', 'Message2');
     </script>
 }
 @if (TempData["update"] != null)
@@ -365,6 +360,29 @@
             font-weight: 700;
             padding: 8px 15px;
             letter-spacing: 0.02em;
+        }
+        .tab002tit1 {
+            background-color: #003492;
+            color: white;
+            text-align: center;
+            width: 40px;
+            border: 1px solid #999999;
+            font-weight:unset;
+        }
+        .tab002tit2 {
+            background-color: #003492;
+            color: white;
+            text-align: center;
+            width: 500px;
+            border: 1px solid #999999;
+            font-weight: unset;
+        }
+        .tab002tit3 {
+            background-color: #003492;
+            color: white;
+            text-align: center;
+            width: 80px;
+            border: 1px solid #999999;
         }
        
     </style>
@@ -554,10 +572,10 @@
                                 <table class="tab002" id="tbinformation" style="margin-right:500px;">
                                     <thead>
                                         <tr class="tab002tit">
-                                            <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:40px;">No</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;font-weight:unset;width:500px;word-wrap:break-word;">課題名</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
-                                            <th class="tab002tit" style="border: 1px solid #999999;width:80px;">&nbsp;</th>
+                                            <th class="tab002tit1">No</th>
+                                            <th class="tab002tit2">課題名</th>
+                                            <th class="tab002tit3">&nbsp;</th>
+                                            <th class="tab002tit3">&nbsp;</th>
                                         </tr>
                                     </thead>
                                 </table>
@@ -592,7 +610,8 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
+               
+                <h4 class="modal-title1" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
                 @*<img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>*@
             </div>
             <div class="modal-footer">
