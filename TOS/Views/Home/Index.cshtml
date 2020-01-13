@@ -20,6 +20,12 @@
     .fa{
         font-size:larger;
     }
+    table-text1 td {
+        width: 300px;
+    }
+    table-text2 td{
+        width:1000px;
+    }
 </style>
 <div class="inbox-mail">
 
@@ -39,7 +45,7 @@
                             <tr>
                                 <th></th>
                                 <th></th>
-                                <th></th>
+                                <th ></th>
                                 <th></th>
                             </tr>
                         </thead>
@@ -72,8 +78,13 @@
                             className: 'table-text1',
                         },
                         {
-                        targets: [1],
-                        className: 'table-text2',
+                            targets: [1],
+                            className: 'table-text2',
+                        },
+                        {
+                            targets: [2],
+                            className: 'table-text3',
+
                         }],
                     "dom": 'lrtip',
                     "bLengthChange": false,
