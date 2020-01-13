@@ -1020,7 +1020,7 @@
                 }
 
                 $.ajax({
-                    url: "/Order/InserOrder",
+                    url: "../Order/InserOrder",
                     type: 'post',
                     dataType: 'json',
                     contentType: 'application/json',
@@ -1235,9 +1235,7 @@
             @*<object data="order_input_table.html" width="100%" height="1200px" type="text/html">
                     Alternative Content
                 </object>*@
-            @Html.AntiForgeryToken()
-            @using (Html.BeginForm("InsertOrderHeader", "Order", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
-            {
+
                 <table class="tab001">
                     <tbody>
                         <tr>
@@ -1256,7 +1254,7 @@
                                                     new {@id= "ddlCompanyName",@name= "ddlCompanyName", @class = "form-control input-sm", @style = "width :210px" })*@
                                                 @Html.DropDownList("ddlShippingName",
                               new SelectList(Enumerable.Empty<SelectListItem>()), "選択",
-                              new { @class = "form-control t200" })
+                              new { @class = "form-control t200" , @style = "height: 2.3em !important " })
 
                                                 @*</div>*@
                                                 @*</div>*@
@@ -1393,7 +1391,7 @@
                 </table>
                 <br>
                 <!------>
-            }
+
             <table class="tab002" id="makeritem1">
                 @*<tbody>*@
                 <thead class="tab002tit">
@@ -1420,7 +1418,7 @@
                         <tr>
                             <td class="saitop"><img id="Timg1" src="" alt="Smiley face" height="30%" width="auto"></td>
                             <td>
-                                <table class="tab002" id="sku1" style="overflow:auto;"></table>
+                                <table class="tab002" id="sku1"></table>
 
                             </td>
                         </tr>
@@ -1448,13 +1446,13 @@
 
 
 
-            <div class="inbox-mail ISProductBody2">
+            <div class="inbox-mail ISProductBody2" style="overflow:scroll;">
                 <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img id="Timg2" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg2" src="" alt="Smiley face" height="30%" width="auto"></td>
                             <td>
-                                <table class="tab002" id="sku2" style="overflow :scroll;"></table>
+                                <table class="tab002" id="sku2"></table>
 
                             </td>
                         </tr>
@@ -1481,13 +1479,13 @@
 
 
 
-            <div class="inbox-mail ISProductBody3">
+            <div class="inbox-mail ISProductBody3" style="overflow:scroll;">
                 <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img id="Timg3" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg3" src="" alt="Smiley face" height="30%" width="auto"></td>
                             <td>
-                                <table class="tab002" id="sku3" style="overflow :scroll;"></table>
+                                <table class="tab002" id="sku3"></table>
 
                             </td>
                         </tr>
@@ -1515,11 +1513,11 @@
 
 
 
-            <div class="inbox-mail ISProductBody4">
+            <div class="inbox-mail ISProductBody4" style="overflow:scroll;">
                 <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img id="Timg4" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg4" src="" alt="Smiley face" height="30%" width="auto"></td>
                             <td>
                                 <table class="tab002" id="sku4" style="overflow :scroll;"></table>
 
@@ -1549,13 +1547,13 @@
 
 
 
-            <div class="inbox-mail ISProductBody5">
+            <div class="inbox-mail ISProductBody5" style="overflow:scroll;">
                 <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img id="Timg5" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg5" src="" alt="Smiley face" height="30%" width="auto"></td>
                             <td>
-                                <table class="tab002" id="sku5" style="overflow :scroll;"></table>
+                                <table class="tab002" id="sku5"></table>
 
                             </td>
                         </tr>
@@ -1582,13 +1580,13 @@
 
 
 
-            <div class="inbox-mail ISProductBody6">
+            <div class="inbox-mail ISProductBody6" style="overflow:scroll;">
                 <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img id="Timg6" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg6" src="" alt="Smiley face" height="30%" width="auto"></td>
                             <td>
-                                <table class="tab002" id="sku6" style="overflow :scroll;"></table>
+                                <table class="tab002" id="sku6"></table>
 
                             </td>
                         </tr>
@@ -1614,13 +1612,13 @@
 
             </table>
 
-            <div class="inbox-mail ISProductBody7">
+            <div class="inbox-mail ISProductBody7" style="overflow:scroll;">
                 <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img id="Timg7" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg7" src="" alt="Smiley face" height="30%" width="auto"></td>
                             <td>
-                                <table class="tab002" id="sku7" style="overflow :scroll;"></table>
+                                <table class="tab002" id="sku7"></table>
 
                             </td>
                         </tr>
@@ -1648,13 +1646,13 @@
 
 
 
-            <div class="inbox-mail ISProductBody8">
+            <div class="inbox-mail ISProductBody8" style="overflow:scroll;">
                 <table>
                     <tbody>
                         <tr>
-                            <td class="saitop"><img id="Timg8" src="~/images/hed-571614-12-1.jpg" alt="Smiley face" height="30%" width="auto"></td>
+                            <td class="saitop"><img id="Timg8" src="" alt="Smiley face" height="30%" width="auto"></td>
                             <td>
-                                <table class="tab002" id="sku8" style="overflow :scroll;"></table>
+                                <table class="tab002" id="sku8"></table>
 
                             </td>
                         </tr>
