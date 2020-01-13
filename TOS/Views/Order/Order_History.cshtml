@@ -319,7 +319,22 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
-                <button type="button" class="btn btn-default" onclick="_CancleRow()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+                @{
+                    var oid = ViewBag.InputOrderID;
+                    if (oid != null)
+                    {
+                        <button type="button" class="btn btn-default" onclick="_CancleRow()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+
+                    }
+                    else
+                    {
+
+                        <button type="button" class="btn btn-default" onclick="_CancleRow1()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+
+                    }
+
+                }
+
             </div>
         </div>
 
@@ -624,7 +639,8 @@
 
 <!--button's function script-->
 <script>
-
+ 
+                    
     function _ClearRefresh() {
 
         document.getElementById('txt_orderId').value = "";
@@ -705,14 +721,17 @@
         }
         else {
             var Q = "Q";
-            var K = "1001";
+            var K = "1005";
             var M = "Message1";
             Confrimmessage(Q, K, M);
         }
 
     }
 
-    function _CancleRow() {
+    // Cancle Row from Order History Link
+    function _CancleRow1()
+    {
+       
         var checked = jQuery('input:checkbox:checked').map(function () {
             return this.value + '_' + this.name;
 
@@ -725,19 +744,62 @@
             dataType: 'JSON',
 
             success: function (data) {
-                alert(data);
+               // alert(data);
                 if (data != null) {
                     var Q = "Q";
-                    var K = "1001";
+                    var K = "1005";
                     var M = "Message2";
                     Successmessage(Q, K, M);
 
                     jQuery('input:checkbox:checked').parents("tr").remove();
 
-                    RefreshSecondTable(data);
+                    RefreshSecondTable_Refresh();
+                        //RefreshSecondTable(data);
+                                     
 
 
                 }
+
+            }
+
+
+        });
+
+    }
+
+  //Cancle Row (from Order Input Link)
+    function _CancleRow() {
+       
+        var checked = jQuery('input:checkbox:checked').map(function () {
+            return this.value + '_' + this.name;
+
+        }).get();
+       
+        $.ajax({
+            url: '@Url.Action("Delete_OderHistoryDetailRow", "Order")?id=' + checked,
+
+            type: 'POST',
+            dataType: 'JSON',
+
+            success: function (data) {
+               // alert(data);
+                if (data != null) {
+                    var Q = "Q";
+                    var K = "1005";
+                    var M = "Message2";
+                    Successmessage(Q, K, M);
+                   // alert("successfully deleted");
+
+                    jQuery('input:checkbox:checked').parents("tr").remove();
+
+                   // RefreshSecondTable_Refresh();
+                    RefreshSecondTable(data);
+
+
+
+                }
+
+              
 
             }
 
@@ -816,6 +878,7 @@
         FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
     }
+
     function check_makeritemcd(m1, m2, m3, m4, m5, m6, m7, m8) {
         $.ajax({
             type: 'POST',
@@ -860,5 +923,7 @@
             }
         });
     }
+
+   
 
 </script>
