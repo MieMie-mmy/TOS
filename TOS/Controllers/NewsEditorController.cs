@@ -146,6 +146,7 @@ namespace TOS.Controllers
             InformationBL ibl = new InformationBL();
             model.TinfoModel.InsertOperator = Session["CompanyCD"].ToString();
             string PcName = System.Environment.MachineName;
+            
             if (model.TinfoModel.InformationID == 0)
             {
                 insertflag = ibl.News_Editor_Save(model, PcName);

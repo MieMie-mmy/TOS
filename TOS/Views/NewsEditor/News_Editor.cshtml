@@ -122,7 +122,7 @@
                             }
                         }
                     ],
-                   
+                    
                 }
             );
         }
@@ -224,7 +224,6 @@
                         Successmessage(Q, K, M);
                         DeleteID = null;
                         InformationTable();
-                     
                        
                     }
                     else {
@@ -235,9 +234,9 @@
                         DeleteID = null;
                         InformationTable();
                     }
-                    //$('#myModal').on('hidden', function () {
-                    //    $(this).remove();
-                    //});
+                    $(".modal").on("hidden.bs.modal", function () {
+                        $(".modal-dialog").html("");
+                    });
                 }
                   
             });
@@ -304,7 +303,9 @@
             display: block !important;
             background-color: #edecec !important;
         }
-
+        .left-content {
+            background-color: #edecec !important;
+        }
         tr.even {
             background-color: #CCDDFF !important;
         }
@@ -371,7 +372,6 @@
             text-align: center;
             width: 40px;
             border: 1px solid #999999;
-            font-weight:unset;
         }
         .tab002tit2 {
             background-color: #003492;
@@ -379,7 +379,6 @@
             text-align: center;
             width: 500px;
             border: 1px solid #999999;
-            font-weight: unset;
         }
         .tab002tit3 {
             background-color: #003492;
@@ -576,8 +575,8 @@
                                 <table class="tab002" id="tbinformation" style="margin-right:500px;">
                                     <thead>
                                         <tr class="tab002tit">
-                                            <th class="tab002tit1">No</th>
-                                            <th class="tab002tit2">課題名</th>
+                                            <th class="tab002tit1" style="font-weight:unset;">No</th>
+                                            <th class="tab002tit2" style="font-weight:unset;">課題名</th>
                                             <th class="tab002tit3">&nbsp;</th>
                                             <th class="tab002tit3">&nbsp;</th>
                                         </tr>
