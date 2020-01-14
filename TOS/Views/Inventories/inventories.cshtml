@@ -100,16 +100,16 @@
                   ],
                   "columnDefs": [
                       {
-                          targets: [0, 3, 4, 5, 6],
+                          targets: [ 3, 4],
                           className: 'saict'
                       },
                       {
-                          targets: [7, 8],
+                          targets: [0,5,8],
                           className: 'sair '
                       },
                       {
-                          targets: [1, 2],
-                          className: 'sailf '
+                          targets: [1, 2,6,7],
+                          className: 'textalign sailf'
                       },
                   ],
                   
@@ -146,6 +146,12 @@
        
          border-collapse: collapse !important; 
         border-spacing: 0;
+    }
+    .textalign {
+        text-align: left !important;
+    }
+    .pricealign {
+        text-align: right !important;
     }
     /*td.sorting_1 {
         text-align: center;
@@ -240,15 +246,15 @@
                                     <table class="tab002" id="tbl_inventory" style="width:100%">
                                         <thead>
                                             <tr class="tab002tit">
-                                                <td class="t30">No</td>
-                                                <td class="t100">メーカー品番</td>
-                                                <td class="t250">商品名</td>
-                                                <td class="t70">サイズ</td>
-                                                <td class="t100">カラー</td>
-                                                <td class="t100">在庫数</td>
-                                                <td class="t200">ブランド</td>
-                                                <td class="t100">品目</td>
-                                                <td class="t150">JANコード</td>
+                                                <td class="t30" style="text-align:center !important;">No</td>
+                                                <td class="t100" style="text-align:center !important;">メーカー品番</td>
+                                                <td class="t250" style="text-align:center !important;">商品名</td>
+                                                <td class="t70" style="text-align:center !important;">サイズ</td>
+                                                <td class="t100" style="text-align:center !important;">カラー</td>
+                                                <td class="t100" style="text-align:center !important;">在庫数</td>
+                                                <td class="t200" style="text-align:center !important;">ブランド</td>
+                                                <td class="t100" style="text-align:center !important;">品目</td>
+                                                <td class="t150" style="text-align:center !important;">JANコード</td>
                                             </tr>
                                         </thead>
                                         <tbody class="obl">

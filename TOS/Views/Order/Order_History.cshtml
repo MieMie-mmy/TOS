@@ -41,12 +41,12 @@
                         <table class="histoptab" id="Order_First" >
                             <thead>
                                 <tr class="histoptabtit">
-                                    <td class="tda t150">発注番号</td>
-                                    <td class="tda t150">合計金額</td>
-                                    <td class="tda t200">出荷先名</td>
-                                    <td class="tda t150">発注日</td>
-                                    <td class="tda t150">出荷可能日</td>
-                                    <td class="tda t100">受付時間</td>
+                                    <td class="tda t150" style="text-align:center !important;">発注番号</td>
+                                    <td class="tda t150" style="text-align:center !important;">合計金額</td>
+                                    <td class="tda t200" style="text-align:center !important;">出荷先名</td>
+                                    <td class="tda t150" style="text-align:center !important;">発注日</td>
+                                    <td class="tda t150" style="text-align:center !important;">出荷可能日</td>
+                                    <td class="tda t100" style="text-align:center !important;">受付時間</td>
 
                                     <td class="histoptabno t200"></td>
                                     <td class="histoptabno t200"></td>
@@ -512,7 +512,7 @@
                 },
                 "columns": [
                     { "data": "OrderID", orderable: false },
-                    { "data": "TotalAmount", orderable: false },
+                    { "data": "TotalAmount", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                     { "data": "ShippingName", orderable: false },
                     { "data": "OrderDateTime_h", orderable: false },
                     { "data": "AvailableShippingDate", orderable: false },
@@ -526,14 +526,23 @@
                 "columnDefs": [
 
                     {
-                        targets: [0, 1, 2, 3, 4,5],
+                        targets: [ 3, 4,5],
                         className: 'tda saict'
+                    },
+                    {
+                        targets: [1],
+                        className: 'tda sair '
+                    },
+                    {
+                        targets: [0,2],
+                        className: 'tda sailf '
                     },
                     {
                         targets: [6,7,8,9],
                         className: 'histoptabno sair ffss',
 
                     },
+
 
                     ],
 
@@ -575,8 +584,8 @@
                     { "data": "ColorName", orderable: false },
                     { "data": "OrderItem", orderable: false },
                     { "data": "StockItem", orderable: false },
-                    { "data": "SalePrice", orderable: false },
-                    { "data": "TotalAmount", orderable: false },
+                    { "data": "SalePrice", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
+                    { "data": "TotalAmount", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                     { "data": "OrderDate", orderable: false },
                     { "data": "OrderTime", orderable: false },
                     { "data": "ShippingDate", orderable: false },
@@ -599,11 +608,11 @@
                         }
                     },
                     {
-                        targets: [0, 5, 6, 7, 8, 11, 12, 13],
+                        targets: [ 5, 6, 11, 12, 13],
                         className: 'saict'
                     },
                     {
-                        targets: [9, 10],
+                        targets: [0,7,8,9, 10],
                         className: 'sair '
                     },
                     {
