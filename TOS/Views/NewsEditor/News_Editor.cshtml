@@ -787,7 +787,7 @@
 
 
         }
-
+        BrowseFss
     });
 
 
@@ -795,10 +795,11 @@
     function edit(id) {
 
 
-        $(".showefile").remove();
+        $(".showefile").remove(); //for not show file in other rows
         $(".BrowseFss").remove();
-        $('#SendEditFile').remove();
-        $('CancleFile').remove();
+        EditFileName = "";
+        //$('#SendEditFile').remove();
+        //$('CancleFile').remove();
 
         var id = id;
 
@@ -938,6 +939,7 @@
                 }
 
                 document.getElementById("SendEditFile").value = EditFileName;
+                //alert(document.getElementById("SendEditFile").value);
                 
             }
         });
