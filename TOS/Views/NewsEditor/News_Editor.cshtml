@@ -234,9 +234,6 @@
                         DeleteID = null;
                         InformationTable();
                     }
-                    $(".modal").on("hidden.bs.modal", function () {
-                        $(".modal-dialog").html("");
-                    });
                 }
                   
             });
@@ -567,7 +564,8 @@
                             </div>
                             <div class="newr col-md-7">
 
-                                <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div>
+                                <div class="float-left"><h6 style="font-size: 1rem;" >お知らせ一覧</h6><br /><br /></div>
+                                
                                 <table class="tab002" id="tbinformation" style="margin-right:500px;">
                                     <thead>
                                         <tr class="tab002tit">
@@ -578,7 +576,7 @@
                                         </tr>
                                     </thead>
                                 </table>
-
+                                
                             </div>
                         </div>
                     </div>
@@ -615,7 +613,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
-                <button type="button" class="btn btn-default" id="btnconfirm" onclick="deleteConfirm()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+                <button type="button" class="btn btn-default" onclick="deleteConfirm()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
             </div>
         </div>
 
@@ -1087,45 +1085,9 @@
             $(this).text('ブロック表示')
     })
 </script>
-<script>
-    $(document).ready(function () {
-        var navoffeset = $(".header-main").offset().top;
-        $(window).scroll(function () {
-            var scrollpos = $(window).scrollTop();
-            if (scrollpos >= navoffeset) {
-                $(".header-main").addClass("fixed");
-            } else {
-                $(".header-main").removeClass("fixed");
-            }
-        });
-
-    });
-</script>
 
 
 
-
-<script>
-    var toggle = true;
-
-    $(".sidebar-icon").click(function () {
-        if (toggle) {
-            $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
-            $("#menu span").css({
-                "position": "absolute"
-            });
-        } else {
-            $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
-            setTimeout(function () {
-                $("#menu span").css({
-                    "position": "relative"
-                });
-            }, 400);
-        }
-
-        toggle = !toggle;
-    });
-</script>
 
 <!--js -->
 <script src="js/jquery.nicescroll.js"></script>
