@@ -86,8 +86,13 @@ namespace TOS.Controllers
                         {
                             //var exitFile = (exfile.Split('\\'))[6].Split('.')[0]; 
                             var exitFile = exfile.Split('\\');
+                            //string filename = exitFile[exitFile.Length - 1].Split('.')[0];
+                            //if (filename == EditFiles[k - 1].Split('.')[0])
+                            //{
+                            //    SaveFileName += filename + ",";
+                            //}
                             string filename = exitFile[exitFile.Length - 1];
-                            if (filename == EditFiles[k - 1].Split('.')[0])
+                            if (filename == EditFiles[k - 1])
                             {
                                 SaveFileName += filename + ",";
                             }
