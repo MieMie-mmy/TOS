@@ -87,24 +87,29 @@ namespace TOS.Controllers
             return JsonConvert.SerializeObject( message);
         }
 
-
-        public ActionResult ExportReport(string id)
+       
+        public FileStreamResult ExportReport(string id)
         {
+           
             DataSet ds = new DataSet();
 
             string savedFileName = "OrderHistory_" + (DateTime.Now).ToShortDateString() + ".pdf";
             var OrderID = id;
+           
             ds = bl._GetReportData(OrderID);
             Report.Order_History_Report ohrpt = new Report.Order_History_Report();
             ohrpt.Database.Tables["OH_Body"].SetDataSource(ds.Tables[1]);
             ohrpt.Database.Tables["OH_Header"].SetDataSource(ds.Tables[0]);
+
+
             Stream str = ohrpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
             str.Seek(0, SeekOrigin.Begin);
-            return File(str, "application/pdf", savedFileName);
-            
+
+            return File(str, "application/pdf");
+          
 
         }
 

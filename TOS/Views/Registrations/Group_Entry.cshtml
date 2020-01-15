@@ -222,7 +222,7 @@
                                 <tbody>
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">グループID</label>
+                                            <label style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">グループID</label><label style="color:red;">&nbsp;* </label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.GroupModel.GroupID, new { @id = "txtGroupID", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "width:110px;border-radius: unset;", @maxlength = "8" })
@@ -230,7 +230,7 @@
                                     </tr>
                                     <tr class="form-group_entry">
                                         <td>
-                                            <label style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">グループ名</label>
+                                            <label style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">グループ名</label><label style="color:red;">&nbsp;* </label>
                                         </td>
                                         <td>
                                             @Html.TextBoxFor(m => m.GroupModel.GroupName, new { @id = "txtGroupName", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "width:210px;border-radius: unset;" })
