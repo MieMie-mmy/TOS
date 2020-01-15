@@ -51,7 +51,7 @@
                                     <td class="histoptabno t200"></td>
                                     <td class="histoptabno t200"></td>
                                     <td class="histoptabno t200">
-                                        <button type="button" id="PrintDoc" onclick="location.href='@Url.Action("ExportReport","Order")?id='+ '@ViewBag.InputOrderID'" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
+                                        <button type="button" id="PrintDoc" onclick="window.open('@Url.Action("ExportReport","Order")?id='+ '@ViewBag.InputOrderID')"  class="btn btn-info btn-lg ">✏&nbsp;出力</button>
                                     </td>
                                     <td class="histoptabno t200"></td>
                                 </tr>
@@ -569,7 +569,7 @@
                     { "data": "No", orderable: false },
                     {},
                     { "data": "OrderID", orderable: false },
-                    { "data": "MakerItemAdminCD", orderable: false },
+                    { "data": "MakerItemCD", orderable: false },
                     { "data": "ItemName", orderable: false },
                     { "data": "SizeName", orderable: false },
                     { "data": "ColorName", orderable: false },
