@@ -36,7 +36,17 @@ namespace Order_History_BL
         }
         public DataTable _SelectOrderDetail(T_OrderHistorySearch data,string companyCD)
         {
-            SqlParameter[] prms = new SqlParameter[14];
+            var MakerItemCD = string.Empty;
+            SqlParameter[] prms = new SqlParameter[7];
+            var micd = new string[8] { data.m1, data.m2, data.m3, data.m4, data.m5, data.m6, data.m7, data.m8 };
+            for(var i=0;i<8;i++)
+            {
+                if(micd[i]!=null)
+                {
+                    MakerItemCD += micd[i] + ',';
+                }
+              
+            }
 
             prms[0] = new SqlParameter("@company", SqlDbType.VarChar) { Value = companyCD };
 
@@ -86,64 +96,72 @@ namespace Order_History_BL
             }
             else
             {
-                prms[6] = new SqlParameter("@m1", SqlDbType.VarChar) { Value = (data.m1).Trim() };
+                prms[6] = new SqlParameter("@m1", SqlDbType.VarChar) { Value = MakerItemCD.TrimEnd(',') };
             }
-            if (data.m2 == null)
-            {
-                prms[7] = new SqlParameter("@m2", SqlDbType.VarChar) { Value = DBNull.Value };
-            }
-            else
-            {
-                prms[7] = new SqlParameter("@m2", SqlDbType.VarChar) { Value = (data.m2).Trim() };
-            }
-            if (data.m3 == null)
-            {
-                prms[8] = new SqlParameter("@m3", SqlDbType.VarChar) { Value = DBNull.Value };
-            }
-            else
-            {
-                prms[8] = new SqlParameter("@m3", SqlDbType.VarChar) { Value = (data.m3).Trim() };
-            }
-            if (data.m4 == null)
-            {
-                prms[9] = new SqlParameter("@m4", SqlDbType.VarChar) { Value = DBNull.Value };
-            }
-            else
-            {
-                prms[9] = new SqlParameter("@m4", SqlDbType.VarChar) { Value = (data.m4).Trim() };
-            }
-            if (data.m5 == null)
-            {
-                prms[10] = new SqlParameter("@m5", SqlDbType.VarChar) { Value = DBNull.Value };
-            }
-            else
-            {
-                prms[10] = new SqlParameter("@m5", SqlDbType.VarChar) { Value = (data.m5).Trim() };
-            }
-            if (data.m6 == null)
-            {
-                prms[11] = new SqlParameter("@m6", SqlDbType.VarChar) { Value = DBNull.Value };
-            }
-            else
-            {
-                prms[11] = new SqlParameter("@m6", SqlDbType.VarChar) { Value = (data.m6).Trim() };
-            }
-            if (data.m7 == null)
-            {
-                prms[12] = new SqlParameter("@m7", SqlDbType.VarChar) { Value = DBNull.Value };
-            }
-            else
-            {
-                prms[12] = new SqlParameter("@m7", SqlDbType.VarChar) { Value = (data.m7).Trim() };
-            }
-            if (data.m8 == null)
-            {
-                prms[13] = new SqlParameter("@m8", SqlDbType.VarChar) { Value = DBNull.Value };
-            }
-            else
-            {
-                prms[13] = new SqlParameter("@m8", SqlDbType.VarChar) { Value = (data.m8).Trim() };
-            }
+            //if (data.m1 == null)
+            //{
+            //    prms[6] = new SqlParameter("@m1", SqlDbType.VarChar) { Value = DBNull.Value };
+            //}
+            //else
+            //{
+            //    prms[6] = new SqlParameter("@m1", SqlDbType.VarChar) { Value = (data.m1).Trim() };
+            //}
+            //if (data.m2 == null)
+            //{
+            //    prms[7] = new SqlParameter("@m2", SqlDbType.VarChar) { Value = DBNull.Value };
+            //}
+            //else
+            //{
+            //    prms[7] = new SqlParameter("@m2", SqlDbType.VarChar) { Value = (data.m2).Trim() };
+            //}
+            //if (data.m3 == null)
+            //{
+            //    prms[8] = new SqlParameter("@m3", SqlDbType.VarChar) { Value = DBNull.Value };
+            //}
+            //else
+            //{
+            //    prms[8] = new SqlParameter("@m3", SqlDbType.VarChar) { Value = (data.m3).Trim() };
+            //}
+            //if (data.m4 == null)
+            //{
+            //    prms[9] = new SqlParameter("@m4", SqlDbType.VarChar) { Value = DBNull.Value };
+            //}
+            //else
+            //{
+            //    prms[9] = new SqlParameter("@m4", SqlDbType.VarChar) { Value = (data.m4).Trim() };
+            //}
+            //if (data.m5 == null)
+            //{
+            //    prms[10] = new SqlParameter("@m5", SqlDbType.VarChar) { Value = DBNull.Value };
+            //}
+            //else
+            //{
+            //    prms[10] = new SqlParameter("@m5", SqlDbType.VarChar) { Value = (data.m5).Trim() };
+            //}
+            //if (data.m6 == null)
+            //{
+            //    prms[11] = new SqlParameter("@m6", SqlDbType.VarChar) { Value = DBNull.Value };
+            //}
+            //else
+            //{
+            //    prms[11] = new SqlParameter("@m6", SqlDbType.VarChar) { Value = (data.m6).Trim() };
+            //}
+            //if (data.m7 == null)
+            //{
+            //    prms[12] = new SqlParameter("@m7", SqlDbType.VarChar) { Value = DBNull.Value };
+            //}
+            //else
+            //{
+            //    prms[12] = new SqlParameter("@m7", SqlDbType.VarChar) { Value = (data.m7).Trim() };
+            //}
+            //if (data.m8 == null)
+            //{
+            //    prms[13] = new SqlParameter("@m8", SqlDbType.VarChar) { Value = DBNull.Value };
+            //}
+            //else
+            //{
+            //    prms[13] = new SqlParameter("@m8", SqlDbType.VarChar) { Value = (data.m8).Trim() };
+            //}
 
 
             dt = dl.SelectData("Order_History_SelectSearch", prms);
