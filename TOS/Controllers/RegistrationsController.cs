@@ -10,6 +10,7 @@ using System.Transactions;
 using Information_BL;
 using Group_Entry_BL;
 using Newtonsoft.Json;
+using Group_View_BL;
 using System.EnterpriseServices;
 using TOS_DL;
 using Base_BL;
@@ -216,10 +217,39 @@ namespace TOS.Controllers
 
             }
         }
-        public ActionResult Group_Entry()
+        public ActionResult Group_Entry(string id)
         {
-            return View();
+            if (id == null)
+            {
+                ViewBag.Groupid = "";
+                return View();
+            }
+            else
+            {
+                ViewBag.Groupid = id;
+                return View();
+            }
         }
+
+        [HttpGet]
+        public string Get_Group_View_ForEdit(string id)
+        {
+            Group_ViewBL gbl = new Group_ViewBL();
+            if (id != null)
+            {
+                DataTable dtinfo = new DataTable();
+                dtinfo = gbl.Get_Group_View_ForEdit(id);
+                if (dtinfo.Rows.Count > 0)
+                {
+                    string jsonresult;
+                    jsonresult = JsonConvert.SerializeObject(dtinfo);
+                    return jsonresult;
+                }
+            }
+            return null;
+
+        }
+
         [HttpGet]
         public string M_Companay_Select()
         {
@@ -247,25 +277,44 @@ namespace TOS.Controllers
                 Group_EntryBL gebl = new Group_EntryBL();
                 model.GroupModel.InsertOperator = Session["CompanyCD"].ToString();
                 Boolean insertFlag = false;
-                DataTable dt = new DataTable();
-                dt = gebl.Check_Duplicate_GroupEntry(model);
-                if (dt.Rows.Count > 0)
+                if (model.GroupModel.SaveUpdateFlag == null)
                 {
-                    TempData["Imsg"] = "Duplicate";
+                    model.GroupModel.SaveUpdateFlag = "Save";
+                    DataTable dt = new DataTable();
+                    dt = gebl.Check_Duplicate_GroupEntry(model);
+                    if (dt.Rows.Count > 0)
+                    {
+                        TempData["Imsg"] = "Duplicate";
+                    }
+                    else
+                    {
+                        string PcName = System.Environment.MachineName;
+                        insertFlag = gebl.InsertGroupEntry(model, PcName);
+                        if (insertFlag)
+                        {
+                            TempData["Smsg"] = "success";
+                        }
+                        else
+                        {
+                            TempData["Emsg"] = "Unsuccess";
+                        }
+                    }
                 }
                 else
                 {
                     string PcName = System.Environment.MachineName;
+                    string a = model.GroupModel.SaveUpdateFlag;
                     insertFlag = gebl.InsertGroupEntry(model, PcName);
                     if (insertFlag)
                     {
-                        TempData["Smsg"] = "success";
+                        TempData["USmsg"] = "success";
                     }
                     else
                     {
-                        TempData["Emsg"] = "Unsuccess";
+                        TempData["UEmsg"] = "Unsuccess";
                     }
                 }
+
                 //if (ModelState.IsValid)
                 //{
                 return RedirectToAction("Group_Entry");
@@ -282,6 +331,41 @@ namespace TOS.Controllers
             }
         }
 
+        public ActionResult Group_View()
+        {
+            return View();
+        }
+
+        public string Bind_Group_View()
+        {
+            DataTable dt = new DataTable();
+            string jsonresult;
+            if (Session["CompanyCD"] != null)
+            {
+                Group_ViewBL gvbl = new Group_ViewBL();
+                dt = gvbl.Get_Group_View();
+            }
+            jsonresult = DataTableToJSONWithJSONNet(dt);
+            return jsonresult;
+        }
+        [HttpPost]
+        public string Group_View_Delete(string id)
+        {
+            var message = string.Empty;
+            if (id == null)
+            {
+                message = "NOK";
+            }
+            else
+            {
+
+                Group_ViewBL gbl = new Group_ViewBL();
+                string InsertOperator = Session["CompanyCD"].ToString();
+                string PcName = System.Environment.MachineName;
+                message = gbl.Group_Info_Delete(id, PcName, InsertOperator);
+            }
+            return JsonConvert.SerializeObject(message);
+        }
         public ActionResult CompanyUpdate_View(M_CompanyModel mModel)
         {
             return View();
