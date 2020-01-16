@@ -28,7 +28,7 @@ namespace Group_Entry_BL
             {
                 DataTable dt = new DataTable();
                 BaseDL dl = new BaseDL();
-                SqlParameter[] prms = new SqlParameter[8];
+                SqlParameter[] prms = new SqlParameter[9];
                 prms[0] = new SqlParameter("@groupID", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupID };
                 prms[1] = new SqlParameter("@groupName", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupName };
                 prms[2] = new SqlParameter("@groupInfoFlag", SqlDbType.VarChar) { Value = mModel.GroupModel.GroupInfoFlg };
@@ -58,11 +58,13 @@ namespace Group_Entry_BL
                 }
                 prms[6] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value=PcName};
                 prms[7] = new SqlParameter("@insertOperator", SqlDbType.VarChar) { Value = mModel.GroupModel.InsertOperator };
+                prms[8] = new SqlParameter("@saveUpdateFlag", SqlDbType.VarChar) { Value=mModel.GroupModel.SaveUpdateFlag };
                 dl.InsertUpdateDeleteData("Group_Entry_Insert", prms);
                 return true;
             }
-            catch(Exception)
+            catch(Exception ex)
             {
+                string aa = ex.Message;
                 return false;
             }
            

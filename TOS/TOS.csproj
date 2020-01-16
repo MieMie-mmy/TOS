@@ -273,6 +273,7 @@
     <Content Include="Views\NewsEditor\News_Editor.cshtml" />
     <Content Include="Views\Registrations\Group_Entry.cshtml" />
     <Content Include="Views\CommonView\Common_View.cshtml" />
+    <Content Include="Views\Registrations\Group_View.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -308,6 +309,10 @@
     <ProjectReference Include="..\Group_Entry_BL\Group_Entry_BL.csproj">
       <Project>{c26cbd6f-fa2e-45af-b97c-25ce39e8f758}</Project>
       <Name>Group_Entry_BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Group_View_BL\Group_View_BL.csproj">
+      <Project>{491dd38a-fb53-45c3-b67f-bb09a1c5dda6}</Project>
+      <Name>Group_View_BL</Name>
     </ProjectReference>
     <ProjectReference Include="..\Information_BL\Information_BL.csproj">
       <Project>{39b9fe4a-8b33-43a2-a72f-3f2687e96036}</Project>
