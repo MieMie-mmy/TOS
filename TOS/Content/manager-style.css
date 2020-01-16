@@ -1612,11 +1612,11 @@ td span {
     padding: 4px 7px;
    
 }
-    td span.fam {
+    /*td span.fam {
         color: #fff;
         font-size: 0.8em;
         padding: 4px 7px;
-    }
+    }*/
 
     td span.fam {
         background: #1b93e1;
