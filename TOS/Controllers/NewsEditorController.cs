@@ -58,12 +58,7 @@ namespace TOS.Controllers
             var getExitFiles = Directory.GetFiles(InformationFiles);
            
             string MatchFiles = "";
-            //if (!string.IsNullOrWhiteSpace(CancleFile) )
-
-            //{
-               
-            //}
-            //else 
+           
             if(!string.IsNullOrWhiteSpace(SendEditFile) || !string.IsNullOrWhiteSpace(CancleFile) )
             {
                 MatchFiles = MatchEditFies(CancleFile, SendEditFile);
@@ -74,7 +69,7 @@ namespace TOS.Controllers
             {
                 var EditFiles = MatchFiles.TrimEnd(',').Split(',');
 
-                //var EditFiles = SendEditFile.TrimEnd(',').Split(',');
+              
 
 
                 var k = EditFiles.Count();
@@ -197,38 +192,47 @@ namespace TOS.Controllers
             {
                 if (EF.Count() > CF.Count())
                 {
-                    j = EF.Count();
-                    for (int i = 0; i < j; i++)
+
+                    IEnumerable<string> filelist = EF.Except(CF);
+                    foreach(string file in filelist)
                     {
-                       
-                        for(int jj=0;jj<CF.Count();jj++)
-                        {
-                            if(CF[jj].ToString() != EF[i].ToString() )
-                            {
-                                MatchFile += EF[i].ToString() + ",";
-                            }
-                        }
-                        //MatchFile += CF.Where(f => !(f.Contains(EF[i]))).Select(s => s).FirstOrDefault() + ",";
+                        MatchFile += file + ",";
                     }
+                        
+
+                    //j = EF.Count();
+                    //for (int i = 0; i < j; i++)
+                    //{
+
+                    //    for (int jj = 0; jj < CF.Count(); jj++)
+                    //    {
+                    //        if (CF[jj].ToString() != EF[i].ToString())
+                    //        {
+                    //            MatchFile += EF[i].ToString() + ",";
+                    //        }
+                    //    }
+                    //    //MatchFile += CF.Where(f => !(f.Contains(EF[i]))).Select(s => s).FirstOrDefault() + ",";
+                    //}
 
                 }
                 else if (CF.Count() > EF.Count())
                 {
-                    j = CF.Count();
-                    for (int i = 0; i < j; i++)
+
+                    IEnumerable<string> filelist = CF.Except(EF);
+                    foreach (string file in filelist)
                     {
-                        MatchFile += EF.Where(f =>!f.Contains( CF[i])).Select(s => s).FirstOrDefault() + ",";
+                        MatchFile += file + ",";
                     }
+                  
                 }
                 else
                 {
-                    j = EF.Count();
-                    for (int i = 0; i < j; i++)
+                    IEnumerable<string> filelist = EF.Except(CF);
+                    foreach (string file in filelist)
                     {
-                        MatchFile += CF.Where(f => !f.Contains(EF[i])).Select(s => s).FirstOrDefault() + ",";
+                        MatchFile += file + ",";
                     }
-
-
+                  
                 }
             }
            

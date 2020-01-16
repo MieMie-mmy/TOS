@@ -114,9 +114,20 @@ namespace TOS.Controllers
         }
 
         [HttpPost]
-       public string Check_MakerItemCD(T_OrderHistorySearch model)
+        public string Check_MakerItemCD(T_OrderHistorySearch model)
         {
-            string result = bl._CheckMakerItemCD(model);
+            var companyCD = Session["CompanyCD"].ToString();
+            DataTable dt = bl._SelectOrderDetail(model, companyCD);
+            string result = string.Empty;
+            if(dt.Rows.Count >0 )
+            {
+                result = "OK";
+            }
+            else
+            {
+                result = "NOK";
+            }
+
             return JsonConvert.SerializeObject(result);
         }
 

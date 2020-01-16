@@ -14,5 +14,7 @@ namespace TOS_Model
 
         public int GroupInfoFlg { get; set; }
 
+        public string SaveUpdateFlag { get; set; }
+
     }
 }

@@ -484,6 +484,7 @@
 
             },
             success: function (data) {
+               // alert(data);
                 BindSecondTable(data);
 
             }
@@ -881,14 +882,52 @@
         var MakerItemCD_6 = document.getElementById('MakerItemCD_6').value;
         var MakerItemCD_7 = document.getElementById('MakerItemCD_7').value;
         var MakerItemCD_8 = document.getElementById('MakerItemCD_8').value;
-        check_makeritemcd(MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
 
-       
-        FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
+        if (MakerItemCD_1 != "" || MakerItemCD_2 != "" || MakerItemCD_3 != "" || MakerItemCD_4 != "" || MakerItemCD_5 != "" || MakerItemCD_6 != "" || MakerItemCD_7 != "" || MakerItemCD_8 != "") {
+            $.ajax({
+                type: 'POST',
 
+                url: '@Url.Action("Check_MakerItemCD", "Order")',
+                data: {
+                    m1: MakerItemCD_1,
+                    m2: MakerItemCD_2,
+                    m3: MakerItemCD_3,
+                    m4: MakerItemCD_4,
+                    m5: MakerItemCD_5,
+                    m6: MakerItemCD_6,
+                    m7: MakerItemCD_7,
+                    m8: MakerItemCD_8
+                },
+                dataType: 'json',
+                success: function (data) {
+                    if (data == "OK") {
+                        FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
+
+                    }
+                    else {
+                        Errormessage('I', '1006', 'Message1', data);
+
+                        FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
+
+                    }
+                }
+            });
+
+            //check_makeritemcd(MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
+
+
+
+        }
+        else
+        {
+            FillGrid_3(txt_orderId, orderdate_from, orderdate_to, shipdate_from, shipdate_to, MakerItemCD_1, MakerItemCD_2, MakerItemCD_3, MakerItemCD_4, MakerItemCD_5, MakerItemCD_6, MakerItemCD_7, MakerItemCD_8);
+
+        }
     }
 
-    function check_makeritemcd(m1, m2, m3, m4, m5, m6, m7, m8) {
+    @*function check_makeritemcd(m1, m2, m3, m4, m5, m6, m7, m8) {
+     
+
         $.ajax({
             type: 'POST',
             
@@ -905,20 +944,26 @@
             },
             dataType: 'json',
             success: function (data) {
-                if (data != "") {
+               
+                //if ()
+                ////alert(data);
+                //if (data !='') {
 
-                    ErrormessageMICD('I', '1006', 'Message1', data);
+                //    ErrormessageMICD('I', '1006', 'Message1', data);
 
-                }
+                //}
+                //else {
+                   
+                //}
 
 
 
 
             }
         });
-    }
+    }*@
 
-    function ErrormessageMICD(t, k, m, d) {
+    @*function ErrormessageMICD(t, k, m, d) {
         $.ajax({
             type: 'POST',
    
@@ -931,7 +976,7 @@
 
             }
         });
-    }
+    }*@
 
    
 

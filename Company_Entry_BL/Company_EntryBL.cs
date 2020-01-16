@@ -4,6 +4,7 @@ using System.Data;
 using TOS_Model;
 using TOS_DL;
 using System.Collections.Generic;
+using System;
 
 namespace Company_Entry_BL
 {
@@ -252,6 +253,32 @@ namespace Company_Entry_BL
             prmMsg[0] = new SqlParameter("@key", SqlDbType.VarChar) { Value = key };
             prmMsg[1] = new SqlParameter("@msgType", SqlDbType.VarChar) { Value = ID };
            dt= dl.SelectData("Message_Select", prmMsg);
+            return dt;
+        }
+
+        public DataTable InsertCompany(M_CompanyModel mModel)
+        {
+            throw new NotImplementedException();
+        }
+        public DataTable CompanyUpdateView_select()
+        {
+            
+            DataTable dt = new DataTable();
+            BaseDL dl = new BaseDL();
+            //SqlParameter[] prmMsg = new SqlParameter[2];
+            //prmMsg[0] = new SqlParameter("@key", SqlDbType.VarChar) { Value = key };
+            //prmMsg[1] = new SqlParameter("@msgType", SqlDbType.VarChar) { Value = ID };
+            dt = dl.SelectData("CompanyUpdateView_Select", null);
+           
+            return dt;
+
+        }
+        public DataTable CompanyEntry_For_Edit(string id)
+        {
+            BaseDL bdl = new BaseDL();
+            DataTable dt = new DataTable();
+            
+            dt = bdl.SelectData("CompanyUpdateView_Select", null);
             return dt;
         }
     }

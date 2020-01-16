@@ -1,0 +1,238 @@
+﻿
+@{
+    ViewBag.Title = "Group_View";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Styles{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+}
+<style>
+    .mother-grid-inner {
+        display: block !important;
+        background-color: #edecec !important;
+    }
+
+    .left-content {
+        background-color: #edecec !important;
+    }
+    tr.even {
+        background-color: #CCDDFF !important;
+    }
+
+    table.dataTable {
+        border-collapse: collapse !important;
+        border-spacing: 0;
+    }
+    .textalign {
+        text-align: right;
+    }
+    .tb0011 {
+        border: 1px solid #999999;
+        width: 100%;
+    }
+
+    .tb0011title {
+        background-color: #003492;
+        color: white;
+        text-align: center;
+        border: 1px solid #999999;
+        font-weight: unset;
+    }
+    .tb0011 td {
+        border: 1px solid #999999;
+    }
+
+    .tb0011Cell {
+        /*border: 1px solid #999999;*/
+        display: table-cell;
+        padding: 3px 10px;
+        text-align: center;
+        background-color: #003492;
+        color: white;
+    }
+
+    .btn-outline-danger {
+        border-style: none;
+        color: #dc3545;
+        background-color: #003492;
+    }
+
+    .btn-outline-light {
+        border-style: none;
+        color: #fff;
+        background-color: #003492;
+    }
+
+    .btn-outline-danger:hover {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-outline-light:hover {
+        color: #333;
+        background-color: #fff;
+        border-color: #dc3545;
+    }
+
+    .btn {
+        border-radius: 0px;
+        font-size: 0.8em;
+        font-weight: 700;
+        padding: 8px 15px;
+        letter-spacing: 0.02em;
+    }
+</style>
+<ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>グループ一覧</li>
+</ol>
+
+<div class="inbox-mail">
+    <div class="tab-content tab-content-in w3">
+        <div class="tab-pane text-style active" id="tab1">
+            <div class="inbox-right">
+                <div class="mailbox-content" id="mailbox-content">
+                    <div class="mail-toolbar clearfix">
+                        <table id="tbgroupview" class="tb0011">
+                            <thead>
+                                <tr>
+                                    <th class="tb0011title">No</th>
+                                    <th class="tb0011title">グループID</th>
+                                    <th class="tb0011title">グループ名</th>
+                                    <th class="tb0011title">グループ指定</th>
+                                    <th class="tb0011title">編集</th>
+                                    <th class="tb0011title">削除</th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="clearfix"> </div>
+</div>
+
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title1" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
+                <button type="button" class="btn btn-default" id="btnconfirm" onclick="deleteConfirm()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+@RenderPage("~/Views/CommonView/Common_View.cshtml")
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            GroupViewTable();
+        });
+
+        function GroupViewTable() {
+            var table = $('#tbgroupview').DataTable(
+                {
+                    columnDefs: [{
+                        targets: [4, 5],
+                        className: 'tb0011Cell'
+                    },
+                        {
+                            targets: [0, 1],
+                            className: 'textalign'
+                        }],
+                    "destroy": true,
+                    "dom": 'lrtip',
+                    "bLengthChange": false,
+                    "aLengthMenu": [20],
+                    "pagingType": "full_numbers",
+                    "ajax": {
+                        "url": "../Registrations/Bind_Group_View",
+                        "type": "GET",
+                        "datatype": "json",
+                        "dataSrc": ""
+                    },
+                    "language": {
+                        "emptyTable": "検索結果がありません。",
+                        "url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                    },
+                    "columns": [
+                        { "data": "No", orderable: false },
+                        { "data": "GroupID", orderable: false },
+                        { "data": "GroupName", orderable: false },
+                        { "data": "GroupDesignation", orderable: false },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<button type="button" id="btnEdit" class="btn btn-outline-light" onclick="edit(\'' + row.GroupID + '\')">編集</button>';
+                            }
+                        },
+                        {
+                            "data": "", "render": function (data, type, row) {
+                                return '<button type="button"  class="btn btn-outline-danger" data-toggle="modal" data-target="#myModal" data-id="' + row.GroupID + '" )">削除</button>';
+                            }
+                        }
+                    ],
+                }
+            );
+        }
+    </script>
+
+    <script type="text/javascript">
+        var DeleteID = "";
+        $(document).on("click", ".btn-outline-danger", function () {
+            var deleteid = $(this).data('id');
+            DeleteID = deleteid;
+        });
+        function deleteConfirm() {
+            $.ajax({
+                url: '../Registrations/Group_View_Delete/' + DeleteID,
+                type: 'POST',
+                dataType: 'JSON',
+
+                success: function (data) {
+
+                    if (data == "OK") {
+                        var Q = "Q";
+                        var K = "1001";
+                        var M = "Message2";
+                        Successmessage(Q, K, M);
+                        DeleteID = null;
+                        GroupViewTable();
+                    }
+                    else {
+                        var Q = "Q";
+                        var K = "1001";
+                        var M = "Message2";
+                        Errormessage(Q, K, M);
+                        DeleteID = null;
+                        GroupViewTable();
+                    }
+                }
+
+            });
+        }
+
+    </script>
+
+    <script type="text/javascript">
+         function edit(id) {
+             var id = id;
+              window.location.href =  '@Url.Action("Group_Entry", "Registrations")?id=' + id
+         }
+    </script>  
+}

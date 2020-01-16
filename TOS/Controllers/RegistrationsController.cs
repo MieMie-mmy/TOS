@@ -10,18 +10,25 @@ using System.Transactions;
 using Information_BL;
 using Group_Entry_BL;
 using Newtonsoft.Json;
+using Group_View_BL;
 using System.EnterpriseServices;
+using TOS_DL;
+using Base_BL;
 
 namespace TOS.Controllers
-{   
+{
     public class RegistrationsController : Controller
     {
-       
+        DataTable dt = new DataTable();
+        Company_EntryBL bl = new Company_EntryBL();
+
+
         // GET: Registrations
-        public ActionResult Company_Entry()
+
+        public ActionResult Company_Entry(string id)
         {
             
-            if (Session["CompanyCD"] != null)
+            if (Session["CompanyCD"] != null && (id!= null))
             {
                 return View();
             }
@@ -29,6 +36,26 @@ namespace TOS.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
+           
+        }
+
+        [HttpGet]
+        public string CompanyEntry_For_Edit(string id)
+        {
+            Company_EntryBL bl = new Company_EntryBL();
+            if (id != null)
+            {
+                DataTable dtinfo = new DataTable();
+                dtinfo = bl.CompanyEntry_For_Edit(id);
+                if (dtinfo.Rows.Count > 0)
+                {
+                    string jsonresult;
+                    jsonresult = JsonConvert.SerializeObject(dtinfo);
+                    return jsonresult;
+                }
+            }
+            return null;
+
         }
 
         [HttpPost]
@@ -37,21 +64,21 @@ namespace TOS.Controllers
             try
             {
 
-               
-                    Company_EntryBL cbl = new Company_EntryBL();
-                    DataTable Checkdt = cbl.Check_Duplicate_CompanyCD(model.ComModel);
-                    if (Checkdt.Rows.Count > 0)
+
+                Company_EntryBL cbl = new Company_EntryBL();
+                DataTable Checkdt = cbl.Check_Duplicate_CompanyCD(model.ComModel);
+                if (Checkdt.Rows.Count > 0)
+                {
+                    DataTable dtIMsg = cbl.Message_Select("1006", "I");
+                    string message = string.Empty;
+                    if (dtIMsg.Rows.Count > 0)
                     {
-                        DataTable dtIMsg = cbl.Message_Select("1006", "I");
-                        string message = string.Empty;
-                        if (dtIMsg.Rows.Count > 0)
-                        {
-                            // TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                            TempData["Dmsg"] = "Duplicate CompanyCD is "+ model.ComModel.CompanyCD;
-                        }
+                        // TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
+                        TempData["Dmsg"] = "Duplicate CompanyCD is " + model.ComModel.CompanyCD;
                     }
-                    else
-                    {
+                }
+                else
+                {
                     var option = new TransactionOptions
                     {
                         IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
@@ -77,7 +104,7 @@ namespace TOS.Controllers
                         }
 
                         model.ComModel.InsertOperator = Session["CompanyCD"].ToString();
-                        DataTable dt = cbl.InsertCompany(model.ComModel,PcName);
+                        DataTable dt = cbl.InsertCompany(model.ComModel, PcName);
 
 
 
@@ -129,18 +156,18 @@ namespace TOS.Controllers
 
                         //Insert  Company  Brand
                         if (model.MBrandModel.BrandName != null)
-                         {
-                        string[] Brandstr = model.MBrandModel.BrandName.Split(',');
+                        {
+                            string[] Brandstr = model.MBrandModel.BrandName.Split(',');
                             model.MBrandModel.InsertOperator = Session["CompanyCD"].ToString();
                             if (Brandstr.Length > 0)
                             {
                                 for (int i = 0; i < Brandstr.Length; i++)
                                 {
                                     string BrandName = Brandstr[i].ToString();
-                                    if(!String.IsNullOrWhiteSpace(BrandName))
-                                    { 
-                                    model.MBrandModel.BrandName = BrandName;
-                                    DataTable dtBrand = cbl.InsertCompanyBrand(model.MBrandModel, model.ComModel, PcName);
+                                    if (!String.IsNullOrWhiteSpace(BrandName))
+                                    {
+                                        model.MBrandModel.BrandName = BrandName;
+                                        DataTable dtBrand = cbl.InsertCompanyBrand(model.MBrandModel, model.ComModel, PcName);
                                     }
                                 }
                             }
@@ -172,18 +199,18 @@ namespace TOS.Controllers
                     //string message = string.Empty;
                     //if (dtIMsg.Rows.Count > 0)
                     //{
-                        TempData["Imsg"] = "success";
-                   // }
+                    TempData["Imsg"] = "success";
+                    // }
 
 
                 }
                 return RedirectToAction("Company_Entry");
 
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 string st = ex.ToString();
-                
+
                 //if (st.Contains("M_CompanyShipping_Insert"))
                 //{
 
@@ -203,16 +230,45 @@ namespace TOS.Controllers
                 //}
                 //else
                 //{
-                    TempData["Emsg"] = "Unsuccess";
-               // }
+                TempData["Emsg"] = "Unsuccess";
+                // }
                 return RedirectToAction("Company_Entry");
 
             }
         }
-        public ActionResult Group_Entry()
+        public ActionResult Group_Entry(string id)
         {
-            return View();
+            if (id == null)
+            {
+                ViewBag.Groupid = "";
+                return View();
+            }
+            else
+            {
+                ViewBag.Groupid = id;
+                return View();
+            }
         }
+
+        [HttpGet]
+        public string Get_Group_View_ForEdit(string id)
+        {
+            Group_ViewBL gbl = new Group_ViewBL();
+            if (id != null)
+            {
+                DataTable dtinfo = new DataTable();
+                dtinfo = gbl.Get_Group_View_ForEdit(id);
+                if (dtinfo.Rows.Count > 0)
+                {
+                    string jsonresult;
+                    jsonresult = JsonConvert.SerializeObject(dtinfo);
+                    return jsonresult;
+                }
+            }
+            return null;
+
+        }
+
         [HttpGet]
         public string M_Companay_Select()
         {
@@ -240,39 +296,110 @@ namespace TOS.Controllers
                 Group_EntryBL gebl = new Group_EntryBL();
                 model.GroupModel.InsertOperator = Session["CompanyCD"].ToString();
                 Boolean insertFlag = false;
-                DataTable dt = new DataTable();
-                dt = gebl.Check_Duplicate_GroupEntry(model);
-                if (dt.Rows.Count > 0)
+                if (model.GroupModel.SaveUpdateFlag == null)
                 {
-                    TempData["Imsg"] = "Duplicate";
+                    model.GroupModel.SaveUpdateFlag = "Save";
+                    DataTable dt = new DataTable();
+                    dt = gebl.Check_Duplicate_GroupEntry(model);
+                    if (dt.Rows.Count > 0)
+                    {
+                        TempData["Imsg"] = "Duplicate";
+                    }
+                    else
+                    {
+                        string PcName = System.Environment.MachineName;
+                        insertFlag = gebl.InsertGroupEntry(model, PcName);
+                        if (insertFlag)
+                        {
+                            TempData["Smsg"] = "success";
+                        }
+                        else
+                        {
+                            TempData["Emsg"] = "Unsuccess";
+                        }
+                    }
                 }
                 else
                 {
                     string PcName = System.Environment.MachineName;
-                    insertFlag = gebl.InsertGroupEntry(model,PcName);
+                    string a = model.GroupModel.SaveUpdateFlag;
+                    insertFlag = gebl.InsertGroupEntry(model, PcName);
                     if (insertFlag)
                     {
-                        TempData["Smsg"] = "success";
+                        TempData["USmsg"] = "success";
                     }
                     else
                     {
-                        TempData["Emsg"] = "Unsuccess";
+                        TempData["UEmsg"] = "Unsuccess";
                     }
                 }
-            //if (ModelState.IsValid)
-            //{
+
+                //if (ModelState.IsValid)
+                //{
                 return RedirectToAction("Group_Entry");
-            //}
-            //else
-            //{
-            //    return View("Group_Entry");
-            //}
-        }
-            catch(Exception ex)
+                //}
+                //else
+                //{
+                //    return View("Group_Entry");
+                //}
+            }
+            catch (Exception ex)
             {
                 string st = ex.ToString();
                 return RedirectToAction("Group_Entry");
             }
         }
+
+        public ActionResult Group_View()
+        {
+            return View();
+        }
+
+        public string Bind_Group_View()
+        {
+            DataTable dt = new DataTable();
+            string jsonresult;
+            if (Session["CompanyCD"] != null)
+            {
+                Group_ViewBL gvbl = new Group_ViewBL();
+                dt = gvbl.Get_Group_View();
+            }
+            jsonresult = DataTableToJSONWithJSONNet(dt);
+            return jsonresult;
+        }
+        [HttpPost]
+        public string Group_View_Delete(string id)
+        {
+            var message = string.Empty;
+            if (id == null)
+            {
+                message = "NOK";
+            }
+            else
+            {
+
+                Group_ViewBL gbl = new Group_ViewBL();
+                string InsertOperator = Session["CompanyCD"].ToString();
+                string PcName = System.Environment.MachineName;
+                message = gbl.Group_Info_Delete(id, PcName, InsertOperator);
+            }
+            return JsonConvert.SerializeObject(message);
+        }
+        public ActionResult CompanyUpdate_View(M_CompanyModel mModel)
+        {
+            return View();
+        }
+
+
+        public string _GetTable()
+        {
+
+            dt = bl.CompanyUpdateView_select();
+            var Jsondata = JsonConvert.SerializeObject(dt);
+            return Jsondata;
+            // return View();
+        }
+        
+        
     }
 }

@@ -83,11 +83,17 @@
         });
     </script>
     <script type="text/javascript">
+
         $(document).ready(function () {
-            $('#rdbCompany').prop('checked', true);
-            $("#ddlBrandName").attr("disabled", "disabled");
-            $('#txtarea2').attr("disabled", "disabled");
-            $('#txtTag').attr("disabled", "disabled");
+            var sid = '@ViewBag.Groupid';
+            if (sid == null || sid == "")
+            {
+                $('#rdbCompany').prop('checked', true);
+                $("#ddlBrandName").attr("disabled", "disabled");
+                $('#txtarea2').attr("disabled", "disabled");
+                $('#txtTag').attr("disabled", "disabled");
+            }
+
         });
         function isNumberKey(evt) {
 
@@ -181,6 +187,81 @@
         Infomessage('I', '1008', 'Message1');
     </script>
 }
+@if (TempData["USmsg"] != null)
+{
+    <script>
+        Successmessage('I', '1003', 'Message1');
+    </script>
+}
+@if (TempData["UEmsg"] != null)
+{
+    <script>
+        Errormessage('E', '1004', 'Message1');
+    </script>
+}
+<script type="text/javascript">
+    var gid = @ViewBag.Groupid;
+    if (gid != null || gid != "") {
+        $.ajax({
+            type: 'GET',
+            url: '../Registrations/Get_Group_View_ForEdit/' + gid,
+            dataType: 'json',
+            success: function(result) {
+                $('#btnsave').text('✔' + '\xa0\xa0\xa0' + '更新');
+
+                document.getElementById("hfSave_Update").value = "Update";
+
+                //$('#txtGroupID').attr("disabled", "disabled");
+                //$('#txtGroupName').attr("disabled", "disabled");
+
+                $('#txtGroupID').val(result[0].GroupID);
+                $('#txtGroupName').val(result[0].GroupName);
+
+                document.getElementById('txtGroupID').readOnly = true;
+                document.getElementById('txtGroupName').readOnly = true;
+
+                $('#rdbCompany').prop('checked', false);
+                if (result[0].GroupInfoFlg == 1) {
+                    $('#rdbCompany').prop('checked', true);
+
+                    $("#ddlBrandName").attr("disabled", "disabled");
+                    $('#txtarea2').attr("disabled", "disabled");
+                    $('#txtTag').attr("disabled", "disabled");
+
+                    $('#ddlCompanyName').removeAttr("disabled");
+                    $('#txtarea1').removeAttr("disabled");
+                    $('#txtarea1').val(result[0].GroupSpecInfo);
+                    }
+
+
+                    if (result[0].GroupInfoFlg == 2) {
+                    $('#rdbBrand').prop('checked', true);
+
+                    $('#ddlCompanyName').attr("disabled", "disabled");
+                    $('#txtarea1').attr("disabled", "disabled");
+                    $('#txtTag').attr("disabled", "disabled");
+
+                    $('#ddlBrandName').removeAttr("disabled");
+                    $('#txtarea2').removeAttr("disabled");
+                    $('#txtarea2').val(result[0].GroupSpecInfo);
+                    }
+
+                    if (result[0].GroupInfoFlg == 3) {
+                    $('#rdbTag').prop('checked', true);
+
+                    $('#ddlBrandName').attr("disabled", "disabled");
+                    $('#txtarea2').attr("disabled", "disabled");
+                    $('#ddlCompanyName').attr("disabled", "disabled");
+                    $('#txtarea1').attr("disabled", "disabled");
+
+                    $('#txtTag').removeAttr("disabled");
+                    $('#txtTag').val(result[0].GroupSpecInfo);
+                    }
+
+                }
+            });
+        }
+</script>
 @Html.AntiForgeryToken()
 @using (Html.BeginForm("InsertGroupEntry", "Registrations", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
@@ -214,7 +295,7 @@
 
                                 <div class="col-md-2">
                                     <div class="form-group" style="padding-left:30px;">
-                                        <button type="submit" class="save">✔　登録</button>
+                                        <button type="submit" id="btnsave" class="save">✔　登録</button>
                                     </div>
                                 </div>
                             </div>
@@ -225,6 +306,7 @@
                                             <label style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">グループID</label><label style="color:red;">&nbsp;* </label>
                                         </td>
                                         <td>
+                                            @Html.HiddenFor(m => m.GroupModel.SaveUpdateFlag, new { @id = "hfSave_Update" })
                                             @Html.TextBoxFor(m => m.GroupModel.GroupID, new { @id = "txtGroupID", @class = "form-control input-sm", @autofocus = "autofocus", @required = "required", @style = "width:110px;border-radius: unset;", @maxlength = "8" })
                                         </td>
                                     </tr>
