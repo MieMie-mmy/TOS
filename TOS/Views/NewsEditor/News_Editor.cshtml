@@ -21,7 +21,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <!-- Graph CSS -->
     <link href="@Url.Content("~/Content/news.css")" rel="stylesheet" type="text/css" />
     <!-- jQuery -->
@@ -32,9 +32,11 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 }
 
 @section Scripts{
+    @*get company and group*@
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
@@ -68,11 +70,12 @@
         });
     </script>
 
+    @*Bind table and date check*@
     <script type="text/javascript">
 
 
         $(document).ready(function () {
-           
+
             InformationTable();
         });
 
@@ -149,7 +152,7 @@
 
     </script>
 
-
+    @*Initial state, check change and click function*@
     <script type="text/javascript">
         $(document).ready(function () {
 
@@ -205,7 +208,7 @@
         });
     </script>
 
-
+    @*Delete function*@
     <script>
         var DeleteID = "";
 
@@ -226,7 +229,7 @@
                         //var K = "1001";
                         //var M = "Message2";
                         //Successmessage(Q, K, M);
-                       // window.location = "?message=delete";
+                        // window.location = "?message=delete";
                         DeleteID = null;
                         InformationTable();
                     }
@@ -255,12 +258,12 @@
 @RenderPage("~/Views/CommonView/Common_View.cshtml")
 
 @*@if (Request["message"] == "delete")
-{
-    <script>
-    
-        Successmessage('Q', '1001', 'Message2');
-    </script>
-}*@
+    {
+        <script>
+
+            Successmessage('Q', '1001', 'Message2');
+        </script>
+    }*@
 
 @if (TempData["Save"] != null)
 {
@@ -489,7 +492,7 @@
                                         <div class="box" style="width:50px;">
                                             <div class="form-check">
                                                 @*<input type="checkbox" id="exampleCheck1">*@
-                                                @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag, new { @id = "chkeffect"})
+                                                @Html.CheckBoxFor(m => m.TinfoModel.EffectFlag, new { @id = "chkeffect" })
                                                 <label style="font-weight:unset;">有効</label>
                                             </div>
                                         </div>
@@ -609,17 +612,7 @@
         </div>
 
     </div>
-    @*<input type="text" id="CancleFile" name="CancleFile" hidden />
-        <input type="text" id="SendEditFile" name="SendEditFile" hidden />
 
-
-
-        <div id="BrowseFiles" hidden>
-
-        </div>
-        <div id="BrowseFiles2">
-
-        </div>*@
 }
 
 <div class="modal fade" id="myModal" role="dialog">
@@ -642,6 +635,7 @@
 </div>
 
 @*KhinSandar Script*@
+@*for insert and delete attachfile*@
 <script>
 
     var EditFileName = "";
@@ -650,7 +644,7 @@
     $('input[type="file"]').change(function (e) {
         var cc = $("#BrowseFiles2 > label").length;
         var BrowseF = $("#BrowseFiles > input").length;
-      
+
         var i = 4 - cc; //for maximum file input
         if (i == 5 || i < 1) {
             alert("only four files are accepted.");
@@ -960,7 +954,7 @@
     }
     function closeEditfile(e) {
         //alert(v);
-      
+
 
         cFile += (document.getElementById(e.id).innerText).split('✖')[0] + ',';
 
@@ -981,9 +975,8 @@
 
 
 
-
+@*DatePicker insert*@
 <script>
-
     // define variables
     var nativePicker = document.querySelector('.nativeDatePicker');
     var fallbackPicker = document.querySelector('.fallbackDatePicker');
@@ -1086,31 +1079,8 @@
         previousDay = daySelect.value;
     }
 </script>
-<script>
-    function odFunction() {
-        var x = document.getElementById("mailbox-content");
-        if (x.style.display === "block") {
-            x.style.display = "none";
-
-        } else {
-            x.style.display = "block";
-        }
-    }
-    $("#btnb").click(function () {
-        $(this).text() === 'ブロック最小化' ?
-            $(this).text('ブロック最小化') :
-            $(this).text('ブロック表示')
-    })
-</script>
 
 
 
 
-<!--js -->
-<script src="js/jquery.nicescroll.js"></script>
-<script src="js/scripts.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-<!-- /Bootstrap Core JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+
