@@ -29,6 +29,9 @@
         border-collapse: collapse !important;
         border-spacing: 0;
     }
+    .textalign {
+        text-align: right;
+    }
     .tb0011 {
         border: 1px solid #999999;
         width: 100%;
@@ -148,7 +151,11 @@
                     columnDefs: [{
                         targets: [4, 5],
                         className: 'tb0011Cell'
-                    }],
+                    },
+                        {
+                            targets: [0, 1],
+                            className: 'textalign'
+                        }],
                     "destroy": true,
                     "dom": 'lrtip',
                     "bLengthChange": false,
