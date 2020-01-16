@@ -108,9 +108,9 @@ namespace Information_BL
                 prms[5] = new SqlParameter("@infotype", SqlDbType.VarChar) { Value = model.TinfoModel.InformationType };
 
                 if (model.TinfoModel.EffectFlag == true)
-                    prms[6] = new SqlParameter("@effectflag", SqlDbType.Int) { Value = 1 };
-                else
                     prms[6] = new SqlParameter("@effectflag", SqlDbType.Int) { Value = 0 };
+                else
+                    prms[6] = new SqlParameter("@effectflag", SqlDbType.Int) { Value = 1 };
 
                 if (model.TinfoModel.Date != DateTime.MinValue)
                     prms[7] = new SqlParameter("@date", SqlDbType.VarChar) { Value = model.TinfoModel.Date };
