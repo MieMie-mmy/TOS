@@ -21,7 +21,7 @@
 
     <!-- Bootstrap Core CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <!-- Graph CSS -->
     <link href="@Url.Content("~/Content/news.css")" rel="stylesheet" type="text/css" />
     <!-- jQuery -->
@@ -32,9 +32,11 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+
 }
 
 @section Scripts{
+    @*get company and group*@
     <script type="text/javascript">
         $(document).ready(function () {
             $.ajax({
@@ -68,10 +70,12 @@
         });
     </script>
 
+    @*Bind table and date check*@
     <script type="text/javascript">
 
 
         $(document).ready(function () {
+
             InformationTable();
         });
 
@@ -94,7 +98,7 @@
                         className: 'tab002tit'
                     }
                     ],
-                   
+
                     "destroy": true,
                     "dom": 'lrtip',
                     "bLengthChange": false,
@@ -122,12 +126,12 @@
                             }
                         }
                     ],
-                    
+
                 }
             );
         }
 
-       
+
         //function closefile(e, v) {
         //    e.remove();
         //    $("#file" + v).remove();
@@ -148,9 +152,11 @@
 
     </script>
 
-
+    @*Initial state, check change and click function*@
     <script type="text/javascript">
         $(document).ready(function () {
+
+            $('#chkeffect').prop('checked', true);
             $('#txtdisplay_designation').val('全社');
             $('#rdbcompanywide').prop('checked', true);
             $("#ddlCompanyname").attr("disabled", "disabled");
@@ -202,9 +208,10 @@
         });
     </script>
 
-
+    @*Delete function*@
     <script>
         var DeleteID = "";
+
         $(document).on("click", ".btn-outline-danger", function () {
             var deleteid = $(this).data('id');
             DeleteID = deleteid;
@@ -216,33 +223,31 @@
                 dataType: 'JSON',
 
                 success: function (data) {
-                  
+
                     if (data == "OK") {
-                        var Q = "Q";
-                        var K = "1001";
-                        var M = "Message2";
-                        Successmessage(Q, K, M);
+                        //var Q = "Q";
+                        //var K = "1001";
+                        //var M = "Message2";
+                        //Successmessage(Q, K, M);
+                        // window.location = "?message=delete";
                         DeleteID = null;
                         InformationTable();
-                       
                     }
                     else {
-                        var Q = "Q";
-                        var K = "1001";
-                        var M = "Message2";
-                        Errormessage(Q, K, M);
+                        //var Q = "Q";
+                        //var K = "1001";
+                        //var M = "Message2";
+                        //Errormessage(Q, K, M);
                         DeleteID = null;
                         InformationTable();
                     }
-                    $(".modal").on("hidden.bs.modal", function () {
-                        $(".modal-dialog").html("");
-                    });
+
                 }
-                  
+
             });
-           
+
         }
-       
+
     </script>
 }
 <ol class="breadcrumb">
@@ -252,9 +257,16 @@
 
 @RenderPage("~/Views/CommonView/Common_View.cshtml")
 
+@*@if (Request["message"] == "delete")
+    {
+        <script>
+
+            Successmessage('Q', '1001', 'Message2');
+        </script>
+    }*@
+
 @if (TempData["Save"] != null)
 {
-
     <script>
         Successmessage('I', '1002', 'Message1');
     </script>
@@ -303,9 +315,11 @@
             display: block !important;
             background-color: #edecec !important;
         }
+
         .left-content {
             background-color: #edecec !important;
         }
+
         tr.even {
             background-color: #CCDDFF !important;
         }
@@ -366,6 +380,7 @@
             padding: 8px 15px;
             letter-spacing: 0.02em;
         }
+
         .tab002tit1 {
             background-color: #003492;
             color: white;
@@ -373,6 +388,7 @@
             width: 40px;
             border: 1px solid #999999;
         }
+
         .tab002tit2 {
             background-color: #003492;
             color: white;
@@ -380,6 +396,7 @@
             width: 500px;
             border: 1px solid #999999;
         }
+
         .tab002tit3 {
             background-color: #003492;
             color: white;
@@ -387,7 +404,6 @@
             width: 80px;
             border: 1px solid #999999;
         }
-       
     </style>
 
 
@@ -457,9 +473,10 @@
                                             }, new { @class = "comp", @id = "ddlInfoType", @style = "width:250px;min-width:unset;" })
                                         </div>
                                     </div>
+
                                     <div class="box-row">
-                                        <div class="box" style="width:50px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示期間</div>
-                                        <div class="box" style="width:50px;">
+                                        <div class="box" style="width:50px;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;表示期間 <label style="color:red;">*</label></div>
+                                        <div class="box">
                                             <label class="nativeDatePicker">
                                                 @*<input type="date" name="bday" class="form-control" id="lbldisplay_startdate">*@
                                                 @Html.TextBoxFor(m => m.TinfoModel.DisplayStartDate, new { @class = "form-control", @type = "date", @id = "txtStartDate", @style = "font-size:17px;", required = "required" })
@@ -480,13 +497,13 @@
                                             </div>
                                         </div>
                                         <div class="box">
-                                            <div class="sair"  style="width: 250px;">
+                                            <div class="sair" style="width:475px;">
                                                 <button type="submit" id="btnsave" class="save">✔　登録</button>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="boxberb" style="width:500px;">
+                                <div class="boxberb" style="width:630px;">
                                     <div class="boxb-rowb">
                                         <div class="boxb sair boxpd tab002tit">日付</div>
                                         <div class="boxb">
@@ -495,7 +512,7 @@
                                         </div>
                                     </div>
                                     <div class="boxb-rowb">
-                                        <div class="boxb sair boxpd tab002tit">課題名</div>
+                                        <div class="boxb sair boxpd tab002tit">課題名 <label style="color:red;">*</label> </div>
                                         <div class="boxb">
                                             @*<input class="form-control" type="tel" value="" />*@
                                             @Html.TextBoxFor(m => m.TinfoModel.TitleName, new { @class = "form-control", @maxlength = "150", @id = "txttitlename", required = "required" })
@@ -522,11 +539,11 @@
                                     </div>
                                 </div>
                                 <input type="text" id="CancleFile" name="CancleFile" hidden />
-                                <input type="text" id="SendEditFile" name="SendEditFile" hidden  />
+                                <input type="text" id="SendEditFile" name="SendEditFile" hidden />
 
-                               
 
-                                <div class="boxcerc" style="width:500px;">
+
+                                <div class="boxcerc" style="width:630px;">
 
                                     <div class="boxc-rowc">
                                         @*<div class="boxc">
@@ -572,7 +589,8 @@
                             <div class="newr col-md-7">
 
                                 <div class="float-left"><h6 style="font-size: 1rem;">お知らせ一覧</h6><br /><br /></div>
-                                <table class="tab002" id="tbinformation" style="margin-right:500px;">
+
+                                <table class="tab002" id="tbinformation" style="margin-right:100px;">
                                     <thead>
                                         <tr class="tab002tit">
                                             <th class="tab002tit1" style="font-weight:unset;">No</th>
@@ -594,17 +612,7 @@
         </div>
 
     </div>
-    @*<input type="text" id="CancleFile" name="CancleFile" hidden />
-    <input type="text" id="SendEditFile" name="SendEditFile" hidden />
 
-
-
-    <div id="BrowseFiles" hidden>
-
-    </div>
-    <div id="BrowseFiles2">
-
-    </div>*@
 }
 
 <div class="modal fade" id="myModal" role="dialog">
@@ -613,13 +621,13 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-               
+
                 <h4 class="modal-title1" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
                 @*<img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title" style="color:red;"> </h4>*@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
-                <button type="button" class="btn btn-default" id="btnconfirm" onclick="deleteConfirm()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+                <button type="button" class="btn btn-default" onclick="deleteConfirm()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
             </div>
         </div>
 
@@ -627,15 +635,16 @@
 </div>
 
 @*KhinSandar Script*@
+@*for insert and delete attachfile*@
 <script>
 
     var EditFileName = "";
-
+    var cFile = "";
 
     $('input[type="file"]').change(function (e) {
         var cc = $("#BrowseFiles2 > label").length;
         var BrowseF = $("#BrowseFiles > input").length;
-        //alert(BrowseF);
+
         var i = 4 - cc; //for maximum file input
         if (i == 5 || i < 1) {
             alert("only four files are accepted.");
@@ -649,7 +658,7 @@
 
                 var fbutton = document.createElement("input");
                 fbutton.setAttribute("type", "file");
-                fbutton.setAttribute("class","BrowseFss");
+                fbutton.setAttribute("class", "BrowseFss");
                 fbutton.files = e.target.files;
                 fbutton.setAttribute("id", "Insertfile" + BrowseF);
                 if (BrowseF == 0) { fbutton.setAttribute("name", "Insertfile[0]"); }
@@ -789,7 +798,7 @@
 
 
         }
-
+        BrowseFss
     });
 
 
@@ -797,14 +806,11 @@
     function edit(id) {
 
 
-        $(".showefile").remove();
-        $(".BrowseFss").remove();
-        $('#SendEditFile').remove();
-        $('CancleFile').remove();
+        $(".showefile").remove(); //for not show file in other rows
+        $(".BrowseFss").remove();//for get next insert file
+        EditFileName = ""; //for reset edit file
 
         var id = id;
-
-
 
         $.ajax({
             type: 'GET',
@@ -841,7 +847,7 @@
                     $("#ddlCompanyname").val(null);
                 }
 
-                if (result[0].EffectFlg == 1)
+                if (result[0].EffectFlg == 0)
                     $('#chkeffect').prop('checked', true);
                 else
                     $('#chkeffect').prop('checked', false);
@@ -864,7 +870,7 @@
 
                 if (result[0].AttachedFile1 != null) {
                     EditFileName += result[0].AttachedFile1 + ",";
-                  
+
 
                     var Filediv2 = document.getElementById("BrowseFiles2");
                     var Lableshow = document.createElement("label");
@@ -940,21 +946,22 @@
                 }
 
                 document.getElementById("SendEditFile").value = EditFileName;
-                
+                //alert(document.getElementById("SendEditFile").value);
+
             }
         });
 
     }
     function closeEditfile(e) {
         //alert(v);
-        var cFile = "";
+
 
         cFile += (document.getElementById(e.id).innerText).split('✖')[0] + ',';
 
 
         document.getElementById("CancleFile").value = cFile;
         e.remove();
-        
+
     }
     function closefile(e, fid) {
         //alert("Hello");
@@ -962,17 +969,14 @@
 
         fid.remove();
         e.remove();
-
-
     }
 
 </script>
 
 
 
-
+@*DatePicker insert*@
 <script>
-
     // define variables
     var nativePicker = document.querySelector('.nativeDatePicker');
     var fallbackPicker = document.querySelector('.fallbackDatePicker');
@@ -1075,67 +1079,8 @@
         previousDay = daySelect.value;
     }
 </script>
-<script>
-    function odFunction() {
-        var x = document.getElementById("mailbox-content");
-        if (x.style.display === "block") {
-            x.style.display = "none";
-
-        } else {
-            x.style.display = "block";
-        }
-    }
-    $("#btnb").click(function () {
-        $(this).text() === 'ブロック最小化' ?
-            $(this).text('ブロック最小化') :
-            $(this).text('ブロック表示')
-    })
-</script>
-<script>
-    $(document).ready(function () {
-        var navoffeset = $(".header-main").offset().top;
-        $(window).scroll(function () {
-            var scrollpos = $(window).scrollTop();
-            if (scrollpos >= navoffeset) {
-                $(".header-main").addClass("fixed");
-            } else {
-                $(".header-main").removeClass("fixed");
-            }
-        });
-
-    });
-</script>
 
 
 
 
-<script>
-    var toggle = true;
 
-    $(".sidebar-icon").click(function () {
-        if (toggle) {
-            $(".page-container").addClass("sidebar-collapsed").removeClass("sidebar-collapsed-back");
-            $("#menu span").css({
-                "position": "absolute"
-            });
-        } else {
-            $(".page-container").removeClass("sidebar-collapsed").addClass("sidebar-collapsed-back");
-            setTimeout(function () {
-                $("#menu span").css({
-                    "position": "relative"
-                });
-            }, 400);
-        }
-
-        toggle = !toggle;
-    });
-</script>
-
-<!--js -->
-<script src="js/jquery.nicescroll.js"></script>
-<script src="js/scripts.js"></script>
-<!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
-<!-- /Bootstrap Core JavaScript -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

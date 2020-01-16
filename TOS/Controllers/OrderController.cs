@@ -87,31 +87,47 @@ namespace TOS.Controllers
             return JsonConvert.SerializeObject( message);
         }
 
-
-        public ActionResult ExportReport(string id)
+       
+        public FileStreamResult ExportReport(string id)
         {
+           
             DataSet ds = new DataSet();
 
             string savedFileName = "OrderHistory_" + (DateTime.Now).ToShortDateString() + ".pdf";
             var OrderID = id;
+           
             ds = bl._GetReportData(OrderID);
             Report.Order_History_Report ohrpt = new Report.Order_History_Report();
             ohrpt.Database.Tables["OH_Body"].SetDataSource(ds.Tables[1]);
             ohrpt.Database.Tables["OH_Header"].SetDataSource(ds.Tables[0]);
+
+
             Stream str = ohrpt.ExportToStream(CrystalDecisions.Shared.ExportFormatType.PortableDocFormat);
             Response.Buffer = false;
             Response.ClearContent();
             Response.ClearHeaders();
             str.Seek(0, SeekOrigin.Begin);
-            return File(str, "application/pdf", savedFileName);
-            
+
+            return File(str, "application/pdf");
+          
 
         }
 
         [HttpPost]
-       public string Check_MakerItemCD(T_OrderHistorySearch model)
+        public string Check_MakerItemCD(T_OrderHistorySearch model)
         {
-            string result = bl._CheckMakerItemCD(model);
+            var companyCD = Session["CompanyCD"].ToString();
+            DataTable dt = bl._SelectOrderDetail(model, companyCD);
+            string result = string.Empty;
+            if(dt.Rows.Count >0 )
+            {
+                result = "OK";
+            }
+            else
+            {
+                result = "NOK";
+            }
+
             return JsonConvert.SerializeObject(result);
         }
 

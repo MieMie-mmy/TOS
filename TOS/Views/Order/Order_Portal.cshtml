@@ -29,9 +29,15 @@
         border: 1px solid #999999;
         width: 2000px !important;
     }
+    .pricealign{
+        text-align: right !important;
+    }
+    .textalign {
+        text-align: left !important;
+    }
 </style>
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="../../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>発注ポータル</li>
+    <li class="breadcrumb-item"><a href="../Home/Index">ホーム</a><i class="fa fa-angle-right"></i>発注ポータル</li>
 </ol>
 @RenderPage("~/Views/CommonView/Common_View.cshtml")
 @*@if (TempData["Nmsg"] != null)
@@ -193,19 +199,19 @@
                         <table id="tblOrderPortal" class="tb0010">
                             <thead>
                                 <tr class="saisinRow">
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">NO</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">発注番号</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">商品番号</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">商品名</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">サイズ</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">カラー</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">発注数</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">引当数</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">下代</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">合計</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">発注日</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">発注時刻</th>
-                                    <th class="titcolor" style="border: 1px solid #999999;font-weight:unset;">出荷日</th>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">NO</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">発注番号</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">商品番号</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">商品名</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">サイズ</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">カラー</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">発注数</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">引当数</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">下代</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">合計</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">発注日</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">発注時刻</td>
+                                    <td class="titcolor" style="border: 1px solid #999999;font-weight:unset;text-align:center !important;">出荷日</td>
                                 </tr>
                             </thead>
                         </table>
@@ -228,9 +234,17 @@
                         $(row).addClass("saisinRow");
                     },
                     columnDefs: [{
-                        targets: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12],
+                        targets: [ 4,5,10, 11, 12],
                         className: 'saisinCell'
-                    }],
+                    },
+                    {
+                        targets: [0,6,7,8, 9],
+                        className:'pricealign saisinCell '
+                    },
+                        {
+                            targets: [ 1,2,3],
+                            className: 'textalign saisinCell'                           
+                        }],
                     "dom": 'lrtip',
                     "bLengthChange": false,
                     "aLengthMenu": [20],
@@ -254,8 +268,8 @@
                         { "data": "ColorName", orderable: false },
                         { "data": "OrderItem", orderable: false },
                         { "data": "StockItem", orderable: false },
-                        { "data": "SalePrice", orderable: false },
-                        { "data": "TotalAmount", orderable: false },
+                        { "data": "SalePrice", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥')},
+                        { "data": "TotalAmount", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                         { "data": "OrderDate", orderable: false },
                         { "data": "OrderTime", orderable: false },
                         { "data": "ShippingDate", orderable: false },

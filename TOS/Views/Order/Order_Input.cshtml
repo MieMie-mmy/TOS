@@ -28,6 +28,13 @@
     .left-content {
         background-color: #edecec !important;
     }
+    .pricealign {
+        text-align: right !important;
+    }
+
+    .textalign {
+        text-align: left !important;
+    }
 </style>
 
 
@@ -74,10 +81,12 @@
 
             }
             var todaydate = new Date();
-            var day = todaydate.getDate() + 3;
-            var month = todaydate.getMonth() + 1;
+            var day = fixDigit(todaydate.getDate()+3);
+            var month = fixDigit(todaydate.getMonth() + 1);
+            //var day = todaydate.getDate() + 3;
+            //var month = todaydate.getMonth() + 1;
             var year = todaydate.getFullYear();
-            var datestring = day + "/" + month + "/" + year;
+            var datestring = year + "/" + month + "/" + day;
             $("#shipDate").val(datestring);
             var ImageName = '@ViewBag.ImageName'
             if (ImageName != null) {
@@ -114,8 +123,12 @@
                         //    "targets": [0,1,2,3,4,5,6,7]
                         //},
                         {
-                            targets: [1, 3, 4, 5, 6],
-                            className: 'saict t100'
+                            targets: [4, 5],
+                            className: 'pricealign saict t100'
+                        },
+                        {
+                            targets: [1, 3, 6],
+                            className: 'textalign saict t100'
                         },
                         {
                             targets: [0],
@@ -127,7 +140,7 @@
                         },
                         {
                             targets: [2],
-                            className: 'saict t300'
+                            className: 'textalign saict t300'
                         }],
                     "destroy": true,
                     responsive: false,
@@ -154,8 +167,8 @@
                         { "data": "MakerItemCD", orderable: false },
                         { "data": "ItemName", orderable: false },
                         { "data": "BrandName", orderable: false },
-                        { "data": "ListPrice(InTax)", orderable: false },
-                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
+                        { "data": "SalePrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                         { "data": "Lot", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
@@ -185,8 +198,12 @@
                         //    "targets": [0,1,2,3,4,5,6,7]
                         //},
                         {
-                            targets: [1, 3, 4, 5, 6],
-                            className: 'saict t100'
+                            targets: [4, 5],
+                            className: 'pricealign saict t100'
+                        },
+                        {
+                            targets: [1, 3, 6],
+                            className: 'textalign saict t100'
                         },
                         {
                             targets: [0],
@@ -198,7 +215,7 @@
                         },
                         {
                             targets: [2],
-                            className: 'saict t300'
+                            className: 'textalign saict t300'
                         }],
                     "destroy": true,
                     responsive: false,
@@ -224,8 +241,8 @@
                         { "data": "MakerItemCD", orderable: false },
                         { "data": "ItemName", orderable: false },
                         { "data": "BrandName", orderable: false },
-                        { "data": "ListPrice(InTax)", orderable: false },
-                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥')},
+                        { "data": "SalePrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                         { "data": "Lot", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
@@ -257,22 +274,26 @@
                     //    "defaultContent": " ",
                     //    "targets": [0,1,2,3,4,5,6,7]
                     //},
-                    {
-                        targets: [1, 3, 4, 5, 6],
-                        className: 'saict t100'
-                    },
-                    {
-                        targets: [0],
-                        className: 'saict'
-                    },
-                    {
-                        targets: [7],
-                        className: 'saict t200'
-                    },
-                    {
-                        targets: [2],
-                        className: 'saict t300'
-                    }],
+                            {
+                                targets: [4, 5],
+                                className: 'pricealign saict t100'
+                            },
+                            {
+                                targets: [1, 3, 6],
+                                className: 'textalign saict t100'
+                            },
+                            {
+                                targets: [0],
+                                className: 'saict'
+                            },
+                            {
+                                targets: [7],
+                                className: 'saict t200'
+                            },
+                            {
+                                targets: [2],
+                                className: 'textalign saict t300'
+                            }],
                     "destroy": true,
                     responsive: false,
                     //"scrollX": true,
@@ -297,8 +318,8 @@
                         { "data": "MakerItemCD", orderable: false },
                         { "data": "ItemName", orderable: false },
                         { "data": "BrandName", orderable: false },
-                        { "data": "ListPrice(InTax)", orderable: false },
-                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
+                        { "data": "SalePrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                         { "data": "Lot", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
@@ -329,8 +350,12 @@
                         //    "targets": [0,1,2,3,4,5,6,7]
                         //},
                         {
-                            targets: [1, 3, 4, 5, 6],
-                            className: 'saict t100'
+                            targets: [4, 5],
+                            className: 'pricealign saict t100'
+                        },
+                        {
+                            targets: [1, 3, 6],
+                            className: 'textalign saict t100'
                         },
                         {
                             targets: [0],
@@ -342,7 +367,7 @@
                         },
                         {
                             targets: [2],
-                            className: 'saict t300'
+                            className: 'textalign saict t300'
                         }],
                     "destroy": true,
                     responsive: false,
@@ -368,8 +393,8 @@
                         { "data": "MakerItemCD", orderable: false },
                         { "data": "ItemName", orderable: false },
                         { "data": "BrandName", orderable: false },
-                        { "data": "ListPrice(InTax)", orderable: false },
-                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
+                        { "data": "SalePrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                         { "data": "Lot", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
@@ -398,8 +423,12 @@
                         //    "targets": [0,1,2,3,4,5,6,7]
                         //},
                         {
-                            targets: [1, 3, 4, 5, 6],
-                            className: 'saict t100'
+                            targets: [4, 5],
+                            className: 'pricealign saict t100'
+                        },
+                        {
+                            targets: [1, 3, 6],
+                            className: 'textalign saict t100'
                         },
                         {
                             targets: [0],
@@ -411,7 +440,7 @@
                         },
                         {
                             targets: [2],
-                            className: 'saict t300'
+                            className: 'textalign saict t300'
                         }],
                     "destroy": true,
                     responsive: false,
@@ -437,8 +466,8 @@
                         { "data": "MakerItemCD", orderable: false },
                         { "data": "ItemName", orderable: false },
                         { "data": "BrandName", orderable: false },
-                        { "data": "ListPrice(InTax)", orderable: false },
-                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
+                        { "data": "SalePrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                         { "data": "Lot", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
@@ -467,8 +496,12 @@
                         //    "targets": [0,1,2,3,4,5,6,7]
                         //},
                         {
-                            targets: [1, 3, 4, 5, 6],
-                            className: 'saict t100'
+                            targets: [4, 5],
+                            className: 'pricealign saict t100'
+                        },
+                        {
+                            targets: [1, 3, 6],
+                            className: 'textalign saict t100'
                         },
                         {
                             targets: [0],
@@ -480,7 +513,7 @@
                         },
                         {
                             targets: [2],
-                            className: 'saict t300'
+                            className: 'textalign saict t300'
                         }],
                     "destroy": true,
                     responsive: false,
@@ -506,8 +539,8 @@
                         { "data": "MakerItemCD", orderable: false },
                         { "data": "ItemName", orderable: false },
                         { "data": "BrandName", orderable: false },
-                        { "data": "ListPrice(InTax)", orderable: false },
-                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
+                        { "data": "SalePrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                         { "data": "Lot", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
@@ -536,8 +569,12 @@
                         //    "targets": [0,1,2,3,4,5,6,7]
                         //},
                         {
-                            targets: [1, 3, 4, 5, 6],
-                            className: 'saict t100'
+                            targets: [4, 5],
+                            className: 'pricealign saict t100'
+                        },
+                        {
+                            targets: [1, 3, 6],
+                            className: 'textalign saict t100'
                         },
                         {
                             targets: [0],
@@ -549,7 +586,7 @@
                         },
                         {
                             targets: [2],
-                            className: 'saict t300'
+                            className: 'textalign saict t300'
                         }],
                     "destroy": true,
                     responsive: false,
@@ -575,8 +612,8 @@
                         { "data": "MakerItemCD", orderable: false },
                         { "data": "ItemName", orderable: false },
                         { "data": "BrandName", orderable: false },
-                        { "data": "ListPrice(InTax)", orderable: false },
-                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
+                        { "data": "SalePrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                         { "data": "Lot", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
@@ -605,8 +642,12 @@
                         //    "targets": [0,1,2,3,4,5,6,7]
                         //},
                         {
-                            targets: [1, 3, 4, 5, 6],
-                            className: 'saict t100'
+                            targets: [4, 5],
+                            className: 'pricealign saict t100'
+                        },
+                        {
+                            targets: [1, 3, 6],
+                            className: 'textalign saict t100'
                         },
                         {
                             targets: [0],
@@ -618,7 +659,7 @@
                         },
                         {
                             targets: [2],
-                            className: 'saict t300'
+                            className: 'textalign saict t300'
                         }],
                     "destroy": true,
                     responsive: false,
@@ -644,8 +685,8 @@
                         { "data": "MakerItemCD", orderable: false },
                         { "data": "ItemName", orderable: false },
                         { "data": "BrandName", orderable: false },
-                        { "data": "ListPrice(InTax)", orderable: false },
-                        { "data": "SalePrice(InTax)", orderable: false },
+                        { "data": "ListPrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
+                        { "data": "SalePrice(InTax)", orderable: false, render: $.fn.DataTable.render.number(',', '.', 0, '￥') },
                         { "data": "Lot", orderable: false },
                         {
                             "data": "", "render": function (data, type, row) {
@@ -874,9 +915,10 @@
         $("#btntotal").click(function () {
             var c = '@ViewBag.count';
             var totalamount = 0;
-
+            
             for (var k = 1; k <= c; k++) {
                 var price = $('#makeritem' + k).find("tr:eq(1)").find("td:eq(5)").html();
+                 price = price.replace("￥", "").split(",").join("").toString();  
                 $('#sku' + k + ' tr').each(function () {
                     var count = 0;
                     $(this).find('.odr6 > input[type=text]').each(function () {
@@ -888,6 +930,7 @@
                 });
 
             }
+            
             $("#totalamt").val(totalamount);
         });
 
@@ -905,7 +948,7 @@
 
             for (var h = 1; h <= c; h++) {
                 var price = $('#makeritem' + h).find("tr:eq(1)").find("td:eq(5)").html();
-
+                price = price.replace("￥", "").split(",").join("").toString();  
                 $('#sku' + h + ' tr').each(function () {
                     var count = 0;
                     $(this).find('.odr6 > input[type=text]').each(function () {
@@ -917,6 +960,7 @@
                 });
 
             }
+         
             if (totalamount == 0) {
                 var E = "I";
                 var T = "1007";
@@ -972,7 +1016,8 @@
                 var order = new Array();
                 for (var k = 1; k <= c; k++) {
 
-                    var price = $('#makeritem' + k).find("tr:eq(1)").find("td:eq(5)").html();
+                    var price1 = $('#makeritem' + k).find("tr:eq(1)").find("td:eq(5)").html();
+                    price1 = price1.replace("￥", "").split(",").join("").toString();  
                     var ItemMemo = $('#makeritem' + k).find("tr:eq(1)").find("td:eq(7)").find('input[type=text]').html();
                     //alert(price);
                     var table = document.getElementById("sku" + k).getElementsByClassName("tt")[0];
@@ -997,9 +1042,9 @@
                                     T_OrderDetail.AdminCD = adminCD;
                                     T_OrderDetail.OrderItem = ordercount;
                                     T_OrderDetail.StockItem = inventorycount;
-                                    T_OrderDetail.SalePrice = price;
+                                    T_OrderDetail.SalePrice = price1;
                                     T_OrderDetail.Memo = ItemMemo;
-                                    T_OrderDetail.TotalAmount = ordercount * price;
+                                    T_OrderDetail.TotalAmount = ordercount * price1;
 
                                     if (skumemo == null || skumemo == "") {
                                         T_OrderDetail.Memo = ItemMemo;
@@ -1018,7 +1063,7 @@
                     }
 
                 }
-
+             
                 $.ajax({
                     url: "../Order/InserOrder",
                     type: 'post',
@@ -1051,6 +1096,8 @@
         function fixDigit(val) {
             return val.toString().length === 1 ? "0" + val : val;
         }
+ 
+
 
     </script>
 
@@ -1059,7 +1106,7 @@
 
 <!--heder end here-->
 <ol class="breadcrumb">
-    <li class="breadcrumb-item"><a href="/Home/Index">ホーム</a> <i class="fa fa-angle-right"></i> <a href="/Order/order_portal">発注ポータル</a><i class="fa fa-angle-right"></i>発注入力</li>
+    <li class="breadcrumb-item"><a href="../Home/Index">ホーム</a> <i class="fa fa-angle-right"></i> <a href="../Order/order_portal">発注ポータル</a><i class="fa fa-angle-right"></i>発注入力</li>
 </ol>
 <div class="inbox-mail">
 
@@ -1199,7 +1246,7 @@
 
                     </div>
 
-                </div><!--<div class="odminiblock"><button onclick="odFunction()"  id="btnb" type="button" class="btn btn-secondary">ブロック最小化</button></div>-->
+                </div>
             </div>
         </div>
 
@@ -1207,7 +1254,7 @@
     </div>
 
 </div>
-<!-- script-for sticky-nav -->
+
 
 <script>
     function odFunction() {
@@ -1230,12 +1277,6 @@
 <div class="tab-content tab-content-in w3 orderlist">
     <div class="tab-pane text-style active" id="tab1">
         <div class="inbox-right">
-
-            <!-- tab content -->
-            @*<object data="order_input_table.html" width="100%" height="1200px" type="text/html">
-                    Alternative Content
-                </object>*@
-
                 <table class="tab001">
                     <tbody>
                         <tr>
@@ -1359,7 +1400,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="t100 textri">発注合計金額</td>
-                                            <td><input id="totalamt" class="form-control" type="text" disabled /></td>
+                                            <td><input id="totalamt" style="text-align:right;" class="form-control" type="text" disabled /></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1370,18 +1411,7 @@
                                         <tr>
                                             <td class="t20p textri">摘要</td>
                                             <td class="t230"> <textarea class="form-control" id="txtsummary" rows="1" maxlength="500"></textarea></td>
-                                            @*<script>
 
-                                                    function expandTextarea(id) {
-                                                        document.getElementById(id).addEventListener('keyup', function () {
-                                                            this.style.overflow = 'hidden';
-                                                            this.style.height = 0;
-                                                            this.style.height = this.scrollHeight + 'px';
-                                                        }, false);
-                                                    }
-
-                                                    expandTextarea('txtarea');
-                                                </script>*@
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1398,13 +1428,13 @@
                     <tr class="tab002tit">
                         <td class="t100">詳細表示</td>
 
-                        <td class="t100" width="150px">メーカー番号</td>
-                        <td class="t300">商品名</td>
-                        <td class="t100">ブランド</td>
-                        <td class="t100">上代</td>
-                        <td class="t100">下代</td>
-                        <td class="t100">ロット</td>
-                        <td class="t200">摘要</td>
+                        <td class="t100" width="150px" style="text-align:center !important;">メーカー番号</td>
+                        <td class="t300" style="text-align:center !important;">商品名</td>
+                        <td class="t100" style="text-align:center !important;">ブランド</td>
+                        <td class="t100" style="text-align:center !important;">上代</td>
+                        <td class="t100" style="text-align:center !important;">下代</td>
+                        <td class="t100" style="text-align:center !important;">ロット</td>
+                        <td class="t200" style="text-align:center !important;">摘要</td>
                     </tr>
                 </thead>
 
@@ -1432,13 +1462,13 @@
                     <tr class="tab002tit">
                         <td class="t100">詳細表示</td>
 
-                        <td class="t100" width="150px">メーカー番号</td>
-                        <td class="t300">商品名</td>
-                        <td class="t100">ブランド</td>
-                        <td class="t100">上代</td>
-                        <td class="t100">下代</td>
-                        <td class="t100">ロット</td>
-                        <td class="t200">摘要</td>
+                        <td class="t100" width="150px" style="text-align:center !important;">メーカー番号</td>
+                        <td class="t300" style="text-align:center !important;">商品名</td>
+                        <td class="t100" style="text-align:center !important;">ブランド</td>
+                        <td class="t100" style="text-align:center !important;">上代</td>
+                        <td class="t100" style="text-align:center !important;">下代</td>
+                        <td class="t100" style="text-align:center !important;">ロット</td>
+                        <td class="t200" style="text-align:center !important;">摘要</td>
                     </tr>
                 </thead>
 
@@ -1465,13 +1495,13 @@
                     <tr class="tab002tit">
                         <td class="t100">詳細表示</td>
 
-                        <td class="t100" width="150px">メーカー番号</td>
-                        <td class="t300">商品名</td>
-                        <td class="t100">ブランド</td>
-                        <td class="t100">上代</td>
-                        <td class="t100">下代</td>
-                        <td class="t100">ロット</td>
-                        <td class="t200">摘要</td>
+                        <td class="t100" width="150px" style="text-align:center !important;">メーカー番号</td>
+                        <td class="t300" style="text-align:center !important;">商品名</td>
+                        <td class="t100" style="text-align:center !important;">ブランド</td>
+                        <td class="t100" style="text-align:center !important;">上代</td>
+                        <td class="t100" style="text-align:center !important;">下代</td>
+                        <td class="t100" style="text-align:center !important;">ロット</td>
+                        <td class="t200" style="text-align:center !important;">摘要</td>
                     </tr>
                 </thead>
 
@@ -1499,13 +1529,13 @@
                     <tr class="tab002tit">
                         <td class="t100">詳細表示</td>
 
-                        <td class="t100" width="150px">メーカー番号</td>
-                        <td class="t300">商品名</td>
-                        <td class="t100">ブランド</td>
-                        <td class="t100">上代</td>
-                        <td class="t100">下代</td>
-                        <td class="t100">ロット</td>
-                        <td class="t200">摘要</td>
+                        <td class="t100" width="150px" style="text-align:center !important;">メーカー番号</td>
+                        <td class="t300" style="text-align:center !important;">商品名</td>
+                        <td class="t100" style="text-align:center !important;">ブランド</td>
+                        <td class="t100" style="text-align:center !important;">上代</td>
+                        <td class="t100" style="text-align:center !important;">下代</td>
+                        <td class="t100" style="text-align:center !important;">ロット</td>
+                        <td class="t200" style="text-align:center !important;">摘要</td>
                     </tr>
                 </thead>
 
@@ -1533,13 +1563,13 @@
                     <tr class="tab002tit">
                         <td class="t100">詳細表示</td>
 
-                        <td class="t100" width="150px">メーカー番号</td>
-                        <td class="t300">商品名</td>
-                        <td class="t100">ブランド</td>
-                        <td class="t100">上代</td>
-                        <td class="t100">下代</td>
-                        <td class="t100">ロット</td>
-                        <td class="t200">摘要</td>
+                        <td class="t100" width="150px" style="text-align:center !important;">メーカー番号</td>
+                        <td class="t300" style="text-align:center !important;">商品名</td>
+                        <td class="t100" style="text-align:center !important;">ブランド</td>
+                        <td class="t100" style="text-align:center !important;">上代</td>
+                        <td class="t100" style="text-align:center !important;">下代</td>
+                        <td class="t100" style="text-align:center !important;">ロット</td>
+                        <td class="t200" style="text-align:center !important;">摘要</td>
                     </tr>
                 </thead>
 
@@ -1566,13 +1596,13 @@
                     <tr class="tab002tit">
                         <td class="t100">詳細表示</td>
 
-                        <td class="t100" width="150px">メーカー番号</td>
-                        <td class="t300">商品名</td>
-                        <td class="t100">ブランド</td>
-                        <td class="t100">上代</td>
-                        <td class="t100">下代</td>
-                        <td class="t100">ロット</td>
-                        <td class="t200">摘要</td>
+                        <td class="t100" width="150px" style="text-align:center !important;">メーカー番号</td>
+                        <td class="t300" style="text-align:center !important;">商品名</td>
+                        <td class="t100" style="text-align:center !important;">ブランド</td>
+                        <td class="t100" style="text-align:center !important;">上代</td>
+                        <td class="t100" style="text-align:center !important;">下代</td>
+                        <td class="t100" style="text-align:center !important;">ロット</td>
+                        <td class="t200" style="text-align:center !important;">摘要</td>
                     </tr>
                 </thead>
 
@@ -1600,13 +1630,13 @@
                     <tr class="tab002tit">
                         <td class="t100">詳細表示</td>
 
-                        <td class="t100" width="150px">メーカー番号</td>
-                        <td class="t300">商品名</td>
-                        <td class="t100">ブランド</td>
-                        <td class="t100">上代</td>
-                        <td class="t100">下代</td>
-                        <td class="t100">ロット</td>
-                        <td class="t200">摘要</td>
+                        <td class="t100" width="150px" style="text-align:center !important;">メーカー番号</td>
+                        <td class="t300" style="text-align:center !important;">商品名</td>
+                        <td class="t100" style="text-align:center !important;">ブランド</td>
+                        <td class="t100" style="text-align:center !important;">上代</td>
+                        <td class="t100" style="text-align:center !important;">下代</td>
+                        <td class="t100" style="text-align:center !important;">ロット</td>
+                        <td class="t200" style="text-align:center !important;">摘要</td>
                     </tr>
                 </thead>
 
@@ -1632,13 +1662,13 @@
                     <tr class="tab002tit">
                         <td class="t100">詳細表示</td>
 
-                        <td class="t100" width="150px">メーカー番号</td>
-                        <td class="t300">商品名</td>
-                        <td class="t100">ブランド</td>
-                        <td class="t100">上代</td>
-                        <td class="t100">下代</td>
-                        <td class="t100">ロット</td>
-                        <td class="t200">摘要</td>
+                        <td class="t100" width="150px" style="text-align:center !important;">メーカー番号</td>
+                        <td class="t300" style="text-align:center !important;">商品名</td>
+                        <td class="t100" style="text-align:center !important;">ブランド</td>
+                        <td class="t100" style="text-align:center !important;">上代</td>
+                        <td class="t100" style="text-align:center !important;">下代</td>
+                        <td class="t100" style="text-align:center !important;">ロット</td>
+                        <td class="t200" style="text-align:center !important;">摘要</td>
                     </tr>
                 </thead>
 
@@ -1659,56 +1689,6 @@
                     </tbody>
                 </table>
             </div>
-
-            <!------>
-            <!------>
-            @*<table class="tab002">
-                    <tbody>
-                        <tr class="tab002tit">
-                            <td class="t100">詳細表示</td>
-
-                            <td class="t100">メーカー番号</td>
-                            <td class="t300">商品名</td>
-                            <td class="t100">ブランド</td>
-                            <td class="t100">上代</td>
-                            <td class="t100">下代</td>
-                            <td class="t100">ロット</td>
-                            <td class="t200">摘要</td>
-                        </tr>
-                        <tr>
-                            <td class="saict">
-                                <div class="ISHide"><a href="#clearfix" class="hideLinka">非表示</a></div>
-                            </td>
-
-                            <td class="sailf t100">AAA005</td>
-                            <td class="sailf t300">クエークバスター/（KVI205）</td>
-                            <td class="saict t100">テニック</td>
-                            <td class="sair t100">￥8,400</td>
-                            <td class="sair t100">￥9,400</td>
-                            <td class="saict t100">2</td>
-                            <td class="saict t200"><input class="form-control" type="tel" /></td>
-                        </tr>
-
-
-                    </tbody>
-                </table>*@
-
-            @*<script>
-
-                    $(".hideLinka").on("click", function () {
-                        alert("hideLinka");
-                        if ($(this).text() == "非表示") {
-                            $(this).text("表示");
-                        } else {
-                            $(this).text("非表示");
-                        }
-                        $(".ISProductBodya").toggle();
-
-                        return false;
-                    });
-
-                </script>*@
-
 
 
         </div>

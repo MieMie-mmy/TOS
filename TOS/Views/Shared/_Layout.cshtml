@@ -48,6 +48,7 @@
     @Scripts.Render("~/bundles/modernizr")
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+    <link rel="SHORTCUT ICON" href="http://www.capital-sys.net/TOS/images/favicon.ico" />
     <link href="@Url.Content("~/Content/CdnDatatable.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/bootstrap.min.css")" rel="stylesheet" type="text/css" />
     <link href="@Url.Content("~/Content/font-awesome.css")" rel="stylesheet" type="text/css" />
@@ -80,43 +81,49 @@
                     <div class="w3layouts-right">
                         <span>
                             @{
-                                if (Session["CompanyName"] != null )
+                                if (Session["CompanyName"] != null)
                                 {
-                                    
-                                    
+
+
                                     <a href="#" style="color:white">@Session["CompanyName"]</a>
 
                                 }
-                                
+
 
                                 else
                                 {
 
                                 }
                             }
+
                         </span>
                         <div class="clearfix">
                         </div>
                     </div>
+                   
+                    @*<div>
+                        <span>
+                            <button type="button" id="btnLogout" class="w3layouts_logout" onclick="location.href='@Url.Action("Login","User")'">ログアウト</button>
+                        </span>
 
-
+                    </div>*@
                     <div class="clearfix"> </div>
                 </div>
-                <!--heder end here-->
-                @RenderBody()
-                <!-- script-for sticky-nav -->
-                <!-- /script-for sticky-nav -->
-                <!--inner block start here-->
-                <div class="inner-block">
+                    <!--heder end here-->
+                    @RenderBody()
+                    <!-- script-for sticky-nav -->
+                    <!-- /script-for sticky-nav -->
+                    <!--inner block start here-->
+                    <div class="inner-block">
 
+                    </div>
+                    <!--inner block end here-->
+                    <!--copy rights start here-->
+                    <div class="copyrights">
+                        <p>© 2020 TENNIC. All rights reserved</p>
+                    </div>
+                    <!--COPY rights end here-->
                 </div>
-                <!--inner block end here-->
-                <!--copy rights start here-->
-                <div class="copyrights">
-                    <p>© 2020 TENNIC. All rights reserved</p>
-                </div>
-                <!--COPY rights end here-->
-            </div>
         </div>
         <!--//content-inner-->
         <!--/sidebar-menu-->
@@ -191,8 +198,22 @@
                                         <div class="clearfix"></div>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="@Url.Action("Group_View","Registrations")">
+                                        <i class="fa fa-street-view" aria-hidden="true"></i><span>グループ一覧</span>
+                                        <div class="clearfix"></div>
+                                    </a>
+                                </li>
                             }
                         }
+
+                        <li id="menu-academico">
+
+                            <a href="@Url.Action("Login", "User")">
+                                <i class="fa fa-sign-out"></i><span>ログアウト</span>
+                                <div class="clearfix"></div>
+                            </a>
+                        </li>
 
 
 

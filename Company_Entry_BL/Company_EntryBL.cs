@@ -27,9 +27,16 @@ namespace Company_Entry_BL
             prms[1] = new SqlParameter("@companyName", SqlDbType.VarChar) { Value = mModel.CompanyName };
             prms[2] = new SqlParameter("@Passwd", SqlDbType.VarChar) { Value = mModel.Password };
             prms[3] = new SqlParameter("@User", SqlDbType.VarChar) { Value = mModel.UserRole };
-            prms[4] = new SqlParameter("@ShortName", SqlDbType.VarChar) { Value = mModel.ShortName };
-            prms[5] = new SqlParameter("@Zip1", SqlDbType.VarChar) { Value = mModel.ZipCD1 };
-            prms[6] = new SqlParameter("@Zip2", SqlDbType.VarChar) { Value = mModel.ZipCD2 };
+                if (!string.IsNullOrWhiteSpace(mModel.ShortName))
+                {
+                    prms[4] = new SqlParameter("@ShortName", SqlDbType.VarChar) { Value = mModel.ShortName };
+                }
+                else
+                {
+                    prms[4] = new SqlParameter("@ShortName", SqlDbType.VarChar) { Value = System.DBNull.Value };
+                }
+                prms[5] = new SqlParameter("@Zip1", SqlDbType.VarChar) { Value = mModel.ZipCD1 };
+                prms[6] = new SqlParameter("@Zip2", SqlDbType.VarChar) { Value = mModel.ZipCD2 };
                 if (!string.IsNullOrWhiteSpace(mModel.Address1))
                 {
                     prms[7] = new SqlParameter("@Add1", SqlDbType.VarChar) { Value = mModel.Address1 };
