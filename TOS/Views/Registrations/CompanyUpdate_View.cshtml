@@ -1,0 +1,146 @@
+﻿
+@{
+    ViewBag.Title = "CompanyUpdate_View";
+}
+
+@*<link href="~/Content/bootstrap.css" rel="stylesheet" />
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+
+<script src="~/Scripts/bootstrap.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/Site.css" rel="stylesheet" />
+<link href="~/Content/news.css" rel="stylesheet" />
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<style>
+    table.dataTable {
+        
+         border-collapse:collapse !important;
+         width:auto !important;
+      
+    }
+
+</style>
+
+
+<ol class="breadcrumb">
+    <li class="breadcrumb-item">
+        <a href='@Url.Action("Index","Home")'>ホーム</a>
+        <i class="fa fa-angle-right"></i>在庫照会
+    </li>
+</ol>
+
+<div class="inbox-mail">
+    <!-- tab content -->
+    <div class="tab-content tab-content-in w3">
+        <div class="tab-pane text-style active" id="tab1">
+            <div class="inbox-right">
+
+                @*<div class="newr col-md-7">
+                    <div class="float-left"><h6>お知らせ一覧</h6></div><div class="float-right">
+                        <div class="btn-group">
+                            <a class="btn btn-default"><i class="fa fa-angle-left"></i></a>
+                            <a class="btn btn-default"><i class="fa fa-angle-right"></i></a>
+                        </div>
+                    </div>*@
+                <table class="tab002" id="Update">
+                    <thead>
+                        <tr class="tab002tit">
+                            <td class="t30" style="font-weight:unset;">No</td>
+                            <td class="t100" style="font-weight:unset;">会社CD</td>
+                            <td class="t100" style="font-weight:unset;">会社名</td>
+                            <td class="t100" style="font-weight:unset;">会社略名</td>
+                            <td class="t100" style="font-weight:unset;">代表者名</td>
+                            <td class="t100" style="font-weight:unset;">ランクフラグ</td>
+                            <td class="t100" style="font-weight:unset;text-align:center"></td>
+
+                            @*<tr class="tab002tit">
+            <th class="tab002tit1" style="font-weight:unset;">No</th>
+            <th class="tab002tit2" style="font-weight:unset;">課題名</th>
+            <th class="tab002tit3">&nbsp;</th>
+            <th class="tab002tit3">&nbsp;</th>
+        </tr>*@
+                            @*<th style="background-color:darkblue;color: white;width: 78px;text-align: center"></th>*@
+                            @*<th style="background-color:darkblue;color: white;width: 78px;text-align: center"></th>*@
+
+                        </tr>
+
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+@*</div>*@
+<script>
+    $(document).ready(function () {
+
+            $.ajax({
+                type: 'GET',
+
+                url: '@Url.Action("_GetTable", "Registrations")',
+                dataType: 'json',
+                success: function (data) {
+                BindFirstTable(data);
+
+                }
+                });
+
+    })
+</script>
+<script>
+    function BindFirstTable(data) {
+
+        var table = $("#Update").DataTable(
+            {
+                "destroy": true,
+                //responsive: false,
+                "scroll": false,
+                "dom": 'lrtip',
+                "bLengthChange": false,
+                "aLengthMenu": [20],
+                "data": data,
+                "language": {
+
+                    url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
+                },
+                "data": data,
+
+                "columns": [
+                    { "data": "No", orderable: false },
+                    { "data": "CompanyCD", orderable: false },
+                    { "data": "CompanyName", orderable: false },
+                    { "data": "ShortName", orderable: false },
+                    { "data": "PresidentName", orderable: false },
+                    { "data": "RankingFlg", orderable: false } ,
+                    {}
+
+                ],
+                "columnDefs": [
+                    {
+                        "targets": 6,
+
+                        "data": "",
+                        "render": function (data, type, row) {
+
+                            
+                           return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '">Edit </a>|'+
+                                   '<a href="@Url.Action("CompanyEntry_Edit", "Registrations")' + row.CompanyCD + '">Delete </a>';
+                            
+                           
+                        }
+                    },]
+
+            }
+        );
+
+    }
+
+</script>
+
+
+
+
+
+
