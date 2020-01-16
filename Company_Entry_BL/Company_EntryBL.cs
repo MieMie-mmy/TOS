@@ -275,12 +275,10 @@ namespace Company_Entry_BL
         }
         public DataTable CompanyEntry_For_Edit(string id)
         {
-            BaseDL dl = new BaseDL();
+            BaseDL bdl = new BaseDL();
             DataTable dt = new DataTable();
-            //SqlParameter[] prms = new SqlParameter[2];
-            //prms[0] = new SqlParameter("@id", SqlDbType.VarChar) { Value = id };
-            //prms[1] = new SqlParameter("@option", SqlDbType.VarChar) { Value = 1 };
-            dt = dl.SelectData("CompanyUpdateView_Select", null);
+            
+            dt = bdl.SelectData("CompanyUpdateView_Select", null);
             return dt;
         }
     }

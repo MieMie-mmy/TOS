@@ -28,7 +28,7 @@ namespace TOS.Controllers
         public ActionResult Company_Entry(string id)
         {
             
-            if (Session["CompanyCD"] != null)
+            if (Session["CompanyCD"] != null && (id!= null))
             {
                 return View();
             }
@@ -37,6 +37,25 @@ namespace TOS.Controllers
                 return RedirectToAction("Login", "User");
             }
            
+        }
+
+        [HttpGet]
+        public string CompanyEntry_For_Edit(string id)
+        {
+            Company_EntryBL bl = new Company_EntryBL();
+            if (id != null)
+            {
+                DataTable dtinfo = new DataTable();
+                dtinfo = bl.CompanyEntry_For_Edit(id);
+                if (dtinfo.Rows.Count > 0)
+                {
+                    string jsonresult;
+                    jsonresult = JsonConvert.SerializeObject(dtinfo);
+                    return jsonresult;
+                }
+            }
+            return null;
+
         }
 
         [HttpPost]
