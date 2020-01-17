@@ -100,7 +100,7 @@
                   ],
                   "columnDefs": [
                       {
-                          targets: [ 3, 4],
+                          targets: [ 3, 4,6,7],
                           className: 'saict'
                       },
                       {
@@ -108,7 +108,7 @@
                           className: 'sair '
                       },
                       {
-                          targets: [1, 2,6,7],
+                          targets: [1, 2],
                           className: 'textalign sailf'
                       },
                   ],
@@ -181,7 +181,7 @@
                                                     <td>
                                                         <div class="btn-group t200">
                                                         @Html.DropDownList("ddlBrand",
-        new SelectList(Enumerable.Empty<SelectListItem>())," ",new { @class = "form-control t200", @style = "height: 2.3em !important " })
+        new SelectList(Enumerable.Empty<SelectListItem>()), "選択", new { @class = "form-control t200", @style = "height: 2.3em !important " })
                                                             </div>
                                                     </td>
                                                 </tr>

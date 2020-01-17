@@ -3,9 +3,7 @@
     ViewBag.Title = "CompanyUpdate_View";
 }
 
-@*<link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
-
+<link href="~/Content/manager-style.css" rel="stylesheet" />
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/Site.css" rel="stylesheet" />
@@ -18,12 +16,40 @@
 <style>
     table.dataTable {
         border-collapse: collapse !important;
-        width: auto !important;
+        width: 1300px !important;
     }
 
     .EditDeleteRow {
         background-color: #003492;
+        text-align: center;
     }
+    mother-grid-inner {
+        display: block !important;
+        background-color: #edecec !important;
+    }
+
+    .left-content {
+        background-color: #edecec !important;
+    }
+
+    tr.even {
+        background-color: #CCDDFF !important;
+    }
+    td.textalign.sorting_1 {
+        text-align: right;
+    }
+    td.t100.textalign.sorting_disabled {
+        font-weight: unset;
+        width: 143px;
+        text-align: center;
+    }
+    td.textalign {
+        text-align: right;
+    }
+    td {
+        text-align: left;
+    }
+    
 </style>
 
 
@@ -50,12 +76,12 @@
                 <table class="tab002" id="Update">
                     <thead>
                         <tr class="tab002tit">
-                            <td class="t30" style="font-weight:unset;">No</td>
-                            <td class="t100" style="font-weight:unset;">会社CD</td>
-                            <td class="t100" style="font-weight:unset;">会社名</td>
-                            <td class="t100" style="font-weight:unset;">会社略名</td>
-                            <td class="t100" style="font-weight:unset;">代表者名</td>
-                            <td class="t100" style="font-weight:unset;">ランクフラグ</td>
+                            <td class="t30" style="font-weight:unset;width: 31px;text-align: center">No</td>
+                            <td class="t100" style="font-weight:unset;width:100px">会社CD</td>
+                            <td class="t100" style="font-weight:unset;width: 300px;text-align: center;">会社名</td>
+                            <td class="t100" style="font-weight:unset;text-align: center;">会社略名</td>
+                            <td class="t100" style="font-weight:unset;text-align: center;">代表者名</td>
+                            <td class="t100" style="font-weight:unset;width:110px;text-align: center;">ランクフラグ</td>
                             <td class="t100" style="font-weight:unset;text-align:center;width:30px;">編集</td>
                             <td class="t100" style="font-weight:unset;text-align:center;color:red;width:30px;">削除</td>
 
@@ -149,6 +175,14 @@
                         }
                     },
                     {
+                        targets: [0, 1],
+                        className: 'textalign'
+                    },
+                    {
+                        targets: [0, 5],
+                        className: 't150 sair sorting_disabled'
+                    },
+                    {
                         "targets": 7,
                         className:"EditDeleteRow",
                         "data": "",
@@ -175,7 +209,7 @@
 
 @*script for function*@
 <script>
-
+    
     function DeleteCompanyView(id)
     {
         $.ajax({
@@ -192,6 +226,13 @@
     }
 
 </script>
+
+
+
+
+
+
+
 
 
 
