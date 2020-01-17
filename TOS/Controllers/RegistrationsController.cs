@@ -27,10 +27,22 @@ namespace TOS.Controllers
 
         public ActionResult Company_Entry(string id)
         {
-            
+           
             if (Session["CompanyCD"] != null)
             {
-                
+
+                MultipleModel model = new MultipleModel();
+                Company_EntryBL bl = new Company_EntryBL();
+                DataTable dt = bl.CompanyUpdate_View_Edit(id);
+                if(dt.Rows.Count >0)
+                {
+                    foreach(DataRow row in dt.Rows)
+                    {
+                        //model.ComModel=row[""]
+                       
+
+                    }
+                }
                 return View();
 
             }
@@ -38,27 +50,26 @@ namespace TOS.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
-           
+       
         }
-
-        //[HttpGet]
-        //public string CompanyEntry_Edit(string id)
-        //{
-        //    Company_EntryBL bl = new Company_EntryBL();
-        //    if (id != null)
-        //    {
-        //        DataTable dtinfo = new DataTable();
-        //        dtinfo = bl.CompanyEntry_Edit(id);
-        //        if (dtinfo.Rows.Count > 0)
-        //        {
-        //            string jsonresult;
-        //            jsonresult = JsonConvert.SerializeObject(dtinfo);
-        //            return jsonresult;
-        //        }
-        //    }
-        //    return null;
-
-        //}
+        
+        public String CompanyUpdate_View_Delete(string id)
+        {
+            Company_EntryBL bl = new Company_EntryBL();
+            var AccessPC = System.Environment.MachineName;
+            Boolean result = bl.CompanyUpdate_View_Delete(id, AccessPC);
+            var sendR = "";
+            if (result == true)
+            {
+                sendR = "OK";
+            }
+            else
+            {
+                sendR = "NOK";
+            }
+            return JsonConvert.SerializeObject(sendR);
+            
+        }
 
         [HttpPost]
         public ActionResult InsertCompany(MultipleModel model)
@@ -401,7 +412,7 @@ namespace TOS.Controllers
             return Jsondata;
             // return View();
         }
-        
-        
+
+
     }
 }
