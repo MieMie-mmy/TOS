@@ -12,6 +12,9 @@
 <link href="~/Content/news.css" rel="stylesheet" />
 <script src="~/Scripts/jquery-3.3.1.js"></script>
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
     table.dataTable {
         border-collapse: collapse !important;
@@ -53,8 +56,8 @@
                             <td class="t100" style="font-weight:unset;">会社略名</td>
                             <td class="t100" style="font-weight:unset;">代表者名</td>
                             <td class="t100" style="font-weight:unset;">ランクフラグ</td>
-                            <td class="t100" style="font-weight:unset;text-align:center;width:30px;"></td>
-                            <td class="t100" style="font-weight:unset;text-align:center;color:red;width:30px;"></td>
+                            <td class="t100" style="font-weight:unset;text-align:center;width:30px;">編集</td>
+                            <td class="t100" style="font-weight:unset;text-align:center;color:red;width:30px;">削除</td>
 
                             @*<tr class="tab002tit">
                                     <th class="tab002tit1" style="font-weight:unset;">No</th>
@@ -74,11 +77,23 @@
         </div>
     </div>
 </div>
+
+
+
+
+
 @*</div>*@
 <script>
+
     $(document).ready(function () {
 
-            $.ajax({
+        GetCompanyUpdate_View();
+
+    })
+
+    function GetCompanyUpdate_View()
+    {
+         $.ajax({
                 type: 'GET',
 
                 url: '@Url.Action("_GetTable", "Registrations")',
@@ -88,10 +103,8 @@
 
                 }
                 });
+    }
 
-    })
-</script>
-<script>
     function BindFirstTable(data) {
 
         var table = $("#Update").DataTable(
@@ -107,6 +120,7 @@
 
                     url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Japanese.json"
                 },
+                "pagingType": "full_numbers",
                 "data": data,
 
                 "columns": [
@@ -141,7 +155,7 @@
                         "render": function (data, type, row) {
 
 
-                            return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '"  style="color:red;">削除</a>';
+                            return '<a href="#"  onclick="DeleteCompanyView(' + row.CompanyCD + ')"  style="color:red;">削除</a>';
 
 
                         }
@@ -149,19 +163,7 @@
 
 
             ]
-                 @*"columnDefs": [
-                    {
-                        "targets": 7,
 
-                        "data": "",
-                        "render": function (data, type, row) {
-
-
-                            return '<a href="@Url.Action("Company_Entry_Edit", "Registrations")?id=' + row.CompanyCD + '"  style="color:red;">削除</a>';
-
-
-                        }
-                    },]*@
 
             }
         );
@@ -169,6 +171,42 @@
     }
 
 </script>
+
+
+@*script for function*@
+<script>
+
+    function DeleteCompanyView(id)
+    {
+        $.ajax({
+            type:'POST',
+            url: '@Url.Action("CompanyUpdate_View_Delete", "Registrations")?id=' + id,
+            dataType: 'json',
+            success: function (data)
+            {
+                GetCompanyUpdate_View();
+            }
+
+        });
+
+    }
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
