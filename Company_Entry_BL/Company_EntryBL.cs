@@ -273,13 +273,28 @@ namespace Company_Entry_BL
             return dt;
 
         }
-        public DataTable CompanyEntry_For_Edit(string id)
+        public Boolean CompanyUpdate_View_Delete(string id, string AccessPC)
         {
             BaseDL bdl = new BaseDL();
+            bool result = false;
             DataTable dt = new DataTable();
-            
-            dt = bdl.SelectData("CompanyUpdateView_Select", null);
-            return dt;
+            SqlParameter[] prm = new SqlParameter[2];
+
+            prm[0] = new SqlParameter("@companyCD", SqlDbType.VarChar) { Value = id };
+
+            prm[1] = new SqlParameter("@AccessPC", SqlDbType.VarChar) { Value = AccessPC };
+
+            dt = bdl.SelectData("CompanyUpdateView_Delete", prm);
+            if (dt.Rows.Count > 0)
+            {
+                result = true;
+            }
+            else
+            {
+                result = false;
+            }
+
+            return result;
         }
     }
     }

@@ -28,9 +28,11 @@ namespace TOS.Controllers
         public ActionResult Company_Entry(string id)
         {
             
-            if (Session["CompanyCD"] != null && (id!= null))
+            if (Session["CompanyCD"] != null)
             {
+                
                 return View();
+
             }
             else
             {
@@ -39,24 +41,24 @@ namespace TOS.Controllers
            
         }
 
-        [HttpGet]
-        public string CompanyEntry_For_Edit(string id)
-        {
-            Company_EntryBL bl = new Company_EntryBL();
-            if (id != null)
-            {
-                DataTable dtinfo = new DataTable();
-                dtinfo = bl.CompanyEntry_For_Edit(id);
-                if (dtinfo.Rows.Count > 0)
-                {
-                    string jsonresult;
-                    jsonresult = JsonConvert.SerializeObject(dtinfo);
-                    return jsonresult;
-                }
-            }
-            return null;
+        //[HttpGet]
+        //public string CompanyEntry_Edit(string id)
+        //{
+        //    Company_EntryBL bl = new Company_EntryBL();
+        //    if (id != null)
+        //    {
+        //        DataTable dtinfo = new DataTable();
+        //        dtinfo = bl.CompanyEntry_Edit(id);
+        //        if (dtinfo.Rows.Count > 0)
+        //        {
+        //            string jsonresult;
+        //            jsonresult = JsonConvert.SerializeObject(dtinfo);
+        //            return jsonresult;
+        //        }
+        //    }
+        //    return null;
 
-        }
+        //}
 
         [HttpPost]
         public ActionResult InsertCompany(MultipleModel model)

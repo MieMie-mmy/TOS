@@ -4,7 +4,7 @@
 }
 
 @*<link href="~/Content/bootstrap.css" rel="stylesheet" />
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />*@
 
 <script src="~/Scripts/bootstrap.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
@@ -14,12 +14,13 @@
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <style>
     table.dataTable {
-        
-         border-collapse:collapse !important;
-         width:auto !important;
-      
+        border-collapse: collapse !important;
+        width: auto !important;
     }
 
+    .EditDeleteRow {
+        background-color: #003492;
+    }
 </style>
 
 
@@ -52,21 +53,22 @@
                             <td class="t100" style="font-weight:unset;">会社略名</td>
                             <td class="t100" style="font-weight:unset;">代表者名</td>
                             <td class="t100" style="font-weight:unset;">ランクフラグ</td>
-                            <td class="t100" style="font-weight:unset;text-align:center"></td>
+                            <td class="t100" style="font-weight:unset;text-align:center;width:30px;"></td>
+                            <td class="t100" style="font-weight:unset;text-align:center;color:red;width:30px;"></td>
 
                             @*<tr class="tab002tit">
-            <th class="tab002tit1" style="font-weight:unset;">No</th>
-            <th class="tab002tit2" style="font-weight:unset;">課題名</th>
-            <th class="tab002tit3">&nbsp;</th>
-            <th class="tab002tit3">&nbsp;</th>
-        </tr>*@
+                                    <th class="tab002tit1" style="font-weight:unset;">No</th>
+                                    <th class="tab002tit2" style="font-weight:unset;">課題名</th>
+                                    <th class="tab002tit3">&nbsp;</th>
+                                    <th class="tab002tit3">&nbsp;</th>
+                                </tr>*@
                             @*<th style="background-color:darkblue;color: white;width: 78px;text-align: center"></th>*@
                             @*<th style="background-color:darkblue;color: white;width: 78px;text-align: center"></th>*@
 
                         </tr>
 
                     </thead>
-                    <tbody></tbody>
+                    <tbody style="text-align:center;"></tbody>
                 </table>
             </div>
         </div>
@@ -113,24 +115,53 @@
                     { "data": "CompanyName", orderable: false },
                     { "data": "ShortName", orderable: false },
                     { "data": "PresidentName", orderable: false },
-                    { "data": "RankingFlg", orderable: false } ,
+                    { "data": "RankingFlg", orderable: false },
+                    {},
                     {}
 
                 ],
                 "columnDefs": [
                     {
                         "targets": 6,
+                        className:"EditDeleteRow",
+                        "data": "",
+                        "render": function (data, type, row) {
+
+                            return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '" style="color:white;" >編集</a>';
+
+
+
+
+                        }
+                    },
+                    {
+                        "targets": 7,
+                        className:"EditDeleteRow",
+                        "data": "",
+                        "render": function (data, type, row) {
+
+
+                            return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '"  style="color:red;">削除</a>';
+
+
+                        }
+                    },
+
+
+            ]
+                 @*"columnDefs": [
+                    {
+                        "targets": 7,
 
                         "data": "",
                         "render": function (data, type, row) {
 
-                            
-                           return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '">Edit </a>|'+
-                                   '<a href="@Url.Action("CompanyEntry_Edit", "Registrations")' + row.CompanyCD + '">Delete </a>';
-                            
-                           
+
+                            return '<a href="@Url.Action("Company_Entry_Edit", "Registrations")?id=' + row.CompanyCD + '"  style="color:red;">削除</a>';
+
+
                         }
-                    },]
+                    },]*@
 
             }
         );
@@ -138,6 +169,13 @@
     }
 
 </script>
+
+
+
+
+
+
+
 
 
 
