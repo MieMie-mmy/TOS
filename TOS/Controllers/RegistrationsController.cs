@@ -33,12 +33,12 @@ namespace TOS.Controllers
 
                 MultipleModel model = new MultipleModel();
                 Company_EntryBL bl = new Company_EntryBL();
-                DataTable dt = bl.CompanyUpdate_View_Edit(id);
+                DataTable dt = bl.CompanyUpdateView_Edit(id);
                 if(dt.Rows.Count >0)
                 {
                     foreach(DataRow row in dt.Rows)
                     {
-                        //model.ComModel=row[""]
+                        
                        
 
                     }
@@ -76,8 +76,6 @@ namespace TOS.Controllers
         {
             try
             {
-
-
                 Company_EntryBL cbl = new Company_EntryBL();
                 DataTable Checkdt = cbl.Check_Duplicate_CompanyCD(model.ComModel);
                 if (Checkdt.Rows.Count > 0)
@@ -118,8 +116,6 @@ namespace TOS.Controllers
 
                         model.ComModel.InsertOperator = Session["CompanyCD"].ToString();
                         DataTable dt = cbl.InsertCompany(model.ComModel, PcName);
-
-
 
                         //Insert Company Shipping
                         Array arrayShip = model.ShippingModel.ToArray();
@@ -188,34 +184,8 @@ namespace TOS.Controllers
                         scope.Complete();
                     }
 
-
-                    //if (ModelState.IsValid)
-                    //{
-                    //    return RedirectToAction("Company_Entry");
-
-                    //}
-                    //else
-                    //{
-                    //    TempData["message"] = "登録されました。";
-                    //    return View("Company_Entry");
-
-                    //}
-
-                    //DataTable dtMsg = cbl.Insert_Message_Select("1002", "I");
-                    //string message = string.Empty;
-                    //if (dtMsg.Rows.Count > 0)
-                    //{
-                    //    TempData["Emsg"] = dtMsg.Rows[0]["Message1"].ToString();
-                    //}
-
-                    //DataTable dtIMsg = cbl.Message_Select("1002", "I");
-                    //string message = string.Empty;
-                    //if (dtIMsg.Rows.Count > 0)
-                    //{
                     TempData["Imsg"] = "success";
-                    // }
-
-
+                   
                 }
                 return RedirectToAction("Company_Entry");
 
@@ -224,27 +194,8 @@ namespace TOS.Controllers
             {
                 string st = ex.ToString();
 
-                //if (st.Contains("M_CompanyShipping_Insert"))
-                //{
-
-                //    TempData["Emsg"] = "SQL Query Error !! please,check in  M_CompanyShipping_Insert  Store Procedure";
-                //}
-                //else if (st.Contains("M_Company_Insert"))
-                //    {
-                //        TempData["Emsg"] = "SQL Query Error !! please,check in  M_Company_Insert  Store Procedure";
-                //}
-                //else if (st.Contains("M_CompanyTag_Insert"))
-                //{
-                //    TempData["Emsg"] = "SQL Query Error !! please,check in   M_CompanyTag_Insert  Store Procedure";
-                //}
-                //else if (st.Contains("M_CompanyBrand_Insert"))
-                //{
-                //    TempData["Emsg"] = "SQL Query Error !! please,check in  M_CompanyBrand_Insert  Store Procedure";
-                //}
-                //else
-                //{
                 TempData["Emsg"] = "Unsuccess";
-                // }
+               
                 return RedirectToAction("Company_Entry");
 
             }
@@ -279,7 +230,6 @@ namespace TOS.Controllers
                 }
             }
             return null;
-
         }
 
         [HttpGet]
@@ -346,15 +296,7 @@ namespace TOS.Controllers
                         TempData["UEmsg"] = "Unsuccess";
                     }
                 }
-
-                //if (ModelState.IsValid)
-                //{
                 return RedirectToAction("Group_Entry");
-                //}
-                //else
-                //{
-                //    return View("Group_Entry");
-                //}
             }
             catch (Exception ex)
             {
@@ -402,17 +344,11 @@ namespace TOS.Controllers
         {
             return View();
         }
-
-
         public string _GetTable()
         {
-
             dt = bl.CompanyUpdateView_select();
             var Jsondata = JsonConvert.SerializeObject(dt);
             return Jsondata;
-            // return View();
         }
-
-
     }
 }
