@@ -38,12 +38,12 @@
 </style>
 
 
-@if (Session["Error"] != null)
+@*@if (Session["Error"] != null)
 {
     <script>
         Infomessage('I', '1006', 'Message1');
     </script>
-}
+}*@
 @section Styles {
     <!-- Bootstrap Core CSS -->
     <link href="~/Content/bootstrap.min.css" rel='stylesheet' type='text/css' />
@@ -80,6 +80,7 @@
                 }
 
             }
+            
             var todaydate = new Date();
             var day = fixDigit(todaydate.getDate()+3);
             var month = fixDigit(todaydate.getMonth() + 1);
@@ -88,13 +89,17 @@
             var year = todaydate.getFullYear();
             var datestring = year + "/" + month + "/" + day;
             $("#shipDate").val(datestring);
+            if (count <= 0) {
+                Infomessage()
+            }
             var ImageName = '@ViewBag.ImageName'
             if (ImageName != null) {
                 var Img = ImageName.split(",");
                 for (var l = 1; l <= count; l++) {
 
                     if (Img.length <= count) {
-                        $('#Timg' + l).attr("src", "http://localhost:27945/images/" + Img[l - 1]);
+                        //$('#Timg' + l).attr("src", "http://localhost:27945/images/Item_Images/" + Img[l - 1]);
+                        $('#Timg' + l).attr("src", "http://www.capital-sys.net/TOS/images/Item_Images/" + Img[l - 1]);
                     }
                 }
             }
@@ -862,7 +867,7 @@
                 MakerItemCD = MakerItemCD.slice(0, -1);
             if (MakerItemCD == null || MakerItemCD == "")
             {
-                Infomessage('I', '1006', 'Message1');
+                Infomessage('I', '1009', 'Message1');
             }
             else
             {
@@ -1096,7 +1101,42 @@
         function fixDigit(val) {
             return val.toString().length === 1 ? "0" + val : val;
         }
- 
+
+        $("input#postalcode").keyup(function () {
+            zipcode = $(this).val();
+            zipcode = zipcode.replace(/-/g, '');      // remove all occurrences of '-'
+           
+            if (zipcode.length > 3) {
+                $(this).val(zipcode.substring(0, 3) + "-" + zipcode.substring(3));
+            }
+        });
+        function fnAllowNumeric() {
+        //allow number
+            if ((event.keyCode < 48 || event.keyCode > 57)  && event.keyCode != 8) {
+   
+                if ( (event.keyCode < 106 && event.keyCode > 95)) {
+                    return true;
+                }
+
+                event.preventDefault();
+                return false;
+
+            }
+        }
+        //$('input#postalcode').keyup(function (event) {
+
+        //    // skip for arrow keys
+           
+        //    if (event.which <= 7) return;
+
+        //    // format number
+        //    $(this).val(function (index, value) {
+        //        return value
+        //            .replace(/\D/g, "")
+        //            .replace(/\B(?=(\d{3})+(?!\d))/g, "-")
+        //            ;
+        //    });
+        //});
 
 
     </script>
@@ -1309,7 +1349,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="t70 textri">郵便番号</td>
-                                            <td class="t100"><input id="postalcode" class="form-control" type="text" maxlength="8" /></td>
+                                            <td class="t100"><input id="postalcode" class="form-control" type="text" maxlength="8" pattern="[0-9]{7}" onkeydown="fnAllowNumeric();" inputmode="numeric" /></td>
                                             <td class="t30"></td>
                                             <td class="t70 textri">電話番号</td>
                                             <td class="t200"><input id="phno" class="form-control" type="text" maxlength="15" /></td>

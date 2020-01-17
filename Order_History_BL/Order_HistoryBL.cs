@@ -43,7 +43,7 @@ namespace Order_History_BL
             {
                 if(micd[i]!=null)
                 {
-                    MakerItemCD += micd[i] + ',';
+                    MakerItemCD += micd[i].Trim() + ',';
                 }
               
             }
