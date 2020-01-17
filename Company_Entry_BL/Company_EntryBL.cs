@@ -293,21 +293,17 @@ namespace Company_Entry_BL
             {
                 result = false;
             }
-
             return result;
         }
-
-        public DataTable CompanyUpdate_View_Edit(string id)
+        public DataTable CompanyUpdateView_Edit(string id)
         {
             BaseDL dl = new BaseDL();
             DataTable dt = new DataTable();
             SqlParameter prms = new SqlParameter();
             prms = new SqlParameter("@CompanyCD", SqlDbType.VarChar) { Value = id };
             dt = dl.SelectData("CompanyUpdateView_Edit", prms);
-
             return dt;
         }
-        
     }
     }
   
