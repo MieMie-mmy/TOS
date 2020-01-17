@@ -27,32 +27,46 @@ namespace TOS.Controllers
 
         public ActionResult Company_Entry(string id)
         {
-           
+            MultipleModel model = new MultipleModel();
             if (Session["CompanyCD"] != null)
             {
-
-                MultipleModel model = new MultipleModel();
-                Company_EntryBL bl = new Company_EntryBL();
-                DataTable dt = bl.CompanyUpdateView_Edit(id);
-                if(dt.Rows.Count >0)
+                if (id != null)
                 {
-                    foreach(DataRow row in dt.Rows)
+                    M_CompanyModel MCmodel = new M_CompanyModel();
+                    Company_EntryBL bl = new Company_EntryBL();
+                    DataTable dt = bl.CompanyUpdateView_Edit(id);
+
+                    if (dt.Rows.Count > 0)
                     {
-                        
-                       
+                        MCmodel.CompanyCD = dt.Rows[0]["CompanyCD"].ToString();
+                        MCmodel.CompanyName = dt.Rows[0]["CompanyName"].ToString();
+                        MCmodel.Password = dt.Rows[0]["Password"].ToString();
+                        MCmodel.UserRole = Convert.ToByte(dt.Rows[0]["UserRole"]);
+                        MCmodel.ShortName = dt.Rows[0]["ShortName"].ToString();
+                        MCmodel.ZipCD1 = dt.Rows[0]["ZipCD1"].ToString();
+                        MCmodel.ZipCD2 = dt.Rows[0]["ZipCD2"].ToString();
+                        MCmodel.Address1 = dt.Rows[0]["Address1"].ToString();
+                        MCmodel.Address2 = dt.Rows[0]["Address2"].ToString();
+                        MCmodel.TelephoneNo = dt.Rows[0]["TelephoneNo"].ToString();
+                        MCmodel.FaxNo = dt.Rows[0]["FaxNo"].ToString();
+                        MCmodel.PresidentName = dt.Rows[0]["PresidentName"].ToString();
 
                     }
+                    model.ComModel = MCmodel;
                 }
-                return View();
+
+
+
+                return View(model);
 
             }
             else
             {
                 return RedirectToAction("Login", "User");
             }
-       
+
         }
-        
+
         public String CompanyUpdate_View_Delete(string id)
         {
             Company_EntryBL bl = new Company_EntryBL();
