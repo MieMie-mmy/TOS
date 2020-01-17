@@ -294,7 +294,7 @@
     </script>
 }
 
-@using (Html.BeginForm("T_Information_SaveEdit", "NewsEditor", FormMethod.Post, new { enctype = "multipart/form-data", @id = "MyForm"}))
+@using (Html.BeginForm("T_Information_SaveEdit", "NewsEditor", FormMethod.Post, new { enctype = "multipart/form-data", @id = "MyForm" }))
 
 {
     @Html.AntiForgeryToken()
@@ -501,7 +501,7 @@
                                         </div>
                                         <div class="box">
                                             <div class="sair" style="width:475px;">
-                                                <button type="submit" id="btnsave" class="save">✔　登録</button>
+                                                <button type="submit" id="btnsave" class="save" >✔　登録</button>
                                             </div>
                                         </div>
                                     </div>
@@ -643,7 +643,9 @@
 
     var EditFileName = "";
     var cFile = "";
-    const Allfilesize = "";
+    //var AllFilesize = "";
+   // var f1 = ""; var f2 = ""; var f3 = ""; var f4 = "";
+   
 
     $('input[type="file"]').change(function (e) {
         var cc = $("#BrowseFiles2 > label").length;
@@ -656,8 +658,6 @@
         else if (e.target.files != null) {
 
             if (i == 4) {
-
-                
                 var Filediv = document.getElementById("BrowseFiles");
 
                 var fbutton = document.createElement("input");
@@ -666,13 +666,13 @@
                 fbutton.files = e.target.files;
 
                 const size4 = e.target.files[0].size;
-                //alert(size4);
                 const checksize = Math.round((size4 / 1024))
-                if (checksize >= 2048) {
-                    alert("File Size is larger than 1GB. Please select another file!");
+                if (checksize >= 1048576) {
+                    Infomessage('I', '1010', 'Message1');
                 }
                 else {
-                       
+                    //f4 = checksize;
+                    //alert(f4);
                         fbutton.setAttribute("id", "Insertfile" + BrowseF);
                         if (BrowseF == 0) { fbutton.setAttribute("name", "Insertfile[0]"); }
                         else if (BrowseF == 1) { fbutton.setAttribute("name", "Insertfile[1]"); }
@@ -713,11 +713,12 @@
                 const size3 = e.target.files[0].size;
                 //alert(size);
                 const checksize = Math.round((size3 / 1024))
-                if (checksize >= 2048) {
-                    alert("File Size is larger than 1GB. Please select another file!");
+                if (checksize >= 1048576) {
+                    Infomessage('I', '1010', 'Message1');
                 }
                 else {
-
+                    //f3 = checksize;
+                    //alert(f3);
                         fbutton.setAttribute("id", "Insertfile" + BrowseF);
                         if (BrowseF == 0) { fbutton.setAttribute("name", "Insertfile[0]"); }
                         else if (BrowseF == 1) { fbutton.setAttribute("name", "Insertfile[1]"); }
@@ -758,8 +759,8 @@
                 const size2 = e.target.files[0].size;
                 //alert(size);
                 const checksize = Math.round((size2 / 1024))
-                if (checksize >= 2048) {
-                    alert("File Size is larger than 1GB. Please select another file!");
+                if (checksize >= 1048576) {
+                    Infomessage('I', '1010', 'Message1');
                 }
                 else {
                    
@@ -804,8 +805,8 @@
                 const size1 = e.target.files[0].size;
                 //alert(size);
                 const checksize = Math.round((size1 / 1024))
-                if (checksize >= 2048) {
-                    alert("File Size is larger than 1GB. Please select another file!");
+                if (checksize >= 1048576) {
+                    Infomessage('I', '1010', 'Message1');
                 }
                 else {
                     fbutton.setAttribute("id", "Insertfile" + BrowseF);
@@ -839,18 +840,23 @@
                 
             }
 
-            if (Allfilesize >= 2048) {
-                alert("aa");
-                alert("Total File Size are greater than 1GB. Please reduce one or two file!");
-            }
-
+            //AllFilesize = f4 + f3;
+            //alert(AllFilesize);
             i = i - 1;
         }
         BrowseFss
-        
+       
     });
 
-
+    //function CheckFile() {
+    //    //alert(AllFilesize);
+    //    if (AllFilesize >= 2048) {
+    //        Infomessage('I', '1010', 'Message2');
+         
+    //        return false;
+    //    }
+    //}
+    
 
     function edit(id) {
 
