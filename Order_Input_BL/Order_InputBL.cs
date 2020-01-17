@@ -19,7 +19,8 @@ namespace Order_Input_BL
         public M_JobTimeableModel JobTimeTable_Select(M_JobTimeableModel Mjt)
         {
             TOSEntities ent = new TOSEntities();
-            M_JobTimeable mj = ent.M_JobTimeable.Where(m => m.CompanyCD == Mjt.CompanyCD).SingleOrDefault();
+            //M_JobTimeable mj = ent.M_JobTimeable.Where(m => m.CompanyCD == Mjt.CompanyCD).SingleOrDefault();
+            M_JobTimeable mj = ent.M_JobTimeable.SingleOrDefault();
             if (mj != null)
             {
                 Mjt.CompanyCD = mj.CompanyCD;

@@ -232,7 +232,7 @@
                                             <label for="PostCode" style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">郵便番号</label><label style="color:red;"> &nbsp;* </label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.ComModel.ZipCD1, new {@id="aa", @class = "form-control post", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "border-radius: unset;height:23px; width:150px;font-size:13px;", @maxlength = "8", @onkeydown = "fnAllowNumeric()" })
+                                            @Html.TextBoxFor(m => m.ComModel.ZipCD1, new {@id="aa", @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "border-radius: unset;height:23px; width:150px;font-size:13px;", @maxlength = "8", @onkeydown = "fnAllowNumeric()", @onkeyup= "checkPostal()" })
                                         </td>
                                     </tr>
                                     @*</div>*@
@@ -585,7 +585,7 @@
                                         <label for="PostCode1" style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">郵便番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[0].ZipCD1, new { @class = "form-control post", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onkeydown = "fnAllowNumeric()"})
+                                        @Html.TextBoxFor(m => m.ShippingModel[0].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onkeydown = "fnAllowNumeric()", @onkeyup = "checkPostal()" })
                                     </td>
                                 </tr>
 
@@ -676,7 +676,7 @@
                                         <label for="PostCode2" style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">郵便番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[1].ZipCD1, new { @class = "form-control post", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onkeydown = "fnAllowNumeric()"})
+                                        @Html.TextBoxFor(m => m.ShippingModel[1].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onkeydown = "fnAllowNumeric()", @onkeyup = "checkPostal()" })
                                     </td>
                                 </tr>
                                 @*</div>*@
@@ -770,7 +770,7 @@
                                         <label for="PostCode3" style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">郵便番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[2].ZipCD1, new { @class = "form-control post", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onkeydown = "fnAllowNumeric()"})
+                                        @Html.TextBoxFor(m => m.ShippingModel[2].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8", @onkeydown = "fnAllowNumeric()", @onkeyup = "checkPostal()" })
                                     </td>
                                 </tr>
                                 @*</div>*@
@@ -873,7 +873,7 @@
                                         <label for="PostCode4" style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">郵便番号</label>
                                     </td>
                                     <td>
-                                        @Html.TextBoxFor(m => m.ShippingModel[3].ZipCD1, new { @class = "form-control post", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8",@onkeydown = "fnAllowNumeric()"})
+                                        @Html.TextBoxFor(m => m.ShippingModel[3].ZipCD1, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px;font-size:13px;", @maxlength = "8",@onkeydown = "fnAllowNumeric()",@onkeyup= "checkPostal()" })
                                     </td>
                                 </tr>
                                 @*</div>*@
@@ -975,7 +975,7 @@
 
                 var ShipName = '<input align="center" autofocus="autofocus" class="form-control" data-val="true" data-val-number="The field ShippingName must be a number." data-val-required="The ShippingName field is required." id="ShippingModel_' + (x - 1) + '__ShippingName" maxlength="50" name="ShippingModel[' + (x - 1) +'].ShippingName" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
 
-                var Zip1 = '<input align="center" autofocus="autofocus" class="form-control post" id="ShippingModel_' + (x - 1) + '__ZipCD1" maxlength="8" name="ShippingModel[' + (x - 1) +'].ZipCD1" onkeydown="fnAllowNumeric()" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
+                var Zip1 = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__ZipCD1" maxlength="8" name="ShippingModel[' + (x - 1) +'].ZipCD1" onkeyup="checkPostal()" onkeydown="fnAllowNumeric()" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
 
                 var add1 = '<input align="center" autofocus="autofocus" class="form-control" id="ShippingModel_' + (x - 1) + '__Address1" maxlength="100" name="ShippingModel[' + (x - 1) +'].Address1" style="border-radius: unset;height:23px; width:200px;font-size:13px;" tabindex="1" type="text" value="">';
 
@@ -1101,14 +1101,23 @@
                 $('#txtarea2').val(text);
             });
         });
-        $("input.post").keyup(function () {
-            zipcode = $(this).val();
-            zipcode = zipcode.replace(/-/g, '');      // remove all occurrences of '-'
 
+        //$("input.post").keyup(function () {
+        //    zipcode = $(this).val();
+        //    zipcode = zipcode.replace(/-/g, '');      // remove all occurrences of '-'
+
+        //    if (zipcode.length > 3) {
+        //        $(this).val(zipcode.substring(0, 3) + "-" + zipcode.substring(3));
+        //    }
+        //});
+        function checkPostal() {
+            var zipcode = event.target.value;
+            zipcode = zipcode.replace(/-/g, '');      // remove all occurrences of '-'
             if (zipcode.length > 3) {
-                $(this).val(zipcode.substring(0, 3) + "-" + zipcode.substring(3));
+                event.target.value=zipcode.substring(0, 3) + "-" + zipcode.substring(3);
             }
-        });
+        }
+
         function fnAllowNumeric() {
             //allow number
             if ((event.keyCode < 48 || event.keyCode > 57) && event.keyCode != 8) {
