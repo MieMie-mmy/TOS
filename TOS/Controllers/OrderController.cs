@@ -195,16 +195,18 @@ namespace TOS.Controllers
         }
 
         [HttpGet]
-        public string ShippingName_Select()
+        public string ShippingName_Select(string id)
         {
             DataTable dt = new DataTable();
             Order_InputBL oib = new Order_InputBL();
             string jsonresult;
-            if (Session["CompanyCD"] != null)
-            {
-                string CompanyCD = Session["CompanyCD"].ToString();
-                dt = oib.ShippingName_Select(CompanyCD);
-            }
+            string CompanyCD="";           
+                if (Session["CompanyCD"] != null)
+                {
+                    CompanyCD = Session["CompanyCD"].ToString();
+                   
+                }
+            dt = oib.ShippingName_Select(CompanyCD,Convert.ToInt32(id));
 
             jsonresult = JsonConvert.SerializeObject(dt);
             return jsonresult;

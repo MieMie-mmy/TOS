@@ -30,14 +30,31 @@ namespace Order_Input_BL
             }
             return Mjt  ;
         }
-        public DataTable ShippingName_Select(string CompanyCD)
+        public DataTable ShippingName_Select(string CompanyCD,int ShippingID)
         {
             DataTable dt = new DataTable();
             BaseDL dl = new BaseDL();
             if (!string.IsNullOrWhiteSpace(CompanyCD))
             {
-                SqlParameter[] prms = new SqlParameter[1];
-                prms[0] = new SqlParameter("@companyCD", SqlDbType.VarChar) { Value = CompanyCD };
+                SqlParameter[] prms = new SqlParameter[2];
+                if (CompanyCD == null)
+                {
+                    prms[0] = new SqlParameter("@companyCD", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
+                else
+                {
+                    prms[0] = new SqlParameter("@companyCD", SqlDbType.VarChar) { Value = CompanyCD };
+                }
+                if (CompanyCD == null)
+                {
+                    prms[1] = new SqlParameter("@ShippingID", SqlDbType.VarChar) { Value = DBNull.Value };
+                }
+                else
+                {
+                    prms[1] = new SqlParameter("@ShippingID", SqlDbType.VarChar) { Value = ShippingID };
+                }
+                //prms[0] = new SqlParameter("@companyCD", SqlDbType.VarChar) { Value = CompanyCD };
+                //prms[1] = new SqlParameter("@ShippingID", SqlDbType.Int) { Value = ShippingID };
                 dt = dl.SelectData("OrderInput_ShippingName_Select", prms);
             }
             return dt;
