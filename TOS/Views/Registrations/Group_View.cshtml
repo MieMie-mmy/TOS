@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <link href="~/Content/news.css" rel="stylesheet" />
 }
 <style>
     .mother-grid-inner {
@@ -21,6 +22,7 @@
     .left-content {
         background-color: #edecec !important;
     }
+
     tr.even {
         background-color: #CCDDFF !important;
     }
@@ -28,27 +30,20 @@
     table.dataTable {
         border-collapse: collapse !important;
         border-spacing: 0;
+        width:1300px !important;
     }
+
     .textalign {
         text-align: right;
     }
-    .tb0011 {
-        border: 1px solid #999999;
-        width: 100%;
-    }
 
-    .tb0011title {
-        background-color: #003492;
-        color: white;
-        text-align: center;
-        border: 1px solid #999999;
-        font-weight: unset;
-    }
-    .tb0011 td {
+    .tb002 td {
         border: 1px solid #999999;
     }
-
-    .tb0011Cell {
+    .tb002 th {
+        border: 1px solid #999999;
+    }
+    .tb002Cell {
         /*border: 1px solid #999999;*/
         display: table-cell;
         padding: 3px 10px;
@@ -99,15 +94,15 @@
             <div class="inbox-right">
                 <div class="mailbox-content" id="mailbox-content">
                     <div class="mail-toolbar clearfix">
-                        <table id="tbgroupview" class="tb0011">
+                        <table id="tbgroupview" class="tb002">
                             <thead>
-                                <tr>
-                                    <th class="tb0011title">No</th>
-                                    <th class="tb0011title">グループID</th>
-                                    <th class="tb0011title">グループ名</th>
-                                    <th class="tb0011title">グループ指定</th>
-                                    <th class="tb0011title">編集</th>
-                                    <th class="tb0011title">削除</th>
+                                <tr class="tab002tit">
+                                    <th class="t30" style="text-align:center;font-weight:unset;">No</th>
+                                    <th class="t100" style="text-align:center;font-weight:unset;">グループID</th>
+                                    <th class="t100" style="text-align:center;font-weight:unset;">グループ名</th>
+                                    <th class="t100" style="text-align:center;font-weight:unset;">グループ指定</th>
+                                    <th class="t30" style="text-align:center;font-weight:unset;">編集</th>
+                                    <th class="t30" style="text-align:center;font-weight:unset;">削除</th>
                                 </tr>
                             </thead>
                         </table>
@@ -150,12 +145,12 @@
                 {
                     columnDefs: [{
                         targets: [4, 5],
-                        className: 'tb0011Cell'
+                        className: 'tb002Cell'
                     },
-                        {
-                            targets: [0, 1],
-                            className: 'textalign'
-                        }],
+                    {
+                        targets: [0, 1],
+                        className: 'textalign'
+                    }],
                     "destroy": true,
                     "dom": 'lrtip',
                     "bLengthChange": false,
@@ -210,7 +205,7 @@
                         var Q = "Q";
                         var K = "1001";
                         var M = "Message2";
-                      //  Successmessage(Q, K, M);
+                        Successmessage(Q, K, M);
                         DeleteID = null;
                         GroupViewTable();
                     }
@@ -234,5 +229,5 @@
              var id = id;
               window.location.href =  '@Url.Action("Group_Entry", "Registrations")?id=' + id
          }
-    </script>  
+    </script>
 }
