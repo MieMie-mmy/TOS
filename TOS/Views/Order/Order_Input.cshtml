@@ -35,6 +35,7 @@
     .textalign {
         text-align: left !important;
     }
+
 </style>
 
 
@@ -105,7 +106,7 @@
             }
 
             $.ajax({
-                url: '../Order/ShippingName_Select', // get mall
+                url: '../Order/ShippingName_Select/0', // get mall
                 type: "GET",
                 dataType: "JSON",
                 dataSrc: '',
@@ -737,7 +738,7 @@
                     if (val.indexOf(',') > -1) {
                         var tmp = val.split(",");
                         //TableRow += "<td class='saict'>" + tmp[0] + "<label class='admincd' style='visibility: hidden'>" + tmp[1] + "</label></td>";
-                        TableRow += "<td class='saict'> <label class='InventoryCount'> " + tmp[0] + "</label> <label class='admincd' style='visibility: hidden'>" + tmp[1] + "</label></td>";
+                        TableRow += "<td class='saict' style ='text-align:right !important;'> <label class='InventoryCount'> " + tmp[0] + "</label> <label class='admincd' style='visibility: hidden'>" + tmp[1] + "</label></td>";
                     }
                     else
                     {
@@ -935,8 +936,13 @@
                 });
 
             }
-            
-            $("#totalamt").val(totalamount);
+            var i = new Intl.NumberFormat('JPY', {
+                style: 'currency',
+                currency: 'JPY',
+                minimumFractionDigits: 0, 
+            }).format(totalamount);
+           
+            $("#totalamt").val(i);
         });
 
         function isEven(n) {
@@ -982,11 +988,11 @@
                 var shipid = $("select#ddlShippingName").val();
                 var T_OrderHeader = {};
                 if (shipid == null || shipid == "") { shipid = 0; }
-                if (shipid == null || shipid == "") {
+                //if (shipid == null || shipid == "") {
                     var postalcode = $("#postalcode").val();
 
                     T_OrderHeader.OrderID = orderid;
-                    T_OrderHeader.ShippingID = 0;
+                    T_OrderHeader.ShippingID = shipid;
                     if (postalcode.indexOf('-') > -1) {
                         var tmp = postalcode.split("-");
                         T_OrderHeader.ZipCD1 = tmp[0];
@@ -1005,19 +1011,19 @@
                     T_OrderHeader.TotalAmount = totalamount;
                     T_OrderHeader.Memo = $("#txtsummary").val();
 
-                }
-                else {
-                    T_OrderHeader.OrderID = orderid;
-                    T_OrderHeader.ShippingID = shipid;
-                    T_OrderHeader.ZipCD1 = "";
-                    T_OrderHeader.ZipCD2 = "";
-                    T_OrderHeader.TelephoneNo = "";
-                    T_OrderHeader.ShippingName = "";
-                    T_OrderHeader.Address1 = "";
-                    T_OrderHeader.Address2 = "";
-                    T_OrderHeader.TotalAmount = totalamount;
-                    T_OrderHeader.Memo = $("#txtsummary").val();
-                }
+                //}
+                //else {
+                //    T_OrderHeader.OrderID = orderid;
+                //    T_OrderHeader.ShippingID = shipid;
+                //    T_OrderHeader.ZipCD1 = "";
+                //    T_OrderHeader.ZipCD2 = "";
+                //    T_OrderHeader.TelephoneNo = "";
+                //    T_OrderHeader.ShippingName = "";
+                //    T_OrderHeader.Address1 = "";
+                //    T_OrderHeader.Address2 = "";
+                //    T_OrderHeader.TotalAmount = totalamount;
+                //    T_OrderHeader.Memo = $("#txtsummary").val();
+                //}
                 var order = new Array();
                 for (var k = 1; k <= c; k++) {
 
@@ -1123,20 +1129,47 @@
 
             }
         }
-        //$('input#postalcode').keyup(function (event) {
+        $("#ddlShippingName").change(function () {
+            var shipID = this.value;
+            var firstDropVal = $('#ddlShippingName').val();
+            $.ajax({
+                url: '../Order/ShippingName_Select/' + shipID, // get mall
+                type: "GET",
+                dataType: "JSON",
+                dataSrc: '',
+                success: function (SP) {
+                    $.each(SP, function (i, name) {
+                        if (shipID != null && shipID!="" ) {
+                            $("#shipname").val(name.ShippingName);
+                            $("#postalcode").val(name.PostalCode);
+                            $("#phno").val(name.TelephoneNO);
+                            $("#add1").val(name.Address1);
+                            $("#add2").val(name.Address2);
+                            $("#shipname").attr('readonly', true);
+                            $("#postalcode").attr('readonly', true);
+                            $("#phno").attr('readonly', true);
+                            $("#add1").attr('readonly', true);
+                            $("#add2").attr('readonly', true);
+                            //$('#test').attr('readonly', true);
+                        }
+                        else
+                        {
+                            $("#shipname").val("");
+                            $("#postalcode").val("");
+                            $("#phno").val("");
+                            $("#add1").val("");
+                            $("#add2").val("");
+                            $("#shipname").attr('readonly', false);
+                            $("#postalcode").attr('readonly', false);
+                            $("#phno").attr('readonly', false);
+                            $("#add1").attr('readonly', false);
+                            $("#add2").attr('readonly', false);
+                        }
+                    });
+                }
+            });
 
-        //    // skip for arrow keys
-           
-        //    if (event.which <= 7) return;
-
-        //    // format number
-        //    $(this).val(function (index, value) {
-        //        return value
-        //            .replace(/\D/g, "")
-        //            .replace(/\B(?=(\d{3})+(?!\d))/g, "-")
-        //            ;
-        //    });
-        //});
+        });
 
 
     </script>
