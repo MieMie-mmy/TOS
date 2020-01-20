@@ -38,25 +38,25 @@
                 <div class="tab-pane text-style active" id="tab1">
                     <div class="inbox-right">
                         全商品発注できました。
-                        <table class="histoptab" id="Order_First" >
+                        <table class="histoptab" id="Order_First" style="margin-left: 0px;" >
                             <thead>
-                                <tr class="histoptabtit">
-                                    <td class="tda t150" style="text-align:center !important;">発注番号</td>
-                                    <td class="tda t150" style="text-align:center !important;">合計金額</td>
-                                    <td class="tda t200" style="text-align:center !important;">出荷先名</td>
-                                    <td class="tda t150" style="text-align:center !important;">発注日</td>
-                                    <td class="tda t150" style="text-align:center !important;">出荷可能日</td>
-                                    <td class="tda t100" style="text-align:center !important;">受付時間</td>
+                                <tr class="histoptabtit" style="height:15px !important;">
+                                    <td class="tda t150" style="text-align:center !important; height:15px !important;">発注番号</td>
+                                    <td class="tda t150" style="text-align:center !important; height:15px !important;">合計金額</td>
+                                    <td class="tda t200" style="text-align:center !important; height:15px !important;">出荷先名</td>
+                                    <td class="tda t150" style="text-align:center !important; height:15px !important;">発注日</td>
+                                    <td class="tda t150" style="text-align:center !important; height:15px !important;">出荷可能日</td>
+                                    <td class="tda t100" style="text-align:center !important; height:15px !important;">受付時間</td>
 
-                                    <td class="histoptabno t200"></td>
-                                    <td class="histoptabno t200"></td>
-                                    <td class="histoptabno t200">
-                                        <button type="button" id="PrintDoc" onclick="window.open('@Url.Action("ExportReport","Order")?id='+ '@ViewBag.InputOrderID')"  class="btn btn-info btn-lg ">✏&nbsp;出力</button>
+                                    <td class="histoptabno t200" style="height:15px !important;"></td>
+                                    <td class="histoptabno t200" style="height:15px !important;"></td>
+                                    <td class="histoptabno t200" style="height:15px !important;">
+                                        <button type="button" id="PrintDoc" onclick="window.open('@Url.Action("ExportReport","Order")?id='+ '@ViewBag.InputOrderID')"  style ="line-height: 13px" class="btn btn-info btn-lg ">✏&nbsp;出力</button>
                                     </td>
-                                    <td class="histoptabno t200"></td>
+                                    <td class="histoptabno t200" style="height:15px !important;"></td>
                                 </tr>
                             </thead>
-                            <tbody></tbody>
+                            @*<tbody></tbody>*@
                         </table>
                     </div>
                 </div>
@@ -270,7 +270,7 @@
                                                 <td class="t30" id="ID" style="text-align:center;">No</td>
                                                 <td class="checkAll" style="text-align:center;">&nbsp;</td>
                                                 <td class="t100" style="text-align:center;">発注番号</td>
-                                                <td class="t100" style="text-align:center;">商品番号</td>
+                                                <td class="t150" style="text-align:center;">メーカー品番</td>
                                                 <td class="t250" style="text-align:center;">商品名</td>
                                                 <td class="t70" style="text-align:center;">サイズ</td>
                                                 <td class="t100" style="text-align:center;">カラー</td>
