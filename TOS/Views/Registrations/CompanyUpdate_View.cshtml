@@ -49,6 +49,37 @@
     td {
         text-align: left;
     }
+    .btn-outline-danger {
+        border-style: none;
+        color: #dc3545;
+        background-color: #003492;
+    }
+
+    .btn-outline-light {
+        border-style: none;
+        color: #fff;
+        background-color: #003492;
+    }
+
+    .btn-outline-danger:hover {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-outline-light:hover {
+        color: #333;
+        background-color: #fff;
+        border-color: #dc3545;
+    }
+
+    .btn {
+        border-radius: 0px;
+        font-size: 0.8em;
+        font-weight: 700;
+        padding: 8px 15px;
+        letter-spacing: 0.02em;
+    }
     
 </style>
 
@@ -167,7 +198,7 @@
                         "data": "",
                         "render": function (data, type, row) {
 
-                            return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '" style="color:white;" >編集</a>';
+                            return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '" class="btn btn-outline-light" >編集</a>';
 
 
 
@@ -189,7 +220,7 @@
                         "render": function (data, type, row) {
 
 
-                            return '<a href="#"  onclick="DeleteCompanyView(' + row.CompanyCD + ')"  style="color:red;">削除</a>';
+                            return '<a href="#"  onclick="DeleteCompanyView(' + row.CompanyCD + ')"  class="btn btn-outline-danger">削除</a>';
 
 
                         }
