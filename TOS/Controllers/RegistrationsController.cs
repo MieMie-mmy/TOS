@@ -36,10 +36,12 @@ namespace TOS.Controllers
                     {
                         M_CompanyModel MCmodel = new M_CompanyModel();
                         M_CompanyTagModel t = new M_CompanyTagModel();
+                        M_CompanyShippingModel m = new M_CompanyShippingModel();
                         List<M_CompanyShippingModel> MSmodel = new List<M_CompanyShippingModel>();
                         List<M_CompanyTagModel> MTmodel = new List<M_CompanyTagModel>();
                         Company_EntryBL bl = new Company_EntryBL();
                         DataTable dt = bl.CompanyUpdateView_Edit(id);
+
 
                         if (dt.Rows.Count > 0)
                         {
@@ -49,7 +51,7 @@ namespace TOS.Controllers
                             MCmodel.UserRole = Convert.ToByte(dt.Rows[0]["UserRole"]);
                             MCmodel.ShortName = dt.Rows[0]["ShortName"].ToString();
                             MCmodel.ZipCD1 = dt.Rows[0]["CompanyZipCD"].ToString();
-                            //MCmodel.ZipCD2 = dt.Rows[0]["ZipCD2"].ToString();
+
                             MCmodel.Address1 = dt.Rows[0]["Address1"].ToString();
                             MCmodel.Address2 = dt.Rows[0]["Address2"].ToString();
                             MCmodel.TelephoneNo = dt.Rows[0]["TelephoneNo"].ToString();
@@ -57,51 +59,102 @@ namespace TOS.Controllers
                             MCmodel.PresidentName = dt.Rows[0]["PresidentName"].ToString();
                             MCmodel.RankingFlg = Convert.ToInt16(dt.Rows[0]["RankingFlg"]);
 
+
+
+                            if (!string.IsNullOrWhiteSpace(dt.Rows[0]["ShippingID"].ToString()))
+                            {
+                                MSmodel = dt.AsEnumerable().Select(r =>
+                            new M_CompanyShippingModel
+                            {
+
+
+                                ShippingID = Convert.ToInt32(dt.Rows[0]["ShippingID"]),
+                                ShippingName = r["ShippingName"].ToString(),
+                                ZipCD1 = r["ShippingZipCD"].ToString(),
+
+                                Address1 = r["ShippingAddress1"].ToString(),
+                                Address2 = r["ShippingAddress2"].ToString(),
+                                FaxNO = r["ShippingFaxNo"].ToString()
+
+
+                            }).ToList();
+
+                            }
+
+
+
+
+                            //{
+
+                            //            ShippingID = Convert.ToInt32(dt.Rows[0]["ShippingID"]),
+
+
+                            //    ShippingName = r["ShippingName"].ToString(),
+                            //    ZipCD1 = r["ShippingZipCD"].ToString(),
+                            //    //ZipCD2 = r["ShippingZipCD2"].ToString(),
+                            //    Address1 = r["ShippingAddress1"].ToString(),
+                            //    Address2 = r["ShippingAddress2"].ToString(),
+                            //    FaxNO = r["ShippingFaxNo"].ToString()
+
+
+                            //}
+
+                            //).ToList();
+
+                            if (MSmodel.Count < 5)
+                            {
+                                int sc = MSmodel.Count;
+                                int tc = 4;
+                                int nq = tc - sc;
+                                int O = nq + sc;
+
+
+                                for (int P = sc; P < O; P++)
+                                {
+                                    m.CompanyCD = "";
+                                    m.ShippingID = null;
+                                    m.ShippingName = "";
+                                    m.ZipCD1 = "";
+                                    m.ZipCD2 = "";
+                                    m.Address1 = "";
+                                    m.Address2 = "";
+                                    m.TelephoneNO = "";
+                                    m.FaxNO = "";
+
+                                    MSmodel.Add(m);
+
+                                }
+                            }
+
+
+                            MTmodel = dt.AsEnumerable().Select(r =>
+                         new M_CompanyTagModel
+                         {
+                             CompanyCD = r["CompanyCD"].ToString(),
+                             Tag = r["Tag"].ToString()
+                         }
+
+                         ).ToList();
+                            int N = MTmodel.Count;
+                            int M = 20;
+                            int NK = M - N;
+                            int n = N + NK;
+
+                            DataTable table = new DataTable();
+                            table.Columns.Add(new DataColumn("CompanyCD", typeof(string)));
+                            table.Columns.Add(new DataColumn("Tag", typeof(string)));
+
+
+                            for (var i = N;
+                                i < n; i++)
+                            {
+
+                                t.CompanyCD = "";
+                                t.Tag = "";
+                                MTmodel.Add(t);
+                            }
+
                         }
-
-                        MSmodel = dt.AsEnumerable().Select(r =>
-                        new M_CompanyShippingModel
-                        {
-                            ShippingID = Convert.ToInt16(r["ShippingID"]),
-                            ShippingName = r["ShippingName"].ToString(),
-                            ZipCD1 = r["ShippingZipCD"].ToString(),
-                            //ZipCD2 = r["ShippingZipCD2"].ToString(),
-                            Address1 = r["ShippingAddress1"].ToString(),
-                            Address2 = r["ShippingAddress2"].ToString(),
-                            FaxNO = r["ShippingFaxNo"].ToString()
-
-                        }
-
-                        ).ToList();
-
-
-                        MTmodel = dt.AsEnumerable().Select(r =>
-                     new M_CompanyTagModel
-                     {
-                         CompanyCD = r["CompanyCD"].ToString(),
-                         Tag = r["Tag"].ToString()
-                     }
-
-                     ).ToList();
-                        int N = MTmodel.Count;
-                        int M = 20;
-                        int NK = M - N;
-                        int n = N + NK;
-
-                        DataTable table = new DataTable();
-                        table.Columns.Add(new DataColumn("CompanyCD", typeof(string)));
-                        table.Columns.Add(new DataColumn("Tag", typeof(string)));
-
-
-                        for (var i = N; i < n; i++)
-                        {
-
-                            t.CompanyCD = "";
-                            t.Tag = "";
-                            MTmodel.Add(t);
-                        }
-
-
 
                         model.TagModel = MTmodel;
                         model.ShippingModel = MSmodel;
@@ -124,6 +177,25 @@ namespace TOS.Controllers
 
         }
 
+        [HttpGet]
+        public string CompanyUpdateView_Edit(String id)
+        {
+            InformationBL ibl = new InformationBL();
+            if (id != null)
+            {
+                DataTable dtinfo = new DataTable();
+                dtinfo = ibl.T_Information_Select_For_Edit(id);
+                if (dtinfo.Rows.Count > 0)
+                {
+                    string jsonresult;
+                    jsonresult = JsonConvert.SerializeObject(dtinfo);
+                    return jsonresult;
+                }
+            }
+            return null;
+
+        }
+
         public String CompanyUpdate_View_Delete(string id)
         {
             Company_EntryBL bl = new Company_EntryBL();
@@ -139,7 +211,7 @@ namespace TOS.Controllers
                 sendR = "NOK";
             }
             return JsonConvert.SerializeObject(sendR);
-            
+
         }
 
         public ActionResult InsertCompany(MultipleModel model)
@@ -222,7 +294,6 @@ namespace TOS.Controllers
                             }
                         }
                     }
-
                     //Update  Company  Brand
                     if (model.MBrandModel.BrandName != null)
                     {
@@ -375,10 +446,8 @@ namespace TOS.Controllers
                 }
             }
 
-
-
-
         }
+
         public ActionResult Group_Entry(string id)
         {
             if (id == null)

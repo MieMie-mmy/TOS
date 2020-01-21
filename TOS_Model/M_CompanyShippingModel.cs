@@ -9,7 +9,7 @@ namespace TOS_Model
     public class M_CompanyShippingModel:BaseModel
     {
         public string CompanyCD { get; set; }
-        public int ShippingID { get; set; }
+        public int? ShippingID { get; set; }
         public string ShippingName { get; set; }
         public string ZipCD1 { get; set; }
         public string ZipCD2 { get; set; }
