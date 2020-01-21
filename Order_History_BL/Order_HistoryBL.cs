@@ -36,7 +36,7 @@ namespace Order_History_BL
         }
         public DataTable _SelectOrderDetail(T_OrderHistorySearch data,string companyCD)
         {
-            var MakerItemCD = string.Empty;
+            string MakerItemCD = string.Empty;
             SqlParameter[] prms = new SqlParameter[7];
             var micd = new string[8] { data.m1, data.m2, data.m3, data.m4, data.m5, data.m6, data.m7, data.m8 };
             for(var i=0;i<8;i++)
@@ -47,7 +47,7 @@ namespace Order_History_BL
                 }
               
             }
-
+            string MkCd = MakerItemCD.TrimEnd(',').Trim().ToString();
             prms[0] = new SqlParameter("@company", SqlDbType.VarChar) { Value = companyCD };
 
             if (data.id == null)
@@ -90,13 +90,13 @@ namespace Order_History_BL
             {
                 prms[5] = new SqlParameter("@st", SqlDbType.VarChar) { Value = Convert.ToDateTime(data.s_t) };
             }
-            if (data.m1 == null)
+            if (MkCd == "")
             {
                 prms[6] = new SqlParameter("@m1", SqlDbType.VarChar) { Value = DBNull.Value };
             }
             else
             {
-                prms[6] = new SqlParameter("@m1", SqlDbType.VarChar) { Value = MakerItemCD.TrimEnd(',') };
+                prms[6] = new SqlParameter("@m1", SqlDbType.VarChar) { Value = MkCd };
             }
             //if (data.m1 == null)
             //{
