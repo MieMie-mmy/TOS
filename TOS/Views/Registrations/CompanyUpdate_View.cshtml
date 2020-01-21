@@ -75,12 +75,10 @@
 
     .btn {
         border-radius: 0px;
-        font-size: 0.8em;
-        font-weight: 700;
+        font-size: 100%;
         padding: 8px 15px;
         letter-spacing: 0.02em;
     }
-    
 </style>
 
 
@@ -126,15 +124,33 @@
                             @*<th style="background-color:darkblue;color: white;width: 78px;text-align: center"></th>*@
 
                         </tr>
+                        
 
                     </thead>
                     <tbody style="text-align:center;"></tbody>
+                    
                 </table>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
 
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title1" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
+                <button type="button" class="btn btn-default" id="btnconfirm" onclick="deleteConfirm()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
 
@@ -198,11 +214,8 @@
                         "data": "",
                         "render": function (data, type, row) {
 
-                            return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '" class="btn btn-outline-light" >編集</a>';
-
-
-
-
+                            return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '" class=" btn btn-outline-light" >編集</a>';
+                          
                         }
                     },
                     {
@@ -219,9 +232,7 @@
                         "data": "",
                         "render": function (data, type, row) {
 
-
-                            return '<a href="#"  onclick="DeleteCompanyView(' + row.CompanyCD + ')"  class="btn btn-outline-danger">削除</a>';
-
+                            return '<a href="#"  onclick="DeleteCompanyView(' + row.CompanyCD + ')"  class=" btn btn-outline-danger">削除</a>';
 
                         }
                     },
@@ -256,6 +267,36 @@
 
     }
 
+    function deleteConfirm() {
+        $.ajax({
+            url: '../Registrations/CompanyUpdateView_Edit/' + DeleteID,
+            type: 'POST',
+            dataType: 'JSON',
+
+            success: function (data) {
+
+                if (data == "OK") {
+                    var Q = "Q";
+                    var K = "1001";
+                    var M = "Message2";
+                    Successmessage(Q, K, M);
+                    DeleteID = null;
+                    GetCompanyUpdate_View();
+                }
+                else {
+                    var Q = "Q";
+                    var K = "1001";
+                    var M = "Message2";
+                    Errormessage(Q, K, M);
+                    DeleteID = null;
+                    GetCompanyUpdate_View();
+                }
+            }
+
+        });
+    }
+
+    
 </script>
 
 
