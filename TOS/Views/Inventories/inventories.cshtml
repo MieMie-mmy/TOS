@@ -18,10 +18,7 @@
                     $(".header-main").removeClass("fixed");
                 }
             });
-        });
-    </script>
-    <script type="text/javascript">
-        $(document).ready(function () {
+
             $.ajax({
                 url: '../Inventories/BrandName_Select',
                 type: "GET",
@@ -38,6 +35,25 @@
             FillGrid();
 
         });
+    @*</script>
+    <script type="text/javascript">*@
+        //$(document).ready(function () {
+        //    $.ajax({
+        //        url: '../Inventories/BrandName_Select',
+        //        type: "GET",
+        //        dataType: "JSON",
+        //        dataSrc: '',
+        //        success: function (SP) {
+        //            $.each(SP, function (i, name) {
+        //                $("#ddlBrand").append(
+        //                    $('<option>  </option>').val(name.BrandCD).html(name.BrandName));
+        //            })
+        //        }
+        //    });
+
+        //    FillGrid();
+
+        //});
         $("#btnreset").click(function () {
             //alert('sdfsdf')
             $('input:text').val('');
