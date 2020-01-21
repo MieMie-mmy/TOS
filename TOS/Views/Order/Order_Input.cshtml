@@ -984,7 +984,7 @@
         function isOdd(n) {
             return Math.abs(n % 2) == 1;
         }
-
+        ////btnconfirm
         $("#btnSaveOrder").click(function () {
             var c = '@ViewBag.count';
             var totalamount = 0;
@@ -1008,9 +1008,43 @@
                 var E = "I";
                 var T = "1007";
                 var M = "Message1";
+                document.getElementById('btnSaveOrder').setAttribute('data-toggle', '');
+                document.getElementById('btnSaveOrder').setAttribute('data-target', '');
                 Infomessage(E, T, M);
             }
-            else {
+            else
+            {
+                document.getElementById('btnSaveOrder').setAttribute('data-toggle', 'modal');
+                document.getElementById('btnSaveOrder').setAttribute('data-target', '#myModal');
+                Confrimmessage('Q', '1005', 'Message1');
+            }
+        })
+        $("#btnconfirm").click(function () {
+            var c = '@ViewBag.count';
+            var totalamount = 0;
+
+            for (var h = 1; h <= c; h++) {
+                var price = $('#makeritem' + h).find("tr:eq(1)").find("td:eq(5)").html();
+                price = price.replace("￥", "").split(",").join("").toString();  
+                $('#sku' + h + ' tr').each(function () {
+                    var count = 0;
+                    $(this).find('.odr6 > input[type=text]').each(function () {
+                        count = +count + +this.value;
+                    });
+                    if (count>0) {
+                        totalamount = +totalamount + (+count * +price);
+                    }
+                });
+
+            }
+         
+            if (totalamount > 0) {
+            //    var E = "I";
+            //    var T = "1007";
+            //    var M = "Message1";
+            //    Infomessage(E, T, M);
+            //}
+            //else {
                 var todaydate = new Date();
                 var day = fixDigit(todaydate.getDate());
                 var month = fixDigit(todaydate.getMonth() + 1);
@@ -1139,6 +1173,19 @@
         function fixDigit(val) {
             return val.toString().length === 1 ? "0" + val : val;
         }
+
+        function Confrimmessage(t, k, m) {
+        $.ajax({
+            type: 'POST',
+         
+            url: '@Url.Action("OrderHistoryMessage", "Order")?id=' + t + '_' + k + '_' + m,
+            dataType: 'json',
+            success: function (data) {
+                $('.modal-title1').text(data);
+            }
+        });
+
+    }
 
         $("input#postalcode").keyup(function () {
             zipcode = $(this).val();
@@ -1482,7 +1529,7 @@
                                     <tbody>
                                         <tr>
                                             <td class="t150 textri"><button ID="btnreset" type="reset" class="btn btn-warning btnod">↺&nbsp;リセット</button></td>
-                                            <td class="t100 textri"><button id="btnSaveOrder" type="button" class="btn btn-danger btnod" style="background-color:#dc3545; border-color: #dc3545;">▶️&nbsp;発注</button></td>
+                                            <td class="t100 textri"><button id="btnSaveOrder"  type="button" class="btn btn-danger btnod"  style="background-color:#dc3545; border-color: #dc3545;">▶️&nbsp;発注</button></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -1797,6 +1844,23 @@
 
 
         </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <img src="~/images/question.png" style="width:26px;height:26px;" /> <h4 class="modal-title1" style="color:red;"> </h4>
+                @*<h4 class="modal-title1" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>*@
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
+                <button type="button" class="btn btn-default" id="btnconfirm" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+            </div>
+        </div>
+
     </div>
 </div>
 
