@@ -27,6 +27,7 @@ namespace TOS.Controllers
 
         public ActionResult Company_Entry(string id)
         {
+            ViewBag.Flag = id;
             MultipleModel model = new MultipleModel();
             if (Session["CompanyCD"] != null)
             {
@@ -59,7 +60,7 @@ namespace TOS.Controllers
                             MCmodel.PresidentName = dt.Rows[0]["PresidentName"].ToString();
                             MCmodel.RankingFlg = Convert.ToInt16(dt.Rows[0]["RankingFlg"]);
 
-
+                            
 
                             if (!string.IsNullOrWhiteSpace(dt.Rows[0]["ShippingID"].ToString()))
                             {
@@ -180,6 +181,7 @@ namespace TOS.Controllers
         [HttpGet]
         public string CompanyUpdateView_Edit(String id)
         {
+     
             InformationBL ibl = new InformationBL();
             if (id != null)
             {
