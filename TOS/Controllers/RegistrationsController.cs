@@ -274,6 +274,7 @@ namespace TOS.Controllers
                             }
                         }
                     }
+
                     cbl.UpdateCompanyShipping(dtshipping, model.ComModel, PcName);
 
                     //Update Company Tag
