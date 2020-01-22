@@ -37,6 +37,8 @@ namespace TOS.Controllers
                     {
                         M_CompanyModel MCmodel = new M_CompanyModel();
                         M_CompanyTagModel t = new M_CompanyTagModel();
+                        //M_CompanyBrandModel MCBmodel = new M_CompanyBrandModel();
+                        //M_BrandModel MBmodel = new M_BrandModel();
                         M_CompanyShippingModel m = new M_CompanyShippingModel();
                         List<M_CompanyShippingModel> MSmodel = new List<M_CompanyShippingModel>();
                         List<M_CompanyTagModel> MTmodel = new List<M_CompanyTagModel>();
@@ -45,6 +47,7 @@ namespace TOS.Controllers
 
 
                         if (dt.Rows.Count > 0)
+
                         {
                             MCmodel.CompanyCD = dt.Rows[0]["CompanyCD"].ToString();
                             MCmodel.CompanyName = dt.Rows[0]["CompanyName"].ToString();
@@ -60,11 +63,22 @@ namespace TOS.Controllers
                             MCmodel.PresidentName = dt.Rows[0]["PresidentName"].ToString();
                             MCmodel.RankingFlg = Convert.ToInt16(dt.Rows[0]["RankingFlg"]);
 
-                            
+                            //MBmodel.CompanyCD = dt.Rows[0]["CompanyCD"].ToString();
+                            //MBmodel.BrandCD = Convert.ToInt32(dt.Rows[0]["BrandCD"]);
+                            //MCBmodel.CompanyCD = dt.Rows[0]["CompanyCD"].ToString();
+                            //MCBmodel.BrandCD = Convert.ToInt32(dt.Rows[0]["BrandCD"]);
+
+                            //MBmodel.BrandName = dt.Rows[0]["BrandName"].ToString();
+
+
+
+
 
                             if (!string.IsNullOrWhiteSpace(dt.Rows[0]["ShippingID"].ToString()))
                             {
-                                MSmodel = dt.AsEnumerable().Select(r =>
+                                DataView view1 = new DataView(dt);
+                                DataTable distinctValues1 = view1.ToTable(true, "ShippingID", "ShippingName", "ShippingZipCD", "ShippingAddress1", "ShippingAddress2", "ShippingFaxNo");
+                                MSmodel = distinctValues1.AsEnumerable().Select(r =>
                             new M_CompanyShippingModel
                             {
 
@@ -78,7 +92,7 @@ namespace TOS.Controllers
                                 FaxNO = r["ShippingFaxNo"].ToString()
 
 
-                            }).ToList();
+                            }).Distinct().ToList();
 
                             }
 
@@ -127,15 +141,16 @@ namespace TOS.Controllers
                                 }
                             }
 
-
-                            MTmodel = dt.AsEnumerable().Select(r =>
+                            DataView view = new DataView(dt);
+                            DataTable distinctValues = view.ToTable(true, "CompanyCD", "Tag");
+                            MTmodel = distinctValues.AsEnumerable().Select(r =>
                          new M_CompanyTagModel
                          {
                              CompanyCD = r["CompanyCD"].ToString(),
                              Tag = r["Tag"].ToString()
                          }
 
-                         ).ToList();
+                         ).Distinct().ToList();
                             int N = MTmodel.Count;
                             int M = 20;
                             int NK = M - N;
@@ -434,7 +449,8 @@ namespace TOS.Controllers
                         TempData["Imsg"] = "success";
 
                     }
-                    return RedirectToAction("Company_Entry");
+                    //return RedirectToAction("Company_Entry");
+                    return RedirectToAction("CompanyUpdate_View");
 
                 }
                 catch (Exception ex)
