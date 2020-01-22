@@ -92,7 +92,7 @@
 
                         <div class="col-md-2">
                             <div class="form-group" style="padding-left:63px;">
-                                <button type="submit" class="save">✔　登録</button>
+                                <button type="submit" id="btnsave" class="save">✔　登録</button>
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                                             <label for="ComCD" style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">会社CD</label><label style="color:red;">&nbsp;* </label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.ComModel.CompanyCD, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "border-radius: unset;height:23px; width:130px; font-size:13px;", @maxlength = "8" })
+                                            @Html.TextBoxFor(m => m.ComModel.CompanyCD, new {@id="txtcompany", @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @required = "required", @align = "center", @style = "border-radius: unset;height:23px; width:130px; font-size:13px;", @maxlength = "8" })
                                         </td>
                                         @*</div>*@
                                     </tr>
@@ -191,9 +191,9 @@
                                         </td>
                                         <td>
                                             <div class="custom-control custom-radio">
-                                                @Html.RadioButtonFor(m => m.ComModel.UserRole, "1")
+                                                @Html.RadioButtonFor(m => m.ComModel.UserRole, "1", new { @id = "rdbAdmin" })
                                                 <label class="custom-control-label" style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">管理者</label>
-                                                @Html.RadioButtonFor(m => m.ComModel.UserRole, "2", new { @checked = "true" })
+                                                @Html.RadioButtonFor(m => m.ComModel.UserRole, "2", new { @id = "rdbUser" })
 
                                                 <label class="custom-control-label" style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">一般者</label>
                                             </div>
@@ -291,7 +291,10 @@
                                             <label for="tag1" style=" font-size:100%;font-weight:400;font-family: 'Roboto', sans-serif;">タグ1</label>
                                         </td>
                                         <td>
-                                            @Html.TextBoxFor(m => m.TagModel[0].Tag, new { @class = "form-control", @autofocus = "autofocus", @tabindex = "1", @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @maxlength = "50" })
+                                            @Html.TextBoxFor(m => m.TagModel[0].Tag, new { @class = "form-control"
+                                           
+                                           
+                                           , @align = "center", @style = "border-radius: unset;height:23px; width:200px; font-size:13px;", @maxlength = "50" })
                                         </td>
                                     </tr>
                                     @*</div>*@
@@ -1070,6 +1073,15 @@
 
     <script type="text/javascript">
         $(document).ready(function () {
+            var sid = '@ViewBag.Flag';
+            if (sid == null || sid == "") {
+                $("#txtcompany").attr('readonly', false);
+                $('#rdbUser').prop('checked', true);
+            }
+            else {
+                $('#btnsave').text('✔' + '\xa0\xa0\xa0' + '更新');
+                $("#txtcompany").attr('readonly', true);
+            }
             $.ajax({
                 url: '../Registrations/M_Brand_Select',
                 type: "GET",

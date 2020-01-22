@@ -14,6 +14,7 @@ using Group_View_BL;
 using System.EnterpriseServices;
 using TOS_DL;
 using Base_BL;
+using FastMember;
 
 namespace TOS.Controllers
 {
@@ -27,160 +28,148 @@ namespace TOS.Controllers
 
         public ActionResult Company_Entry(string id)
         {
-            ViewBag.Flag = id;
             MultipleModel model = new MultipleModel();
             if (Session["CompanyCD"] != null)
             {
                 if (id != null)
                 {
+                    ViewBag.Flag = id;
                     try
                     {
                         M_CompanyModel MCmodel = new M_CompanyModel();
                         M_CompanyTagModel t = new M_CompanyTagModel();
                         //M_CompanyBrandModel MCBmodel = new M_CompanyBrandModel();
-                        //M_BrandModel MBmodel = new M_BrandModel();
-                        M_CompanyShippingModel m = new M_CompanyShippingModel();
+                        M_BrandModel MBmodel = new M_BrandModel();
+                        M_CompanyShippingModel ms = new M_CompanyShippingModel();
                         List<M_CompanyShippingModel> MSmodel = new List<M_CompanyShippingModel>();
                         List<M_CompanyTagModel> MTmodel = new List<M_CompanyTagModel>();
                         Company_EntryBL bl = new Company_EntryBL();
-                        DataTable dt = bl.CompanyUpdateView_Edit(id);
+                        DataSet dsnew = bl.CompanyUpdateView_Edit(id);
 
-
-                        if (dt.Rows.Count > 0)
-
-                        {
-                            MCmodel.CompanyCD = dt.Rows[0]["CompanyCD"].ToString();
-                            MCmodel.CompanyName = dt.Rows[0]["CompanyName"].ToString();
-                            MCmodel.Password = dt.Rows[0]["Password"].ToString();
-                            MCmodel.UserRole = Convert.ToByte(dt.Rows[0]["UserRole"]);
-                            MCmodel.ShortName = dt.Rows[0]["ShortName"].ToString();
-                            MCmodel.ZipCD1 = dt.Rows[0]["CompanyZipCD"].ToString();
-
-                            MCmodel.Address1 = dt.Rows[0]["Address1"].ToString();
-                            MCmodel.Address2 = dt.Rows[0]["Address2"].ToString();
-                            MCmodel.TelephoneNo = dt.Rows[0]["TelephoneNo"].ToString();
-                            MCmodel.FaxNo = dt.Rows[0]["FaxNo"].ToString();
-                            MCmodel.PresidentName = dt.Rows[0]["PresidentName"].ToString();
-                            MCmodel.RankingFlg = Convert.ToInt16(dt.Rows[0]["RankingFlg"]);
-
-                            //MBmodel.CompanyCD = dt.Rows[0]["CompanyCD"].ToString();
-                            //MBmodel.BrandCD = Convert.ToInt32(dt.Rows[0]["BrandCD"]);
-                            //MCBmodel.CompanyCD = dt.Rows[0]["CompanyCD"].ToString();
-                            //MCBmodel.BrandCD = Convert.ToInt32(dt.Rows[0]["BrandCD"]);
-
-                            //MBmodel.BrandName = dt.Rows[0]["BrandName"].ToString();
-
-
-
-
-
-                            if (!string.IsNullOrWhiteSpace(dt.Rows[0]["ShippingID"].ToString()))
+                        if (dsnew.Tables.Count > 0)
+                        {                           
+                            int count = dsnew.Tables.Count;
+                            for (int i = 0; i < count; i++)
                             {
-                                DataView view1 = new DataView(dt);
-                                DataTable distinctValues1 = view1.ToTable(true, "ShippingID", "ShippingName", "ShippingZipCD", "ShippingAddress1", "ShippingAddress2", "ShippingFaxNo");
-                                MSmodel = distinctValues1.AsEnumerable().Select(r =>
-                            new M_CompanyShippingModel
-                            {
-
-
-                                ShippingID = Convert.ToInt32(dt.Rows[0]["ShippingID"]),
-                                ShippingName = r["ShippingName"].ToString(),
-                                ZipCD1 = r["ShippingZipCD"].ToString(),
-
-                                Address1 = r["ShippingAddress1"].ToString(),
-                                Address2 = r["ShippingAddress2"].ToString(),
-                                FaxNO = r["ShippingFaxNo"].ToString()
-
-
-                            }).Distinct().ToList();
-
-                            }
-
-
-
-
-                            //{
-
-                            //            ShippingID = Convert.ToInt32(dt.Rows[0]["ShippingID"]),
-
-
-                            //    ShippingName = r["ShippingName"].ToString(),
-                            //    ZipCD1 = r["ShippingZipCD"].ToString(),
-                            //    //ZipCD2 = r["ShippingZipCD2"].ToString(),
-                            //    Address1 = r["ShippingAddress1"].ToString(),
-                            //    Address2 = r["ShippingAddress2"].ToString(),
-                            //    FaxNO = r["ShippingFaxNo"].ToString()
-
-
-                            //}
-
-                            //).ToList();
-
-                            if (MSmodel.Count < 5)
-                            {
-                                int sc = MSmodel.Count;
-                                int tc = 4;
-                                int nq = tc - sc;
-                                int O = nq + sc;
-
-
-                                for (int P = sc; P < O; P++)
+                                DataTable dt = dsnew.Tables[i];
+                                if (dt.Rows.Count > 0)
                                 {
-                                    m.CompanyCD = "";
-                                    m.ShippingID = null;
-                                    m.ShippingName = "";
-                                    m.ZipCD1 = "";
-                                    m.ZipCD2 = "";
-                                    m.Address1 = "";
-                                    m.Address2 = "";
-                                    m.TelephoneNO = "";
-                                    m.FaxNO = "";
+                                    DataColumnCollection columns = dt.Columns;
+                                    if (columns.Contains("CompanyName"))
+                                    {
 
-                                    MSmodel.Add(m);
+                                        MCmodel.CompanyCD = dt.Rows[0]["CompanyCD"].ToString();
+                                        MCmodel.CompanyName = dt.Rows[0]["CompanyName"].ToString();
+                                        MCmodel.Password = dt.Rows[0]["Password"].ToString();
+                                        MCmodel.UserRole = Convert.ToInt32(dt.Rows[0]["UserRole"]);
+                                        MCmodel.ShortName = dt.Rows[0]["ShortName"].ToString();
+                                        MCmodel.ZipCD1 = dt.Rows[0]["CompanyZipCD"].ToString();
 
+                                        MCmodel.Address1 = dt.Rows[0]["Address1"].ToString();
+                                        MCmodel.Address2 = dt.Rows[0]["Address2"].ToString();
+                                        MCmodel.TelephoneNo = dt.Rows[0]["TelephoneNo"].ToString();
+                                        MCmodel.FaxNo = dt.Rows[0]["FaxNo"].ToString();
+                                        MCmodel.PresidentName = dt.Rows[0]["PresidentName"].ToString();
+                                        if (String.IsNullOrWhiteSpace(dt.Rows[0]["RankingFlg"].ToString()))
+                                        {
+                                            MCmodel.RankingFlg = 2;
+                                        }
+                                        else
+                                        {
+                                            MCmodel.RankingFlg = Convert.ToInt32(dt.Rows[0]["RankingFlg"]);
+                                        }
+                                    }
+                                    if (columns.Contains("ShippingID"))
+                                    {
+                                       
+                                            //DataView view1 = new DataView(dt);
+                                            //DataTable distinctValues1 = view1.ToTable(true, "ShippingID", "ShippingName", "ShippingZipCD", "ShippingAddress1", "ShippingAddress2", "ShippingTelephoneNo","ShippingFaxNo");
+                                            MSmodel = dt.AsEnumerable().Select(r =>
+                                        new M_CompanyShippingModel
+                                        {
+                                            ShippingID = Convert.ToInt32(r["ShippingID"]),
+                                            ShippingName = r["ShippingName"].ToString(),
+                                            ZipCD1 = r["ShippingZipCD"].ToString(),
+
+                                            Address1 = r["ShippingAddress1"].ToString(),
+                                            Address2 = r["ShippingAddress2"].ToString(),
+                                            TelephoneNO = r["ShippingTelephoneNo"].ToString(),
+                                            FaxNO = r["ShippingFaxNo"].ToString()
+                                        }).Distinct().ToList();
+
+                                                         
+                                    }
+                                    if (columns.Contains("Tag"))
+                                    {
+                                        DataView view = new DataView(dt);
+                                        DataTable distinctValues = view.ToTable(true, "CompanyCD", "Tag");
+                                        MTmodel = distinctValues.AsEnumerable().Select(r =>
+                                     new M_CompanyTagModel
+                                     {
+                                         CompanyCD = r["CompanyCD"].ToString(),
+                                         Tag = r["Tag"].ToString()
+                                     }
+
+                                     ).Distinct().ToList();                                       
+
+                                    }
+                                    if (columns.Contains("BrandName"))
+                                    {
+                                        MBmodel.BrandName = dt.Rows[0]["BrandName"].ToString();
+                                    }
                                 }
                             }
-
-                            DataView view = new DataView(dt);
-                            DataTable distinctValues = view.ToTable(true, "CompanyCD", "Tag");
-                            MTmodel = distinctValues.AsEnumerable().Select(r =>
-                         new M_CompanyTagModel
-                         {
-                             CompanyCD = r["CompanyCD"].ToString(),
-                             Tag = r["Tag"].ToString()
-                         }
-
-                         ).Distinct().ToList();
-                            int N = MTmodel.Count;
-                            int M = 20;
-                            int NK = M - N;
-                            int n = N + NK;
-
-                            DataTable table = new DataTable();
-                            table.Columns.Add(new DataColumn("CompanyCD", typeof(string)));
-                            table.Columns.Add(new DataColumn("Tag", typeof(string)));
+                        }
+                        if (MSmodel.Count < 5)
+                        {
+                            int sc = MSmodel.Count;
+                            int tc = 4;
+                            int nq = tc - sc;
+                            int O = nq + sc;
 
 
-                            for (var i = N;
-                                i < n; i++)
+                            for (int P = sc; P < O; P++)
                             {
+                                ms.CompanyCD = "";
+                                ms.ShippingID = null;
+                                ms.ShippingName = "";
+                                ms.ZipCD1 = "";
+                                ms.ZipCD2 = "";
+                                ms.Address1 = "";
+                                ms.Address2 = "";
+                                ms.TelephoneNO = "";
+                                ms.FaxNO = "";
 
-                                t.CompanyCD = "";
-                                t.Tag = "";
-                                MTmodel.Add(t);
+                                MSmodel.Add(ms);
+
                             }
+                        }
 
+                        int N = MTmodel.Count;
+                        int M = 20;
+                        int NK = M - N;
+                        int n = N + NK;
+                        for (int j = N; j < n; j++)
+                        {
+                            t.CompanyCD = "";
+                            t.Tag = "";
+                            MTmodel.Add(t);
                         }
 
                         model.TagModel = MTmodel;
                         model.ShippingModel = MSmodel;
                         model.ComModel = MCmodel;
+                        model.MBrandModel = MBmodel;
                     }
                     catch (Exception ex)
                     {
 
                     }
 
+                }
+                else
+                {
+                    ViewBag.Flag = "";
                 }
 
                 return View(model);
@@ -251,8 +240,7 @@ namespace TOS.Controllers
                     //Update Company
                     if (model.ComModel.ZipCD1 != null)
                     {
-                        //string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
-                        //string zip2 = model.ComModel.ZipCD1.Substring(3);
+                        
                         string[] zips = model.ComModel.ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
                         string zip1 = zips[0].ToString();
                         string zip2 = zips[1].ToString();
@@ -267,67 +255,47 @@ namespace TOS.Controllers
                     DataTable dt = cbl.UpdateCompany(model.ComModel, PcName);
 
                     //Update Company Shipping
-                    Array arrayShip = model.ShippingModel.ToArray();
-
-                    if (arrayShip.Length > 0)
+                  
+                    DataTable dtshipping = new DataTable();
+                    using (var reader = ObjectReader.Create(model.ShippingModel, "ShippingID", "ShippingName", "ZipCD1", "ZipCD2", "Address1", "Address2", "TelephoneNO", "FaxNO"))
                     {
-                        for (int i = 0; i < arrayShip.Length; i++)
+                        dtshipping.Load(reader);
+                    }
+                    for (int k = 0; k < dtshipping.Rows.Count; k++)
+                    {
+                        string zipcd = dtshipping.Rows[k]["ZipCD1"].ToString();
+                        if (!String.IsNullOrWhiteSpace(zipcd))
                         {
-                            if ((!string.IsNullOrWhiteSpace(model.ShippingModel[i].ShippingID.ToString())) && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())) && model.ShippingModel[i].ShippingID.ToString() != "0")
+                            if (zipcd.Contains("-"))
                             {
-
-                                if (model.ShippingModel[i].ZipCD1 != null)
-                                {
-                                    //string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
-                                    //string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
-                                    string[] zipships = model.ShippingModel[i].ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
-                                    string zipShip1 = zipships[0].ToString();
-                                    string zipShip2 = zipships[1].ToString();
-                                    model.ShippingModel[i].ZipCD1 = zipShip1;
-                                    model.ShippingModel[i].ZipCD2 = zipShip2;
-                                }
-
-                                model.ShippingModel[i].UpdateOperator = Session["CompanyCD"].ToString();
-                                DataTable dtShip = cbl.UpdateCompanyShipping(model.ShippingModel[i], model.ComModel, PcName);
+                                string[] zip = zipcd.Split('-');
+                                dtshipping.Rows[k]["ZipCD1"] = zip[0];
+                                dtshipping.Rows[k]["ZipCD2"] = zip[1];
                             }
                         }
                     }
+                    cbl.UpdateCompanyShipping(dtshipping, model.ComModel, PcName);
 
                     //Update Company Tag
 
-                    Array ArrayTag = model.TagModel.ToArray();
-
-                    if (ArrayTag.Length > 0)
+                   
+                    DataTable dttag = new DataTable();
+                    using (var reader = ObjectReader.Create(model.TagModel, "CompanyCD", "Tag"))
                     {
-                        for (int i = 0; i < ArrayTag.Length; i++)
-                        {
-                            if (model.TagModel[i].Tag != null && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())))
-                            {
-
-                                model.TagModel[i].UpdateOperator = Session["CompanyCD"].ToString();
-
-                                DataTable dtTag = cbl.UpdateCompanyTag(model.TagModel[i], model.ComModel, PcName);
-
-                            }
-                        }
+                        dttag.Load(reader);
                     }
+
+                    cbl.UpdateCompanyTag(dttag, model.ComModel, PcName);
+                 
                     //Update  Company  Brand
                     if (model.MBrandModel.BrandName != null)
                     {
-                        string[] Brandstr = model.MBrandModel.BrandName.Split(',');
+                      
                         model.MBrandModel.UpdateOperator = Session["CompanyCD"].ToString();
-                        if (Brandstr.Length > 0)
-                        {
-                            for (int i = 0; i < Brandstr.Length; i++)
-                            {
-                                string BrandName = Brandstr[i].ToString();
-                                if (!String.IsNullOrWhiteSpace(BrandName))
-                                {
-                                    model.MBrandModel.BrandName = BrandName;
-                                    DataTable dtBrand = cbl.UpdateCompanyBrand(model.MBrandModel, model.ComModel, PcName);
-                                }
-                            }
-                        }
+
+                        cbl.UpdateCompanyBrand(model.MBrandModel, model.ComModel, PcName);
+
+                       
                     }
                     scope.Complete();
                 }
@@ -365,8 +333,7 @@ namespace TOS.Controllers
                             //Insert Company
                             if (model.ComModel.ZipCD1 != null)
                             {
-                                //string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
-                                //string zip2 = model.ComModel.ZipCD1.Substring(3);
+                                
                                 string[] zips = model.ComModel.ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
                                 string zip1 = zips[0].ToString();
                                 string zip2 = zips[1].ToString();
@@ -391,8 +358,7 @@ namespace TOS.Controllers
 
                                         if (model.ShippingModel[i].ZipCD1 != null)
                                         {
-                                            //string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
-                                            //string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
+                                            
                                             string[] zipships = model.ShippingModel[i].ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
                                             string zipShip1 = zipships[0].ToString();
                                             string zipShip2 = zipships[1].ToString();
@@ -428,20 +394,11 @@ namespace TOS.Controllers
                             //Insert  Company  Brand
                             if (model.MBrandModel.BrandName != null)
                             {
-                                string[] Brandstr = model.MBrandModel.BrandName.Split(',');
+                                
                                 model.MBrandModel.InsertOperator = Session["CompanyCD"].ToString();
-                                if (Brandstr.Length > 0)
-                                {
-                                    for (int i = 0; i < Brandstr.Length; i++)
-                                    {
-                                        string BrandName = Brandstr[i].ToString();
-                                        if (!String.IsNullOrWhiteSpace(BrandName))
-                                        {
-                                            model.MBrandModel.BrandName = BrandName;
+                               
                                             DataTable dtBrand = cbl.InsertCompanyBrand(model.MBrandModel, model.ComModel, PcName);
-                                        }
-                                    }
-                                }
+                                       
                             }
                             scope.Complete();
                         }
