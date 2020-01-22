@@ -29,10 +29,10 @@ namespace Inventories_BL
         public DataTable Inventory_Search(string id)
         {
             string[] arr;
-            var item_name=string.Empty;
-            var gclassname = string.Empty;
-            var mitemcd = string.Empty;
-            var brandcd = string.Empty;
+            string item_name=string.Empty;
+            string gclassname = string.Empty;
+            string mitemcd = string.Empty;
+            string brandcd = string.Empty;
             if (id!=null)
             {
                 arr = id.Split('_');
@@ -52,7 +52,7 @@ namespace Inventories_BL
             }
             else
             {
-                prm[0] = new SqlParameter("@brandcd", SqlDbType.Int) { Value = Convert.ToInt16(brandcd) };
+                prm[0] = new SqlParameter("@brandcd", SqlDbType.Int) { Value = Convert.ToInt32(brandcd) };
 
             }
             if (item_name=="")
