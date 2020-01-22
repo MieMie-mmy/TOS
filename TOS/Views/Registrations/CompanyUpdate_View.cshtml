@@ -244,7 +244,7 @@
                         "data": "",
                         "render": function (data, type, row) {
 
-                            return '<a href="#"  onclick="DeleteCompanyView(' + row.CompanyCD + ')"  class=" btn btn-outline-danger" data-toggle="modal" data-target="#myModal">削除</a>';
+                            return '<a href="#" data-id="' + row.CompanyCD + '" class=" btn btn-outline-danger" data-toggle="modal" data-target="#myModal">削除</a>';
 
                         }
                     },
@@ -267,6 +267,7 @@
             DeleteID = deleteid;
         });
         function deleteConfirm() {
+            
             $.ajax({
                 url: '../Registrations/CompanyUpdate_View_Delete/' + DeleteID,
                 type: 'POST',
@@ -280,8 +281,8 @@
                         var M = "Message2";
                         Successmessage(Q, K, M);
                         DeleteID = null;
-                        //GetCompanyUpdate_View();
-                        BindFirstTable(); 
+                        GetCompanyUpdate_View();
+                        //BindFirstTable(); 
 
                     }
                     else {
@@ -290,7 +291,8 @@
                         var M = "Message2";
                         Errormessage(Q, K, M);
                         DeleteID = null;
-                        BindFirstTable(); 
+                        GetCompanyUpdate_View();
+                        //BindFirstTable(); 
                     }
                 }
 
