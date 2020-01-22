@@ -639,14 +639,14 @@
 @*KhinSandar Script*@
 @*for insert and delete attachfile*@
 <script>
-
+    
     var EditFileName = "";
     var cFile = "";
     //var AllFilesize = "";
    // var f1 = ""; var f2 = ""; var f3 = ""; var f4 = "";
-   
-
+    var name4 = ""; var name3 = ""; var name2 = ""; var name1 = "";
     $('input[type="file"]').change(function (e) {
+   
         var cc = $("#BrowseFiles2 > label").length;
         var BrowseF = $("#BrowseFiles > input").length;
 
@@ -655,8 +655,9 @@
             alert("only four files are accepted.");
         }
         else if (e.target.files != null) {
-
+            
             if (i == 4) {
+
                 var Filediv = document.getElementById("BrowseFiles");
 
                 var fbutton = document.createElement("input");
@@ -672,36 +673,38 @@
                 else {
                     //f4 = checksize;
                     //alert(f4);
-                        fbutton.setAttribute("id", "Insertfile" + BrowseF);
-                        if (BrowseF == 0) { fbutton.setAttribute("name", "Insertfile[0]"); }
-                        else if (BrowseF == 1) { fbutton.setAttribute("name", "Insertfile[1]"); }
-                        else if (BrowseF == 2) { fbutton.setAttribute("name", "Insertfile[2]"); }
-                        else if (BrowseF == 3) { fbutton.setAttribute("name", "Insertfile[3]"); }
+                    fbutton.setAttribute("id", "Insertfile" + BrowseF);
+                    if (BrowseF == 0) { fbutton.setAttribute("name", "Insertfile[0]"); }
+                    else if (BrowseF == 1) { fbutton.setAttribute("name", "Insertfile[1]"); }
+                    else if (BrowseF == 2) { fbutton.setAttribute("name", "Insertfile[2]"); }
+                    else if (BrowseF == 3) { fbutton.setAttribute("name", "Insertfile[3]"); }
 
-                        fbutton.setAttribute("multiple", "multiple");
+                    fbutton.setAttribute("multiple", "multiple");
 
-                        Filediv.appendChild(fbutton);
-                        var FName = e.target.files[0].name;
-                        var fid = "Insertfile" + BrowseF;
+                    Filediv.appendChild(fbutton);
+                    var FName = e.target.files[0].name;
+                    name4 = FName;
+                    var fid = "Insertfile" + BrowseF;
 
-                        var Filediv2 = document.getElementById("BrowseFiles2");
-                        var Lableshow = document.createElement("label");
-                        Lableshow.innerHTML = FName;
-                        Lableshow.setAttribute("id", "filee" + 1);
-                        Lableshow.setAttribute("class", "showfile");
-                        Lableshow.setAttribute("name", "file");
-                        Filediv2.appendChild(Lableshow);
-                        var $label = $('#filee' + 1);
+                    var Filediv2 = document.getElementById("BrowseFiles2");
+                    var Lableshow = document.createElement("label");
+                    Lableshow.innerHTML = FName;
+                    Lableshow.setAttribute("id", "filee" + 1);
+                    Lableshow.setAttribute("class", "showfile");
+                    Lableshow.setAttribute("name", "file");
+                    Filediv2.appendChild(Lableshow);
+                    var $label = $('#filee' + 1);
 
-                        var $span = "<span onclick='closefile(" + Lableshow.id + "," + fid + ")' >✖</span>";
+                    var $span = "<span onclick='closefile(" + Lableshow.id + "," + fid + ")' >✖</span>";
 
-                        $($label).each(function (index, item) {
-                            $(this).append($span);
+                    $($label).each(function (index, item) {
+                        $(this).append($span);
                     });
-                    
+
                 }
             }
             else if (i == 3) {
+
                 var Filediv = document.getElementById("BrowseFiles");
 
                 var fbutton = document.createElement("input");
@@ -728,7 +731,11 @@
 
                         Filediv.appendChild(fbutton);
                         var FName = e.target.files[0].name;
-
+                        name3 = FName; 
+                    if (name3 == name4 || name3 == name2 || name3 == name1) {
+                        Infomessage('I', '1010', 'Message3');
+                    }
+                    else {
                         var fid = "Insertfile" + BrowseF;
                         var Filediv2 = document.getElementById("BrowseFiles2");
                         var Lableshow = document.createElement("label");
@@ -743,7 +750,10 @@
 
                         $($label).each(function (index, item) {
                             $(this).append($span);
-                    });
+                        });
+                    }
+
+                       
                         
                 }
             }
@@ -773,22 +783,31 @@
 
                     Filediv.appendChild(fbutton);
                     var FName = e.target.files[0].name;
-                    var fid = "Insertfile" + BrowseF;
 
-                    var Filediv2 = document.getElementById("BrowseFiles2");
-                    var Lableshow = document.createElement("label");
-                    Lableshow.innerHTML = FName;
-                    Lableshow.setAttribute("id", "filee" + 3);
-                    Lableshow.setAttribute("class", "showfile");
-                    Lableshow.setAttribute("name", "file");
-                    Filediv2.appendChild(Lableshow);
-                    var $label = $('#filee' + 3);
+                    name2 = FName;
+                    if (name2 == name4 || name2 == name3 || name2 == name1) {
+                        Infomessage('I', '1010', 'Message3');
+                    }
+                    else {
+                        var fid = "Insertfile" + BrowseF;
 
-                    var $span = "<span onclick='closefile(" + Lableshow.id + "," + fid + ")' >✖</span>";
+                        var Filediv2 = document.getElementById("BrowseFiles2");
+                        var Lableshow = document.createElement("label");
+                        Lableshow.innerHTML = FName;
+                        Lableshow.setAttribute("id", "filee" + 3);
+                        Lableshow.setAttribute("class", "showfile");
+                        Lableshow.setAttribute("name", "file");
+                        Filediv2.appendChild(Lableshow);
+                        var $label = $('#filee' + 3);
 
-                    $($label).each(function (index, item) {
-                        $(this).append($span);
-                    });
+                        var $span = "<span onclick='closefile(" + Lableshow.id + "," + fid + ")' >✖</span>";
+
+                        $($label).each(function (index, item) {
+                            $(this).append($span);
+                        });
+
+                    }
+
                    
                 }
                 
@@ -818,22 +837,29 @@
 
                     Filediv.appendChild(fbutton);
                     var FName = e.target.files[0].name;
-                    var fid = "Insertfile" + BrowseF;
 
-                    var Filediv2 = document.getElementById("BrowseFiles2");
-                    var Lableshow = document.createElement("label");
-                    Lableshow.innerHTML = FName;
-                    Lableshow.setAttribute("id", "filee" + 4);
-                    Lableshow.setAttribute("class", "showfile");
-                    Lableshow.setAttribute("name", "file");
-                    Filediv2.appendChild(Lableshow);
-                    var $label = $('#filee' + 4);
+                    name1 = FName;
+                    if (name1 == name2 || name1 == name3 || name1 == name4) {
+                        Infomessage('I', '1010', 'Message3');
+                    }
+                    else {
+                        var fid = "Insertfile" + BrowseF;
 
-                    var $span = "<span onclick='closefile(" + Lableshow.id + "," + fid + ")' >✖</span>";
+                        var Filediv2 = document.getElementById("BrowseFiles2");
+                        var Lableshow = document.createElement("label");
+                        Lableshow.innerHTML = FName;
+                        Lableshow.setAttribute("id", "filee" + 4);
+                        Lableshow.setAttribute("class", "showfile");
+                        Lableshow.setAttribute("name", "file");
+                        Filediv2.appendChild(Lableshow);
+                        var $label = $('#filee' + 4);
 
-                    $($label).each(function (index, item) {
-                        $(this).append($span);
-                    });
+                        var $span = "<span onclick='closefile(" + Lableshow.id + "," + fid + ")' >✖</span>";
+
+                        $($label).each(function (index, item) {
+                            $(this).append($span);
+                        });
+                    }
                    
                 }
                 
@@ -844,8 +870,8 @@
             i = i - 1;
         }
         BrowseFss
-       
     });
+    
 
     //function CheckFile() {
     //    //alert(AllFilesize);
@@ -858,7 +884,6 @@
     
 
     function edit(id) {
-
 
         $(".showefile").remove(); //for not show file in other rows
         $(".BrowseFss").remove();//for get next insert file
@@ -924,6 +949,7 @@
 
                 if (result[0].AttachedFile1 != null) {
                     EditFileName += result[0].AttachedFile1 + ",";
+                    name4 = result[0].AttachedFile1;
 
 
                     var Filediv2 = document.getElementById("BrowseFiles2");
@@ -944,7 +970,7 @@
 
                 if (result[0].AttachedFile2 != null) {
                     EditFileName += result[0].AttachedFile2 + ",";
-
+                    name3 = result[0].AttachedFile2;
 
                     var Filediv2 = document.getElementById("BrowseFiles2");
                     var Lableshow = document.createElement("label");
@@ -963,7 +989,7 @@
 
                 if (result[0].AttachedFile3 != null) {
                     EditFileName += result[0].AttachedFile3 + ",";
-
+                    name2 = result[0].AttachedFile3;
 
                     var Filediv2 = document.getElementById("BrowseFiles2");
                     var Lableshow = document.createElement("label");
@@ -982,7 +1008,7 @@
 
                 if (result[0].AttachedFile4 != null) {
                     EditFileName += result[0].AttachedFile4 + ",";
-
+                    name1 = result[0].AttachedFile3;
 
                     var Filediv2 = document.getElementById("BrowseFiles2");
                     var Lableshow = document.createElement("label");
@@ -1000,15 +1026,12 @@
                 }
 
                 document.getElementById("SendEditFile").value = EditFileName;
-                //alert(document.getElementById("SendEditFile").value);
 
             }
         });
 
     }
     function closeEditfile(e) {
-        //alert(v);
-
 
         cFile += (document.getElementById(e.id).innerText).split('✖')[0] + ',';
 
@@ -1016,10 +1039,17 @@
         document.getElementById("CancleFile").value = cFile;
         e.remove();
 
+        if (e.id == "filee1")
+            name4 = "";
+        if (e.id == "filee2")
+            name3 = "";
+        if (e.id == "filee3")
+            name2 = "";
+        if (e.id == "filee4")
+            name1 = "";
+
     }
     function closefile(e, fid) {
-        //alert("Hello");
-        //alert(fid);
 
         fid.remove();
         e.remove();
