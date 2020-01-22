@@ -172,7 +172,8 @@
 @if (TempData["Smsg"] != null)
 {
     <script>
-        Successmessage('I', '1002', 'Message1');
+        //Successmessage('I', '1002', 'Message1');
+        window.location.href =  '@Url.Action("Group_View", "Registrations")'
     </script>
 }
 @if (TempData["Emsg"] != null)
@@ -190,7 +191,8 @@
 @if (TempData["USmsg"] != null)
 {
     <script>
-        Successmessage('I', '1003', 'Message1');
+        //Successmessage('I', '1003', 'Message1');
+        window.location.href =  '@Url.Action("Group_View", "Registrations")'
     </script>
 }
 @if (TempData["UEmsg"] != null)
@@ -218,7 +220,7 @@
                 $('#txtGroupName').val(result[0].GroupName);
 
                 document.getElementById('txtGroupID').readOnly = true;
-                document.getElementById('txtGroupName').readOnly = true;
+                //document.getElementById('txtGroupName').readOnly = true;
 
                 $('#rdbCompany').prop('checked', false);
                 if (result[0].GroupInfoFlg == 1) {

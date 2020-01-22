@@ -23,6 +23,7 @@
         background-color: #003492;
         text-align: center;
     }
+
     mother-grid-inner {
         display: block !important;
         background-color: #edecec !important;
@@ -35,21 +36,59 @@
     tr.even {
         background-color: #CCDDFF !important;
     }
+
     td.textalign.sorting_1 {
         text-align: right;
     }
+
     td.t100.textalign.sorting_disabled {
         font-weight: unset;
         width: 143px;
         text-align: center;
     }
+
     td.textalign {
-        text-align: right;
+        text-align: left;
     }
+
     td {
         text-align: left;
     }
-    
+
+    .btn-outline-danger {
+        border-style: none;
+        color: #dc3545;
+        background-color: #003492;
+    }
+
+    .btn-outline-light {
+        border-style: none;
+        color: #fff;
+        background-color: #003492;
+    }
+
+    .btn-outline-danger:hover {
+        color: #fff;
+        background-color: #dc3545;
+        border-color: #dc3545;
+    }
+
+    .btn-outline-light:hover {
+        color: #333;
+        background-color: #fff;
+        border-color: #dc3545;
+    }
+
+    .btn {
+        border-radius: 0px;
+        font-size: 100%;
+        padding: 8px 15px;
+        letter-spacing: 0.02em;
+    }
+
+    .sair {
+        text-align: left;
+    }
 </style>
 
 
@@ -96,22 +135,42 @@
 
                         </tr>
 
+
                     </thead>
                     <tbody style="text-align:center;"></tbody>
+
                 </table>
             </div>
         </div>
     </div>
 </div>
+<div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title1" style="color:red;"><img src="~/images/DeleteImg.png" /> 削除してよろしいですか。</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" style="color:white;background-color:red;">いいえ</button>
+                <button type="button" class="btn btn-default" id="btnconfirm" onclick="deleteConfirm()" data-dismiss="modal" style="color:white;background-color:red">はい</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+@RenderPage("~/Views/CommonView/Common_View.cshtml")
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
 
 
+    <script>
 
 
-
-@*</div>*@
-<script>
-
-    $(document).ready(function () {
+        $(document).ready(function () {
 
         GetCompanyUpdate_View();
 
@@ -167,10 +226,7 @@
                         "data": "",
                         "render": function (data, type, row) {
 
-                            return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '" style="color:white;" >編集</a>';
-
-
-
+                            return '<a href="@Url.Action("Company_Entry", "Registrations")?id=' + row.CompanyCD + '" class=" btn btn-outline-light" >編集</a>';
 
                         }
                     },
@@ -188,9 +244,7 @@
                         "data": "",
                         "render": function (data, type, row) {
 
-
-                            return '<a href="#"  onclick="DeleteCompanyView(' + row.CompanyCD + ')"  style="color:red;">削除</a>';
-
+                            return '<a href="#" data-id="' + row.CompanyCD + '" class=" btn btn-outline-danger" data-toggle="modal" data-target="#myModal">削除</a>';
 
                         }
                     },
@@ -204,12 +258,53 @@
 
     }
 
-</script>
+    </script>
+
+    <script type="text/javascript">
+        var DeleteID = "";
+        $(document).on("click", ".btn-outline-danger", function () {
+            var deleteid = $(this).data('id');
+            DeleteID = deleteid;
+        });
+        function deleteConfirm() {
+            
+            $.ajax({
+                url: '../Registrations/CompanyUpdate_View_Delete/' + DeleteID,
+                type: 'POST',
+                dataType: 'JSON',
+
+                success: function (data) {
+
+                    if (data == "OK") {
+                        var Q = "Q";
+                        var K = "1001";
+                        var M = "Message2";
+                        Successmessage(Q, K, M);
+                        DeleteID = null;
+                        GetCompanyUpdate_View();
+                        //BindFirstTable(); 
+
+                    }
+                    else {
+                        var Q = "Q";
+                        var K = "1001";
+                        var M = "Message2";
+                        Errormessage(Q, K, M);
+                        DeleteID = null;
+                        GetCompanyUpdate_View();
+                        //BindFirstTable(); 
+                    }
+                }
+
+            });
+        }
+
+    </script>
 
 
-@*script for function*@
-<script>
-    
+    @*script for function*@
+    <script>
+
     function DeleteCompanyView(id)
     {
         $.ajax({
@@ -225,7 +320,9 @@
 
     }
 
-</script>
+
+    </script>
+    }
 
 
 

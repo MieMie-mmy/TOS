@@ -27,35 +27,146 @@ namespace TOS.Controllers
 
         public ActionResult Company_Entry(string id)
         {
+            ViewBag.Flag = id;
             MultipleModel model = new MultipleModel();
             if (Session["CompanyCD"] != null)
             {
                 if (id != null)
                 {
-                    M_CompanyModel MCmodel = new M_CompanyModel();
-                    Company_EntryBL bl = new Company_EntryBL();
-                    DataTable dt = bl.CompanyUpdateView_Edit(id);
-
-                    if (dt.Rows.Count > 0)
+                    try
                     {
-                        MCmodel.CompanyCD = dt.Rows[0]["CompanyCD"].ToString();
-                        MCmodel.CompanyName = dt.Rows[0]["CompanyName"].ToString();
-                        MCmodel.Password = dt.Rows[0]["Password"].ToString();
-                        MCmodel.UserRole = Convert.ToByte(dt.Rows[0]["UserRole"]);
-                        MCmodel.ShortName = dt.Rows[0]["ShortName"].ToString();
-                        MCmodel.ZipCD1 = dt.Rows[0]["ZipCD1"].ToString();
-                        MCmodel.ZipCD2 = dt.Rows[0]["ZipCD2"].ToString();
-                        MCmodel.Address1 = dt.Rows[0]["Address1"].ToString();
-                        MCmodel.Address2 = dt.Rows[0]["Address2"].ToString();
-                        MCmodel.TelephoneNo = dt.Rows[0]["TelephoneNo"].ToString();
-                        MCmodel.FaxNo = dt.Rows[0]["FaxNo"].ToString();
-                        MCmodel.PresidentName = dt.Rows[0]["PresidentName"].ToString();
+                        M_CompanyModel MCmodel = new M_CompanyModel();
+                        M_CompanyTagModel t = new M_CompanyTagModel();
+                        M_CompanyShippingModel m = new M_CompanyShippingModel();
+                        List<M_CompanyShippingModel> MSmodel = new List<M_CompanyShippingModel>();
+                        List<M_CompanyTagModel> MTmodel = new List<M_CompanyTagModel>();
+                        Company_EntryBL bl = new Company_EntryBL();
+                        DataTable dt = bl.CompanyUpdateView_Edit(id);
+
+
+                        if (dt.Rows.Count > 0)
+                        {
+                            MCmodel.CompanyCD = dt.Rows[0]["CompanyCD"].ToString();
+                            MCmodel.CompanyName = dt.Rows[0]["CompanyName"].ToString();
+                            MCmodel.Password = dt.Rows[0]["Password"].ToString();
+                            MCmodel.UserRole = Convert.ToByte(dt.Rows[0]["UserRole"]);
+                            MCmodel.ShortName = dt.Rows[0]["ShortName"].ToString();
+                            MCmodel.ZipCD1 = dt.Rows[0]["CompanyZipCD"].ToString();
+
+                            MCmodel.Address1 = dt.Rows[0]["Address1"].ToString();
+                            MCmodel.Address2 = dt.Rows[0]["Address2"].ToString();
+                            MCmodel.TelephoneNo = dt.Rows[0]["TelephoneNo"].ToString();
+                            MCmodel.FaxNo = dt.Rows[0]["FaxNo"].ToString();
+                            MCmodel.PresidentName = dt.Rows[0]["PresidentName"].ToString();
+                            MCmodel.RankingFlg = Convert.ToInt16(dt.Rows[0]["RankingFlg"]);
+
+                            
+
+                            if (!string.IsNullOrWhiteSpace(dt.Rows[0]["ShippingID"].ToString()))
+                            {
+                                MSmodel = dt.AsEnumerable().Select(r =>
+                            new M_CompanyShippingModel
+                            {
+
+
+                                ShippingID = Convert.ToInt32(dt.Rows[0]["ShippingID"]),
+                                ShippingName = r["ShippingName"].ToString(),
+                                ZipCD1 = r["ShippingZipCD"].ToString(),
+
+                                Address1 = r["ShippingAddress1"].ToString(),
+                                Address2 = r["ShippingAddress2"].ToString(),
+                                FaxNO = r["ShippingFaxNo"].ToString()
+
+
+                            }).ToList();
+
+                            }
+
+
+
+
+                            //{
+
+                            //            ShippingID = Convert.ToInt32(dt.Rows[0]["ShippingID"]),
+
+
+                            //    ShippingName = r["ShippingName"].ToString(),
+                            //    ZipCD1 = r["ShippingZipCD"].ToString(),
+                            //    //ZipCD2 = r["ShippingZipCD2"].ToString(),
+                            //    Address1 = r["ShippingAddress1"].ToString(),
+                            //    Address2 = r["ShippingAddress2"].ToString(),
+                            //    FaxNO = r["ShippingFaxNo"].ToString()
+
+
+                            //}
+
+                            //).ToList();
+
+                            if (MSmodel.Count < 5)
+                            {
+                                int sc = MSmodel.Count;
+                                int tc = 4;
+                                int nq = tc - sc;
+                                int O = nq + sc;
+
+
+                                for (int P = sc; P < O; P++)
+                                {
+                                    m.CompanyCD = "";
+                                    m.ShippingID = null;
+                                    m.ShippingName = "";
+                                    m.ZipCD1 = "";
+                                    m.ZipCD2 = "";
+                                    m.Address1 = "";
+                                    m.Address2 = "";
+                                    m.TelephoneNO = "";
+                                    m.FaxNO = "";
+
+                                    MSmodel.Add(m);
+
+                                }
+                            }
+
+
+                            MTmodel = dt.AsEnumerable().Select(r =>
+                         new M_CompanyTagModel
+                         {
+                             CompanyCD = r["CompanyCD"].ToString(),
+                             Tag = r["Tag"].ToString()
+                         }
+
+                         ).ToList();
+                            int N = MTmodel.Count;
+                            int M = 20;
+                            int NK = M - N;
+                            int n = N + NK;
+
+                            DataTable table = new DataTable();
+                            table.Columns.Add(new DataColumn("CompanyCD", typeof(string)));
+                            table.Columns.Add(new DataColumn("Tag", typeof(string)));
+
+
+                            for (var i = N;
+                                i < n; i++)
+                            {
+
+                                t.CompanyCD = "";
+                                t.Tag = "";
+                                MTmodel.Add(t);
+                            }
+
+                        }
+
+                        model.TagModel = MTmodel;
+                        model.ShippingModel = MSmodel;
+                        model.ComModel = MCmodel;
+                    }
+                    catch (Exception ex)
+                    {
 
                     }
-                    model.ComModel = MCmodel;
+
                 }
-
-
 
                 return View(model);
 
@@ -64,6 +175,26 @@ namespace TOS.Controllers
             {
                 return RedirectToAction("Login", "User");
             }
+
+        }
+
+        [HttpGet]
+        public string CompanyUpdateView_Edit(String id)
+        {
+     
+            InformationBL ibl = new InformationBL();
+            if (id != null)
+            {
+                DataTable dtinfo = new DataTable();
+                dtinfo = ibl.T_Information_Select_For_Edit(id);
+                if (dtinfo.Rows.Count > 0)
+                {
+                    string jsonresult;
+                    jsonresult = JsonConvert.SerializeObject(dtinfo);
+                    return jsonresult;
+                }
+            }
+            return null;
 
         }
 
@@ -82,138 +213,243 @@ namespace TOS.Controllers
                 sendR = "NOK";
             }
             return JsonConvert.SerializeObject(sendR);
-            
+
         }
 
-        [HttpPost]
         public ActionResult InsertCompany(MultipleModel model)
         {
-            try
+            Company_EntryBL cbl = new Company_EntryBL();
+            TOSEntities _entity = new TOSEntities();
+            var CompanyCD = _entity.M_Company.Where(m => m.CompanyCD.Equals(model.ComModel.CompanyCD)).Select(s => s.CompanyCD).FirstOrDefault();
+            if (CompanyCD != null)
             {
-                Company_EntryBL cbl = new Company_EntryBL();
-                DataTable Checkdt = cbl.Check_Duplicate_CompanyCD(model.ComModel);
-                if (Checkdt.Rows.Count > 0)
+                var option = new TransactionOptions
                 {
-                    DataTable dtIMsg = cbl.Message_Select("1006", "I");
-                    string message = string.Empty;
-                    if (dtIMsg.Rows.Count > 0)
-                    {
-                        // TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
-                        TempData["Dmsg"] = "Duplicate CompanyCD is " + model.ComModel.CompanyCD;
-                    }
-                }
-                else
+                    IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
+                    Timeout = TimeSpan.MaxValue
+                };
+                TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, option);
+                using (scope)
                 {
-                    var option = new TransactionOptions
+                    string PcName = System.Environment.MachineName;
+
+                    //Update Company
+                    if (model.ComModel.ZipCD1 != null)
                     {
-                        IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
-                        Timeout = TimeSpan.MaxValue
-                    };
-                    TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, option);
-                    using (scope)
-                    {
-                        string PcName = System.Environment.MachineName;
+                        //string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
+                        //string zip2 = model.ComModel.ZipCD1.Substring(3);
+                        string[] zips = model.ComModel.ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                        string zip1 = zips[0].ToString();
+                        string zip2 = zips[1].ToString();
 
-                        //Insert Company
-                        if (model.ComModel.ZipCD1 != null)
-                        {
-                            //string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
-                            //string zip2 = model.ComModel.ZipCD1.Substring(3);
-                            string[] zips = model.ComModel.ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
-                            string zip1 = zips[0].ToString();
-                            string zip2 = zips[1].ToString();
+                        model.ComModel.ZipCD1 = zip1;
+                        model.ComModel.ZipCD2 = zip2;
 
-                            model.ComModel.ZipCD1 = zip1;
-                            model.ComModel.ZipCD2 = zip2;
-
-                        }
-
-                        model.ComModel.InsertOperator = Session["CompanyCD"].ToString();
-                        DataTable dt = cbl.InsertCompany(model.ComModel, PcName);
-
-                        //Insert Company Shipping
-                        Array arrayShip = model.ShippingModel.ToArray();
-
-                        if (arrayShip.Length > 0)
-                        {
-                            for (int i = 0; i < arrayShip.Length; i++)
-                            {
-                                if ((!string.IsNullOrWhiteSpace(model.ShippingModel[i].ShippingID.ToString())) && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())) && model.ShippingModel[i].ShippingID.ToString() != "0")
-                                {
-
-                                    if (model.ShippingModel[i].ZipCD1 != null)
-                                    {
-                                        //string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
-                                        //string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
-                                        string[] zipships = model.ShippingModel[i].ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
-                                        string zipShip1 = zipships[0].ToString();
-                                        string zipShip2 = zipships[1].ToString();
-                                        model.ShippingModel[i].ZipCD1 = zipShip1;
-                                        model.ShippingModel[i].ZipCD2 = zipShip2;
-                                    }
-
-                                    model.ShippingModel[i].InsertOperator = Session["CompanyCD"].ToString();
-                                    DataTable dtShip = cbl.InsertCompanyShipping(model.ShippingModel[i], model.ComModel, PcName);
-                                }
-                            }
-                        }
-
-                        //Insert Company Tag
-
-                        Array ArrayTag = model.TagModel.ToArray();
-
-                        if (ArrayTag.Length > 0)
-                        {
-                            for (int i = 0; i < ArrayTag.Length; i++)
-                            {
-                                if (model.TagModel[i].Tag != null && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())))
-                                {
-
-                                    model.TagModel[i].InsertOperator = Session["CompanyCD"].ToString();
-
-                                    DataTable dtTag = cbl.InsertCompanyTag(model.TagModel[i], model.ComModel, PcName);
-
-                                }
-                            }
-                        }
-
-                        //Insert  Company  Brand
-                        if (model.MBrandModel.BrandName != null)
-                        {
-                            string[] Brandstr = model.MBrandModel.BrandName.Split(',');
-                            model.MBrandModel.InsertOperator = Session["CompanyCD"].ToString();
-                            if (Brandstr.Length > 0)
-                            {
-                                for (int i = 0; i < Brandstr.Length; i++)
-                                {
-                                    string BrandName = Brandstr[i].ToString();
-                                    if (!String.IsNullOrWhiteSpace(BrandName))
-                                    {
-                                        model.MBrandModel.BrandName = BrandName;
-                                        DataTable dtBrand = cbl.InsertCompanyBrand(model.MBrandModel, model.ComModel, PcName);
-                                    }
-                                }
-                            }
-                        }
-                        scope.Complete();
                     }
 
-                    TempData["Imsg"] = "success";
-                   
+                    model.ComModel.UpdateOperator = Session["CompanyCD"].ToString();
+                    model.ComModel.UpdateDateTime = DateTime.Now;
+                    DataTable dt = cbl.UpdateCompany(model.ComModel, PcName);
+
+                    //Update Company Shipping
+                    Array arrayShip = model.ShippingModel.ToArray();
+
+                    if (arrayShip.Length > 0)
+                    {
+                        for (int i = 0; i < arrayShip.Length; i++)
+                        {
+                            if ((!string.IsNullOrWhiteSpace(model.ShippingModel[i].ShippingID.ToString())) && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())) && model.ShippingModel[i].ShippingID.ToString() != "0")
+                            {
+
+                                if (model.ShippingModel[i].ZipCD1 != null)
+                                {
+                                    //string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
+                                    //string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
+                                    string[] zipships = model.ShippingModel[i].ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                                    string zipShip1 = zipships[0].ToString();
+                                    string zipShip2 = zipships[1].ToString();
+                                    model.ShippingModel[i].ZipCD1 = zipShip1;
+                                    model.ShippingModel[i].ZipCD2 = zipShip2;
+                                }
+
+                                model.ShippingModel[i].UpdateOperator = Session["CompanyCD"].ToString();
+                                DataTable dtShip = cbl.UpdateCompanyShipping(model.ShippingModel[i], model.ComModel, PcName);
+                            }
+                        }
+                    }
+
+                    //Update Company Tag
+
+                    Array ArrayTag = model.TagModel.ToArray();
+
+                    if (ArrayTag.Length > 0)
+                    {
+                        for (int i = 0; i < ArrayTag.Length; i++)
+                        {
+                            if (model.TagModel[i].Tag != null && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())))
+                            {
+
+                                model.TagModel[i].UpdateOperator = Session["CompanyCD"].ToString();
+
+                                DataTable dtTag = cbl.UpdateCompanyTag(model.TagModel[i], model.ComModel, PcName);
+
+                            }
+                        }
+                    }
+                    //Update  Company  Brand
+                    if (model.MBrandModel.BrandName != null)
+                    {
+                        string[] Brandstr = model.MBrandModel.BrandName.Split(',');
+                        model.MBrandModel.UpdateOperator = Session["CompanyCD"].ToString();
+                        if (Brandstr.Length > 0)
+                        {
+                            for (int i = 0; i < Brandstr.Length; i++)
+                            {
+                                string BrandName = Brandstr[i].ToString();
+                                if (!String.IsNullOrWhiteSpace(BrandName))
+                                {
+                                    model.MBrandModel.BrandName = BrandName;
+                                    DataTable dtBrand = cbl.UpdateCompanyBrand(model.MBrandModel, model.ComModel, PcName);
+                                }
+                            }
+                        }
+                    }
+                    scope.Complete();
                 }
-                return RedirectToAction("Company_Entry");
 
+                return RedirectToAction("CompanyUpdate_View");
             }
-            catch (Exception ex)
+            else
             {
-                string st = ex.ToString();
+                try
+                {
 
-                TempData["Emsg"] = "Unsuccess";
-               
-                return RedirectToAction("Company_Entry");
+                    DataTable Checkdt = cbl.Check_Duplicate_CompanyCD(model.ComModel);
+                    if (Checkdt.Rows.Count > 0)
+                    {
+                        DataTable dtIMsg = cbl.Message_Select("1006", "I");
+                        string message = string.Empty;
+                        if (dtIMsg.Rows.Count > 0)
+                        {
+                            // TempData["Imsg"] = dtIMsg.Rows[0]["Message1"].ToString();
+                            TempData["Dmsg"] = "Duplicate CompanyCD is " + model.ComModel.CompanyCD;
+                        }
+                    }
+                    else
+                    {
+                        var option = new TransactionOptions
+                        {
+                            IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
+                            Timeout = TimeSpan.MaxValue
+                        };
+                        TransactionScope scope = new TransactionScope(TransactionScopeOption.Required, option);
+                        using (scope)
+                        {
+                            string PcName = System.Environment.MachineName;
 
+                            //Insert Company
+                            if (model.ComModel.ZipCD1 != null)
+                            {
+                                //string zip1 = model.ComModel.ZipCD1.Substring(0, 3);
+                                //string zip2 = model.ComModel.ZipCD1.Substring(3);
+                                string[] zips = model.ComModel.ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                                string zip1 = zips[0].ToString();
+                                string zip2 = zips[1].ToString();
+
+                                model.ComModel.ZipCD1 = zip1;
+                                model.ComModel.ZipCD2 = zip2;
+
+                            }
+
+                            model.ComModel.InsertOperator = Session["CompanyCD"].ToString();
+                            DataTable dt = cbl.InsertCompany(model.ComModel, PcName);
+
+                            //Insert Company Shipping
+                            Array arrayShip = model.ShippingModel.ToArray();
+
+                            if (arrayShip.Length > 0)
+                            {
+                                for (int i = 0; i < arrayShip.Length; i++)
+                                {
+                                    if ((!string.IsNullOrWhiteSpace(model.ShippingModel[i].ShippingID.ToString())) && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())) && model.ShippingModel[i].ShippingID.ToString() != "0")
+                                    {
+
+                                        if (model.ShippingModel[i].ZipCD1 != null)
+                                        {
+                                            //string zipShip1 = model.ShippingModel[i].ZipCD1.Substring(0, 3);
+                                            //string zipShip2 = model.ShippingModel[i].ZipCD1.Substring(3);
+                                            string[] zipships = model.ShippingModel[i].ZipCD1.Split(new Char[] { '-' }, StringSplitOptions.RemoveEmptyEntries);
+                                            string zipShip1 = zipships[0].ToString();
+                                            string zipShip2 = zipships[1].ToString();
+                                            model.ShippingModel[i].ZipCD1 = zipShip1;
+                                            model.ShippingModel[i].ZipCD2 = zipShip2;
+                                        }
+
+                                        model.ShippingModel[i].InsertOperator = Session["CompanyCD"].ToString();
+                                        DataTable dtShip = cbl.InsertCompanyShipping(model.ShippingModel[i], model.ComModel, PcName);
+                                    }
+                                }
+                            }
+
+                            //Insert Company Tag
+
+                            Array ArrayTag = model.TagModel.ToArray();
+
+                            if (ArrayTag.Length > 0)
+                            {
+                                for (int i = 0; i < ArrayTag.Length; i++)
+                                {
+                                    if (model.TagModel[i].Tag != null && (!string.IsNullOrWhiteSpace(model.ComModel.CompanyCD.ToString())))
+                                    {
+
+                                        model.TagModel[i].InsertOperator = Session["CompanyCD"].ToString();
+
+                                        DataTable dtTag = cbl.InsertCompanyTag(model.TagModel[i], model.ComModel, PcName);
+
+                                    }
+                                }
+                            }
+
+                            //Insert  Company  Brand
+                            if (model.MBrandModel.BrandName != null)
+                            {
+                                string[] Brandstr = model.MBrandModel.BrandName.Split(',');
+                                model.MBrandModel.InsertOperator = Session["CompanyCD"].ToString();
+                                if (Brandstr.Length > 0)
+                                {
+                                    for (int i = 0; i < Brandstr.Length; i++)
+                                    {
+                                        string BrandName = Brandstr[i].ToString();
+                                        if (!String.IsNullOrWhiteSpace(BrandName))
+                                        {
+                                            model.MBrandModel.BrandName = BrandName;
+                                            DataTable dtBrand = cbl.InsertCompanyBrand(model.MBrandModel, model.ComModel, PcName);
+                                        }
+                                    }
+                                }
+                            }
+                            scope.Complete();
+                        }
+
+                        TempData["Imsg"] = "success";
+
+                    }
+                    return RedirectToAction("Company_Entry");
+
+                }
+                catch (Exception ex)
+                {
+                    string st = ex.ToString();
+
+                    TempData["Emsg"] = "Unsuccess";
+
+                    return RedirectToAction("Company_Entry");
+
+                }
             }
+
         }
+
         public ActionResult Group_Entry(string id)
         {
             if (id == null)
