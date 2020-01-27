@@ -40,8 +40,8 @@ namespace TOS.Controllers
                         M_CompanyTagModel t = new M_CompanyTagModel();
                         //M_CompanyBrandModel MCBmodel = new M_CompanyBrandModel();
                         M_BrandModel MBmodel = new M_BrandModel();
-                        M_CompanyShippingModel ms = new M_CompanyShippingModel();
-                        List<M_CompanyShippingModel> MSmodel = new List<M_CompanyShippingModel>();
+                        //M_CompanyShippingModel ms = new M_CompanyShippingModel();
+                        //List<M_CompanyShippingModel> MSmodel = new List<M_CompanyShippingModel>();
                         List<M_CompanyTagModel> MTmodel = new List<M_CompanyTagModel>();
                         Company_EntryBL bl = new Company_EntryBL();
                         DataSet dsnew = bl.CompanyUpdateView_Edit(id);
@@ -79,26 +79,26 @@ namespace TOS.Controllers
                                             MCmodel.RankingFlg = Convert.ToInt32(dt.Rows[0]["RankingFlg"]);
                                         }
                                     }
-                                    if (columns.Contains("ShippingID"))
-                                    {
+                                    //if (columns.Contains("ShippingID"))
+                                    //{
                                        
-                                            //DataView view1 = new DataView(dt);
-                                            //DataTable distinctValues1 = view1.ToTable(true, "ShippingID", "ShippingName", "ShippingZipCD", "ShippingAddress1", "ShippingAddress2", "ShippingTelephoneNo","ShippingFaxNo");
-                                            MSmodel = dt.AsEnumerable().Select(r =>
-                                        new M_CompanyShippingModel
-                                        {
-                                            ShippingID = Convert.ToInt32(r["ShippingID"]),
-                                            ShippingName = r["ShippingName"].ToString(),
-                                            ZipCD1 = r["ShippingZipCD"].ToString(),
+                                    //        //DataView view1 = new DataView(dt);
+                                    //        //DataTable distinctValues1 = view1.ToTable(true, "ShippingID", "ShippingName", "ShippingZipCD", "ShippingAddress1", "ShippingAddress2", "ShippingTelephoneNo","ShippingFaxNo");
+                                    //        MSmodel = dt.AsEnumerable().Select(r =>
+                                    //    new M_CompanyShippingModel
+                                    //    {
+                                    //        ShippingID = Convert.ToInt32(r["ShippingID"]),
+                                    //        ShippingName = r["ShippingName"].ToString(),
+                                    //        ZipCD1 = r["ShippingZipCD"].ToString(),
 
-                                            Address1 = r["ShippingAddress1"].ToString(),
-                                            Address2 = r["ShippingAddress2"].ToString(),
-                                            TelephoneNO = r["ShippingTelephoneNo"].ToString(),
-                                            FaxNO = r["ShippingFaxNo"].ToString()
-                                        }).Distinct().ToList();
+                                    //        Address1 = r["ShippingAddress1"].ToString(),
+                                    //        Address2 = r["ShippingAddress2"].ToString(),
+                                    //        TelephoneNO = r["ShippingTelephoneNo"].ToString(),
+                                    //        FaxNO = r["ShippingFaxNo"].ToString()
+                                    //    }).Distinct().ToList();
 
                                                          
-                                    }
+                                    //}
                                     if (columns.Contains("Tag"))
                                     {
                                         DataView view = new DataView(dt);
@@ -120,30 +120,30 @@ namespace TOS.Controllers
                                 }
                             }
                         }
-                        if (MSmodel.Count < 5)
-                        {
-                            int sc = MSmodel.Count;
-                            int tc = 4;
-                            int nq = tc - sc;
-                            int O = nq + sc;
+                        //if (MSmodel.Count < 5)
+                        //{
+                        //    int sc = MSmodel.Count;
+                        //    int tc = 4;
+                        //    int nq = tc - sc;
+                        //    int O = nq + sc;
 
 
-                            for (int P = sc; P < O; P++)
-                            {
-                                ms.CompanyCD = "";
-                                ms.ShippingID = null;
-                                ms.ShippingName = "";
-                                ms.ZipCD1 = "";
-                                ms.ZipCD2 = "";
-                                ms.Address1 = "";
-                                ms.Address2 = "";
-                                ms.TelephoneNO = "";
-                                ms.FaxNO = "";
+                        //    for (int P = sc; P < O; P++)
+                        //    {
+                        //        ms.CompanyCD = "";
+                        //        ms.ShippingID = null;
+                        //        ms.ShippingName = "";
+                        //        ms.ZipCD1 = "";
+                        //        ms.ZipCD2 = "";
+                        //        ms.Address1 = "";
+                        //        ms.Address2 = "";
+                        //        ms.TelephoneNO = "";
+                        //        ms.FaxNO = "";
 
-                                MSmodel.Add(ms);
+                        //        MSmodel.Add(ms);
 
-                            }
-                        }
+                        //    }
+                        //}
 
                         int N = MTmodel.Count;
                         int M = 20;
@@ -157,9 +157,20 @@ namespace TOS.Controllers
                         }
 
                         model.TagModel = MTmodel;
-                        model.ShippingModel = MSmodel;
+                       //model.ShippingModel = MSmodel;
                         model.ComModel = MCmodel;
                         model.MBrandModel = MBmodel;
+
+                        DataTable dtinfo1 = new DataTable();
+                        Company_EntryBL cbl = new Company_EntryBL();
+                        dtinfo1 = cbl.Get_MoreShipping_ForEdit(id);
+                        int totalcount = 0;
+                        if (dtinfo1.Rows.Count > 0)
+                        {
+                            totalcount = dtinfo1.Rows.Count+1;
+                            ViewBag.Totalcount = totalcount;
+
+                        }
                     }
                     catch (Exception ex)
                     {
@@ -227,7 +238,9 @@ namespace TOS.Controllers
             var CompanyCD = _entity.M_Company.Where(m => m.CompanyCD.Equals(model.ComModel.CompanyCD)).Select(s => s.CompanyCD).FirstOrDefault();
             if (CompanyCD != null)
             {
-                var option = new TransactionOptions
+                try
+                {
+                    var option = new TransactionOptions
                 {
                     IsolationLevel = System.Transactions.IsolationLevel.ReadUncommitted,
                     Timeout = TimeSpan.MaxValue
@@ -300,8 +313,19 @@ namespace TOS.Controllers
                     }
                     scope.Complete();
                 }
+                    TempData["Imsg"] = "success";
+                    return RedirectToAction("Company_Entry");
+                    //return RedirectToAction("CompanyUpdate_View");
+                }
+                catch (Exception ex)
+                {
+                    string st = ex.ToString();
 
-                return RedirectToAction("CompanyUpdate_View");
+                    TempData["Emsg"] = "Unsuccess";
+
+                    return RedirectToAction("Company_Entry");
+
+                }
             }
             else
             {
@@ -407,8 +431,8 @@ namespace TOS.Controllers
                         TempData["Imsg"] = "success";
 
                     }
-                    //return RedirectToAction("Company_Entry");
-                    return RedirectToAction("CompanyUpdate_View");
+                    return RedirectToAction("Company_Entry");
+                    //return RedirectToAction("CompanyUpdate_View");
 
                 }
                 catch (Exception ex)
@@ -574,5 +598,36 @@ namespace TOS.Controllers
             var Jsondata = JsonConvert.SerializeObject(dt);
             return Jsondata;
         }
+        [HttpGet]
+        public string Get_MoreShipping_ForEdit(string id)
+        {
+            Company_EntryBL cbl = new Company_EntryBL();
+            string jsonresult=string .Empty;
+            if (id != null)
+            {
+                DataTable dtinfo = new DataTable();
+                dtinfo = cbl.Get_MoreShipping_ForEdit(id);
+                dtinfo.Columns.Add("Total", typeof(System.Int32));
+                //int count = 0;
+                if (dtinfo.Rows.Count > 0)
+                {
+                    foreach (DataRow dr in dtinfo.Rows)
+                    {
+                        dr["Total"] = dtinfo.Rows.Count;
+                    }
+                    //count = dtinfo.Rows.Count;
+                    //ViewBag.Totalcount = count;
+                    jsonresult = JsonConvert.SerializeObject(dtinfo);
+                    return jsonresult;
+                }
+                else
+                {
+                    jsonresult = JsonConvert.SerializeObject(dtinfo);
+                    return jsonresult;
+                }
+            }
+            return null;
+        }
+
     }
 }

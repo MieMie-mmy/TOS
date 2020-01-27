@@ -488,6 +488,16 @@ namespace Company_Entry_BL
            // return dt;
         }
 
+        public DataTable Get_MoreShipping_ForEdit(string id)
+        {
+            BaseDL bdl = new BaseDL();
+            DataTable dtinformation = new DataTable();
+            SqlParameter[] prms = new SqlParameter[1];
+            prms[0] = new SqlParameter("@id", SqlDbType.VarChar) { Value = id };
+            dtinformation = bdl.SelectData("M_CompanyShipping_Select_ForEdit", prms);
+            return dtinformation;
+        }
+
     }
 }
   
