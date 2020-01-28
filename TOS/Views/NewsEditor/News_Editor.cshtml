@@ -686,29 +686,21 @@
                     var FName = e.target.files[0].name;
                     name4 = FName;
                     
-                    if (name4 == name3 || name4 == name2 || name4 == name1) {
-                        Infomessage('I', '1010', 'Message3');
-                        name4 = "";
-                    }
-                    else {
+                    var fid = "Insertfile" + BrowseF;
+                    var Filediv2 = document.getElementById("BrowseFiles2");
+                    var Lableshow = document.createElement("label");
+                    Lableshow.innerHTML = FName;
+                    Lableshow.setAttribute("id", "filee" + 1);
+                    Lableshow.setAttribute("class", "showfile");
+                    Lableshow.setAttribute("name", "file");
+                    Filediv2.appendChild(Lableshow);
+                    var $label = $('#filee' + 1);
 
-                        var fid = "Insertfile" + BrowseF;
-                        var Filediv2 = document.getElementById("BrowseFiles2");
-                        var Lableshow = document.createElement("label");
-                        Lableshow.innerHTML = FName;
-                        Lableshow.setAttribute("id", "filee" + 1);
-                        Lableshow.setAttribute("class", "showfile");
-                        Lableshow.setAttribute("name", "file");
-                        Filediv2.appendChild(Lableshow);
-                        var $label = $('#filee' + 1);
+                    var $span = "<span onclick='closefile(" + Lableshow.id + "," + fid + ")' >✖</span>";
 
-                        var $span = "<span onclick='closefile(" + Lableshow.id + "," + fid + ")' >✖</span>";
-
-                        $($label).each(function (index, item) {
-                            $(this).append($span);
-                        });
-                       
-                    }
+                    $($label).each(function (index, item) {
+                        $(this).append($span);
+                    });
                 }
             }
             else if (i == 3) {
@@ -866,10 +858,8 @@
                         $($label).each(function (index, item) {
                             $(this).append($span);
                         });
-                       
                     }
                 }
-                
             }
             i = i - 1;
         }
