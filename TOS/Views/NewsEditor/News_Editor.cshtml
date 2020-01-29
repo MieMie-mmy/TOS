@@ -720,7 +720,13 @@
                 }
                 else {
                     //f3 = checksize;
-                   
+                    var FName = e.target.files[0].name;
+                    name3 = FName;
+                    if (name3 == name4 || name3 == name2 || name3 == name1) {
+                        Infomessage('I', '1010', 'Message3');
+                        name3 = "";
+                    } 
+                    else {
                         fbutton.setAttribute("id", "Insertfile" + BrowseF);
                         if (BrowseF == 0) { fbutton.setAttribute("name", "Insertfile[0]"); }
                         else if (BrowseF == 1) { fbutton.setAttribute("name", "Insertfile[1]"); }
@@ -730,13 +736,7 @@
                         fbutton.setAttribute("multiple", "multiple");
 
                         Filediv.appendChild(fbutton);
-                    var FName = e.target.files[0].name;
-                    name3 = FName;
-                    if (name3 == name4 || name3 == name2 || name3 == name1) {
-                        Infomessage('I', '1010', 'Message3');
-                        name3 = "";
-                    }
-                    else {
+
                         var fid = "Insertfile" + BrowseF;
                         var Filediv2 = document.getElementById("BrowseFiles2");
                         var Lableshow = document.createElement("label");
@@ -771,16 +771,6 @@
                     Infomessage('I', '1010', 'Message1');
                 }
                 else {
-                   
-                    fbutton.setAttribute("id", "Insertfile" + BrowseF);
-                    if (BrowseF == 0) { fbutton.setAttribute("name", "Insertfile[0]"); }
-                    else if (BrowseF == 1) { fbutton.setAttribute("name", "Insertfile[1]"); }
-                    else if (BrowseF == 2) { fbutton.setAttribute("name", "Insertfile[2]"); }
-                    else if (BrowseF == 3) { fbutton.setAttribute("name", "Insertfile[3]"); }
-
-                    fbutton.setAttribute("multiple", "multiple");
-
-                    Filediv.appendChild(fbutton);
                     var FName = e.target.files[0].name;
 
                     name2 = FName;
@@ -789,8 +779,15 @@
                         name2 = "";
                     }
                     else {
-                        var fid = "Insertfile" + BrowseF;
+                        fbutton.setAttribute("id", "Insertfile" + BrowseF);
+                        if (BrowseF == 0) { fbutton.setAttribute("name", "Insertfile[0]"); }
+                        else if (BrowseF == 1) { fbutton.setAttribute("name", "Insertfile[1]"); }
+                        else if (BrowseF == 2) { fbutton.setAttribute("name", "Insertfile[2]"); }
+                        else if (BrowseF == 3) { fbutton.setAttribute("name", "Insertfile[3]"); }
+                        fbutton.setAttribute("multiple", "multiple");
+                        Filediv.appendChild(fbutton);
 
+                        var fid = "Insertfile" + BrowseF;
                         var Filediv2 = document.getElementById("BrowseFiles2");
                         var Lableshow = document.createElement("label");
                         Lableshow.innerHTML = FName;
@@ -805,10 +802,8 @@
                         $($label).each(function (index, item) {
                             $(this).append($span);
                         });
-                        
                     }
                 }
-                
             }
             else if (i == 1) {
                 var Filediv = document.getElementById("BrowseFiles");
@@ -825,23 +820,23 @@
                     Infomessage('I', '1010', 'Message1');
                 }
                 else {
-                    fbutton.setAttribute("id", "Insertfile" + BrowseF);
-                    if (BrowseF == 0) { fbutton.setAttribute("name", "Insertfile[0]"); }
-                    else if (BrowseF == 1) { fbutton.setAttribute("name", "Insertfile[1]"); }
-                    else if (BrowseF == 2) { fbutton.setAttribute("name", "Insertfile[2]"); }
-                    else if (BrowseF == 3) { fbutton.setAttribute("name", "Insertfile[3]"); }
-
-                    fbutton.setAttribute("multiple", "multiple");
-
-                    Filediv.appendChild(fbutton);
                     var FName = e.target.files[0].name;
-
                     name1 = FName;
                     if (name1 == name2 || name1 == name3 || name1 == name4) {
                         Infomessage('I', '1010', 'Message3');
                         name1 = "";
                     }
+                    
                     else {
+
+                        fbutton.setAttribute("id", "Insertfile" + BrowseF);
+                        if (BrowseF == 0) { fbutton.setAttribute("name", "Insertfile[0]"); }
+                        else if (BrowseF == 1) { fbutton.setAttribute("name", "Insertfile[1]"); }
+                        else if (BrowseF == 2) { fbutton.setAttribute("name", "Insertfile[2]"); }
+                        else if (BrowseF == 3) { fbutton.setAttribute("name", "Insertfile[3]"); }
+
+                        fbutton.setAttribute("multiple", "multiple");
+                        Filediv.appendChild(fbutton);
                         var fid = "Insertfile" + BrowseF;
 
                         var Filediv2 = document.getElementById("BrowseFiles2");
@@ -1045,14 +1040,22 @@
         fid.remove();
         e.remove();
         //alert(e.id);
-        if (e.id == "filee1") 
+        if (e.id == "filee1") {
             name4 = "";
-        if (e.id == "filee2")
+        }
+           
+        if (e.id == "filee2") {
             name3 = "";
-        if (e.id == "filee3")
+        }
+            
+        if (e.id == "filee3") {
             name2 = "";
-        if (e.id == "filee4")
+        }
+         
+        if (e.id == "filee4") {
             name1 = "";
+        }
+           
         //document.getElementById("inputGroupFile03").value = '';
     }
 
